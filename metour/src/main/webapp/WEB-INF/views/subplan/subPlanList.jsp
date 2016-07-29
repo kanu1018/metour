@@ -9,6 +9,7 @@
 </head>
 
 <body>
+<a href="${pageContext.request.contextPath}/subplan/add.do">등록</a>
 <c:forEach var="s" items="${list}">
 	<table border="1">
 		<tr>

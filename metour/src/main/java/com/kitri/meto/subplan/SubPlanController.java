@@ -17,6 +17,11 @@ public class SubPlanController {
 		this.subPlanService = subPlanService;
 	}
 	
+	@RequestMapping(value = "/subplan/add.do")
+	public String subPlanAdd(){
+		return "/subplan/subPlanAdd";
+	}
+	
 	@RequestMapping(value = "/subplan/list.do")
 	public ModelAndView subPlanList(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView("subplan/subPlanList");
