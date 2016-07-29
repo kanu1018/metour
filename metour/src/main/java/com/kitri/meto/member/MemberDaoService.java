@@ -40,7 +40,6 @@ public class MemberDaoService implements memberService {
 		// TODO Auto-generated method stub
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		return memberMapper.select(id);
-		 
 	}
 
 	@Override
@@ -51,6 +50,7 @@ public class MemberDaoService implements memberService {
 			return true; 
 		} else {
 			return false;
+			
 		}
 	}
 

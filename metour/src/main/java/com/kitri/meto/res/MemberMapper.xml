@@ -4,6 +4,19 @@
      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kitri.meto.member.MemberMapper">
  
-    
+ <resultMap type="com.kitri.meto.member.Member" id="MemberResultMap">
+ 		<result property="mem_num" column="MEM_NUM"/>
+ 		<result property="id" column="ID"/>
+    	<result property="pwd" column="PWD"/>
+        <result property="name" column="NAME" />
+        <result property="birth" column="BIRTH"/>
+        <result property="phone" column="PHONE" />
+        <result property="mem_status" column="MEM_STATUS"/>
+        <result property="gender" column="GENDER"/>
+ </resultMap>
+ 
+    <select id="select" resultMap="MemberResultMap" parameterType="String">
+        SELECT * FROM member where id = #{id}
+    </select>
  
 </mapper>

@@ -23,7 +23,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/")
 	public String loginForm(){
-		return "member/loginForm";
+		return "member/main";
 	}
 	
 	@RequestMapping("/member/joinForm.do")
@@ -39,7 +39,6 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/idCheck.do")
 	public ModelAndView idCheck(@RequestParam(value="id")String id){
-
 		Member m = memberService.getMember(id);
 		boolean flag = false;
 		if(m==null){
@@ -57,7 +56,7 @@ public class MemberController {
 		if(flag==true){
 			session = req.getSession();
 			session.setAttribute("id", m.getId());
-			return "member/main";
+			return "member/login";
 		}
 		return "member/loginForm";
 	}
