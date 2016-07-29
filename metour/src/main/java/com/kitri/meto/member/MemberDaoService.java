@@ -14,7 +14,7 @@ public class MemberDaoService implements memberService {
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
-
+asdsdfa
 	@Override
 	public void addMember(Member m) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
