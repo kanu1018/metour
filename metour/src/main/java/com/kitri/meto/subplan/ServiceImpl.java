@@ -23,9 +23,9 @@ public class ServiceImpl implements SubPlanService{
 	}
 
 	@Override
-	public ArrayList<SubPlan> getSubPlans(int MainPlanNum) {
+	public ArrayList<SubPlan> getSubPlans(int mainPlanNum) {
 		SubPlanMapper subPlanMapper = sqlSession.getMapper(SubPlanMapper.class);
-		return subPlanMapper.selectAll(MainPlanNum);
+		return subPlanMapper.selectAll(mainPlanNum);
 	}
 
 	@Override

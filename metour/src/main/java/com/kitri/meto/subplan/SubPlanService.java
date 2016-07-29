@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface SubPlanService {
 	void addSubPlan(SubPlan sp);
-	ArrayList<SubPlan> getSubPlans(int MainPlanNum);
+	ArrayList<SubPlan> getSubPlans(int mainPlanNum);
 	SubPlan getSubPlan(int subNum);
 	void delSubPlan(int subNum);
 	void editSubPlan(SubPlan sp);

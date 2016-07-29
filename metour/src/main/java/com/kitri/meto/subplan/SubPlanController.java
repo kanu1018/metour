@@ -20,8 +20,8 @@ public class SubPlanController {
 	@RequestMapping(value = "/subplan/list.do")
 	public ModelAndView subPlanList(HttpServletRequest request, @RequestParam(value="mainPlanNum")int mainPlanNum){
 		ModelAndView mav = new ModelAndView("subplan");
-		mav.addObject("subplanlist", subPlanService.getSubPlans(MainPlanNum)); 
-		return null;
+		mav.addObject("subplanlist", subPlanService.getSubPlans(mainPlanNum)); 
+		return mav;
 	}
 	
 }
