@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Oops.shop.car.AdminMapper">
+ 
+    <resultMap type="com.Oops.shop.car.Car" id="CarResultMap" >
+    	<result property="car_num" column="car_num"/>
+    	<result property="country" column="country"/>
+        <result property="company" column="company" />
+        <result property="car_name" column="car_name"/>
+        <result property="car_shape" column="car_shape" />
+        <result property="car_size" column="car_size" />
+        <result property="engine" column="engine"/>
+        <result property="cc" column="cc"/>
+        <result property="path" column="path"/>
+    </resultMap>
+ 
+    <!-- id의 경우에는 Mapper.java에 동일하게 사용해야된다. -->
+    
+    
+    <select id="selectCarAll" resultMap="CarResultMap">
+        SELECT * FROM car order by car_num
+    </select>
+    
+    <select id="selectCar" resultMap="CarResultMap" parameterType="int">
+        SELECT * FROM car where car_num = #{car_num}
+    </select>
+    
+    
+    <insert id="insert"  parameterType="com.Oops.shop.car.Car" >
+        INSERT INTO car values(seq_car_num.nextval*10000+#{car_num},#{country},#{company},#{car_name},#{car_shape},#{car_size},#{engine},#{cc},#{path})
+    </insert>
+   
+    <update id="update" parameterType="com.Oops.shop.car.Car" >
+    	update car SET country =#{country},company =#{company} car_shape = #{car_shape}, car_size = #{car_size}, engine= #{engine}, cc = #{cc} where car_num = #{car_num}
+    </update>
+    
+    <delete id="deleteCar" parameterType="int">
+        delete from car where car_num = #{car_num}
+    </delete>
+    
+ 
+</mapper>
