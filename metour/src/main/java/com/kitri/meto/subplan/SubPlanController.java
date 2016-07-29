@@ -18,9 +18,16 @@ public class SubPlanController {
 	}
 	
 	@RequestMapping(value = "/subplan/list.do")
-	public ModelAndView subPlanList(HttpServletRequest request, @RequestParam(value="mainPlanNum")int mainPlanNum){
-		ModelAndView mav = new ModelAndView("subplan");
-		mav.addObject("subplanlist", subPlanService.getSubPlans(mainPlanNum)); 
+	public ModelAndView subPlanList(HttpServletRequest request){
+		ModelAndView mav = new ModelAndView("subplan/subPlanList");
+		mav.addObject("list", subPlanService.getSubPlans(1)); 
+		return mav;
+	}
+	
+	@RequestMapping(value = "/subplan/listview.do")
+	public ModelAndView subPlanList_detail(HttpServletRequest request, @RequestParam(value="sub_num")int subNum){
+		ModelAndView mav = new ModelAndView("subplan/subPlanDetail");
+		mav.addObject("subplan", subPlanService.getSubPlan(subNum)); 
 		return mav;
 	}
 	
