@@ -23,6 +23,39 @@
 	
 	<context:component-scan base-package="com.kitri.meto" />
 	
+	<beans:bean id="dataSource"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      
+      <beans:property name="driverClassName">
+         <beans:value>oracle.jdbc.driver.OracleDriver</beans:value>
+      </beans:property>
+      <beans:property name="url">
+         <beans:value>jdbc:oracle:thin:@localhost:1521:XE</beans:value>
+      </beans:property>
+      <beans:property name="username">
+         <beans:value>fa</beans:value>
+      </beans:property>
+      <beans:property name="password">
+         <beans:value>fa</beans:value>
+      </beans:property>
+   </beans:bean>
+   <!-- 트랜잭션 -->
+   <beans:bean id="transactionManager"
+      class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+      <beans:property name="dataSource" ref="dataSource" />
+   </beans:bean>
+   
+   <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+      <beans:property name="dataSource" ref="dataSource" />
+      <beans:property name="typeAliasesPackage" value="mybatis" />
+      <beans:property name="mapperLocations" value="classpath:/com/kitri/meto/res/*.xml" />
+   </beans:bean>
+   
+   <beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+      <beans:constructor-arg name="sqlSessionFactory" 
+      ref="sqlSessionFactory" />
+   </beans:bean>
 	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 	
 </beans:beans>
