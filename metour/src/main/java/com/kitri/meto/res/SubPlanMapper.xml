@@ -19,7 +19,7 @@
 	</resultMap>
 	
 	<select id="selectAll" resultMap="SubPlanResultMap" parameterType="int">
-		SELECT * FROM sub_plan WHERE main_num = #{main_num}
+		SELECT sub_num, sub_title, TO_CHAR(start_time,'AMHH:MI') start_time, TO_CHAR(end_time,'AMHH:MI') end_time, place, mission, mission_yn  FROM sub_plan WHERE main_num = #{main_num} order by start_time
 	</select>
     
 	<select id="select" resultMap="SubPlanResultMap" parameterType="int">

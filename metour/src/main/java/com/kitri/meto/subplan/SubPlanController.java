@@ -52,8 +52,6 @@ public class SubPlanController {
 		
 		sp.setStart_time(start_ampm + sp.getStart_time());
 		sp.setEnd_time(end_ampm + sp.getEnd_time());
-		System.out.println(sp.getStart_time());
-		System.out.println(sp.getEnd_time());
 		
 		subPlanService.addSubPlan(sp);
 		
