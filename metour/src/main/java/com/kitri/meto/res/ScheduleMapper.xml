@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.meto.schdule.ScheduleMapper">
+ 
+ <resultMap type="com.kitri.meto.schedule.Schedule" id="ScheduleResultMap">
+ 		<result property="main_num" column="Main_Num"/>
+ 		<result property="main_title" column="Main_Title"/>
+    	<result property="main_writer" column="Main_Writer"/>
+        <result property="main_date" column="Main_Date" />
+        <result property="point_num" column="Point_Num"/>
+ </resultMap>
+
+</mapper>
