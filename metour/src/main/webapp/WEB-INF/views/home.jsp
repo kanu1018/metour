@@ -10,5 +10,6 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+<a href="${pageContext.request.contextPath}/subplan/list.do">리스트</a>
 </body>
 </html>
