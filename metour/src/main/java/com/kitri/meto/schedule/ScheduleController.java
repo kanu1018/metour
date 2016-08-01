@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ScheduleController {
 	
-	@Resource(name="ScheduleSerivce")
+	@Resource(name="scheduleSerivce")
 	private scheduleService scheduleService;
 	
 	public void setScheduleService(scheduleService scheduleService){

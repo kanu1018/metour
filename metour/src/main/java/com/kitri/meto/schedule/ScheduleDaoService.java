@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
-@Component("ScheduleService")
+@Component("scheduleSerivce")
 public class ScheduleDaoService implements scheduleService {
 	
 	@Resource(name="sqlSession")
