@@ -5,8 +5,8 @@ import java.sql.Date;
 public class SubPlan {
 	private int sub_num;
 	private String sub_title;
-	private Date start_time;
-	private Date end_time;
+	private String start_time;
+	private String end_time;
 	private String place;
 	private String llh_x;
 	private String llh_y;
@@ -20,7 +20,7 @@ public class SubPlan {
 		super();
 	}
 
-	public SubPlan(int sub_num, String sub_title, Date start_time, Date end_time, String place, String llh_x,
+	public SubPlan(int sub_num, String sub_title, String start_time, String end_time, String place, String llh_x,
 			String llh_y, String mission, String memo, String mission_yn, String photo, int main_num) {
 		super();
 		this.sub_num = sub_num;
@@ -53,19 +53,19 @@ public class SubPlan {
 		this.sub_title = sub_title;
 	}
 
-	public Date getStart_time() {
+	public String getStart_time() {
 		return start_time;
 	}
 
-	public void setStart_time(Date start_time) {
+	public void setStart_time(String start_time) {
 		this.start_time = start_time;
 	}
 
-	public Date getEnd_time() {
+	public String getEnd_time() {
 		return end_time;
 	}
 
-	public void setEnd_time(Date end_time) {
+	public void setEnd_time(String end_time) {
 		this.end_time = end_time;
 	}
 

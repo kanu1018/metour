@@ -36,4 +36,28 @@ public class SubPlanController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/subplan/addok.do")
+	public String addok(HttpServletRequest request, SubPlan sp, @RequestParam(value="start_ampm")String start_ampm, @RequestParam(value="end_ampm")String end_ampm){
+		if(start_ampm.equals("am")){
+			start_ampm = "오전";
+		}else {
+			start_ampm = "오후";
+		}
+		
+		if(end_ampm.equals("am")){
+			end_ampm = "오전";
+		}else {
+			end_ampm = "오후";
+		}
+		
+		sp.setStart_time(start_ampm + sp.getStart_time());
+		sp.setEnd_time(end_ampm + sp.getEnd_time());
+		System.out.println(sp.getStart_time());
+		System.out.println(sp.getEnd_time());
+		
+		subPlanService.addSubPlan(sp);
+		
+		return "redirect:/subplan/list.do";
+	}
+	
 }

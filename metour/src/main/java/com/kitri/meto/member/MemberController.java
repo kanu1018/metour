@@ -22,7 +22,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/")
-	public String loginForm(){
+	public String main(){
 		return "member/main";
 	}
 	
@@ -31,14 +31,30 @@ public class MemberController {
 		return "member/joinForm";
 	}
 	
+	@RequestMapping("/member/loginForm.do")
+	public String loginForm(){
+		return "member/loginForm";
+	}
+	
 	@RequestMapping(value="/member/join.do")
-	public String join(Member m){
-		memberService.addMember(m);
+	public String join(@RequestParam(value="id1")String id1,@RequestParam(value="id2")String id2,@RequestParam(value="email")String email,Member m){
+		if(email.equals("")){
+			m.setId(id1+"@"+id2);
+		}else{
+			m.setId(id1+"@"+email);
+		}
+		/*memberService.addMember(m);*/
 		return "member/loginForm";
 	}
 	
 	@RequestMapping(value="/member/idCheck.do")
-	public ModelAndView idCheck(@RequestParam(value="id")String id){
+	public ModelAndView idCheck(@RequestParam(value="id1")String id1,@RequestParam(value="id2")String id2,@RequestParam(value="email")String email){
+		String id="";
+		if(email.equals("")){
+			id=id1+"@"+id2;
+		}else{
+			id=id1+"@"+email;
+		}
 		Member m = memberService.getMember(id);
 		boolean flag = false;
 		if(m==null){
@@ -56,14 +72,13 @@ public class MemberController {
 		if(flag==true){
 			session = req.getSession();
 			session.setAttribute("id", m.getId());
-			return "member/login";
+			return "member/main";
 		}
 		return "member/loginForm";
 	}
 	
 	@RequestMapping(value="/member/editForm.do")
 	public String modify(HttpServletRequest req){
-
 		Member m = memberService.getMember(req.getSession().getAttribute("id").toString());
 		if(m==null){
 			return "member/loginForm";
@@ -81,7 +96,7 @@ public class MemberController {
 	@RequestMapping(value="/member/logout.do")
 	public String logout(HttpServletRequest req){
 		req.getSession().invalidate();
-		return "member/loginForm";
+		return "member/main";
 	}
 	
 	@RequestMapping(value="/member/out.do")
