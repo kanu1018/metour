@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ScheduleController {
 	
-	@Resource(name="ScheduleSerivce")
-	private ScheduleDaoService scheduleDaoService;
+	@Resource(name="scheduleSerivce")
+	private scheduleService scheduleService;
 	
-	public void setScheduleService(ScheduleDaoService scheduleDaoService){
-		this.scheduleDaoService = scheduleDaoService;
+	public void setScheduleService(scheduleService scheduleService){
+		this.scheduleService = scheduleService;
 	}
 	
 	@RequestMapping(value="/schedule/")
