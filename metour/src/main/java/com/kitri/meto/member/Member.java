@@ -13,6 +13,7 @@ public class Member {
 	
 	public Member() {
 	}
+	
 	public Member(int mem_num, String id, String pwd, String name, String birth, String phone, String mem_status,
 			String gender) {
 		super();
