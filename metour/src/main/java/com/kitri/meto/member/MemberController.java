@@ -43,7 +43,7 @@ public class MemberController {
 		}else{
 			m.setId(id1+"@"+email);
 		}
-		/*memberService.addMember(m);*/
+		memberService.addMember(m);
 		return "member/loginForm";
 	}
 	
