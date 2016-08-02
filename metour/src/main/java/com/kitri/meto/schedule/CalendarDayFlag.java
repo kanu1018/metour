@@ -1,16 +1,25 @@
 package com.kitri.meto.schedule;
 
 public class CalendarDayFlag {
+	private int index;
+	
 	private int week_num;
 	private int day;
 	private int flag;
 	
 	public CalendarDayFlag() {}
-	public CalendarDayFlag(int week_num, int day, int flag) {
+	public CalendarDayFlag(int index, int week_num, int day, int flag) {
 		super();
+		this.index = index;
 		this.week_num = week_num;
 		this.day = day;
 		this.flag = flag;
+	}
+	public int getIndex() {
+		return index;
+	}
+	public void setIndex(int index) {
+		this.index = index;
 	}
 	public int getWeek_num() {
 		return week_num;

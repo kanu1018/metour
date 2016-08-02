@@ -56,20 +56,20 @@ public class ScheduleController {
 			year = Integer.parseInt(request.getParameter("year"));
 			cal.set(year, month, 1);
 			if(Integer.parseInt(request.getParameter("action"))==1){
-	            cal.add(Calendar.MONTH, 1); //´ÙÀ½´Þ
+	            cal.add(Calendar.MONTH, 1); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	            month = cal.get(Calendar.MONTH);
 	            year = cal.get(Calendar.YEAR);
 			}else{              
-	            cal.add(Calendar.MONTH, -1); //ÀÌÀü´Þ
+	            cal.add(Calendar.MONTH, -1); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	            month = cal.get(Calendar.MONTH);
 	            year = cal.get(Calendar.YEAR);
 	        }
 		}
 		dow = cal.get(Calendar.DAY_OF_WEEK);
-
-		int week_num = 0;
+		System.out.println(dow);
+		int week_num = 1;
 		int cal_num = 1;
-        int day = 0;
+        int day = 1;
         int index = 0;
         int flag=0;
 
@@ -81,41 +81,41 @@ public class ScheduleController {
 				
 				if(week_num<dow){
 					week_num+=1;
+					CalendarDayFlag CDF = new CalendarDayFlag(index, week_num, day, flag);
+					DayFlag.add(index, CDF);
+					index +=1;
 				}else{
-					if(isDate(year, month, day)){
+					if(isDate(year, month+1, day)){
 						/*for(int k=0;k<schedules.size();k++){
 							if(year==schedules.get(k).getYear()&&(month+1)==schedules.get(k).getMonth()&&day==schedules.get(k).getDay()){
 								flag_reserved =true;
 							}
 						}*/
 						if(year==now_y&&month==now_m&&day==now_d){
-							//¿À´Ã
 							flag=2;
 							flag_today=true;
-						}else{
-							//³¯Â¥°¡ Á¸ÀçÇÏÁö¸¸, ¿À´ÃÀº ¾Æ´Ô.
+						}else{		
 							flag=1;
 						}
+						CalendarDayFlag CDF = new CalendarDayFlag(index,week_num, day, flag);
+						DayFlag.add(index, CDF);
+						index +=1;
 						week_num +=1;
 						day +=1;
 					}else{
 						flag=0;
+						CalendarDayFlag CDF = new CalendarDayFlag(index,week_num, day, flag);
+						DayFlag.add(index, CDF);
+						index +=1;
 					}
 					
 				}
 				
-				System.out.println(index+"/"+week_num+"/"+day+"/"+flag);
-				CalendarDayFlag CDF = new CalendarDayFlag(week_num, day, flag);
-				DayFlag.add(index, CDF);
-				index +=1;
-			}//ÁÖÀÇ ¿äÀÏº°
+				
+				
+			}
 		}
-		
-		
-		
-		
-	
-		ModelAndView mav = new ModelAndView("schedule/calendar2");
+		ModelAndView mav = new ModelAndView("schedule/calendar");
 		mav.addObject("schedules", schedules);
 		mav.addObject("Year",year); //make Calendar
 		mav.addObject("Month",month); //make Calendar
