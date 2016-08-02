@@ -21,8 +21,12 @@ public class MainSubPlanImple implements MainSubPlanService {
 	@Override
 	public ArrayList<JoinDTO> getMainSubPlanByMainNum(int main_num) {
 		MainSubPlanMapper msMapper = sqlSession.getMapper(MainSubPlanMapper.class);
-		return null;
+		return msMapper.selectByMainNum(main_num);
 	}
-	
-	
+
+	@Override
+	public JoinDTO getMainPlan(int main_num) {
+		MainSubPlanMapper msMapper = sqlSession.getMapper(MainSubPlanMapper.class);
+		return msMapper.select(main_num);
+	}	
 }
