@@ -97,6 +97,7 @@ public class ScheduleController {
 						}else{		
 							flag=1;
 						}
+						
 						CalendarDayFlag CDF = new CalendarDayFlag(index,week_num, day, flag);
 						DayFlag.add(index, CDF);
 						index +=1;
