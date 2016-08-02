@@ -31,6 +31,39 @@ var time_index = "<c:out value='${index}'/>";
 		document.f.end_time.value = end_time;
 		document.f.mission.value = mission;
 	}
+	
+	function subplanEdit(){
+		if(document.f.sub_title.value == ""){
+			alert("제목을 입력해주세요.");
+			document.f.sub_title.focus();
+		}else if(document.f.start_time.value == document.f.end_time.value){
+			alert("시작시간과 종료시간이 같습니다. 다시 설정해주세요!");
+			document.f.end_time.focus();
+		}else if(document.f.place.value == ""){
+			alert("장소를 입력해주세요.");
+			document.f.place.focus();
+		}else{
+			document.f.submit();
+		}
+	}
+	
+	function editCancel(){
+		if(confirm("이전페이지로 돌아가시겠습니까?") == true){
+			location.href="${pageContext.request.contextPath}/subplan/list.do";
+		} else{
+			return;
+		}
+	}
+	
+	function subplanDel(num){
+		if(confirm("계획을 삭제하시겠습니까?") == true){
+			location.href="${pageContext.request.contextPath}/subplan/del.do?subnum="+num;
+		} else{
+			return;
+		}
+	}
+	
+	
 </script>
 
 <title>세부 계획 상세보기</title>
@@ -47,7 +80,7 @@ var time_index = "<c:out value='${index}'/>";
 	<table border="1">
 		<tr>
 			<th>제목</th>
-			<td colspan="3"><input type="text" value="${subplan.sub_title}"/></td>
+			<td colspan="3"><input type="text" name="sub_title" value="${subplan.sub_title}"/></td>
 		</tr>
 		<tr>
 			<th>시작시간</th>
@@ -157,7 +190,7 @@ var time_index = "<c:out value='${index}'/>";
 		</tr>
 		<tr>
 			<th>장소</th>
-			<td colspan="3"><input type="text" value="${subplan.place}"/><input type="button" value="돋보기"></td>
+			<td colspan="3"><input type="text" name="place" value="${subplan.place}"/><input type="button" value="돋보기"></td>
 		</tr>
 		<tr>
 			<th>미션</th>
@@ -171,19 +204,19 @@ var time_index = "<c:out value='${index}'/>";
 		</tr>
 		<tr>
 			<th>사진</th>
-			<td colspan="3"><input type="text" value="${subplan.photo}"/><input type="button" value="카메라이미지"></td>
+			<td colspan="3"><input type="text" name="photo" value="${subplan.photo}"/><input type="button" value="카메라이미지"></td>
 		</tr>
 		<tr>
 			<th colspan="4">메모</th>
 		</tr>
 		<tr>
-			<td colspan="4"><textarea>${subplan.memo}</textarea></td>
+			<td colspan="4"><textarea name="memo">${subplan.memo}</textarea></td>
 		</tr>
 		<tr>
 			<td colspan="4">
-				<input type="button" value="수정">
-				<input type="button" value="취소">
-				<input type="button" value="삭제">
+				<input type="button" value="수정" onclick="subplanEdit()">
+				<input type="button" value="취소" onclick="editCancel()">
+				<input type="button" value="삭제" onclick="subplanDel(${subplan.sub_num})">
 			</td>
 		</tr>
 	</table>

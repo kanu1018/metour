@@ -34,4 +34,12 @@
 		INSERT INTO sub_plan values(sub_seq.nextval ,#{sub_title}, TO_DATE(#{start_time}, 'HH24:MI'),TO_DATE(#{end_time}, 'HH24:MI'),#{place},#{llh_x},#{llh_y},#{mission},#{memo},#{mission_yn},null,#{main_num})
 	</insert>
 	
+	<update id="update" parameterType="com.kitri.meto.subplan.SubPlan" >
+		UPDATE sub_plan SET sub_title = #{sub_title}, start_time = TO_DATE(#{start_time}, 'HH24:MI'), end_time = TO_DATE(#{end_time}, 'HH24:MI'), place = #{place}, mission = #{mission}, memo = #{memo}, photo = #{photo} WHERE sub_num = #{sub_num}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE sub_plan WHERE sub_num = #{sub_num}
+	</delete>
+	
 </mapper>

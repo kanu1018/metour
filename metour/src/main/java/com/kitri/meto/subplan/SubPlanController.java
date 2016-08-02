@@ -190,7 +190,14 @@ public class SubPlanController {
 	}
 	
 	@RequestMapping(value = "/subplan/edit.do")
-	public String subPlanEdit(){
+	public String subPlanEdit(HttpServletRequest request, SubPlan sp){
+		subPlanService.editSubPlan(sp);
+		return "redirect:/subplan/list.do";
+	}
+	
+	@RequestMapping(value = "/subplan/del.do")
+	public String subPlanDel(HttpServletRequest request, @RequestParam(value="subnum")int subNum){
+		subPlanService.delSubPlan(subNum);
 		return "redirect:/subplan/list.do";
 	}
 	

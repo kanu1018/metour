@@ -11,7 +11,7 @@ var time_index = "<c:out value='${index}'/>";
 		if(document.f.sub_title.value == ""){
 			alert("제목을 입력해주세요.");
 			document.f.sub_title.focus();
-		}else if((document.f.start_time.value == document.f.end_time.value) && (document.f.start_ampm.value == document.f.end_ampm.value)){
+		}else if(document.f.start_time.value == document.f.end_time.value){
 			alert("시작시간과 종료시간이 같습니다. 다시 설정해주세요!");
 			document.f.end_time.focus();
 		}else if(document.f.place.value == ""){
@@ -20,8 +20,6 @@ var time_index = "<c:out value='${index}'/>";
 		}else{
 			document.f.submit();
 		}
-		
-		
 	}
 	
 	function subPlanCancel(){
@@ -31,18 +29,7 @@ var time_index = "<c:out value='${index}'/>";
 			if(confirm("입력된 정보를 모두 삭제하시겠습니까?") == true){
 				document.f.sub_title.value = "";
 				document.f.place.value = "";
-				document.f.memo.value = "";
-				for(i = 0; i < document.f.start_ampm.length; i++){
-					if(document.f.start_ampm[i].checked){
-						document.f.start_ampm[i].checked = false;
-					}
-				}
-				for(i = 0; i < document.f.end_ampm.length; i++){
-					if(document.f.end_ampm[i].checked){
-						document.f.end_ampm[i].checked = false;
-					}
-				}
-				
+				document.f.memo.value = "";				
 			} else{
 				return;
 			}
