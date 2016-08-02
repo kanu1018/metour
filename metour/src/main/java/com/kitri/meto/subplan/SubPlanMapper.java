@@ -8,4 +8,5 @@ public interface SubPlanMapper {
 	SubPlan select(int subNum);
 	void delete(int subNum);
 	void update(SubPlan sp);
+	SubPlan selectSupPlanTime(int subNum);
 }
