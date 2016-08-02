@@ -1,5 +1,7 @@
 package com.kitri.meto.schedule;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
@@ -38,6 +40,13 @@ public class ScheduleDaoService implements scheduleService {
 	public Schedule getSchedule(int main_num) {
 		ScheduleMapper scheduleMapper = sqlSession.getMapper(ScheduleMapper.class);
 		return scheduleMapper.select(main_num);
+	}
+
+	@Override
+	public List<Schedule> getSchedules(int main_writer) {
+		ScheduleMapper scheduleMapper = sqlSession.getMapper(ScheduleMapper.class);
+		List<Schedule> list = scheduleMapper.selectAll(main_writer);
+		return list;
 	}
 
 }

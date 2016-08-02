@@ -6,6 +6,6 @@ public interface ScheduleMapper {
 	void insert(Schedule s);
 	void delete(int main_num);
 	Schedule select(int main_num);
-	List<Schedule> selectAll();
+	List<Schedule> selectAll(int main_writer);
 	void update(Schedule s);
 }

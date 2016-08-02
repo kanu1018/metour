@@ -6,17 +6,50 @@ public class Schedule {
 	private String main_writer;
 	private String main_date;
 	private int point_num;
+	private int year;
+	private int month;
+	private int day;
 	
-	public Schedule() {}
-	public Schedule(int main_num, String main_title, String main_writer, String main_date, int point_num) {
+	public Schedule() {}	
+	public Schedule(int main_num, String main_title, String main_writer, String main_date, int point_num, int year,
+			int month, int day) {
 		super();
 		this.main_num = main_num;
 		this.main_title = main_title;
 		this.main_writer = main_writer;
 		this.main_date = main_date;
 		this.point_num = point_num;
+		this.year = year;
+		this.month = month;
+		this.day = day;
 	}
-	
+
+
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public int getMonth() {
+		return month;
+	}
+
+	public void setMonth(int month) {
+		this.month = month;
+	}
+
+	public int getDay() {
+		return day;
+	}
+
+	public void setDay(int day) {
+		this.day = day;
+	}
+
 	public int getMain_num() {
 		return main_num;
 	}
