@@ -40,9 +40,40 @@
         background-color: #555555;
     }
 </style>
+
+<script type="text/javascript">
+	window.onload = function(){
+		var start_y = 2015;
+		var now_y = "<c:out value='${Year}'/>"
+		var end_y = 2020;
+		var start_m =1;
+		var now_m = "<c:out value='${Month+1}'/>"
+		var end_m = 12;
+		
+		var strYear ="";
+		var strMonth ="";
+		for (var i=start_y; i<=end_y;i++){
+			if(i==now_y){
+				strYear += "<option selected='selected' value"+i+">"+i+"</option>"
+			}else{
+				strYear += "<option value"+i+">"+i+"</option>"
+			}
+			
+		}
+		for (var i=start_m; i<=end_m;i++){
+			if(i==now_m){
+				strMonth += "<option selected='selected' value"+i+">"+i+"</option>"
+			}else{
+				strMonth += "<option value"+i+">"+i+"</option>"
+			}
+		}
+		document.getElementById("year").innerHTML = strYear;
+		document.getElementById("month").innerHTML = strMonth;
+	}
+</script>
 </head>
 <body bgcolor='white'>
-
+<div style="margin:auto;">
 <table border='0' width='521' cellpadding='0' cellspacing='0'>
   <tr>
      <td width='150' align='right' valign='middle'>
@@ -50,7 +81,8 @@
              <font size="2">이전달</font>
          </a>
      </td>
-     <td width='260' align='center' valign='middle'>
+     <td width='260' align='center' valign='middle'> 
+			     
          <b>${Year}년 ${Month+1}월</b>
      </td>
      <td width='173' align='left' valign='middle'>
@@ -60,10 +92,8 @@
     </td>
   </tr>
 </table>
-<table>
-  <tr>         
-  <td width="100%" >
-    <table id="calendarTable">
+
+<table id="calendarTable">
 	<tr>
               <th>일</th>
               <th>월</th>
@@ -104,9 +134,16 @@
 			</c:if>
 	</c:forEach>
 </table>
-     </td>
-     </tr>
-  </table>
+</div>
+
+<table>
+	<tr>
+		<td><select id="year" name="year"></select></td>
+		<td><select id="month" name="month"></select></td>
+	</tr>
+</table>
+
+
 <c:forEach items="${schedules}" var="s">
 	${s.main_title} ${s.main_writer} ${s.year} ${s.month} ${s.day}<br>
 </c:forEach>
