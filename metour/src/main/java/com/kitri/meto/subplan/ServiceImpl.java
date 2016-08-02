@@ -46,4 +46,10 @@ public class ServiceImpl implements SubPlanService{
 		subPlanMapper.update(sp);
 	}
 
+	@Override
+	public SubPlan getSupPlanTime(int subNum) {
+		SubPlanMapper subPlanMapper = sqlSession.getMapper(SubPlanMapper.class);
+		return subPlanMapper.selectSupPlanTime(subNum);
+	}
+
 }
