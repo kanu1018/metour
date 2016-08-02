@@ -5,8 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<%response.setCharacterEncoding("UTF-8");
-request.setCharacterEncoding("UTF-8");%>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/httpRequest.js"></script>
 <script type="text/javascript">
 	var flag=false;
@@ -32,16 +30,88 @@ request.setCharacterEncoding("UTF-8");%>
 			}
 		}
 	}
+	function pwdchk(){
+		var params = "pwd="+document.f.pwd.value+"&pwd_chk="+document.f.pwd_chk.value;
+		sendRequest("${pageContext.request.contextPath}/member/pwdCheck.do", params, pwdResult,'POST');
+	}
+	function pwdResult() {
+		if(httpRequest.readyState==4){
+			if(httpRequest.status==200){
+				flag=true;
+				var str = httpRequest.responseText;
+				var o = eval("("+str+")");
+				var myDiv = document.getElementById("pwdcheckMsg");
+				var html = "";
+				if(o.flag){
+					html = "비밀번호일치!";
+				}
+				else{
+					html = "비밀번호불일치!";
+				}
+				myDiv.innerHTML = html;
+			}
+		}
+	}
 	function join() {
-		alert(document.f.name.value);
-		if(flag){document.f.submit();}
-		else{
+		var id1=document.f.id1.value;
+		var id2=document.f.id2.value;
+		var pwd=document.f.pwd.value;
+		var pwdch = document.f.pwd_chk.value;
+		var name=document.f.name.value;
+		var birth=document.f.birth.value;
+		var phone=document.f.phone.value;
+		
+		if(id1==""){
+			alert("id를 입력해주세요");
+			document.f.id1.focus();
+			return;
+		}else if(id2=="" && document.getElementById("id2").style.visibility == "visible"){
+			alert("도메인값 입력해주세요");
+			document.f.id2.focus();
+			return;
+		}else if(pwd==""){
+			alert("비밀번호를 입력해주세요");
+			document.f.pwd.focus();
+			return;
+		}else if(pwdch==""){
+			alert("비밀번호확인을 입력해주세요");
+			document.f.pwd_chk.focus();
+			return;
+		}else if(name==""){
+			alert("이름을 입력해주세요");
+			document.f.name.focus();
+			return;
+		}else if(birth==""){
+			alert("생년월일을 입력해주세요");
+			document.f.birth.focus();
+			return;
+		}else if(phone==""){
+			alert("전화번호을 입력해주세요");
+			document.f.phone.focus();
+			return;
+		}else if(document.f.gender[0].checked ==false && document.f.gender[1].checked ==false){
+			 var num_temp = document.f.gender.length; 
+			 for (i=0;i<num_temp ;i++) { 
+			  if (document.f.gender[i].checked == true) { 
+			  	break; 
+			  }
+			 }
+			 if (i == num_temp) 
+			 { 
+			  alert("성별을 선택하세요"); 
+			  return;
+			 }
+			}
+		if(flag){
+			document.f.submit();
+		}else{
 			alert("중복체크를 해주십시오.");
 		}
 	}
 	function select() {
 		var email = document.f.email.value;
-		if(email){document.getElementById("id2").style.visibility = "hidden";
+		if(email){
+			document.getElementById("id2").style.visibility = "hidden";
 		}else{
 			document.getElementById("id2").style.visibility = "visible";
 		}
@@ -57,7 +127,7 @@ request.setCharacterEncoding("UTF-8");%>
 <h1 align="center"><a href="${pageContext.request.contextPath}/" style="width: 400px; font-size: 25px;text-decoration:none;">Oops</a></h1>
 <br>
 <div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black; border-bottom-color: white">
-<input type="text" name="id1" placeholder="이메일형식 ID" >@
+<input type="text" name="id1" id="id1" placeholder="이메일형식 ID" >@
 <input type="text" name="id2" id="id2">
 <select name="email" onclick="select()">
     <option value="">직접선택</option>
@@ -70,7 +140,9 @@ request.setCharacterEncoding("UTF-8");%>
 <span id="checkMsg" style="color: red"></span>
 </div>
 <div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black; border-bottom-color: white">
-<input type="text" name="pwd" placeholder="비밀번호" style="height: 25px; width: 300px">
+<input type="password" name="pwd" placeholder="비밀번호" style="height: 25px; width: 200px">
+<input type="password" name="pwd_chk" onkeyup="pwdchk()" placeholder="비밀번호확인" style="height: 25px; width: 200px">
+<span id="pwdcheckMsg" style="color: red"></span>
 </div>
 <div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black;border-bottom-color: white">
 <input type="text" name="name" placeholder="이름" style="height: 25px; width: 300px">
