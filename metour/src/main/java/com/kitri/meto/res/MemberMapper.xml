@@ -22,5 +22,15 @@
      <insert id="insert" parameterType="com.kitri.meto.member.Member" >
         INSERT INTO member values(mem_seq.nextval,#{id},#{pwd},#{name},#{phone},#{gender},#{birth},'y')
     </insert>
+    
+    <update id="update" parameterType="com.kitri.meto.member.Member">
+    	update member SET pwd = #{pwd}, name = #{name}, birth = #{birth},
+    	 phone = #{phone} where id = #{id}
+    </update>
+    
+    <delete id="delete" parameterType="String">
+        delete member where id = #{id}
+    </delete>
+    
  
 </mapper>

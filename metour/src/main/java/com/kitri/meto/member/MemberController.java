@@ -36,6 +36,25 @@ public class MemberController {
 		return "member/loginForm";
 	}
 	
+	@RequestMapping("/member/pwdchk_ok.do")
+	public String pwdchk_ok(HttpServletRequest req,@RequestParam(value="pwd")String pwd,Member m){
+		HttpSession session = null;
+		if(m.getPwd().equals(pwd)){
+			session = req.getSession();
+			m=memberService.getMember(m.getId());
+			req.setAttribute("join", m);
+			return "member/editForm";
+		}
+		return "member/pwdchkForm";
+	}
+	
+	@RequestMapping("/member/pwdchkForm.do")
+	public String pwdchkForm(HttpServletRequest req,Member m){
+		HttpSession session = null;
+		session = req.getSession();
+		return "member/pwdchkForm";
+	}
+	
 	@RequestMapping(value="/member/join.do")
 	public String join(@RequestParam(value="id1")String id1,@RequestParam(value="id2")String id2,@RequestParam(value="email")String email,Member m){
 		if(email.equals("")){
@@ -43,7 +62,7 @@ public class MemberController {
 		}else{
 			m.setId(id1+"@"+email);
 		}
-		/*memberService.addMember(m);*/
+		memberService.addMember(m);
 		return "member/loginForm";
 	}
 	
@@ -58,6 +77,17 @@ public class MemberController {
 		Member m = memberService.getMember(id);
 		boolean flag = false;
 		if(m==null){
+			flag= true;
+		}
+		ModelAndView mav = new ModelAndView("member/check");
+		mav.addObject("flag",flag);
+		return mav;
+	}
+	
+	@RequestMapping(value="/member/pwdCheck.do")
+	public ModelAndView pwdCheck(@RequestParam(value="pwd")String pwd,@RequestParam(value="pwd_chk")String pwd_chk){
+		boolean flag = false;
+		if(pwd.equals(pwd_chk)){
 			flag= true;
 		}
 		ModelAndView mav = new ModelAndView("member/check");
