@@ -46,92 +46,80 @@ public class ScheduleController {
 		now_m = now.get(Calendar.MONTH);
 		now_d = now.get(Calendar.DAY_OF_MONTH);
 		
-		
 		if(request.getParameter("action") == null){
-			year = now.get(Calendar.YEAR);
-			month = now.get(Calendar.MONTH);
+			year = now_y;
+			month = now_m;
 			cal.set(year, month, 1);
 		}else{
 			month = Integer.parseInt(request.getParameter("month"));
 			year = Integer.parseInt(request.getParameter("year"));
 			cal.set(year, month, 1);
 			if(Integer.parseInt(request.getParameter("action"))==1){
-	            cal.add(Calendar.MONTH, 1); //������
+	            cal.add(Calendar.MONTH, 1);
 	            month = cal.get(Calendar.MONTH);
 	            year = cal.get(Calendar.YEAR);
 			}else{              
-	            cal.add(Calendar.MONTH, -1); //������
+	            cal.add(Calendar.MONTH, -1);
 	            month = cal.get(Calendar.MONTH);
 	            year = cal.get(Calendar.YEAR);
 	        }
 		}
 		dow = cal.get(Calendar.DAY_OF_WEEK);
-		System.out.println(dow);
 		int week_num = 1;
-		int cal_num = 1;
         int day = 1;
-        int index = 0;
         int flag=0;
-
         boolean flag_today =false;
         boolean flag_reserved = false;
-        
-		for(int i=1;i<7;i++){
-			for(int j=1; j<8;j++){
-				
+		
+        for(int index=0;index<42;index++){			
 				if(week_num<dow){
 					week_num+=1;
 					CalendarDayFlag CDF = new CalendarDayFlag(index, week_num, day, flag);
 					DayFlag.add(index, CDF);
-					index +=1;
 				}else{
 					if(isDate(year, month+1, day)){
-						/*for(int k=0;k<schedules.size();k++){
+						for(int k=0;k<schedules.size();k++){
 							if(year==schedules.get(k).getYear()&&(month+1)==schedules.get(k).getMonth()&&day==schedules.get(k).getDay()){
 								flag_reserved =true;
+								break;
+							}else{
+								flag_reserved=false;
 							}
-						}*/
+						}
 						if(year==now_y&&month==now_m&&day==now_d){
 							flag=2;
 							flag_today=true;
-						}else{		
+						}else{
+							flag_today =false;
 							flag=1;
 						}
 						
+						if(flag_today&&flag_reserved){
+							flag=4;
+						}else if(flag_reserved&&!flag_today){
+							flag=3;
+						}
 						CalendarDayFlag CDF = new CalendarDayFlag(index,week_num, day, flag);
 						DayFlag.add(index, CDF);
-						index +=1;
 						week_num +=1;
 						day +=1;
 					}else{
 						flag=0;
 						CalendarDayFlag CDF = new CalendarDayFlag(index,week_num, day, flag);
 						DayFlag.add(index, CDF);
-						index +=1;
 					}
 					
 				}
-				
-				
-				
-			}
 		}
+		
 		ModelAndView mav = new ModelAndView("schedule/calendar");
 		mav.addObject("schedules", schedules);
 		mav.addObject("Year",year); //make Calendar
 		mav.addObject("Month",month); //make Calendar
 		mav.addObject("DOW",dow); //make Calendar
-		request.setAttribute("schedule2", schedules);
-		mav.addObject("now",now);
-		mav.addObject("now_Y", now_y); // Today`s
-		mav.addObject("now_M", now_m); // Today`s
-		mav.addObject("now_D", now_d); // Today`ss
-		
 		mav.addObject("DayFlag", DayFlag);
-		
 		return mav;
 	}
-
 
 	private boolean isDate(int y, int m, int d) {
 		m -= 1;
