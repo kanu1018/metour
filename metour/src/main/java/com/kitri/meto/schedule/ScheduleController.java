@@ -31,9 +31,11 @@ public class ScheduleController {
 	int now_m = 0;
 	int now_d = 0;
 	int dow=0;
+	int flag=0;
 
 	
-	@RequestMapping(value="/schedule.do")
+	
+	@RequestMapping(value="/schedule/schedule.do")
 	public ModelAndView calendar(HttpServletRequest request){
 		/*HttpSession session = request.getSession();
 		session.getId();
@@ -65,9 +67,9 @@ public class ScheduleController {
 	        }
 		}
 		dow = cal.get(Calendar.DAY_OF_WEEK);
+		flag=0;
 		int week_num = 1;
         int day = 1;
-        int flag=0;
         boolean flag_today =false;
         boolean flag_reserved = false;
 		
@@ -121,6 +123,98 @@ public class ScheduleController {
 		return mav;
 	}
 
+	
+	@RequestMapping("/schedule/dateplan.do")
+	public ModelAndView specific(HttpServletRequest request){
+		ModelAndView mav = new ModelAndView("schedule/dateplan");
+		/*HttpSession session = request.getSession();
+		session.getId();
+		*/
+		int main_writer = 100;
+		
+		year = Integer.parseInt(request.getParameter("year"));
+		month = Integer.parseInt(request.getParameter("month"));
+		day = Integer.parseInt(request.getParameter("day"));
+		String main_date = year+"/"+month+"/"+day;
+
+		int n_year =year;
+		int n_month =month;
+		int n_day = day;
+		
+		int l_year =year;
+		int l_month =month;
+		int l_day = day;
+		
+		
+		if(request.getParameter("flag")!=null){
+			flag = Integer.parseInt(request.getParameter("flag"));
+			mav.addObject("Flag",flag);
+			if(flag>=3){
+				//reserved
+				Schedule ss = new Schedule();
+				ss.setMain_writer(main_writer);
+				ss.setMain_date(main_date);
+				Schedule schedule= scheduleService.getSchedule(ss);
+				mav.addObject("schedule",schedule);
+				
+			}else{
+				//today, not reserved day
+			}
+		}
+		
+		
+		if(isDate(year, month, day+1)){
+			n_day += 1;
+		}else{
+			if(isDate(year, month+1,1)){
+				n_day=1;
+				n_month+=1;
+			}else{
+				n_month=1;
+				n_day=1;
+				n_year+=1;
+			}					
+		}
+		
+		if(isDate(year, month, day-1)){
+			l_day = day-1;
+		}else{
+			if(month-1 == 0){
+				l_year-=1;
+				l_month =12;
+				l_day=31;
+			}else{
+				if(isDate(year, month-1,31)){
+					l_month -=1;
+					l_day=31;
+				}else if(isDate(year, month-1,30)){
+					l_month -=1;
+					l_day=30;
+				}else if(isDate(year, month-1,29)){
+					l_month -=1;
+					l_day=29;
+				}else if(isDate(year, month-1,28)){
+					l_month -=1;
+					l_day=28;
+				}
+			}
+		}		
+		
+		mav.addObject("Year",year);
+		mav.addObject("Month",month);
+		mav.addObject("Day",day);
+		mav.addObject("N_Year",n_year);
+		mav.addObject("N_Month",n_month);
+		mav.addObject("N_Day",n_day);
+		mav.addObject("L_Year",l_year);
+		mav.addObject("L_Month",l_month);
+		mav.addObject("L_Day",l_day);
+		
+			
+		return mav;
+	}
+	
+	
 	private boolean isDate(int y, int m, int d) {
 		m -= 1;
         Calendar c = Calendar.getInstance();
@@ -133,5 +227,6 @@ public class ScheduleController {
         }
         return true;
 	}
+	
 	
 }

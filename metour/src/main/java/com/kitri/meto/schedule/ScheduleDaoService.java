@@ -37,9 +37,9 @@ public class ScheduleDaoService implements scheduleService {
 	}
 
 	@Override
-	public Schedule getSchedule(int main_num) {
+	public Schedule getSchedule(Schedule schedule) {
 		ScheduleMapper scheduleMapper = sqlSession.getMapper(ScheduleMapper.class);
-		return scheduleMapper.select(main_num);
+		return scheduleMapper.select(schedule);
 	}
 
 	@Override

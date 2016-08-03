@@ -3,7 +3,7 @@ package com.kitri.meto.schedule;
 public class Schedule {
 	private int main_num;
 	private String main_title;
-	private String main_writer;
+	private int main_writer;
 	private String main_date;
 	private int point_num;
 	private int year;
@@ -11,7 +11,7 @@ public class Schedule {
 	private int day;
 	
 	public Schedule() {}	
-	public Schedule(int main_num, String main_title, String main_writer, String main_date, int point_num, int year,
+	public Schedule(int main_num, String main_title, int main_writer, String main_date, int point_num, int year,
 			int month, int day) {
 		super();
 		this.main_num = main_num;
@@ -62,10 +62,10 @@ public class Schedule {
 	public void setMain_title(String main_title) {
 		this.main_title = main_title;
 	}
-	public String getMain_writer() {
+	public int getMain_writer() {
 		return main_writer;
 	}
-	public void setMain_writer(String main_writer) {
+	public void setMain_writer(int main_writer) {
 		this.main_writer = main_writer;
 	}
 	public String getMain_date() {

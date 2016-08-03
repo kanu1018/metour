@@ -7,10 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Calendar</title>
 <style> 
-    #calendarTable, #calendarTable th, #calendarTable td{
-        border-collapse: collapse;             
-    } 
+
     #calendarTable {
+    	border-collapse: collapse;
         border:2px solid #000;
         width:519px;
     }
@@ -18,8 +17,7 @@
     #calendarTable th, #calendarTable td {
         width: 70px;
         border:1px solid #000;        
-        border-collapse: collapse;
-        padding: 5px;        
+        border-collapse: collapse;      
     }
    
     #calendarTable th {        
@@ -27,18 +25,29 @@
         color: #ffffff;  
     }    
     #calendarTable td {        
-        height: 70px;
-        text-align : center;            
+        height: 70px;         
     }
     #calendarTable td.empty {
         background-color: #DFDCD8;
-    }  
-    #calendarTable td.today {
-        background-color: #6C7EAA;
-    }  
-    #calendarTable td.reservedColor {
-        background-color: #555555;
+    } 
+    
+    
+    #calendarTable button{
+    	width: 100%;
+    	height: 100%; 
+    	border:0px;
     }
+    
+    #calendarTable button.Reserved{ 
+    	background-color: #037E8C;
+    } 
+   	#calendarTable button.Today{
+    	background-color: #f24c27; 
+    } 
+    #calendarTable button.NotR{
+    	background-color: #ffffff; 
+    } 
+
 </style>
 
 <script type="text/javascript">
@@ -70,14 +79,22 @@
 		document.getElementById("year").innerHTML = strYear;
 		document.getElementById("month").innerHTML = strMonth;
 	}
+	
+	function dateplan(year, month, day, flag){
+		var url = "${pageContext.request.contextPath}/schedule/dateplan.do?year="+year
+				+"&month="+month+"&day="+day+"&flag="+flag;
+		//location.href = url;
+		window.open(url, "idcheck", "top=200, left=200, toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=340, height=500" );
+		
+	}
 </script>
 </head>
 <body bgcolor='white'>
-<div style="margin:auto;">
+<div>
 <table border='0' width='521' cellpadding='0' cellspacing='0'>
   <tr>
      <td width='150' align='right' valign='middle'>
-         <a href="${pageContext.request.contextPath }/schedule.do?year=${Year}&month=${Month}&action=0">
+         <a href="${pageContext.request.contextPath }/schedule/schedule.do?year=${Year}&month=${Month}&action=0">
              <font size="2">이전달</font>
          </a>
      </td>
@@ -86,7 +103,7 @@
          <b>${Year}년 ${Month+1}월</b>
      </td>
      <td width='173' align='left' valign='middle'>
-         <a href="${pageContext.request.contextPath }/schedule.do?year=${Year}&month=${Month}&action=1">
+         <a href="${pageContext.request.contextPath }/schedule/schedule.do?year=${Year}&month=${Month}&action=1">
              <font size="2">다음달</font>
          </a>
     </td>
@@ -95,13 +112,13 @@
 
 <table id="calendarTable">
 	<tr>
-              <th>일</th>
+              <th style="color: red;">일</th>
               <th>월</th>
               <th>화</th>
               <th>수</th>
               <th>목</th>
               <th>금</th>
-              <th>토</th>                      
+              <th style="color: blue;">토</th>                      
        </tr>
 	<c:forEach items="${DayFlag}" var="d">
 			<c:if test="${((d.index+1) mod 7) eq 1 }">
@@ -113,21 +130,22 @@
 				<c:if test="${DOW le d.week_num}">
 					<c:choose>
 						<c:when test="${d.flag eq 4}">
-							<td class="reservedColor">${d.day}</td>
+							<td>${d.day}</td>
 						</c:when>
 						<c:when test="${d.flag eq 3}">
-							<td class="reservedColor">${d.day}</td>
+							<td><button class="Reserved" onclick="dateplan(${Year},${Month+1},${d.day},${d.flag})">${d.day}</button></td>
 						</c:when>
 						<c:when test="${d.flag eq 2}">
-							<td class="today">${d.day}</td>
+							<td><button class="Today" onclick="dateplan(${Year},${Month+1},${d.day},${d.flag})">${d.day}</td>
 						</c:when>
 						<c:when test="${d.flag eq 1}">
-							<td>${d.day}</td>
+							<td><button class="NotR" onclick="dateplan(${Year},${Month+1},${d.day},${d.flag})">${d.day}</td>
 						</c:when>
 						<c:when test="${d.flag eq 0}">
 							<td class="empty">&nbsp;</td>
 						</c:when>
 					</c:choose>
+
 				</c:if>
 			<c:if test="${((d.index+1) mod 7) eq 0 }">
 				</tr>
