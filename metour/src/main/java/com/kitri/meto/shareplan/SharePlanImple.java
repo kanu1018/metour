@@ -34,6 +34,12 @@ public class SharePlanImple implements SharePlanService {
 		ArrayList<SharePlan> list = shareMapper.selectAll();
 		return list;
 	}
+
+	@Override
+	public void editMetoo(int share_num, int metoo) {
+		SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
+		shareMapper.updateMetoo(share_num, metoo);
+	}
 	
 	
 }

@@ -21,7 +21,7 @@
 				<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">${s.share_num }</a>
 			</td>
 			<td>${s.writer }</td>
-			<td>${s.metoo }</td>		
+			<td><input type="text" id="metoo" value="${s.metoo }"></td>
 		</tr>
 	</c:forEach>
 </table>

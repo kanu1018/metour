@@ -21,6 +21,10 @@
 	</select>
 	
 	<select id="selectAll" resultMap="SharePlanResultMap" parameterType="int">
-		SELECT * FROM share_plan
+		SELECT * FROM share_plan ORDER BY share_num
 	</select>
+	
+	<update id="updateMetoo" parameterType="com.kitri.meto.shareplan.SharePlan">
+		UPDATE share_plan SET metoo = #{metoo} WHERE share_num = #{share_num}
+	</update>
 </mapper>
