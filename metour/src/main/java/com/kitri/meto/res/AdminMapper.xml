@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.meto.admin.AdminMapper">
+ 
+ <resultMap type="com.kitri.meto.member.Member" id="MemberResultMap">
+ 		<result property="mem_num" column="MEM_NUM"/>
+ 		<result property="id" column="ID"/>
+    	<result property="pwd" column="PWD"/>
+        <result property="name" column="NAME" />
+        <result property="birth" column="BIRTH"/>
+        <result property="phone" column="PHONE" />
+        <result property="mem_status" column="MEM_STATUS"/>
+        <result property="gender" column="GENDER"/>
+ </resultMap>
+ 
+ <resultMap type="com.kitri.meto.admin.Singo" id="SingoResultMap">
+ 		<result property="singo_num" column="SINGO_NUM"/>
+ 		<result property="singo_kind" column="SINGO_KIND"/>
+ 		<result property="singo_content" column="SINGO_CONTENT"/>
+		<result property="singo_state" column="SINGO_STATE"/>
+		<result property="content_num" column="CONTENT_NUM"/>
+		<result property="singo_mem" column="SINGO_MEM"/> 
+ 
+ </resultMap>
+ 
+    <select id="select" resultMap="MemberResultMap" parameterType="String">
+        SELECT * FROM member where id = #{id}
+    </select>
+    
+    <select id="selectAll" resultMap="MemberResultMap">
+        SELECT * FROM member where mem_status = 'y'
+    </select>
+    
+     <insert id="insert" parameterType="com.kitri.meto.member.Member" >
+        INSERT INTO member values(mem_seq.nextval,#{id},#{pwd},#{name},#{phone},#{gender},#{birth},'y')
+    </insert>
+    
+    <update id="update" parameterType="com.kitri.meto.member.Member">
+    	update member SET pwd = #{pwd}, name = #{name}, birth = #{birth},
+    	 phone = #{phone} where id = #{id}
+    </update>
+    
+    <update id="delMember" parameterType="String">
+        update member SET mem_status = 'n' where id = #{id}
+    </update>
+    
+    <select id="singoselectAll" resultMap="SingoResultMap">
+        SELECT * FROM singo where singo_state='n'
+    </select>
+    
+    <update id="delSingo" parameterType="int">
+        update singo SET singo_state='y' where singo_num = #{singo_num}
+    </update>
+</mapper>

@@ -46,12 +46,14 @@ public class MemberDaoService implements memberService {
 	public boolean login(Member m) {
 		// TODO Auto-generated method stub
 		Member result = getMember(m.getId());
-		if(result!=null && m.getPwd().equals(result.getPwd())){
-			return true; 
-		} else {
+		if(!result.getMem_status().equals("n")){
+			if(result!=null && m.getPwd().equals(result.getPwd())){
+				return true; 
+			} else {
+				return false;
+			}
+		}else{
 			return false;
-			
 		}
 	}
-
 }

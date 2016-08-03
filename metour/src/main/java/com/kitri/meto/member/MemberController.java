@@ -85,7 +85,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/member/pwdCheck.do")
-	public ModelAndView pwdCheck(@RequestParam(value="pwd")String pwd,@RequestParam(value="pwd_chk")String pwd_chk){
+	public ModelAndView pwdCheck(@RequestParam(value="pwd")String pwd, @RequestParam(value="pwd_chk")String pwd_chk){
 		boolean flag = false;
 		if(pwd.equals(pwd_chk)){
 			flag= true;
@@ -99,9 +99,11 @@ public class MemberController {
 	public String login(Member m, HttpServletRequest req){
 		HttpSession session = null;
 		boolean flag = memberService.login(m);
+		m=memberService.getMember(m.getId());
 		if(flag==true){
 			session = req.getSession();
 			session.setAttribute("id", m.getId());
+			session.setAttribute("type", m.getMem_status());
 			return "member/main";
 		}
 		return "member/loginForm";

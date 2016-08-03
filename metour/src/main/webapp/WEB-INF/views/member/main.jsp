@@ -15,6 +15,9 @@
 	function c() {
 		location.href = "${pageContext.request.contextPath }/member/pwdchkForm.do";
 	}
+	function d() {
+		location.href = "${pageContext.request.contextPath }/admin/adminForm.do";
+	}
 </script>
 <title>Insert title here</title>
 </head>
@@ -25,6 +28,9 @@
 		<c:when test="${sessionScope.id eq id && id ne null}">
 			<a onclick="b()">로그아웃&nbsp;</a>
 			<a onclick="c()">회원정보수정&nbsp;</a>
+				<c:if test="${type eq 'm'}">
+				<a onclick="d()">관리자페이지&nbsp;</a>
+				</c:if>
 		</c:when>
 		<c:otherwise>
 			<a onclick="a()">로그인&nbsp;</a>

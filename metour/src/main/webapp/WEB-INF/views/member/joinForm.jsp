@@ -20,13 +20,18 @@
 				var o = eval("("+str+")");
 				var myDiv = document.getElementById("checkMsg");
 				var html = "";
-				if(o.flag){
-					html = "사용가능한아이디";
+				var id1=document.f.id1.value;
+				if(id1==""){
+					alert("아이디를 입력해주세요");
+				}else{
+					if(o.flag){
+						html = "사용가능한아이디";
+					}
+					else{
+						html = "사용불가능한아이디";
+					}
+					myDiv.innerHTML = html;
 				}
-				else{
-					html = "사용불가능한아이디";
-				}
-				myDiv.innerHTML = html;
 			}
 		}
 	}
@@ -65,7 +70,7 @@
 			alert("id를 입력해주세요");
 			document.f.id1.focus();
 			return;
-		}else if(id2=="" && document.getElementById("id2").style.visibility == "visible"){
+		}else if(id2=="" && document.getElementById("id2").value == ""){
 			alert("도메인값 입력해주세요");
 			document.f.id2.focus();
 			return;
@@ -111,7 +116,8 @@
 	function select() {
 		var email = document.f.email.value;
 		if(email){
-			document.getElementById("id2").style.visibility = "hidden";
+			document.getElementById("id2").value = email;
+			/* document.getElementById("id2").style.visibility = "hidden"; */
 		}else{
 			document.getElementById("id2").style.visibility = "visible";
 		}
@@ -127,8 +133,8 @@
 <h1 align="center"><a href="${pageContext.request.contextPath}/" style="width: 400px; font-size: 25px;text-decoration:none;">Oops</a></h1>
 <br>
 <div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black; border-bottom-color: white">
-<input type="text" name="id1" id="id1" placeholder="이메일형식 ID" >@
-<input type="text" name="id2" id="id2">
+<input type="text" name="id1" id="id1" placeholder="이메일형식 ID" align="left">@
+<input type="text" name="id2" id="id2" align="left">
 <select name="email" onclick="select()">
     <option value="">직접선택</option>
     <option value="naver.com">naver.com</option>
