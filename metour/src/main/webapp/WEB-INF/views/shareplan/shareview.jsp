@@ -7,27 +7,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/httpRequest.js"></script>
 <meta charset="UTF-8">
 <script type="text/javascript">
-	var flag = false;
-	
-	function metooPlus(num) {
-		var metoo = ${s.metoo};
-		var metoo_yn = ${me.metoo_yn};
-		if(flag == false){
-			document.getElementById("metoo").value++;
-			flag = true;
-			location.href = "${pageContext.request.contextPath }/share/metoo.do?share_num="+num+"&metoo="+metoo;
-		}
-	}
-	
-	function metooCancel(num) {
-		var metoo = ${s.metoo};
-		if(flag == true){
-			if(metoo > 0){
-				document.getElementById("metoo").value--;
-				flag = false;
-				location.href = "${pageContext.request.contextPath }/share/metoo.do?share_num="+num+"&metoo="+metoo;
-			}
-		}
+	function metoo(share_num, type) {
+		location.href = "${pageContext.request.contextPath }/metoo/metoo.do?share_num="+share_num+"&type="+type;
 	}
 </script>
 <title>:::ShareView:::</title>
@@ -49,16 +30,17 @@
 	<tr>
 		<td><input type="text" id="metoo" value="${s.metoo }"></td>
 		<td>
-			<%-- <c:if test="${sessionScope.id ne null }">
-				<input type="button" value="metoo" onclick="metooPlus(${s.share_num })">
-				<c:if test="${s.share_num eq m.share_num && m.metoo_yn eq 'y' }">
-					<input type="button" value="metoo" onclick="metooCancel(${s.share_num })" style="background-color: #FFA7A7;">
-				</c:if>
-			</c:if> --%>
-			<input type="button" value="metoo" onclick="metooPlus(${s.share_num })">
-				<c:if test="${s.share_num eq me.share_num && me.metoo_yn eq 'y' }">
-					<input type="button" value="metoo" onclick="metooCancel(${s.share_num })" style="background-color: #FFA7A7;">
-			</c:if>
+			<c:choose>
+				<c:when test="${cnt eq 0 }">
+					<input type="button" value="metoo" onclick="metoo(${s.share_num },1)">
+				</c:when>
+				<c:when test="${me.metoo_yn eq 'n'}">
+					<input type="button" value="metoo" onclick="metoo(${s.share_num },2)" style="background-color: #B2EBF4;">
+				</c:when>
+				<c:when test="${me.metoo_yn eq 'y'}">
+					<input type="button" value="metoo" onclick="metoo(${s.share_num },3)" style="background-color: #FFA7A7;">
+				</c:when>
+			</c:choose>
 		</td>
 	</tr>
 </table>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,31 +80,44 @@ public class SharePlanController {
 	@RequestMapping(value="/share/view.do")//세션받기
 	public ModelAndView shareView(HttpServletRequest req, @RequestParam(value="share_num") int share_num){
 		//세션 id, mem_num 받아오기
-		//String id = req.getSession().getAttribute("id").toString();
-		//Member m = memberService.getMember(id);
+		HttpSession session = req.getSession();
+		String id = session.getAttribute("id").toString();
+		Member m = memberService.getMember(id);
+		int mem_num = m.getMem_num();
+		System.out.println(mem_num);
 		//공유글 받기
 		SharePlan s = shareService.getSharePlan(share_num);
 		//metoo_yn 받기
-		//Metoo me = metooService.getMetoo(m.getMem_num(), share_num);// 세션받기
 		Metoo me = new Metoo();
-		me.setMem_num(2);
+		me.setMem_num(m.getMem_num());
 		me.setShare_num(share_num);
-		metooService.getMetoo(me);
+		me = metooService.getMetoo(me);
+		int cnt = metooService.getMetooCnt(me);
+		System.out.println(me.getMetoo_yn());
+		
 		//
 		ModelAndView mav = new ModelAndView("shareplan/shareview");
 		mav.addObject("s", s);
 		mav.addObject("me", me);
+		mav.addObject("cnt", cnt);
 		return mav;
 	}
 	
-	@RequestMapping(value = "/share/metoo.do")
-	public String view(HttpServletRequest req, @RequestParam(value="share_num") int share_num, @RequestParam(value="metoo") int metoo){//세션받기
+	/*@RequestMapping(value = "/share/metoo.do")
+	public String view(HttpServletRequest req, @RequestParam(value="share_num") int share_num, @RequestParam(value="type") int type){//세션받기
 		//세션 id, mem_num 받아오기
-		String id = req.getSession().getAttribute("id").toString();
-		Member m = memberService.getMember(id);
+		//String id = req.getSession().getAttribute("id").toString();
+		//Member m = memberService.getMember(id);
 		
 		//share_plan metoo 수 변경
-		shareService.editMetoo(share_num, metoo);
+		if(type == 1){
+			metooService.addMetoo(me);
+		} else if (type == 2){
+			shareService.editMetoo(share_num, metoo);
+		} else if (type == 3) {
+			
+		}
+		
 		
 		// metoo insert
 		Metoo me = new Metoo();
@@ -112,7 +126,7 @@ public class SharePlanController {
 		metooService.addMetoo(me);
 		
 		return "redirect:/share/list.do";
-	}
+	}*/
 	
 	@RequestMapping(value = "/resourceTest")
 	public String resourceTest(){

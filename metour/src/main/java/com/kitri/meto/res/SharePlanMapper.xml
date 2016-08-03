@@ -24,7 +24,11 @@
 		SELECT * FROM share_plan ORDER BY share_num
 	</select>
 	
-	<update id="updateMetoo" parameterType="com.kitri.meto.shareplan.SharePlan">
-		UPDATE share_plan SET metoo = #{metoo} WHERE share_num = #{share_num}
+	<update id="metooPlus" parameterType="com.kitri.meto.shareplan.SharePlan">
+		UPDATE share_plan SET metoo = metoo+1 WHERE share_num = #{share_num}
+	</update>
+	
+	<update id="metooMinus" parameterType="com.kitri.meto.shareplan.SharePlan">
+		UPDATE share_plan SET metoo = metoo-1 WHERE share_num = #{share_num}
 	</update>
 </mapper>
