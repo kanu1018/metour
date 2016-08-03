@@ -38,11 +38,11 @@
 				<tr>
 					<td <c:if test="${splist.title ne ''}">style="background-color: #F7CAC9;"</c:if>>&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/subplan/listview.do?sub_num=${splist.sub_num}">${splist.title}</a>&nbsp;&nbsp;</td>
 					<td>${splist.place }</td>
-					<td><c:if test="${splist.mission == 'g' }">명소 찾아가기</c:if><c:if test="${splist.mission == 'p' }">명소 사진찍기</c:if></td>
+					<td><c:if test="${splist.mission == 'g' }">명소 찾아가기</c:if><c:if test="${splist.mission == 'p'}">명소 사진찍기</c:if></td>
 					<td><c:if test="${splist.mission_yn == '0'}"></c:if><c:if test="${splist.mission == '1'}">사진 완료 & GPS 실패</c:if>
 						<c:if test="${splist.mission_yn == '2'}">성공</c:if><c:if test="${splist.mission == '3'}">성공</c:if>
 					</td>
-					<td> &nbsp;&nbsp;<c:if test="${splist.title ne ''}"><a href="${pageContext.request.contextPath}/여기 바꾸기?sub_num=${splist.sub_num}">사진등록</a></c:if>&nbsp;&nbsp;</td>
+					<td> &nbsp;&nbsp;<c:if test="${splist.title ne '' && splist.mission == 'p'}"><a href="${pageContext.request.contextPath}/여기 바꾸기?sub_num=${splist.sub_num}">사진등록</a></c:if>&nbsp;&nbsp;</td>
 				</tr>
 				</c:forEach>
 			</table>
