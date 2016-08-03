@@ -31,9 +31,11 @@ public class ScheduleController {
 	int now_m = 0;
 	int now_d = 0;
 	int dow=0;
+	int flag=0;
 
 	
-	@RequestMapping(value="/schedule.do")
+	
+	@RequestMapping(value="/schedule/schedule.do")
 	public ModelAndView calendar(HttpServletRequest request){
 		/*HttpSession session = request.getSession();
 		session.getId();
@@ -65,9 +67,9 @@ public class ScheduleController {
 	        }
 		}
 		dow = cal.get(Calendar.DAY_OF_WEEK);
+		flag=0;
 		int week_num = 1;
         int day = 1;
-        int flag=0;
         boolean flag_today =false;
         boolean flag_reserved = false;
 		
@@ -121,6 +123,109 @@ public class ScheduleController {
 		return mav;
 	}
 
+	
+	@RequestMapping("/schedule/datePlan.do")
+	public ModelAndView specific(HttpServletRequest request){
+		ModelAndView mav = new ModelAndView("schedule/datePlan");
+		/*HttpSession session = request.getSession();
+		session.getId();
+		*/
+		int main_writer = 100;
+		
+		year = Integer.parseInt(request.getParameter("year"));
+		month = Integer.parseInt(request.getParameter("month"));
+		day = Integer.parseInt(request.getParameter("day"));
+		String main_date = year+"/"+month+"/"+day;
+
+		int n_year =year;
+		int n_month =month;
+		int n_day = day;
+		
+		int l_year =year;
+		int l_month =month;
+		int l_day = day;
+		
+		
+		List<Schedule> schedules = scheduleService.getSchedules(main_writer);
+		
+		for(int i=0; i<schedules.size();i++){
+			if(year==schedules.get(i).getYear()&&month==schedules.get(i).getMonth()&&day==schedules.get(i).getDay()){
+				Schedule ss = new Schedule();
+				ss.setMain_writer(main_writer);
+				ss.setMain_date(main_date);
+				Schedule schedule= scheduleService.getSchedule(ss);
+				mav.addObject("schedule",schedule);
+				break;
+			}
+		}
+		
+
+		if(isDate(year, month, day+1)){
+			n_day += 1;
+		}else{
+			if(isDate(year, month+1,1)){
+				n_day=1;
+				n_month+=1;
+			}else{
+				n_month=1;
+				n_day=1;
+				n_year+=1;
+			}					
+		}
+		
+		if(isDate(year, month, day-1)){
+			l_day = day-1;
+		}else{
+			if(month-1 == 0){
+				l_year-=1;
+				l_month =12;
+				l_day=31;
+			}else{
+				if(isDate(year, month-1,31)){
+					l_month -=1;
+					l_day=31;
+				}else if(isDate(year, month-1,30)){
+					l_month -=1;
+					l_day=30;
+				}else if(isDate(year, month-1,29)){
+					l_month -=1;
+					l_day=29;
+				}else if(isDate(year, month-1,28)){
+					l_month -=1;
+					l_day=28;
+				}
+			}
+		}		
+		
+		mav.addObject("Year",year);
+		mav.addObject("Month",month);
+		mav.addObject("Day",day);
+		mav.addObject("N_Year",n_year);
+		mav.addObject("N_Month",n_month);
+		mav.addObject("N_Day",n_day);
+		mav.addObject("L_Year",l_year);
+		mav.addObject("L_Month",l_month);
+		mav.addObject("L_Day",l_day);
+		
+			
+		return mav;
+	}
+	
+	@RequestMapping("/schedule/listPlan.do")
+	public ModelAndView ShareAndDelete(HttpServletRequest request){
+		ModelAndView mav = new ModelAndView("/schedule/listPlan");
+		/*HttpSession session = request.getSession();
+		session.getId();
+		*/
+		int main_writer = 100;
+		int action = Integer.parseInt(request.getParameter("action").toString());
+		List<Schedule> schedules = scheduleService.getSchedules(main_writer);
+		mav.addObject("schedules",schedules);
+		mav.addObject("action",action);		
+		return mav;
+	}
+	
+	
 	private boolean isDate(int y, int m, int d) {
 		m -= 1;
         Calendar c = Calendar.getInstance();
@@ -133,5 +238,6 @@ public class ScheduleController {
         }
         return true;
 	}
+	
 	
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.meto.metoo.MetooMapper">
+ 	<resultMap type="com.kitri.meto.metoo.Metoo" id="MetooResultMap">
+ 		<result property="metoo_num" column="metoo_num" />
+ 		<result property="share_num" column="share_num" />
+ 		<result property="mem_num" column="mem_num" />
+ 		<result property="metoo_yn" column="metoo_yn" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.kitri.meto.metoo.Metoo" >
+		INSERT INTO metoo(metoo_num, share_num, mem_num) VALUES(metoo_seq.nextval, #{share_num}, #{mem_num} )
+	</insert>
+	
+	<update id="updateMetooYN" parameterType="com.kitri.meto.metoo.Metoo">
+		UPDATE metoo SET metoo_yn = 'n' WHERE mem_num = #{mem_num} AND share_num = #{share_num}
+	</update>
+	
+	<select id="selectByMetoo" resultMap="MetooResultMap" parameterType="com.kitri.meto.metoo.Metoo">
+		SELECT * FROM metoo WHERE mem_num = #{mem_num} AND share_num = #{share_num}
+	</select>
+
+</mapper>
