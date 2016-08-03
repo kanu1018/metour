@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
+import com.kitri.meto.JoinDTO.JoinDTO;
+
 @Component("SharePlanService")
 public class SharePlanImple implements SharePlanService {
 	@Resource(name="sqlSession")
@@ -39,6 +41,29 @@ public class SharePlanImple implements SharePlanService {
 	public void editMetoo(int share_num, int metoo) {
 		SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
 		shareMapper.updateMetoo(share_num, metoo);
+	}
+
+	@Override
+	public ArrayList<SharePlan> getSharePlanByTitle(String share_title) {
+		SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
+		String tmp = "%";
+		tmp += share_title + "%";
+		ArrayList<SharePlan> list = shareMapper.selectByTitle(tmp);
+		return list;
+	}
+
+	@Override
+	public ArrayList<JoinDTO> getSharePlanByGender(String gender) {
+		SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
+		ArrayList<JoinDTO> list = shareMapper.selectByGender(gender);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SharePlan> getSharePlanByWriter(int writer) {
+		SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
+		ArrayList<SharePlan> list = shareMapper.selectByWriter(writer);
+		return list;
 	}
 	
 	

@@ -7,9 +7,10 @@ public class SharePlan {
 	private String content;
 	private String metoo;
 	private int point_num;
+	private String share_title;
 	
 	public SharePlan(){}
-	public SharePlan(int share_num, int writer, String location, String content, String metoo, int point_num) {
+	public SharePlan(int share_num, int writer, String location, String content, String metoo, int point_num, String share_title) {
 		super();
 		this.share_num = share_num;
 		this.writer = writer;
@@ -53,5 +54,11 @@ public class SharePlan {
 	}
 	public void setPoint_num(int point_num) {
 		this.point_num = point_num;
+	}
+	public String getShare_title() {
+		return share_title;
+	}
+	public void setShare_title(String share_title) {
+		this.share_title = share_title;
 	}
 }

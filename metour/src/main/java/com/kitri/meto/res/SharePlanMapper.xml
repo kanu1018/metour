@@ -10,10 +10,22 @@
  		<result property="content" column="content" /> 		
 		<result property="metoo" column="metoo" />
 		<result property="point_num" column="point_num" />
+		<result property="share_title" column="share_title" />
+		<result property="gender" column="gender" />
+	</resultMap>
+ 	<resultMap type="com.kitri.meto.JoinDTO.JoinDTO" id="JoinResultMap">
+ 		<result property="share_num" column="share_num" />
+ 		<result property="writer" column="writer" />
+ 		<result property="location" column="location" />
+ 		<result property="content" column="content" /> 		
+		<result property="metoo" column="metoo" />
+		<result property="point_num" column="point_num" />
+		<result property="share_title" column="share_title" />
+		<result property="gender" column="gender" />
 	</resultMap>
 	
 	<insert id="insert" parameterType="com.kitri.meto.shareplan.SharePlan" >
-		INSERT INTO share_plan values(share_seq.nextval, #{writer}, null, #{content}, 0,#{point_num})
+		INSERT INTO share_plan values(share_seq.nextval, #{writer}, null, #{content}, 0, #{point_num}, #{share_title})
 	</insert>
 	
 	<select id="select" resultMap="SharePlanResultMap" parameterType="int">
@@ -27,4 +39,20 @@
 	<update id="updateMetoo" parameterType="com.kitri.meto.shareplan.SharePlan">
 		UPDATE share_plan SET metoo = #{metoo} WHERE share_num = #{share_num}
 	</update>
+	
+	<select id="selectByTitle" resultMap="SharePlanResultMap" parameterType="String">
+		SELECT * FROM share_plan WHERE share_title like #{share_title} ORDER BY share_num
+	</select>
+	
+	<select id="selectByGender" resultMap="JoinResultMap" parameterType="String">
+		SELECT * FROM share_plan join member
+		ON writer = mem_num
+		WHERE gender = #{gender}
+		ORDER BY share_num
+	</select>
+	
+	<select id="selectByWriter" resultMap="SharePlanResultMap" parameterType="int">
+		SELECT * FROM share_plan WHERE writer = #{writer}
+	</select>
+	
 </mapper>

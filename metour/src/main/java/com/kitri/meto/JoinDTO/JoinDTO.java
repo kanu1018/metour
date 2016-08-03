@@ -16,7 +16,7 @@ public class JoinDTO {
 	//main_plan
 	private int main_num;
 	private String main_title;
-	private String main_writer;
+	private int main_writer;
 	private String main_date;
 	
 	//sub_plan
@@ -38,6 +38,7 @@ public class JoinDTO {
 	private String location;
 	private String content;
 	private String metoo;
+	private String share_title;
 	
 	//rep
 	private int rep_num;
@@ -63,10 +64,10 @@ public class JoinDTO {
 	//constructor
 	public JoinDTO(){}
 	public JoinDTO(int mem_num, String id, String pwd, String name, String phone, String gender, String birth,
-			String mem_status, int main_num, String main_title, String main_writer, String main_date, int sub_num,
+			String mem_status, int main_num, String main_title, int main_writer, String main_date, int sub_num,
 			String sub_title, String start_time, String end_time, String place, String llh_x, String llh_y,
 			String mission, String memo, String mission_yn, String photo, int share_num, String writer, String location,
-			String content, String metoo, int rep_num, String rep_content, String rep_writer, int point_num, int point,
+			String content, String metoo,String share_title, int rep_num, String rep_content, String rep_writer, int point_num, int point,
 			int singo_num, String singo_kind, String singo_content, String singo_state, String singo_mem, int metoo_num,
 			String metoo_yn) {
 		super();
@@ -98,6 +99,7 @@ public class JoinDTO {
 		this.location = location;
 		this.content = content;
 		this.metoo = metoo;
+		this.share_title = share_title;
 		this.rep_num = rep_num;
 		this.rep_content = rep_content;
 		this.rep_writer = rep_writer;
@@ -115,6 +117,12 @@ public class JoinDTO {
 	// setter, getter
 	public int getMem_num() {
 		return mem_num;
+	}
+	public String getShare_title() {
+		return share_title;
+	}
+	public void setShare_title(String share_title) {
+		this.share_title = share_title;
 	}
 	public void setMem_num(int mem_num) {
 		this.mem_num = mem_num;
@@ -173,10 +181,10 @@ public class JoinDTO {
 	public void setMain_title(String main_title) {
 		this.main_title = main_title;
 	}
-	public String getMain_writer() {
+	public int getMain_writer() {
 		return main_writer;
 	}
-	public void setMain_writer(String main_writer) {
+	public void setMain_writer(int main_writer) {
 		this.main_writer = main_writer;
 	}
 	public String getMain_date() {
