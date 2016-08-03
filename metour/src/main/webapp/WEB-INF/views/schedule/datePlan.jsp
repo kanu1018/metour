@@ -19,6 +19,25 @@
     }
      
 </style>
+<script>
+function deletePlan(main_num){
+	var url = "${pageContext.request.contextPath}/schedule/deletePlan.do?main_num="+main_num;
+	//location.href = url;
+	window.opener.location.href = url;
+	window.close();
+}
+
+function moveURL1(URL){
+	var url = "${pageContext.request.contextPath}"+URL;
+	location.href = url;
+}
+function moveURL2(URL){
+	var url = "${pageContext.request.contextPath}"+URL;
+	window.opener.location.href = url;
+	window.close();
+}		
+
+</script>
 </head>
 <body>
 
@@ -52,15 +71,32 @@
 				포인트 : ${schedule.point_num}
 			</td>
 		</tr>
-		<tr>
+		<c:forEach items="${subPlans}" var="sp">
+			<tr>
+				<td colspan="3" align="center">${sp.sub_title}</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">${sp.start_time}~${sp.end_time}</td>
+				<td align="center">${sp.mission_yn}</td>
+			</tr>
+		
+		</c:forEach>
+		</table>
+	<table border='0' width='330' cellpadding='0' cellspacing='0'>
+		<tr style="height: 30px">
 			<td align="center">
-				<button style="width: 100%;height: 100%">계획수정</button>
+				<button style="width: 100%;height: 100%" onclick="moveURL1('/subplan/add.do')">상세계획추가</button>
 			</td>
 			<td align="center">
-				<button style="width: 100%;height: 100%">삭제하기</button>
+				<button style="width: 100%;height: 100%" onclick="moveURL2('/subplan/list.do')">상세계획보기</button>
+			</td>
+		</tr>
+		<tr style="height: 30px">
+			<td align="center">
+				<button style="width: 100%;height: 100%" onclick="deletePlan(${schedule.main_num})">계획삭제하기</button>
 			</td>
 			<td align="center">
-				<button style="width: 100%;height: 100%">공유하기</button>
+				<button style="width: 100%;height: 100%">계획공유하기</button>
 			</td>
 		</tr>
 	</table>
@@ -68,9 +104,9 @@
 <c:if test="${schedule eq null}">
 <div align ="center">
 	<table style="width:330px">
-		<tr>
+		<tr style="height: 30px">
 			<td align="center">
-				<button style="width: 100%;height: 100%">계획하기</button>
+				<button style="width: 100%;height: 100%" onclick="insertPlan(${Year},${Month},${Day})">계획하기</button>
 			</td>
 		</tr>
 	</table>

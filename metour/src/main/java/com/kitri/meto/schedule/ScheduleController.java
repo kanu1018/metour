@@ -12,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kitri.meto.subplan.SubPlan;
+import com.kitri.meto.subplan.SubPlanService;
+
 @Controller
 public class ScheduleController {
 	
@@ -22,6 +25,13 @@ public class ScheduleController {
 		this.scheduleService = scheduleService;
 	}
 	
+	@Resource(name="SubPlanService")
+	private SubPlanService subPlanService;
+
+	public void setSubPlanService(SubPlanService subPlanService) {
+		this.subPlanService = subPlanService;
+	}
+
 	Calendar now = Calendar.getInstance();
 	Calendar cal = Calendar.getInstance();
 	int year = 0;
@@ -154,6 +164,11 @@ public class ScheduleController {
 				ss.setMain_writer(main_writer);
 				ss.setMain_date(main_date);
 				Schedule schedule= scheduleService.getSchedule(ss);
+				
+				int main_num = schedule.getMain_num();
+				ArrayList<SubPlan> subPlans = subPlanService.getSubPlans(main_num);
+				
+				mav.addObject("subPlans",subPlans);
 				mav.addObject("schedule",schedule);
 				break;
 			}
@@ -195,7 +210,13 @@ public class ScheduleController {
 					l_day=28;
 				}
 			}
-		}		
+		}	
+		
+
+		
+		
+		
+		
 		
 		mav.addObject("Year",year);
 		mav.addObject("Month",month);
@@ -220,9 +241,24 @@ public class ScheduleController {
 		int main_writer = 100;
 		int action = Integer.parseInt(request.getParameter("action").toString());
 		List<Schedule> schedules = scheduleService.getSchedules(main_writer);
+		
+		
+		
 		mav.addObject("schedules",schedules);
 		mav.addObject("action",action);		
 		return mav;
+	}
+	
+	@RequestMapping("/schedule/deletePlan.do")
+	public String deleteMainPlan(HttpServletRequest request){
+		int main_num = Integer.parseInt(request.getParameter("main_num").toString());
+		
+		scheduleService.delSchedule(main_num);
+		/*HttpSession session = request.getSession();
+		session.getId();
+		*/
+		System.out.println(main_num);
+		return "redirect:/schedule/schedule.do";
 	}
 	
 	
