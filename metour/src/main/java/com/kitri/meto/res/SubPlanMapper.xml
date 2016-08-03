@@ -21,13 +21,25 @@
 	<select id="selectAll" resultMap="SubPlanResultMap" parameterType="int">
 		SELECT sub_num, sub_title, TO_CHAR(start_time,'AMHH:MI') start_time, TO_CHAR(end_time,'AMHH:MI') end_time, place, mission, mission_yn  FROM sub_plan WHERE main_num = #{main_num} order by start_time
 	</select>
+	
+	<select id="selectSupPlanTime" resultMap="SubPlanResultMap" parameterType="int">
+		SELECT TO_CHAR(start_time,'AMHH:MI') start_time, TO_CHAR(end_time,'AMHH:MI') end_time FROM sub_plan WHERE sub_num = #{sub_num}
+	</select>
     
 	<select id="select" resultMap="SubPlanResultMap" parameterType="int">
-		SELECT * FROM sub_plan WHERE sub_num = #{sub_num}
+		SELECT sub_num, sub_title, TO_CHAR(start_time,'HH24:MI') start_time, TO_CHAR(end_time,'HH24:MI') end_time, place, mission, memo, mission_yn FROM sub_plan WHERE sub_num = #{sub_num}
 	</select>
 	
 	<insert id="insert" parameterType="com.kitri.meto.subplan.SubPlan" >
-		INSERT INTO sub_plan values(sub_seq.nextval ,#{sub_title},TO_DATE(#{start_time}, 'AMHH:MI'),TO_DATE(#{end_time}, 'AMHH:MI'),#{place},#{llh_x},#{llh_y},#{mission},#{memo},#{mission_yn},null,#{main_num})
+		INSERT INTO sub_plan values(sub_seq.nextval ,#{sub_title}, TO_DATE(#{start_time}, 'HH24:MI'),TO_DATE(#{end_time}, 'HH24:MI'),#{place},#{llh_x},#{llh_y},#{mission},#{memo},#{mission_yn},null,#{main_num})
 	</insert>
+	
+	<update id="update" parameterType="com.kitri.meto.subplan.SubPlan" >
+		UPDATE sub_plan SET sub_title = #{sub_title}, start_time = TO_DATE(#{start_time}, 'HH24:MI'), end_time = TO_DATE(#{end_time}, 'HH24:MI'), place = #{place}, mission = #{mission}, memo = #{memo}, photo = #{photo} WHERE sub_num = #{sub_num}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE sub_plan WHERE sub_num = #{sub_num}
+	</delete>
 	
 </mapper>

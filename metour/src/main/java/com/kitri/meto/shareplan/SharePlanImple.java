@@ -7,8 +7,6 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
-import com.kitri.meto.JoinDTO.JoinDTO;
-
 @Component("SharePlanService")
 public class SharePlanImple implements SharePlanService {
 	@Resource(name="sqlSession")
@@ -19,33 +17,23 @@ public class SharePlanImple implements SharePlanService {
 	}
 
 	@Override
-	public void addSharePlan(JoinDTO jd) {
-		// TODO Auto-generated method stub
-
+	public void addSharePlan(SharePlan s) {
+		SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
+		shareMapper.insert(s);		
 	}
 
 	@Override
-	public void editSharePlan(JoinDTO jd) {
-		// TODO Auto-generated method stub
-
+	public SharePlan getSharePlan(int share_num) {
+		SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
+		return shareMapper.select(share_num);
 	}
 
 	@Override
-	public void delSharePlan(int share_num) {
-		// TODO Auto-generated method stub
-
+	public ArrayList<SharePlan> getSharePlanAll() {
+		SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
+		ArrayList<SharePlan> list = shareMapper.selectAll();
+		return list;
 	}
-
-	@Override
-	public JoinDTO getSharePlan(int share_num) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<JoinDTO> getSharePlanAll(int share_num) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
+	
 }

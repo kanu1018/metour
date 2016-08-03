@@ -1,9 +1,16 @@
 package com.kitri.meto.schedule;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ScheduleController {
@@ -15,10 +22,116 @@ public class ScheduleController {
 		this.scheduleService = scheduleService;
 	}
 	
-	@RequestMapping(value="/schedule/")
-	public String calendar(){
-		return "schedule/calendar";
+	Calendar now = Calendar.getInstance();
+	Calendar cal = Calendar.getInstance();
+	int year = 0;
+	int month = 0;
+	int day =0;
+	int now_y = 0;
+	int now_m = 0;
+	int now_d = 0;
+	int dow=0;
+
+	
+	@RequestMapping(value="/schedule.do")
+	public ModelAndView calendar(HttpServletRequest request){
+		/*HttpSession session = request.getSession();
+		session.getId();
+		*/
+		int main_writer = 100;
+		List<Schedule> schedules = scheduleService.getSchedules(main_writer);
+		List<CalendarDayFlag> DayFlag = new ArrayList<CalendarDayFlag>(42);
+		
+		now_y = now.get(Calendar.YEAR);
+		now_m = now.get(Calendar.MONTH);
+		now_d = now.get(Calendar.DAY_OF_MONTH);
+		
+		if(request.getParameter("action") == null){
+			year = now_y;
+			month = now_m;
+			cal.set(year, month, 1);
+		}else{
+			month = Integer.parseInt(request.getParameter("month"));
+			year = Integer.parseInt(request.getParameter("year"));
+			cal.set(year, month, 1);
+			if(Integer.parseInt(request.getParameter("action"))==1){
+	            cal.add(Calendar.MONTH, 1);
+	            month = cal.get(Calendar.MONTH);
+	            year = cal.get(Calendar.YEAR);
+			}else{              
+	            cal.add(Calendar.MONTH, -1);
+	            month = cal.get(Calendar.MONTH);
+	            year = cal.get(Calendar.YEAR);
+	        }
+		}
+		dow = cal.get(Calendar.DAY_OF_WEEK);
+		int week_num = 1;
+        int day = 1;
+        int flag=0;
+        boolean flag_today =false;
+        boolean flag_reserved = false;
+		
+        for(int index=0;index<42;index++){			
+				if(week_num<dow){
+					week_num+=1;
+					CalendarDayFlag CDF = new CalendarDayFlag(index, week_num, day, flag);
+					DayFlag.add(index, CDF);
+				}else{
+					if(isDate(year, month+1, day)){
+						for(int k=0;k<schedules.size();k++){
+							if(year==schedules.get(k).getYear()&&(month+1)==schedules.get(k).getMonth()&&day==schedules.get(k).getDay()){
+								flag_reserved =true;
+								break;
+							}else{
+								flag_reserved=false;
+							}
+						}
+						if(year==now_y&&month==now_m&&day==now_d){
+							flag=2;
+							flag_today=true;
+						}else{
+							flag_today =false;
+							flag=1;
+						}
+						
+						if(flag_today&&flag_reserved){
+							flag=4;
+						}else if(flag_reserved&&!flag_today){
+							flag=3;
+						}
+						CalendarDayFlag CDF = new CalendarDayFlag(index,week_num, day, flag);
+						DayFlag.add(index, CDF);
+						week_num +=1;
+						day +=1;
+					}else{
+						flag=0;
+						CalendarDayFlag CDF = new CalendarDayFlag(index,week_num, day, flag);
+						DayFlag.add(index, CDF);
+					}
+					
+				}
+		}
+		
+		ModelAndView mav = new ModelAndView("schedule/calendar");
+		mav.addObject("schedules", schedules);
+		mav.addObject("Year",year); //make Calendar
+		mav.addObject("Month",month); //make Calendar
+		mav.addObject("DOW",dow); //make Calendar
+		mav.addObject("DayFlag", DayFlag);
+		return mav;
+	}
+
+	private boolean isDate(int y, int m, int d) {
+		m -= 1;
+        Calendar c = Calendar.getInstance();
+        c.setLenient(false);   
+        try {  
+             c.set(y, m, d);
+             Date dt = c.getTime();
+        } catch(IllegalArgumentException e) {
+             return false;
+        }
+        return true;
 	}
 	
-
 }

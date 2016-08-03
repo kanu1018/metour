@@ -6,30 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript">
+var time_index = "<c:out value='${index}'/>";
 	function subPlanAdd(){
-		var tmp = 0;
-		for(i = 0; i < document.f.start_ampm.length; i++){
-			if(document.f.start_ampm[i].checked){
-				tmp++;
-			}
-		}
-		var tmp2 = 0;
-		for(i = 0; i < document.f.end_ampm.length; i++){
-			if(document.f.end_ampm[i].checked){
-				tmp2++;
-			}
-		}
-		
 		if(document.f.sub_title.value == ""){
 			alert("제목을 입력해주세요.");
 			document.f.sub_title.focus();
-		}else if(tmp == 0){
-			alert("오전/오후를 선택해주세요.");
-			document.f.start_ampm.focus();
-		}else if(tmp2 == 0){
-			alert("오전/오후를 선택해주세요.");
-			document.f.end_ampm.focus();
-		}else if((document.f.start_time.value == document.f.end_time.value) && (document.f.start_ampm.value == document.f.end_ampm.value)){
+		}else if(document.f.start_time.value == document.f.end_time.value){
 			alert("시작시간과 종료시간이 같습니다. 다시 설정해주세요!");
 			document.f.end_time.focus();
 		}else if(document.f.place.value == ""){
@@ -38,8 +20,6 @@
 		}else{
 			document.f.submit();
 		}
-		
-		
 	}
 	
 	function subPlanCancel(){
@@ -49,20 +29,50 @@
 			if(confirm("입력된 정보를 모두 삭제하시겠습니까?") == true){
 				document.f.sub_title.value = "";
 				document.f.place.value = "";
-				document.f.memo.value = "";
-				for(i = 0; i < document.f.start_ampm.length; i++){
-					if(document.f.start_ampm[i].checked){
-						document.f.start_ampm[i].checked = false;
-					}
-				}
-				for(i = 0; i < document.f.end_ampm.length; i++){
-					if(document.f.end_ampm[i].checked){
-						document.f.end_ampm[i].checked = false;
-					}
-				}
-				
+				document.f.memo.value = "";				
 			} else{
 				return;
+			}
+		}
+	}
+	
+	function timeSet(){
+		var time = document.f.start_time.value;
+		var time_hour = time.substring(0,2);
+		var time_mi = time.substring(3,5);
+		
+		if(time_hour == 24){
+			document.f.end_time.value = "01:" + time_mi;
+		}else if(time_hour == 12){
+			document.f.end_time.value = "13:" + time_mi;
+		}else if(time_hour > 0 && time_hour < 9){
+			var tmp = time_hour*1 + 1;
+			document.f.end_time.value = "0" + tmp + ":" + time_mi;
+		}else {
+			var tmp = time_hour*1 + 1;
+			document.f.end_time.value = tmp + ":" + time_mi;
+		}
+		
+		//종료시간이 시작시간보다 빠를때 처리아직 못함.
+		/* var sel_obj = document.getElementById("end_time");
+		for(var i = sel_obj.selectedIndex; i >= 0 ; i--){
+			sel_obj.remove(sel_obj.i);
+		} */
+	}
+	
+	window.onload = function(){
+		var t_index = time_index.substring(1, time_index.length-1);
+		var index = t_index.split(", ");
+		
+		var sel_obj = document.getElementsByName("start_time")[0];
+		var sel_obj2 = document.getElementsByName("end_time")[0];
+		var j=-1;
+		for(var i = 0 ; i < index.length; i++){
+			j++;
+			if(index[i] == 0){
+				sel_obj.remove(j);
+				sel_obj2.remove(j);
+				j=j-1;
 			}
 		}
 	}
@@ -85,75 +95,120 @@
 		<tr>
 			<th>시작시간</th>
 			<td>
-				<input type="radio" name="start_ampm" value="am">오전
-				<input type="radio" name="start_ampm" value="pm">오후
-				<select name="start_time">
-					<option value="12:00">12:00</option>
-					<option value="12:30">12:30</option>
-				    <option value="01:00">1:00</option>
-				    <option value="01:30">1:30</option>
-				    <option value="02:00">2:00</option>
-				    <option value="02:30">2:30</option>
-				    <option value="03:00">3:00</option>
-				    <option value="03:30">3:30</option>
-				    <option value="04:00">4:00</option>
-				    <option value="04:30">4:30</option>
-				    <option value="05:00">5:00</option>
-				    <option value="05:30">5:30</option>
-				    <option value="06:00">6:00</option>
-				    <option value="06:30">6:30</option>
-				    <option value="07:00">7:00</option>
-				    <option value="07:30">7:30</option>
-				    <option value="08:00">8:00</option>
-				    <option value="08:30">8:30</option>
-				    <option value="09:00">9:00</option>
-				    <option value="09:30">9:30</option>
-				    <option value="10:00">10:00</option>
-				    <option value="10:30">10:30</option>
-				    <option value="11:00">11:00</option>
-				    <option value="11:30">11:30</option>
+				<select name="start_time"onchange="timeSet()">
+					<option value="24:00">오전 12:00</option>
+					<option value="24:30">오전 12:30</option>
+				    <option value="01:00">오전 1:00</option>
+				    <option value="01:30">오전 1:30</option>
+				    <option value="02:00">오전 2:00</option>
+				    <option value="02:30">오전 2:30</option>
+				    <option value="03:00">오전 3:00</option>
+				    <option value="03:30">오전 3:30</option>
+				    <option value="04:00">오전 4:00</option>
+				    <option value="04:30">오전 4:30</option>
+				    <option value="05:00">오전 5:00</option>
+				    <option value="05:30">오전 5:30</option>
+				    <option value="06:00">오전 6:00</option>
+				    <option value="06:30">오전 6:30</option>
+				    <option value="07:00">오전 7:00</option>
+				    <option value="07:30">오전 7:30</option>
+				    <option value="08:00">오전 8:00</option>
+				    <option value="08:30">오전 8:30</option>
+				    <option value="09:00">오전 9:00</option>
+				    <option value="09:30">오전 9:30</option>
+				    <option value="10:00">오전 10:00</option>
+				    <option value="10:30">오전 10:30</option>
+				    <option value="11:00">오전 11:00</option>
+				    <option value="11:30">오전 11:30</option>
+				    <option value="12:00">오후 12:00</option>
+					<option value="12:30">오후 12:30</option>
+				    <option value="13:00">오후 1:00</option>
+				    <option value="13:30">오후 1:30</option>
+				    <option value="14:00">오후 2:00</option>
+				    <option value="14:30">오후 2:30</option>
+				    <option value="15:00">오후 3:00</option>
+				    <option value="15:30">오후 3:30</option>
+				    <option value="16:00">오후 4:00</option>
+				    <option value="16:30">오후 4:30</option>
+				    <option value="17:00">오후 5:00</option>
+				    <option value="17:30">오후 5:30</option>
+				    <option value="18:00">오후 6:00</option>
+				    <option value="18:30">오후 6:30</option>
+				    <option value="19:00">오후 7:00</option>
+				    <option value="19:30">오후 7:30</option>
+				    <option value="20:00">오후 8:00</option>
+				    <option value="20:30">오후 8:30</option>
+				    <option value="21:00">오후 9:00</option>
+				    <option value="21:30">오후 9:30</option>
+				    <option value="22:00">오후 10:00</option>
+				    <option value="22:30">오후 10:30</option>
+				    <option value="23:00">오후 11:00</option>
+				    <option value="23:30">오후 11:30</option>
 				</select> ~ </td>
 			<th>종료시간</th>
 			<td>
-				<input type="radio" name="end_ampm" value="am">오전
-				<input type="radio" name="end_ampm" value="pm">오후
 				<select name="end_time">
-					<option value="12:00">12:00</option>
-					<option value="12:30">12:30</option>
-				    <option value="01:00">1:00</option>
-				    <option value="01:30">1:30</option>
-				    <option value="02:00">2:00</option>
-				    <option value="02:30">2:30</option>
-				    <option value="03:00">3:00</option>
-				    <option value="03:30">3:30</option>
-				    <option value="04:00">4:00</option>
-				    <option value="04:30">4:30</option>
-				    <option value="05:00">5:00</option>
-				    <option value="05:30">5:30</option>
-				    <option value="06:00">6:00</option>
-				    <option value="06:30">6:30</option>
-				    <option value="07:00">7:00</option>
-				    <option value="07:30">7:30</option>
-				    <option value="08:00">8:00</option>
-				    <option value="08:30">8:30</option>
-				    <option value="09:00">9:00</option>
-				    <option value="09:30">9:30</option>
-				    <option value="10:00">10:00</option>
-				    <option value="10:30">10:30</option>
-				    <option value="11:00">11:00</option>
-				    <option value="11:30">11:30</option>
+					<option value="24:00">오전 12:00</option>
+					<option value="24:30">오전 12:30</option>
+				    <option value="01:00">오전 1:00</option>
+				    <option value="01:30">오전 1:30</option>
+				    <option value="02:00">오전 2:00</option>
+				    <option value="02:30">오전 2:30</option>
+				    <option value="03:00">오전 3:00</option>
+				    <option value="03:30">오전 3:30</option>
+				    <option value="04:00">오전 4:00</option>
+				    <option value="04:30">오전 4:30</option>
+				    <option value="05:00">오전 5:00</option>
+				    <option value="05:30">오전 5:30</option>
+				    <option value="06:00">오전 6:00</option>
+				    <option value="06:30">오전 6:30</option>
+				    <option value="07:00">오전 7:00</option>
+				    <option value="07:30">오전 7:30</option>
+				    <option value="08:00">오전 8:00</option>
+				    <option value="08:30">오전 8:30</option>
+				    <option value="09:00">오전 9:00</option>
+				    <option value="09:30">오전 9:30</option>
+				    <option value="10:00">오전 10:00</option>
+				    <option value="10:30">오전 10:30</option>
+				    <option value="11:00">오전 11:00</option>
+				    <option value="11:30">오전 11:30</option>
+				    <option value="12:00">오후 12:00</option>
+					<option value="12:30">오후 12:30</option>
+				    <option value="13:00">오후 1:00</option>
+				    <option value="13:30">오후 1:30</option>
+				    <option value="14:00">오후 2:00</option>
+				    <option value="14:30">오후 2:30</option>
+				    <option value="15:00">오후 3:00</option>
+				    <option value="15:30">오후 3:30</option>
+				    <option value="16:00">오후 4:00</option>
+				    <option value="16:30">오후 4:30</option>
+				    <option value="17:00">오후 5:00</option>
+				    <option value="17:30">오후 5:30</option>
+				    <option value="18:00">오후 6:00</option>
+				    <option value="18:30">오후 6:30</option>
+				    <option value="19:00">오후 7:00</option>
+				    <option value="19:30">오후 7:30</option>
+				    <option value="20:00">오후 8:00</option>
+				    <option value="20:30">오후 8:30</option>
+				    <option value="21:00">오후 9:00</option>
+				    <option value="21:30">오후 9:30</option>
+				    <option value="22:00">오후 10:00</option>
+				    <option value="22:30">오후 10:30</option>
+				    <option value="23:00">오후 11:00</option>
+				    <option value="23:30">오후 11:30</option>
 				</select></td>
 		</tr>
 		<tr>
-			<th colspan="1">장소검색</th>
-			<td colspan="3"><input type="text" name="place"><input type="button" value="돋보기이미지"/></td>
+			<th>장소검색</th>
+			<td colspan="3"><input type="text" name="place"><input type="button" value="돋보기"/></td>
 		</tr>
 		<tr>
-			<th colspan="1">미션</th>
+			<th>미션</th>
 			<td colspan="3">
 				<select name="mission">
-					<option value="g" >장소 찾아가기</option>
-					<option value="p" >사진 찍기</option>
+					<option value="n" >미션 선택안함</option>
+					<option value="g" >명소 찾아가기</option>
+					<option value="p" >명소 사진찍기</option>
 				</select>
 			</td>
 		</tr>

@@ -22,8 +22,8 @@ public class JoinDTO {
 	//sub_plan
 	private int sub_num;
 	private String sub_title;
-	private Date start_time;
-	private Date end_time;
+	private String start_time;
+	private String end_time;
 	private String place;
 	private String llh_x;
 	private String llh_y;
@@ -59,7 +59,7 @@ public class JoinDTO {
 	public JoinDTO(){}
 	public JoinDTO(int mem_num, String id, String pwd, String name, String phone, String gender, String birth,
 			String mem_status, int main_num, String main_title, String main_writer, String main_date, int sub_num,
-			String sub_title, Date start_time, Date end_time, String place, String llh_x, String llh_y, String mission,
+			String sub_title, String start_time, String end_time, String place, String llh_x, String llh_y, String mission,
 			String memo, String mission_yn, String photo, int share_num, String writer, String location, String content,
 			String metoo, int rep_num, String rep_content, String rep_writer, int point_num, int point, int singo_num,
 			String singo_kind, String singo_content, String singo_state, String singo_mem) {
@@ -188,16 +188,16 @@ public class JoinDTO {
 	public void setSub_title(String sub_title) {
 		this.sub_title = sub_title;
 	}
-	public Date getStart_time() {
+	public String getStart_time() {
 		return start_time;
 	}
-	public void setStart_time(Date start_time) {
+	public void setStart_time(String start_time) {
 		this.start_time = start_time;
 	}
-	public Date getEnd_time() {
+	public String getEnd_time() {
 		return end_time;
 	}
-	public void setEnd_time(Date end_time) {
+	public void setEnd_time(String end_time) {
 		this.end_time = end_time;
 	}
 	public String getPlace() {
