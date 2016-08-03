@@ -6,6 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript">
+var newWindow;
+
+function openNewWindow(){
+    newWindow = window.open("${pageContext.request.contextPath}/subplan/place.do", "newWindow", "height=800, width=800, resizable=yes");        
+}
+
+/* --------------add kimdaeyang-------------------*/
 var time_index = "<c:out value='${index}'/>";
 	function subPlanAdd(){
 		if(document.f.sub_title.value == ""){
@@ -82,8 +89,9 @@ var time_index = "<c:out value='${index}'/>";
 <body>
 <h3>세부 계획 등록</h3>
 <form action="${pageContext.request.contextPath}/subplan/addok.do" name="f" method="post" >
-<input type="hidden" name="llh_x" value="1"/>
-<input type="hidden" name="llh_y" value="1"/>
+
+<input type="hidden" name="llh_x" />
+<input type="hidden" name="llh_y" />
 <input type="hidden" name="main_num" value="1"/>
 <input type="hidden" name="mission_yn" value="0"/>
 
@@ -96,8 +104,8 @@ var time_index = "<c:out value='${index}'/>";
 			<th>시작시간</th>
 			<td>
 				<select name="start_time"onchange="timeSet()">
-					<option value="24:00">오전 12:00</option>
-					<option value="24:30">오전 12:30</option>
+					<option value="00:00">오전 12:00</option>
+					<option value="00:30">오전 12:30</option>
 				    <option value="01:00">오전 1:00</option>
 				    <option value="01:30">오전 1:30</option>
 				    <option value="02:00">오전 2:00</option>
@@ -148,8 +156,8 @@ var time_index = "<c:out value='${index}'/>";
 			<th>종료시간</th>
 			<td>
 				<select name="end_time">
-					<option value="24:00">오전 12:00</option>
-					<option value="24:30">오전 12:30</option>
+					<option value="00:00">오전 12:00</option>
+					<option value="00:30">오전 12:30</option>
 				    <option value="01:00">오전 1:00</option>
 				    <option value="01:30">오전 1:30</option>
 				    <option value="02:00">오전 2:00</option>
@@ -200,7 +208,7 @@ var time_index = "<c:out value='${index}'/>";
 		</tr>
 		<tr>
 			<th>장소검색</th>
-			<td colspan="3"><input type="text" name="place"><input type="button" value="돋보기"/></td>
+			<td colspan="3"><input type="text" name="place"><input type="button" value="돋보기" onclick="openNewWindow()"/></td>
 		</tr>
 		<tr>
 			<th>미션</th>

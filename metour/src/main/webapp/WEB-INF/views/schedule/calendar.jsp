@@ -161,7 +161,6 @@
 	</tr>
 </table>
 
-
 <c:forEach items="${schedules}" var="s">
 	${s.main_title} ${s.main_writer} ${s.year} ${s.month} ${s.day}<br>
 </c:forEach>
