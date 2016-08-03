@@ -173,12 +173,16 @@
 </table>
 </div>
 
-<table>
-	<tr>
-		<td><select id="year" name="year"></select></td>
-		<td><select id="month" name="month"></select></td>
-	</tr>
-</table>
+<form action="${pageContext.request.contextPath }/schedule/schedule.do?action=0">
+	<table>
+		<tr>
+			<td><select id="year" name="year"></select></td>
+			<td><select id="month" name="month"></select></td>
+			<td><input type="submit" value="이동"></td>s
+		</tr>
+	</table>
+</form>
+
 
 <c:forEach items="${schedules}" var="s">
 	${s.main_title} ${s.main_writer} ${s.year} ${s.month} ${s.day}<br>

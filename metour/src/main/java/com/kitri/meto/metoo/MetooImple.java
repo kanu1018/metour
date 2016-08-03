@@ -19,17 +19,30 @@ public class MetooImple implements MetooService {
 		MetooMapper metooMapper = sqlSession.getMapper(MetooMapper.class);
 		metooMapper.insert(me);
 	}
-
-	@Override
-	public void editMetooYN(int mem_num, int share_num) {
-		MetooMapper metooMapper = sqlSession.getMapper(MetooMapper.class);
-		metooMapper.updateMetooYN(mem_num, share_num);
-	}
-
+	
 	@Override
 	public Metoo getMetoo(Metoo me) {
 		MetooMapper metooMapper = sqlSession.getMapper(MetooMapper.class);
 		Metoo metoo = metooMapper.selectByMetoo(me);
 		return metoo;
+	}
+
+	@Override
+	public int getMetooCnt(Metoo me) {
+		MetooMapper metooMapper = sqlSession.getMapper(MetooMapper.class);
+		int cnt = metooMapper.selectCnt(me);
+		return cnt;
+	}
+
+	@Override
+	public void editMetooY(Metoo me) {
+		MetooMapper metooMapper = sqlSession.getMapper(MetooMapper.class);
+		metooMapper.updateMetooY(me);
+	}
+
+	@Override
+	public void editMetooN(Metoo me) {
+		MetooMapper metooMapper = sqlSession.getMapper(MetooMapper.class);
+		metooMapper.updateMetooN(me);
 	}
 }

@@ -23,4 +23,8 @@
  	SELECT main_num, main_title, main_writer, TO_CHAR(main_date,'YYYY') year, TO_CHAR(main_date,'MM') month, TO_CHAR(main_date,'DD') day, point_num FROM main_plan where main_writer = #{main_writer} and main_date=#{main_date}
  </select>
 
+ <delete id="delete" parameterType="int">
+       delete from main_plan where main_num = #{main_num}
+ </delete>
+
 </mapper>
