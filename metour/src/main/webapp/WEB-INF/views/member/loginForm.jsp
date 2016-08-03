@@ -17,7 +17,9 @@
 	function b(){
 		location.href="${pageContext.request.contextPath }/member/joinForm.do";
 	}
-	
+	function c(){
+		 window.history.back();
+	}
 	function hitEnterKey(e){
 		  if(e.keyCode == 13){
 		    document.getElementById("pwd").focus();
@@ -42,7 +44,7 @@
 <form action="${pageContext.request.contextPath}/member/login.do" method="post" name="f">
 <p><input type="text" id="id" name="id" placeholder="아이디" onkeypress="hitEnterKey(event)" ><br>
 <input type="text" id="pwd" name="pwd" placeholder="패스워드" onkeypress="hitEnterKey1(event)" ></p>
-<a onclick="a()">로그인&nbsp;</a> <a onclick="b()">&nbsp;회원가입</a></p>
+<a onclick="a()">로그인&nbsp;</a><a onclick="c()">취소&nbsp;</a> <a onclick="b()">회원가입&nbsp;</a></p>
 
 </form>
 </body>
