@@ -5,11 +5,17 @@ import java.util.HashSet;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 @Controller
 public class SubPlanController {
@@ -243,4 +249,99 @@ public class SubPlanController {
 		return "redirect:/subplan/list.do";
 	}
 	
+	@RequestMapping(value="/subplan/place.do")
+	public String form1(){
+		return "map/place";
+	}
+	
+	@RequestMapping(value="/subplan/recom.do")
+	public ModelAndView idCheck(@RequestParam(value="lag")String lag, @RequestParam(value="lat")String lat){
+		
+		ModelAndView mav = new ModelAndView("map/infomation");
+		ArrayList<DataVO> pubList = new ArrayList<DataVO>();
+		//XML �����͸� ȣ���� URL
+		/*String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?"+
+				 "ServiceKey=%2BzkCsJG8T4Mc408ug306EphfPVrmOHMSC9eY52USE%2BzMmV4OZ4%2Fzpzlqh220vkBb9fJAE1am%2B0LtDr%2FAzs2UIA%3D%3D"+
+				 "&mapX=126.87421982981459&mapY=37.50923390021668&radius=1000&pageNo=1&numOfRows=10&listYN=Y&arrange=A&MobileOS=ETC&MobileApp=AppTesting";*/
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?"+
+			"ServiceKey=%2BzkCsJG8T4Mc408ug306EphfPVrmOHMSC9eY52USE%2BzMmV4OZ4%2Fzpzlqh220vkBb9fJAE1am%2B0LtDr%2FAzs2UIA%3D%3D"+
+			"&mapX="+lag+"&mapY="+lat+"&radius=1000&pageNo=1&numOfRows=30&listYN=Y&arrange=A&MobileOS=ETC&MobileApp=AppTesting";
+		//System.out.println(url);
+		//URL�� �Ķ���ͷ� 'size' �׸��� �����ϴ��� üũ
+		//String size = request.getParameter("size");
+		
+		//size �Ķ���Ͱ� null�� �ƴϰ�, 0�� �ƴҰ�쿡�� URL�� �߰�, size�׸��� ������ �Խù��� ������ �ǹ���.
+		/*if(size != null && !"0".equals(size)){
+			url += "?size=" + size;
+		}*/
+		
+		//�����������ϵ� XML�������� ������Ʈ �̸� �迭 
+		String[] fieldNames ={"title","addr1", "addr2", "areacode", "contentid", "contenttypeid", "dist", "mapx", "mapy"};
+		
+		//�� �Խù��ϳ��� �ش��ϴ� XML ��带 ���� ����Ʈ
+		
+		
+		try {
+			//XML�Ľ� �غ�
+			DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
+			DocumentBuilder b = f.newDocumentBuilder();
+			//������ ������ URL�� ���� XMl �Ľ� ����
+			Document doc = b.parse(url);
+			doc.getDocumentElement().normalize();
+			
+			//�������� ������ XML�����͸� publication(���๮�� 1�� �ش�)�±׷� ���� ����(�Ķ���ͷ� ��û�� size�׸��� ����ŭ)
+			NodeList items = doc.getElementsByTagName("item");
+			
+			//for ��������
+			for (int i = 0; i < items.getLength(); i++) {
+				//i��° publication �±׸� �����ͼ�
+				Node n = items.item(i);
+				//���Ÿ���� üũ��, ��� Ÿ���� ������Ʈ�� �ƴҰ�쿡�� ����
+				if (n.getNodeType() != Node.ELEMENT_NODE)
+					continue;
+				
+				Element e = (Element) n;
+				DataVO pub = new DataVO();
+				//for ���� ����
+				int j=0;
+				for(String name : fieldNames){
+					//"id", "title", "userName", "recommendId", "recommendName", "recommendDate", "url"�� �ش��ϴ� ���� XML ��忡�� ������
+					NodeList titleList = e.getElementsByTagName(name);
+					Element titleElem = (Element) titleList.item(0);
+		
+					Node titleNode = titleElem.getChildNodes().item(0);
+					System.out.println(j++);
+					// ������ XML ���� �ʿ� ������Ʈ �̸� - �� ������ ����
+					//pub.put(name, titleNode.getNodeValue());
+					if(name.equals("addr1")){
+						pub.setAddr1(titleNode.getNodeValue());
+					} else if(name.equals("addr2")){
+						pub.setAddr2(titleNode.getNodeValue());
+					} else if(name.equals("areacode")){
+						pub.setAreacode(titleNode.getNodeValue());
+					} else if(name.equals("contentid")){
+						pub.setContentid(titleNode.getNodeValue());
+					} else if(name.equals("contenttypeid")){
+						pub.setContenttypeid(titleNode.getNodeValue());
+					} else if(name.equals("dist")){
+						pub.setDist(titleNode.getNodeValue());
+					} else if(name.equals("mapx")){
+						pub.setMapx(titleNode.getNodeValue());
+					} else if(name.equals("mapy")){
+						pub.setMapy(titleNode.getNodeValue());
+					} else if(name.equals("title")){
+						pub.setTitle(titleNode.getNodeValue());
+					}
+				}
+				//�����Ͱ� ���� �� ���� ����Ʈ�� �ְ� ȭ�鿡 �Ѹ� �غ�.
+				pubList.add(pub);
+			}
+			} catch (Exception e) {
+				//e.printStackTrace();
+		}
+		if (!url.equals("")) {
+			mav.addObject("pubList", pubList);
+		}
+		return mav;
+	}
 }
