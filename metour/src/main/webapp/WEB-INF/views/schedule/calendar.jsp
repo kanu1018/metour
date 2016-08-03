@@ -80,13 +80,22 @@
 		document.getElementById("month").innerHTML = strMonth;
 	}
 	
-	function dateplan(year, month, day, flag){
-		var url = "${pageContext.request.contextPath}/schedule/dateplan.do?year="+year
-				+"&month="+month+"&day="+day+"&flag="+flag;
+	function datePlan(year, month, day){
+		var url = "${pageContext.request.contextPath}/schedule/datePlan.do?year="+year
+				+"&month="+month+"&day="+day;
 		//location.href = url;
-		window.open(url, "idcheck", "top=200, left=200, toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=340, height=500" );
-		
+		window.open(url, "idcheck", "top=200, left=200, toolbar=no, menubar=no, scrollbars=yes, resizable=yes, width=340, height=500" );
+	
 	}
+	
+	
+	function listPlan(action){
+		var url = "${pageContext.request.contextPath}/schedule/listPlan.do?action="+action;
+		//location.href = url;
+		window.open(url, "idcheck", "top=200, left=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes, width=410, height=500" );
+
+	}
+	
 </script>
 </head>
 <body bgcolor='white'>
@@ -133,13 +142,13 @@
 							<td>${d.day}</td>
 						</c:when>
 						<c:when test="${d.flag eq 3}">
-							<td><button class="Reserved" onclick="dateplan(${Year},${Month+1},${d.day},${d.flag})">${d.day}</button></td>
+							<td><button class="Reserved" onclick="datePlan(${Year},${Month+1},${d.day})">${d.day}</button></td>
 						</c:when>
 						<c:when test="${d.flag eq 2}">
-							<td><button class="Today" onclick="dateplan(${Year},${Month+1},${d.day},${d.flag})">${d.day}</td>
+							<td><button class="Today" onclick="datePlan(${Year},${Month+1},${d.day})">${d.day}</td>
 						</c:when>
 						<c:when test="${d.flag eq 1}">
-							<td><button class="NotR" onclick="dateplan(${Year},${Month+1},${d.day},${d.flag})">${d.day}</td>
+							<td><button class="NotR" onclick="datePlan(${Year},${Month+1},${d.day})">${d.day}</td>
 						</c:when>
 						<c:when test="${d.flag eq 0}">
 							<td class="empty">&nbsp;</td>
@@ -151,6 +160,16 @@
 				</tr>
 			</c:if>
 	</c:forEach>
+</table>
+<table border='0' width='521' cellpadding='0' cellspacing='0'>
+  <tr>
+     <td width='260' align='right' valign='middle'>
+         <button onclick="listPlan(1)">공유하기</button>
+     </td>
+     <td width='261' align='left' valign='middle'>
+		<button onclick="listPlan(0)">삭제하기</button>
+    </td>
+  </tr>
 </table>
 </div>
 

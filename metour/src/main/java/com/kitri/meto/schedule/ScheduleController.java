@@ -124,9 +124,9 @@ public class ScheduleController {
 	}
 
 	
-	@RequestMapping("/schedule/dateplan.do")
+	@RequestMapping("/schedule/datePlan.do")
 	public ModelAndView specific(HttpServletRequest request){
-		ModelAndView mav = new ModelAndView("schedule/dateplan");
+		ModelAndView mav = new ModelAndView("schedule/datePlan");
 		/*HttpSession session = request.getSession();
 		session.getId();
 		*/
@@ -146,23 +146,20 @@ public class ScheduleController {
 		int l_day = day;
 		
 		
-		if(request.getParameter("flag")!=null){
-			flag = Integer.parseInt(request.getParameter("flag"));
-			mav.addObject("Flag",flag);
-			if(flag>=3){
-				//reserved
+		List<Schedule> schedules = scheduleService.getSchedules(main_writer);
+		
+		for(int i=0; i<schedules.size();i++){
+			if(year==schedules.get(i).getYear()&&month==schedules.get(i).getMonth()&&day==schedules.get(i).getDay()){
 				Schedule ss = new Schedule();
 				ss.setMain_writer(main_writer);
 				ss.setMain_date(main_date);
 				Schedule schedule= scheduleService.getSchedule(ss);
 				mav.addObject("schedule",schedule);
-				
-			}else{
-				//today, not reserved day
+				break;
 			}
 		}
 		
-		
+
 		if(isDate(year, month, day+1)){
 			n_day += 1;
 		}else{
@@ -211,6 +208,20 @@ public class ScheduleController {
 		mav.addObject("L_Day",l_day);
 		
 			
+		return mav;
+	}
+	
+	@RequestMapping("/schedule/listPlan.do")
+	public ModelAndView ShareAndDelete(HttpServletRequest request){
+		ModelAndView mav = new ModelAndView("/schedule/listPlan");
+		/*HttpSession session = request.getSession();
+		session.getId();
+		*/
+		int main_writer = 100;
+		int action = Integer.parseInt(request.getParameter("action").toString());
+		List<Schedule> schedules = scheduleService.getSchedules(main_writer);
+		mav.addObject("schedules",schedules);
+		mav.addObject("action",action);		
 		return mav;
 	}
 	
