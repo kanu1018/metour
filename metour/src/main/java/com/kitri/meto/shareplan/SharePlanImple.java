@@ -36,10 +36,14 @@ public class SharePlanImple implements SharePlanService {
 	}
 
 	@Override
-	public void editMetoo(int share_num, int metoo) {
+	public void metooPlue(int share_num) {
 		SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
-		shareMapper.updateMetoo(share_num, metoo);
+		shareMapper.metooPlus(share_num);	
 	}
-	
-	
+
+	@Override
+	public void metooMinus(int share_num) {
+		SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
+		shareMapper.metooMinus(share_num);	
+	}	
 }

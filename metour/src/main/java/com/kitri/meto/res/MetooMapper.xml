@@ -14,12 +14,20 @@
 		INSERT INTO metoo(metoo_num, share_num, mem_num) VALUES(metoo_seq.nextval, #{share_num}, #{mem_num} )
 	</insert>
 	
-	<update id="updateMetooYN" parameterType="com.kitri.meto.metoo.Metoo">
+	<update id="updateMetooN" parameterType="com.kitri.meto.metoo.Metoo">
 		UPDATE metoo SET metoo_yn = 'n' WHERE mem_num = #{mem_num} AND share_num = #{share_num}
+	</update>
+	
+	<update id="updateMetooY" parameterType="com.kitri.meto.metoo.Metoo">
+		UPDATE metoo SET metoo_yn = 'y' WHERE mem_num = #{mem_num} AND share_num = #{share_num}
 	</update>
 	
 	<select id="selectByMetoo" resultMap="MetooResultMap" parameterType="com.kitri.meto.metoo.Metoo">
 		SELECT * FROM metoo WHERE mem_num = #{mem_num} AND share_num = #{share_num}
+	</select>
+	
+	<select id="selectCnt" resultType="int" parameterType="com.kitri.meto.metoo.Metoo">
+		SELECT count(*) FROM metoo WHERE mem_num = #{mem_num} AND share_num = #{share_num}
 	</select>
 
 </mapper>

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public interface SharePlanMapper {
 	void insert(SharePlan s);
-	void updateMetoo(int share_num, int metoo);
+	void metooPlus(int share_num);
+	void metooMinus(int share_num);
 	SharePlan select(int share_num);
 	ArrayList<SharePlan> selectAll();
 }
