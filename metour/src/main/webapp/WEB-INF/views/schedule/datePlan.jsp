@@ -85,10 +85,10 @@ function moveURL2(URL){
 	<table border='0' width='330' cellpadding='0' cellspacing='0'>
 		<tr style="height: 30px">
 			<td align="center">
-				<button style="width: 100%;height: 100%" onclick="moveURL1('/subplan/add.do')">상세계획추가</button>
+				<button style="width: 100%;height: 100%" onclick="moveURL1('/subplan/add.do?main_num='+${schedule.main_num})">상세계획추가</button>
 			</td>
 			<td align="center">
-				<button style="width: 100%;height: 100%" onclick="moveURL2('/subplan/list.do')">상세계획보기</button>
+				<button style="width: 100%;height: 100%" onclick="moveURL2('/subplan/list.do?main_num='+${schedule.main_num})">상세계획보기</button>
 			</td>
 		</tr>
 		<tr style="height: 30px">

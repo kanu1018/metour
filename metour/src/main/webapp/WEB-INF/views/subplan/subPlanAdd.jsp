@@ -92,7 +92,7 @@ var time_index = "<c:out value='${index}'/>";
 
 <input type="hidden" name="llh_x" />
 <input type="hidden" name="llh_y" />
-<input type="hidden" name="main_num" value="1"/>
+<input type="hidden" name="main_num" value="${main_num}"/>
 <input type="hidden" name="mission_yn" value="0"/>
 
 	<table border="1">

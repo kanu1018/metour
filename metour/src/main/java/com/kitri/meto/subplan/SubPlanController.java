@@ -27,11 +27,16 @@ public class SubPlanController {
 	}
 	
 	@RequestMapping(value = "/subplan/add.do")
-	public ModelAndView subPlanAdd(){
+	public ModelAndView subPlanAdd(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView("subplan/subPlanAdd");
 		
-		ArrayList<SubPlan> sub = subPlanService.getSubPlans(1);
+		int main_num = Integer.parseInt(request.getParameter("main_num").toString());
+		
+		ArrayList<SubPlan> sub = subPlanService.getSubPlans(main_num);
+		
 		ArrayList<Integer> flag = getFlag(sub);
+		mav.addObject("subplan",sub);
+		mav.addObject("main_num",main_num);
 		mav.addObject("index", flag);
 		return mav;
 	}
@@ -45,7 +50,7 @@ public class SubPlanController {
 			index = Integer.parseInt(hour) * 2;
 		}
 		
-		if(ampm.equals("오후")){
+		if(ampm.equals("�삤�썑")){
 			index += 24;
 		}
 		
@@ -86,7 +91,7 @@ public class SubPlanController {
 			}
 		}
 		
-		//중복제거
+		//以묐났�젣嫄�
 		HashSet<Integer> hs = new HashSet<Integer>(index);
 		ArrayList<Integer> newindex = new ArrayList<Integer>(hs);
 		
@@ -108,7 +113,8 @@ public class SubPlanController {
 	@RequestMapping(value = "/subplan/list.do")
 	public ModelAndView subPlanList(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView("subplan/subPlanList");
-		ArrayList<SubPlan> sub = subPlanService.getSubPlans(1);
+		int main_num = Integer.parseInt(request.getParameter("main_num").toString());
+		ArrayList<SubPlan> sub = subPlanService.getSubPlans(main_num);
 		
 		ArrayList<String> time = getTime();
 		mav.addObject("time", time);
@@ -212,7 +218,7 @@ public class SubPlanController {
 		ArrayList<SubPlan> sub = subPlanService.getSubPlans(1);
 		ArrayList<Integer> flag = getFlag(sub);
 		
-		//현재시간은 띄우기
+		//�쁽�옱�떆媛꾩� �쓣�슦湲�
 		SubPlan time = subPlanService.getSupPlanTime(subNum);
 		String start_now = time.getStart_time();
 		String end_now = time.getEnd_time();
@@ -233,8 +239,9 @@ public class SubPlanController {
 	@RequestMapping(value = "/subplan/addok.do")
 	public String addok(HttpServletRequest request, SubPlan sp){
 		subPlanService.addSubPlan(sp);
+		int main_num = Integer.parseInt(request.getParameter("main_num").toString());
 		
-		return "redirect:/subplan/list.do";
+		return "redirect:/subplan/list.do?main_num="+main_num;
 	}
 	
 	@RequestMapping(value = "/subplan/edit.do")
@@ -259,7 +266,7 @@ public class SubPlanController {
 		
 		ModelAndView mav = new ModelAndView("map/infomation");
 		ArrayList<DataVO> pubList = new ArrayList<DataVO>();
-		//XML �����͸� ȣ���� URL
+		//XML 占쏙옙占쏙옙占싶몌옙 호占쏙옙占쏙옙 URL
 		/*String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?"+
 				 "ServiceKey=%2BzkCsJG8T4Mc408ug306EphfPVrmOHMSC9eY52USE%2BzMmV4OZ4%2Fzpzlqh220vkBb9fJAE1am%2B0LtDr%2FAzs2UIA%3D%3D"+
 				 "&mapX=126.87421982981459&mapY=37.50923390021668&radius=1000&pageNo=1&numOfRows=10&listYN=Y&arrange=A&MobileOS=ETC&MobileApp=AppTesting";*/
@@ -267,51 +274,51 @@ public class SubPlanController {
 			"ServiceKey=%2BzkCsJG8T4Mc408ug306EphfPVrmOHMSC9eY52USE%2BzMmV4OZ4%2Fzpzlqh220vkBb9fJAE1am%2B0LtDr%2FAzs2UIA%3D%3D"+
 			"&mapX="+lag+"&mapY="+lat+"&radius=1000&pageNo=1&numOfRows=30&listYN=Y&arrange=A&MobileOS=ETC&MobileApp=AppTesting";
 		//System.out.println(url);
-		//URL�� �Ķ���ͷ� 'size' �׸��� �����ϴ��� üũ
+		//URL占쏙옙 占식띰옙占쏙옙庫占� 'size' 占쌓몌옙占쏙옙 占쏙옙占쏙옙占싹댐옙占쏙옙 체크
 		//String size = request.getParameter("size");
 		
-		//size �Ķ���Ͱ� null�� �ƴϰ�, 0�� �ƴҰ�쿡�� URL�� �߰�, size�׸��� ������ �Խù��� ������ �ǹ���.
+		//size 占식띰옙占쏙옙叩占� null占쏙옙 占싣니곤옙, 0占쏙옙 占싣닐곤옙荑∽옙占� URL占쏙옙 占쌩곤옙, size占쌓몌옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쌉시뱄옙占쏙옙 占쏙옙占쏙옙占쏙옙 占실뱄옙占쏙옙.
 		/*if(size != null && !"0".equals(size)){
 			url += "?size=" + size;
 		}*/
 		
-		//�����������ϵ� XML�������� ������Ʈ �̸� �迭 
+		//占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占싹듸옙 XML占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙트 占싱몌옙 占썼열 
 		String[] fieldNames ={"title","addr1", "addr2", "areacode", "contentid", "contenttypeid", "dist", "mapx", "mapy"};
 		
-		//�� �Խù��ϳ��� �ش��ϴ� XML ��带 ���� ����Ʈ
+		//占쏙옙 占쌉시뱄옙占싹놂옙占쏙옙 占쌔댐옙占싹댐옙 XML 占쏙옙躍� 占쏙옙占쏙옙 占쏙옙占쏙옙트
 		
 		
 		try {
-			//XML�Ľ� �غ�
+			//XML占식쏙옙 占쌔븝옙
 			DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
 			DocumentBuilder b = f.newDocumentBuilder();
-			//������ ������ URL�� ���� XMl �Ľ� ����
+			//占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 URL占쏙옙 占쏙옙占쏙옙 XMl 占식쏙옙 占쏙옙占쏙옙
 			Document doc = b.parse(url);
 			doc.getDocumentElement().normalize();
 			
-			//�������� ������ XML�����͸� publication(���๮�� 1�� �ش�)�±׷� ���� ����(�Ķ���ͷ� ��û�� size�׸��� ����ŭ)
+			//占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 XML占쏙옙占쏙옙占싶몌옙 publication(占쏙옙占썅문占쏙옙 1占쏙옙 占쌔댐옙)占승그뤄옙 占쏙옙占쏙옙 占쏙옙占쏙옙(占식띰옙占쏙옙庫占� 占쏙옙청占쏙옙 size占쌓몌옙占쏙옙 占쏙옙占쏙옙큼)
 			NodeList items = doc.getElementsByTagName("item");
 			
-			//for ��������
+			//for 占쏙옙占쏙옙占쏙옙占쏙옙
 			for (int i = 0; i < items.getLength(); i++) {
-				//i��° publication �±׸� �����ͼ�
+				//i占쏙옙째 publication 占승그몌옙 占쏙옙占쏙옙占싶쇽옙
 				Node n = items.item(i);
-				//���Ÿ���� üũ��, ��� Ÿ���� ������Ʈ�� �ƴҰ�쿡�� ����
+				//占쏙옙占신몌옙占쏙옙占� 체크占쏙옙, 占쏙옙占� 타占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙트占쏙옙 占싣닐곤옙荑∽옙占� 占쏙옙占쏙옙
 				if (n.getNodeType() != Node.ELEMENT_NODE)
 					continue;
 				
 				Element e = (Element) n;
 				DataVO pub = new DataVO();
-				//for ���� ����
+				//for 占쏙옙占쏙옙 占쏙옙占쏙옙
 				int j=0;
 				for(String name : fieldNames){
-					//"id", "title", "userName", "recommendId", "recommendName", "recommendDate", "url"�� �ش��ϴ� ���� XML ��忡�� ������
+					//"id", "title", "userName", "recommendId", "recommendName", "recommendDate", "url"占쏙옙 占쌔댐옙占싹댐옙 占쏙옙占쏙옙 XML 占쏙옙恙∽옙占� 占쏙옙占쏙옙占쏙옙
 					NodeList titleList = e.getElementsByTagName(name);
 					Element titleElem = (Element) titleList.item(0);
 		
 					Node titleNode = titleElem.getChildNodes().item(0);
 					System.out.println(j++);
-					// ������ XML ���� �ʿ� ������Ʈ �̸� - �� ������ ����
+					// 占쏙옙占쏙옙占쏙옙 XML 占쏙옙占쏙옙 占십울옙 占쏙옙占쏙옙占쏙옙트 占싱몌옙 - 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 					//pub.put(name, titleNode.getNodeValue());
 					if(name.equals("addr1")){
 						pub.setAddr1(titleNode.getNodeValue());
@@ -333,7 +340,7 @@ public class SubPlanController {
 						pub.setTitle(titleNode.getNodeValue());
 					}
 				}
-				//�����Ͱ� ���� �� ���� ����Ʈ�� �ְ� ȭ�鿡 �Ѹ� �غ�.
+				//占쏙옙占쏙옙占싶곤옙 占쏙옙占쏙옙 占쏙옙載� 占쏙옙占쏙옙 占쏙옙占쏙옙트占쏙옙 占쌍곤옙 화占썽에 占싼몌옙 占쌔븝옙.
 				pubList.add(pub);
 			}
 			} catch (Exception e) {
