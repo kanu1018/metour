@@ -21,10 +21,10 @@ public class MainSubPlanController {
 	}
 	
 	@RequestMapping(value="/ms/select.do")//사진불러오기
-	public ModelAndView msList(@RequestParam(value="num") int num){
+	public ModelAndView msList(@RequestParam(value="main_num") int main_num){
 		ModelAndView mav = new ModelAndView("shareplan/share");
-		JoinDTO j = msService.getMainPlan(num);
-		ArrayList<JoinDTO> subList = msService.getMainSubPlanByMainNum(num);
+		JoinDTO j = msService.getMainPlan(main_num);
+		ArrayList<JoinDTO> subList = msService.getMainSubPlanByMainNum(main_num);
 		mav.addObject("j", j);
 		mav.addObject("s", subList);
 		return mav;
