@@ -14,8 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kitri.meto.JoinDTO.JoinDTO;
 
-
-
 @Controller
 public class MemberController {
 	
@@ -113,6 +111,9 @@ public class MemberController {
 			session = req.getSession();
 			session.setAttribute("id", m.getId());
 			session.setAttribute("type", m.getMem_status());
+			List<JoinDTO> list = new ArrayList<JoinDTO>();
+			list = memberService.getArticleByRoot();
+			session.setAttribute("LIST", list);
 			return "member/main";
 		}
 		return "member/loginForm";
@@ -135,9 +136,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/member/logout.do")
-	public String logout(HttpServletRequest req){
+	public ModelAndView logout(HttpServletRequest req){
 		req.getSession().invalidate();
-		return "member/main";
+		List<JoinDTO> list = new ArrayList<JoinDTO>();
+		ModelAndView mav = new ModelAndView("member/main");
+		list = memberService.getArticleByRoot();
+		mav.addObject("LIST",list);
+		return mav;
 	}
 	
 	@RequestMapping(value="/member/out.do")

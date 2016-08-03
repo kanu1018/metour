@@ -14,7 +14,7 @@
 		if(gongchk()){
 			if(confirm("수정하시겠습니까?")==true){
 				document.f.submit();
-			   } else{
+			   }else{
 			      return;
 			   }
 		}
@@ -27,34 +27,39 @@
 		   }
 	}
 	function gongchk() {
-	var flag=true;
+	var flag=false;
 	var pwd=document.f.pwd.value;
 	var name=document.f.name.value;
 	var birth=document.f.birth.value;
 	var phone=document.f.phone.value;
-	
+	var pwd_chk=document.f.pwd_chk.value;
 		if(pwd==""){
-			flag=false;
 			alert("비밀번호를 입력해주세요");
 			document.f.pwd.focus();
 			return flag;
+		}else if(pwd_chk==""){
+			alert("비밀번호확인을 입력해주세요");
+			document.f.pwd_chk.focus();
+			return flag;
+		}else if(!(pwd == pwd_chk)){
+			alert("비밀번호가 다릅니다");
+			return flag;
 		}else if(name==""){
-			flag=false;
 			alert("이름을 입력해주세요");
 			document.f.name.focus();
 			return flag;
 		}else if(birth==""){
-			flag=false;
 			alert("생년월일을 입력해주세요");
 			document.f.birth.focus();
 			return flag;
 		}else if(phone==""){
-			flag=false;
 			alert("전화번호을 입력해주세요");
 			document.f.phone.focus();
 			return flag;
+		}else{
+			flag = true;
+			return flag;
 		}
-		return flag;
 	}
 	function pwdchk(){
 		var params = "pwd="+document.f.pwd.value+"&pwd_chk="+document.f.pwd_chk.value;
@@ -90,7 +95,7 @@
 <input type="text" name="id" style="height: 25px; width: 300px" value="${join.id}" readonly>
 </div>
 <div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black; border-bottom-color: white">
-<input type="password" name="pwd" style="height: 25px; width: 300px" value="">
+<input type="password" name="pwd" style="height: 25px; width: 300px" placeholder="비밀번호">
 <input type="password" name="pwd_chk" onkeyup="pwdchk()" placeholder="비밀번호확인" style="height: 25px; width: 200px">
 <span id="pwdcheckMsg" style="color: red"></span>
 </div>

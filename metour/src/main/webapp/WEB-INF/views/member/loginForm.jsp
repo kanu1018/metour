@@ -12,7 +12,17 @@
 	}
 	
 	function a(){
-		document.f.submit();
+		var id=document.f.id.value;
+		var pwd=document.f.pwd.value;
+		if(id==""){
+			alert("ID를 입력해주세요");
+			return;
+		}else if(pwd==""){
+			alert("PWD를 입력해주세요");
+			return;
+		}else{
+			document.f.submit();	
+		}
 	}
 	function b(){
 		location.href="${pageContext.request.contextPath }/member/joinForm.do";
