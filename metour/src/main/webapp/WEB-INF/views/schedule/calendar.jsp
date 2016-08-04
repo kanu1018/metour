@@ -145,10 +145,10 @@
 							<td><button class="Reserved" onclick="datePlan(${Year},${Month+1},${d.day})">${d.day}</button></td>
 						</c:when>
 						<c:when test="${d.flag eq 2}">
-							<td><button class="Today" onclick="datePlan(${Year},${Month+1},${d.day})">${d.day}</td>
+							<td><button class="Today" onclick="datePlan(${Year},${Month+1},${d.day})">${d.day}</button></td>
 						</c:when>
 						<c:when test="${d.flag eq 1}">
-							<td><button class="NotR" onclick="datePlan(${Year},${Month+1},${d.day})">${d.day}</td>
+							<td><button class="NotR" onclick="datePlan(${Year},${Month+1},${d.day})">${d.day}</button></td>
 						</c:when>
 						<c:when test="${d.flag eq 0}">
 							<td class="empty">&nbsp;</td>
@@ -178,7 +178,7 @@
 		<tr>
 			<td><select id="year" name="year"></select></td>
 			<td><select id="month" name="month"></select></td>
-			<td><input type="submit" value="이동"></td>s
+			<td><input type="submit" value="이동"></td>
 		</tr>
 	</table>
 </form>

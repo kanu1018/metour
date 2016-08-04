@@ -241,16 +241,12 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping("/schedule/listPlan.do")
-	public ModelAndView ShareAndDelete(HttpServletRequest request){
+	public ModelAndView ShareAndDelete(HttpServletRequest request, @RequestParam(value="action") int action){
 		ModelAndView mav = new ModelAndView("/schedule/listPlan");
-		/*HttpSession session = request.getSession();
-		session.getId();
-		*/
-		int main_writer = 100;
-		int action = Integer.parseInt(request.getParameter("action").toString());
+		HttpSession session = request.getSession();
+		String id = session.getAttribute("id").toString();
+		int main_writer = memberService.getMem_numById(id);
 		List<Schedule> schedules = scheduleService.getSchedules(main_writer);
-		
-		
 		
 		mav.addObject("schedules",schedules);
 		mav.addObject("action",action);		
@@ -266,6 +262,16 @@ public class ScheduleController {
 		session.getId();
 		*/
 		System.out.println(main_num);
+		return "redirect:/schedule/schedule.do";
+	}
+	
+	@RequestMapping("/schedule/deletePlans.do")
+	public String deletePlans(HttpServletRequest request, @RequestParam(value="main_num") String main_num){
+		String main_nums[] = main_num.split("/");
+		
+		for(int i = 0; i < main_nums.length; i++){
+			scheduleService.delSchedule(Integer.parseInt(main_nums[i]));
+		}
 		return "redirect:/schedule/schedule.do";
 	}
 	
