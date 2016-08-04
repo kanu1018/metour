@@ -5,6 +5,7 @@
 <mapper namespace="com.kitri.meto.shareplan.SharePlanMapper">
  	<resultMap type="com.kitri.meto.shareplan.SharePlan" id="SharePlanResultMap">
  		<result property="share_num" column="share_num" />
+ 		<result property="share_title" column="share_title" />
  		<result property="writer" column="writer" />
  		<result property="location" column="location" />
  		<result property="content" column="content" /> 		
@@ -13,6 +14,7 @@
 	</resultMap>
  	<resultMap type="com.kitri.meto.JoinDTO.JoinDTO" id="JoinResultMap">
  		<result property="share_num" column="share_num" />
+ 		<result property="share_title" column="share_title" />
  		<result property="writer" column="writer" />
  		<result property="location" column="location" />
  		<result property="content" column="content" /> 		
@@ -22,7 +24,7 @@
 	</resultMap>
 	
 	<insert id="insert" parameterType="com.kitri.meto.shareplan.SharePlan" >
-		INSERT INTO share_plan values(share_seq.nextval, #{writer}, null, #{content}, 0,#{point_num})
+		INSERT INTO share_plan values(share_seq.nextval, #{writer}, null, #{content}, 0,#{point_num}, #{share_title})
 	</insert>
 	
 	<select id="select" resultMap="SharePlanResultMap" parameterType="int">

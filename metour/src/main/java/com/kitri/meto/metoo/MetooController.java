@@ -48,7 +48,7 @@ public class MetooController {
 		me.setShare_num(share_num);
 		me.setMem_num(m.getMem_num()); //세션받기
 		
-		if(type == 1){ // insert, metoo++
+		/*if(type == 1){ // insert, metoo++
 			metooService.addMetoo(me);
 			shareService.metooPlue(share_num);
 			System.out.println("metoo add");
@@ -57,6 +57,15 @@ public class MetooController {
 			shareService.metooPlue(share_num);
 			System.out.println("metoo++");
 		} else if (type == 3) { // metoo_yn 'n', metoo--
+			metooService.editMetooN(me); // 세션받기
+			shareService.metooMinus(share_num);
+			System.out.println("metoo--");
+		}*/
+		if (type == 1){ // metoo_yn 'y' , metoo++
+			metooService.editMetooY(me); // 세션받기
+			shareService.metooPlue(share_num);
+			System.out.println("metoo++");
+		} else if (type == 2) { // metoo_yn 'n', metoo--
 			metooService.editMetooN(me); // 세션받기
 			shareService.metooMinus(share_num);
 			System.out.println("metoo--");

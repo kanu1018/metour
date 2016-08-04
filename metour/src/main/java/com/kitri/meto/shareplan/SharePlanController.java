@@ -62,11 +62,13 @@ public class SharePlanController {
 	public String shareAdd(HttpServletRequest req, SharePlan s, 
 			@RequestParam(value="content") String content, @RequestParam(value="point_num") int point_num,
 			@RequestParam(value="share_title") String share_title){
-		//mem_num 받아오기
-		//String id = req.getSession().getAttribute("id").toString();
-		//Member m = memberService.getMember(id);
+		//세션 id, mem_num 받아오기
+		HttpSession session = req.getSession();
+		String id = session.getAttribute("id").toString();
+		Member m = memberService.getMember(id);
+		int mem_num = m.getMem_num();
 		
-		s.setWriter(1); //수정:세션
+		s.setWriter(mem_num);
 		s.setContent(content);
 		s.setPoint_num(point_num);
 		s.setShare_title(share_title);
@@ -76,19 +78,11 @@ public class SharePlanController {
 	}
 	
 	@RequestMapping(value="/share/list.do")
-	public ModelAndView shareList(HttpServletRequest req){//HttpServletRequest req
-		//세션 id, mem_num 받아오기
-		//String id = req.getSession().getAttribute("id").toString();
-		//Member m = memberService.getMember(id);
+	public ModelAndView shareList(){
 		//공유글
 		ArrayList<SharePlan> list = shareService.getSharePlanAll();
-		//현재 id metoo 여부
-		//ArrayList<Metoo> myMetoo = metooService.getMetoo(m.getMem_num());
-		//ArrayList<Metoo> myMetoo = metooService.getMetoo(1);
-		//
 		ModelAndView mav = new ModelAndView("shareplan/sharelist");
 		mav.addObject("list", list);
-		//mav.addObject("my", myMetoo);
 		return mav;
 	}
 	
@@ -106,9 +100,20 @@ public class SharePlanController {
 		Metoo me = new Metoo();
 		me.setMem_num(m.getMem_num());
 		me.setShare_num(share_num);
-		me = metooService.getMetoo(me);
-		int cnt = metooService.getMetooCnt(me);
-		System.out.println(me.getMetoo_yn());
+		
+		// metoo table 컬럼 존재 확인
+		int cnt = metooService.getMetooCnt(me); 
+		System.out.println(cnt);
+		
+		if(cnt == 0){ 
+			// 컬럼 없을 시 metoo add
+			metooService.addMetoo(me);
+		} else {
+			// 컬럼 있을 시 본인 yn 확인
+			me = metooService.getMetoo(me);
+			System.out.println(me.getMetoo_yn());
+		}
+		
 		
 		//
 		ModelAndView mav = new ModelAndView("shareplan/shareview");
