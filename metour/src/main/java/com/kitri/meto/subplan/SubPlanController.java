@@ -36,10 +36,9 @@ public class SubPlanController {
 	public ModelAndView subPlanAdd(HttpServletRequest request, @RequestParam(value="main_num")int main_num){
 		ModelAndView mav = new ModelAndView("subplan/subPlanAdd");
 		ArrayList<SubPlan> sub = subPlanService.getSubPlans(main_num);
-		
 		ArrayList<Integer> flag = getFlag(sub);
 		mav.addObject("subplan",sub);
-		mav.addObject("main_num",4);
+		mav.addObject("main_num",main_num);
 		mav.addObject("index", flag);
 		return mav;
 	}
@@ -406,7 +405,7 @@ public class SubPlanController {
 		
 		SubPlan sub = subPlanService.getSubPlan(subNum);
 		
-		return "redirect://subplan/list.do?main_num="+sub.getMain_num();
+		return "redirect:/subplan/list.do?main_num="+sub.getMain_num();
 	}
 	
 	
