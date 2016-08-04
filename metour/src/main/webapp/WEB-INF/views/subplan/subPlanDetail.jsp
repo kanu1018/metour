@@ -97,11 +97,9 @@ function duple() {
 		var d = parseInt(spilt2[1]);
 		if(a>c){
 			alert("시간이 선택이 잘못되었습니다. 다시 선택해 주세요.");
-			timeSet();
 		} else if(a==c){
 			if(b>d){
 				alert("시간이 선택이 잘못되었습니다. 다시 선택해 주세요.");
-				timeSet();
 			}
 		}
 	}
