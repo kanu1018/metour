@@ -62,11 +62,13 @@ public class SharePlanController {
 	public String shareAdd(HttpServletRequest req, SharePlan s, 
 			@RequestParam(value="content") String content, @RequestParam(value="point_num") int point_num,
 			@RequestParam(value="share_title") String share_title){
-		//mem_num 받아오기
-		//String id = req.getSession().getAttribute("id").toString();
-		//Member m = memberService.getMember(id);
+		//세션 id, mem_num 받아오기
+		HttpSession session = req.getSession();
+		String id = session.getAttribute("id").toString();
+		Member m = memberService.getMember(id);
+		int mem_num = m.getMem_num();
 		
-		s.setWriter(1); //수정:세션
+		s.setWriter(mem_num);
 		s.setContent(content);
 		s.setPoint_num(point_num);
 		s.setShare_title(share_title);
@@ -76,24 +78,17 @@ public class SharePlanController {
 	}
 	
 	@RequestMapping(value="/share/list.do")
-	public ModelAndView shareList(HttpServletRequest req){//HttpServletRequest req
-		//세션 id, mem_num 받아오기
-		//String id = req.getSession().getAttribute("id").toString();
-		//Member m = memberService.getMember(id);
+	public ModelAndView shareList(){
 		//공유글
 		ArrayList<SharePlan> list = shareService.getSharePlanAll();
-		//현재 id metoo 여부
-		//ArrayList<Metoo> myMetoo = metooService.getMetoo(m.getMem_num());
-		//ArrayList<Metoo> myMetoo = metooService.getMetoo(1);
-		//
 		ModelAndView mav = new ModelAndView("shareplan/sharelist");
 		mav.addObject("list", list);
-		//mav.addObject("my", myMetoo);
 		return mav;
 	}
 	
 	@RequestMapping(value="/share/view.do")//세션받기
-	public ModelAndView shareView(HttpServletRequest req, @RequestParam(value="share_num") int share_num){
+	public ModelAndView shareView(HttpServletRequest req, 
+			@RequestParam(value="share_num") int share_num, @RequestParam(value="share_title") String share_title){
 		//세션 id, mem_num 받아오기
 		HttpSession session = req.getSession();
 		String id = session.getAttribute("id").toString();

@@ -44,5 +44,18 @@
 		</td>
 	</tr>
 </table>
+<%-- <form action="">
+	<table>
+		<tr>
+			<td><input type="text" value="rep_content"></td>
+			<td><input type="button" value="댓글작성"></td>
+		</tr>
+</form>
+	<c:forEach var="" items="">
+			<tr>
+				<td></td>
+			</tr>
+		</c:forEach>
+	</table> --%>
 </body>
 </html>
