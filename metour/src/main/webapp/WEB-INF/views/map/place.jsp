@@ -61,7 +61,7 @@
 	td{border : #000 solid 1px;}
 </style>
 </head>
-<body>
+<body scroll=auto style="overflow-x:hidden">
 	<div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
@@ -352,7 +352,7 @@
 			var lat = document.getElementById("Lat_result").value;
 			var lag = document.getElementById("Lng_result").value;
 			var params = "lat="+lat+"&lag="+lag;
-			alert(params);
+			//alert(params);
 			sendRequest("${pageContext.request.contextPath}/subplan/recom.do", params, checkResult,'POST');
 		}
 		
@@ -379,7 +379,7 @@
 						html += "<td>"+o[i].mapy+"</td>";
 						
 						html += "<td><input type='button' value='선택' id='"+title+"' onclick='send(this)'></td></tr>";
-					    alert(html);
+					    //alert(html);
 					}
 					html +="</table>"
 					myDiv.innerHTML = html;

@@ -9,7 +9,7 @@
 var newWindow;
 
 function openNewWindow(){
-    newWindow = window.open("${pageContext.request.contextPath}/subplan/place.do", "newWindow", "height=800, width=800, resizable=yes");        
+    newWindow = window.open("${pageContext.request.contextPath}/subplan/place.do", "newWindow", "height=800, width=1200, resizable=yes");        
 }
 
 /* --------------add kimdaeyang-------------------*/

@@ -315,7 +315,6 @@ public class SubPlanController {
 					Element titleElem = (Element) titleList.item(0);
 		
 					Node titleNode = titleElem.getChildNodes().item(0);
-					System.out.println(j++);
 					// 占쏙옙占쏙옙占쏙옙 XML 占쏙옙占쏙옙 占십울옙 占쏙옙占쏙옙占쏙옙트 占싱몌옙 - 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 					//pub.put(name, titleNode.getNodeValue());
 					if(name.equals("addr1")){
@@ -339,7 +338,10 @@ public class SubPlanController {
 					}
 				}
 				//占쏙옙占쏙옙占싶곤옙 占쏙옙占쏙옙 占쏙옙載� 占쏙옙占쏙옙 占쏙옙占쏙옙트占쏙옙 占쌍곤옙 화占썽에 占싼몌옙 占쌔븝옙.
-				pubList.add(pub);
+				if(!pub.getContenttypeid().equals("38") && !pub.getContenttypeid().equals("39")){
+					System.out.println(pub.getContenttypeid());
+					pubList.add(pub);
+				}
 			}
 			} catch (Exception e) {
 				//e.printStackTrace();
