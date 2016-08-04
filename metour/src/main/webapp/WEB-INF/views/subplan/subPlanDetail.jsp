@@ -79,7 +79,7 @@ var time_index = "<c:out value='${index}'/>";
 <body>
 
 
-<form action="${pageContext.request.contextPath}/subplan/edit.do" name="f" method="post" >
+<form action="${pageContext.request.contextPath}/subplan/edit.do" name="f" method="post" enctype="multipart/form-data">
 <input type="hidden" name="llh_x" value="${subplan.llh_x}"/>
 <input type="hidden" name="llh_y" value="${subplan.llh_y}"/>
 <input type="hidden" name="main_num" value="${subplan.main_num}"/>
@@ -210,10 +210,14 @@ var time_index = "<c:out value='${index}'/>";
 				</select>
 			</td>
 		</tr>
+		<c:if test="${photo ne null }">
 		<tr>
 			<th>사진</th>
-			<td colspan="3"><input type="text" name="photo" value="${subplan.photo}"/><input type="button" value="카메라이미지"></td>
+			<td colspan="3">사진 파일 : <input type="file" value="카메라이미지" name="imgfile"></td>
+		<td><img src="${photo}" style="width:200px;height:200px"/></td>
 		</tr>
+		</c:if>
+		
 		<tr>
 			<th colspan="4">메모</th>
 		</tr>

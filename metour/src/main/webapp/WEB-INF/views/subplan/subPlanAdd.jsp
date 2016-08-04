@@ -83,6 +83,9 @@ var time_index = "<c:out value='${index}'/>";
 			}
 		}
 	}
+	function addphoto() {
+		location.href="${pageContext.request.contextPath}/subplan/addphoto.do";
+	}
 </script>
 <title>세부 계획 등록</title>
 </head>
@@ -97,7 +100,7 @@ var time_index = "<c:out value='${index}'/>";
 
 	<table border="1">
 		<tr>
-			<th>제목</th>
+			<th>${sub_num }</th>
 			<td colspan="3"><input type="text" name="sub_title"/></td>
 		</tr>
 		<tr>
