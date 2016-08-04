@@ -31,14 +31,14 @@
 		<td><input type="text" id="metoo" value="${s.metoo }"></td>
 		<td>
 			<c:choose>
-				<c:when test="${cnt eq 0 }">
+<%-- 				<c:when test="${cnt eq 0 }">
 					<input type="button" value="metoo" onclick="metoo(${s.share_num },1)">
-				</c:when>
+				</c:when> --%>
 				<c:when test="${me.metoo_yn eq 'n'}">
-					<input type="button" value="metoo" onclick="metoo(${s.share_num },2)" style="background-color: #B2EBF4;">
+					<input type="button" value="metoo" onclick="metoo(${s.share_num },1)" style="background-color: #B2EBF4;">
 				</c:when>
 				<c:when test="${me.metoo_yn eq 'y'}">
-					<input type="button" value="metoo" onclick="metoo(${s.share_num },3)" style="background-color: #FFA7A7;">
+					<input type="button" value="metoo" onclick="metoo(${s.share_num },2)" style="background-color: #FFA7A7;">
 				</c:when>
 			</c:choose>
 		</td>

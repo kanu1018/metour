@@ -87,8 +87,7 @@ public class SharePlanController {
 	}
 	
 	@RequestMapping(value="/share/view.do")//세션받기
-	public ModelAndView shareView(HttpServletRequest req, 
-			@RequestParam(value="share_num") int share_num, @RequestParam(value="share_title") String share_title){
+	public ModelAndView shareView(HttpServletRequest req, @RequestParam(value="share_num") int share_num){
 		//세션 id, mem_num 받아오기
 		HttpSession session = req.getSession();
 		String id = session.getAttribute("id").toString();
@@ -101,9 +100,20 @@ public class SharePlanController {
 		Metoo me = new Metoo();
 		me.setMem_num(m.getMem_num());
 		me.setShare_num(share_num);
-		me = metooService.getMetoo(me);
-		int cnt = metooService.getMetooCnt(me);
-		System.out.println(me.getMetoo_yn());
+		
+		// metoo table 컬럼 존재 확인
+		int cnt = metooService.getMetooCnt(me); 
+		System.out.println(cnt);
+		
+		if(cnt == 0){ 
+			// 컬럼 없을 시 metoo add
+			metooService.addMetoo(me);
+		} else {
+			// 컬럼 있을 시 본인 yn 확인
+			me = metooService.getMetoo(me);
+			System.out.println(me.getMetoo_yn());
+		}
+		
 		
 		//
 		ModelAndView mav = new ModelAndView("shareplan/shareview");
