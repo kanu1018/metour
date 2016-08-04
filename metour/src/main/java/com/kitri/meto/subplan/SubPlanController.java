@@ -36,9 +36,9 @@ public class SubPlanController {
 	public ModelAndView subPlanAdd(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView("subplan/subPlanAdd");
 		
-		/*int main_num = Integer.parseInt(request.getParameter("main_num").toString());*/
+		int main_num = Integer.parseInt(request.getParameter("main_num").toString());
 		
-		ArrayList<SubPlan> sub = subPlanService.getSubPlans(4);
+		ArrayList<SubPlan> sub = subPlanService.getSubPlans(main_num);
 		
 		ArrayList<Integer> flag = getFlag(sub);
 		mav.addObject("subplan",sub);
@@ -119,8 +119,10 @@ public class SubPlanController {
 	@RequestMapping(value = "/subplan/list.do")
 	public ModelAndView subPlanList(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView("subplan/subPlanList");
-/*		int main_num = Integer.parseInt(request.getParameter("main_num").toString());*/
-		ArrayList<SubPlan> sub = subPlanService.getSubPlans(4);
+		
+		int main_num = Integer.parseInt(request.getParameter("main_num").toString());
+		
+		ArrayList<SubPlan> sub = subPlanService.getSubPlans(main_num);
 		
 		ArrayList<String> time = getTime();
 		mav.addObject("time", time);
