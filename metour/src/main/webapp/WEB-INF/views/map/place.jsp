@@ -362,7 +362,7 @@
 					var str = httpRequest.responseText;
 					
 					var o = eval("("+str+")");
-					alert(str);
+					//alert(str);
 					myDiv = document.getElementById("div1");
 					var title;
 					var html ="<table><tr><td>장소명</td><td>주소</td><td>상세주소</td><td>지역코드</td><td>콘텐츠id</td><td>콘텐츠타입id</td><td>거리</td><td>mapx</td><td>mapy</td></tr>";
