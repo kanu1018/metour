@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<a href="${pageContext.request.contextPath}/subplan/add.do">등록</a>
+<a href="${pageContext.request.contextPath}/subplan/add.do?main_num=${main_num}">등록</a>
 
 <table border="1">
 	<tr>
@@ -42,7 +42,7 @@
 					<td><c:if test="${splist.mission_yn == '0'}"></c:if><c:if test="${splist.mission == '1'}">사진 완료 & GPS 실패</c:if>
 						<c:if test="${splist.mission_yn == '2'}">성공</c:if><c:if test="${splist.mission == '3'}">성공</c:if>
 					</td>
-					<td> &nbsp;&nbsp;<c:if test="${splist.title ne '' && splist.mission == 'p'}"><a href="${pageContext.request.contextPath}/여기 바꾸기?sub_num=${splist.sub_num}">사진등록</a></c:if>&nbsp;&nbsp;</td>
+					<td> &nbsp;&nbsp;<c:if test="${splist.title ne ''}"><a href="${pageContext.request.contextPath}/subplan/addphoto?sub_num=${splist.sub_num}">사진등록</a></c:if>&nbsp;&nbsp;</td>
 				</tr>
 				</c:forEach>
 			</table>

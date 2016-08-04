@@ -15,7 +15,7 @@
 		<result property="memo" column="memo" />
 		<result property="mission_yn" column="mission_yn" />
 		<result property="photo" column="photo" />
-		<result property="main_num" column="main_num" />
+		<result property="main_num" column="main_num"/>
 	</resultMap>
 	
 	<select id="selectAll" resultMap="SubPlanResultMap" parameterType="int">
@@ -27,7 +27,7 @@
 	</select>
     
 	<select id="select" resultMap="SubPlanResultMap" parameterType="int">
-		SELECT sub_num, sub_title, TO_CHAR(start_time,'HH24:MI') start_time, TO_CHAR(end_time,'HH24:MI') end_time, place, mission, memo, mission_yn FROM sub_plan WHERE sub_num = #{sub_num}
+		SELECT sub_num, sub_title, TO_CHAR(start_time,'HH24:MI') start_time, TO_CHAR(end_time,'HH24:MI') end_time, place, mission, memo, mission_yn, photo, main_num FROM sub_plan WHERE sub_num = #{sub_num}
 	</select>
 	
 	<insert id="insert" parameterType="com.kitri.meto.subplan.SubPlan" >
@@ -42,4 +42,7 @@
 		DELETE sub_plan WHERE sub_num = #{sub_num}
 	</delete>
 	
+	<update id="upPhoto" parameterType="com.kitri.meto.subplan.SubPlan">
+		UPDATE sub_plan SET photo=#{photo} where sub_num = #{sub_num}
+	</update>
 </mapper>

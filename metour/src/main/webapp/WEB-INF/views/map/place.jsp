@@ -61,7 +61,7 @@
 	td{border : #000 solid 1px;}
 </style>
 </head>
-<body>
+<body scroll=auto style="overflow-x:hidden">
 	<div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
@@ -352,7 +352,7 @@
 			var lat = document.getElementById("Lat_result").value;
 			var lag = document.getElementById("Lng_result").value;
 			var params = "lat="+lat+"&lag="+lag;
-			alert(params);
+			//alert(params);
 			sendRequest("${pageContext.request.contextPath}/subplan/recom.do", params, checkResult,'POST');
 		}
 		
@@ -362,7 +362,7 @@
 					var str = httpRequest.responseText;
 					
 					var o = eval("("+str+")");
-					alert(str);
+					//alert(str);
 					myDiv = document.getElementById("div1");
 					var title;
 					var html ="<table><tr><td>장소명</td><td>주소</td><td>상세주소</td><td>지역코드</td><td>콘텐츠id</td><td>콘텐츠타입id</td><td>거리</td><td>mapx</td><td>mapy</td></tr>";
@@ -379,7 +379,7 @@
 						html += "<td>"+o[i].mapy+"</td>";
 						
 						html += "<td><input type='button' value='선택' id='"+title+"' onclick='send(this)'></td></tr>";
-					    alert(html);
+					    //alert(html);
 					}
 					html +="</table>"
 					myDiv.innerHTML = html;

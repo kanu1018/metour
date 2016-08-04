@@ -9,7 +9,7 @@
 var newWindow;
 
 function openNewWindow(){
-    newWindow = window.open("${pageContext.request.contextPath}/subplan/place.do", "newWindow", "height=800, width=800, resizable=yes");        
+    newWindow = window.open("${pageContext.request.contextPath}/subplan/place.do", "newWindow", "height=800, width=1200, resizable=yes");        
 }
 
 /* --------------add kimdaeyang-------------------*/
@@ -71,7 +71,38 @@ var time_index = "<c:out value='${index}'/>";
 		}
 	}
 	
-	
+function duple() {
+		
+		var sel_obj = document.getElementsByName("start_time")[0];
+		var sel_obj1 = document.getElementsByName("end_time")[0];
+		var val;
+		var val1;
+		for (i = 0; i < sel_obj.options.length; i++) {
+			if (sel_obj.options[i].selected == true) {
+				val = sel_obj.options[i].value;
+				break;
+			}
+		}
+		for (i = 0; i < sel_obj1.options.length; i++) {
+			if (sel_obj1.options[i].selected == true) {
+				val1 = sel_obj1.options[i].value;
+				break;
+			}
+		}
+		var spilt1 = val.split(":");
+		var spilt2 = val1.split(":");
+		var a = parseInt(spilt1[0]);
+		var b = parseInt(spilt1[1]);
+		var c = parseInt(spilt2[0]);
+		var d = parseInt(spilt2[1]);
+		if(a>c){
+			alert("시간이 선택이 잘못되었습니다. 다시 선택하세요.");
+		} else if(a==c){
+			if(b>d){
+				alert("시간이 선택이 잘못되었습니다. 다시 선택하세요.");
+			}
+		}
+	}
 </script>
 
 <title>세부 계획 상세보기</title>
@@ -79,7 +110,7 @@ var time_index = "<c:out value='${index}'/>";
 <body>
 
 
-<form action="${pageContext.request.contextPath}/subplan/edit.do" name="f" method="post" >
+<form action="${pageContext.request.contextPath}/subplan/edit.do" name="f" method="post" enctype="multipart/form-data">
 <input type="hidden" name="llh_x" value="${subplan.llh_x}"/>
 <input type="hidden" name="llh_y" value="${subplan.llh_y}"/>
 <input type="hidden" name="main_num" value="${subplan.main_num}"/>
@@ -145,7 +176,7 @@ var time_index = "<c:out value='${index}'/>";
 				</select> ~ </td>
 			<th>종료시간</th>
 			<td>
-				<select name="end_time">
+				<select name="end_time" onchange="duple()">
 					<option value="00:00">오전 12:00</option>
 					<option value="00:30">오전 12:30</option>
 				    <option value="01:00">오전 1:00</option>
@@ -210,10 +241,14 @@ var time_index = "<c:out value='${index}'/>";
 				</select>
 			</td>
 		</tr>
+		<c:if test="${photo ne null }">
 		<tr>
 			<th>사진</th>
-			<td colspan="3"><input type="text" name="photo" value="${subplan.photo}"/><input type="button" value="카메라이미지"></td>
+			<td colspan="3">사진 파일 : <input type="file" value="카메라이미지" name="imgfile"></td>
+		<td><img src="${photo}" style="width:200px;height:200px"/></td>
 		</tr>
+		</c:if>
+		
 		<tr>
 			<th colspan="4">메모</th>
 		</tr>

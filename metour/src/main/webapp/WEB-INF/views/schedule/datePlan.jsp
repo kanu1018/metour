@@ -21,10 +21,24 @@
 </style>
 <script>
 function deletePlan(main_num){
-	var url = "${pageContext.request.contextPath}/schedule/deletePlan.do?main_num="+main_num;
-	//location.href = url;
-	window.opener.location.href = url;
-	window.close();
+	if(confirm("전체 계획을 삭제하시겠습니까?")==true){
+		var url = "${pageContext.request.contextPath}/schedule/deletePlan.do?main_num="+main_num;
+		//location.href = url;
+		window.opener.location.href = url;
+		window.close();
+	}else{
+		return;
+	}
+}
+function sharePlan(main_num){
+	if(confirm("현재 날짜 계획을 공유하시겠습니까?")==true){
+		var url = "${pageContext.request.contextPath}/ms/select.do?main_num="+main_num;
+		//location.href = url;
+		window.opener.location.href = url;
+		window.close();
+	}else{
+		return;
+	}
 }
 
 function moveURL1(URL){
@@ -36,7 +50,14 @@ function moveURL2(URL){
 	window.opener.location.href = url;
 	window.close();
 }		
-
+function insertPlan(year,month,day){
+	var title = document.getElementById("title").value;
+	var day = year + "/" + month + "/" + day;
+	var url = "${pageContext.request.contextPath}/schedule/insertPlan.do?title="+title+"&day="+day;
+	//location.href = url;
+	window.opener.location.href = url;
+	window.close();
+}
 </script>
 </head>
 <body>
@@ -84,10 +105,10 @@ function moveURL2(URL){
 		</table>
 	<table border='0' width='330' cellpadding='0' cellspacing='0'>
 		<tr style="height: 30px">
-			<td align="center">
+			<%-- <td align="center">
 				<button style="width: 100%;height: 100%" onclick="moveURL1('/subplan/add.do?main_num='+${schedule.main_num})">상세계획추가</button>
-			</td>
-			<td align="center">
+			</td> --%>
+			<td align="center" colspan="2">
 				<button style="width: 100%;height: 100%" onclick="moveURL2('/subplan/list.do?main_num='+${schedule.main_num})">상세계획보기</button>
 			</td>
 		</tr>
@@ -96,7 +117,7 @@ function moveURL2(URL){
 				<button style="width: 100%;height: 100%" onclick="deletePlan(${schedule.main_num})">계획삭제하기</button>
 			</td>
 			<td align="center">
-				<button style="width: 100%;height: 100%">계획공유하기</button>
+				<button style="width: 100%;height: 100%" onclick="sharePlan(${schedule.main_num})">계획공유하기</button>
 			</td>
 		</tr>
 	</table>
@@ -104,6 +125,11 @@ function moveURL2(URL){
 <c:if test="${schedule eq null}">
 <div align ="center">
 	<table style="width:330px">
+		<tr style="height: 30px">
+		<td align="center">
+				<input type="text" placeholder="제목을 입력하세요." style="width: 97%;height: 100%" id="title"/>
+			</td>
+		</tr>
 		<tr style="height: 30px">
 			<td align="center">
 				<button style="width: 100%;height: 100%" onclick="insertPlan(${Year},${Month},${Day})">계획하기</button>

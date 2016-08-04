@@ -59,5 +59,9 @@
     	SELECT share_num, main_title, id, location, metoo FROM member join share_plan s on mem_num = writer join main_plan m on s.point_num= m.point_num 
     	WHERE <![CDATA[ ROWNUM <= 10 ]]> AND share_num like '%' || #{num} || '%' ORDER BY metoo 
     </select>
+    
+    <select id="selectById" resultType="int" parameterType="String">
+        SELECT mem_num FROM member where id = #{id}
+    </select>
  
 </mapper>

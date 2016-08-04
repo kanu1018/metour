@@ -52,4 +52,11 @@ public class ServiceImpl implements SubPlanService{
 		return subPlanMapper.selectSupPlanTime(subNum);
 	}
 
+	@Override
+	public void updatePhoto(SubPlan subplan) {
+		SubPlanMapper subPlanMapper = sqlSession.getMapper(SubPlanMapper.class);
+		subPlanMapper.upPhoto(subplan);
+	}
+
+
 }

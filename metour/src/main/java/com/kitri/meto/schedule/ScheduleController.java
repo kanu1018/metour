@@ -7,11 +7,14 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kitri.meto.member.MemberDaoService;
 import com.kitri.meto.subplan.SubPlan;
 import com.kitri.meto.subplan.SubPlanService;
 
@@ -31,6 +34,13 @@ public class ScheduleController {
 	public void setSubPlanService(SubPlanService subPlanService) {
 		this.subPlanService = subPlanService;
 	}
+	
+	@Resource(name="MemberService")
+	private MemberDaoService memberService;
+
+	public void setMemberService(MemberDaoService memberService) {
+		this.memberService = memberService;
+	}
 
 	Calendar now = Calendar.getInstance();
 	Calendar cal = Calendar.getInstance();
@@ -47,10 +57,9 @@ public class ScheduleController {
 	
 	@RequestMapping(value="/schedule/schedule.do")
 	public ModelAndView calendar(HttpServletRequest request){
-		/*HttpSession session = request.getSession();
-		session.getId();
-		*/
-		int main_writer = 100;
+		HttpSession session = request.getSession();
+		String id = session.getAttribute("id").toString();
+		int main_writer = memberService.getMem_numById(id);
 		List<Schedule> schedules = scheduleService.getSchedules(main_writer);
 		List<CalendarDayFlag> DayFlag = new ArrayList<CalendarDayFlag>(42);
 		
@@ -137,10 +146,9 @@ public class ScheduleController {
 	@RequestMapping("/schedule/datePlan.do")
 	public ModelAndView specific(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView("schedule/datePlan");
-		/*HttpSession session = request.getSession();
-		session.getId();
-		*/
-		int main_writer = 100;
+		HttpSession session = request.getSession();
+		String id = session.getAttribute("id").toString();
+		int main_writer = memberService.getMem_numById(id);
 		
 		year = Integer.parseInt(request.getParameter("year"));
 		month = Integer.parseInt(request.getParameter("month"));
@@ -233,16 +241,12 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping("/schedule/listPlan.do")
-	public ModelAndView ShareAndDelete(HttpServletRequest request){
+	public ModelAndView ShareAndDelete(HttpServletRequest request, @RequestParam(value="action") int action){
 		ModelAndView mav = new ModelAndView("/schedule/listPlan");
-		/*HttpSession session = request.getSession();
-		session.getId();
-		*/
-		int main_writer = 100;
-		int action = Integer.parseInt(request.getParameter("action").toString());
+		HttpSession session = request.getSession();
+		String id = session.getAttribute("id").toString();
+		int main_writer = memberService.getMem_numById(id);
 		List<Schedule> schedules = scheduleService.getSchedules(main_writer);
-		
-		
 		
 		mav.addObject("schedules",schedules);
 		mav.addObject("action",action);		
@@ -261,6 +265,16 @@ public class ScheduleController {
 		return "redirect:/schedule/schedule.do";
 	}
 	
+	@RequestMapping("/schedule/deletePlans.do")
+	public String deletePlans(HttpServletRequest request, @RequestParam(value="main_num") String main_num){
+		String main_nums[] = main_num.split("/");
+		
+		for(int i = 0; i < main_nums.length; i++){
+			scheduleService.delSchedule(Integer.parseInt(main_nums[i]));
+		}
+		return "redirect:/schedule/schedule.do";
+	}
+	
 	
 	private boolean isDate(int y, int m, int d) {
 		m -= 1;
@@ -273,6 +287,21 @@ public class ScheduleController {
              return false;
         }
         return true;
+	}
+	
+	@RequestMapping("/schedule/insertPlan.do")
+	public String insertPlan(HttpServletRequest request, @RequestParam(value="title") String main_title, 
+			@RequestParam(value="day") String day){
+		HttpSession session = request.getSession();
+		String id = session.getAttribute("id").toString();
+		Schedule s = new Schedule();
+		s.setMain_title(main_title);
+		s.setMain_writer(memberService.getMem_numById(id));
+		s.setMain_date(day);
+		s.setPoint_num(scheduleService.getByPointNum()+1);
+		
+		scheduleService.addSchedule(s);
+		return "redirect:/subplan/list.do?main_num="+scheduleService.getByMainNum();
 	}
 	
 	

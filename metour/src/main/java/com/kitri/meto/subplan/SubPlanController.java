@@ -1,13 +1,19 @@
 package com.kitri.meto.subplan;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import javax.annotation.Resource;
+import javax.servlet.GenericServlet;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.omg.IOP.ServiceContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,13 +33,9 @@ public class SubPlanController {
 	}
 	
 	@RequestMapping(value = "/subplan/add.do")
-	public ModelAndView subPlanAdd(HttpServletRequest request){
+	public ModelAndView subPlanAdd(HttpServletRequest request, @RequestParam(value="main_num")int main_num){
 		ModelAndView mav = new ModelAndView("subplan/subPlanAdd");
-		
-		int main_num = Integer.parseInt(request.getParameter("main_num").toString());
-		
 		ArrayList<SubPlan> sub = subPlanService.getSubPlans(main_num);
-		
 		ArrayList<Integer> flag = getFlag(sub);
 		mav.addObject("subplan",sub);
 		mav.addObject("main_num",main_num);
@@ -50,7 +52,7 @@ public class SubPlanController {
 			index = Integer.parseInt(hour) * 2;
 		}
 		
-		if(ampm.equals("�삤�썑")){
+		if(ampm.equals("오후")){
 			index += 24;
 		}
 		
@@ -111,9 +113,8 @@ public class SubPlanController {
 	}
 	
 	@RequestMapping(value = "/subplan/list.do")
-	public ModelAndView subPlanList(HttpServletRequest request){
+	public ModelAndView subPlanList(HttpServletRequest request, @RequestParam(value="main_num")int main_num){
 		ModelAndView mav = new ModelAndView("subplan/subPlanList");
-		int main_num = Integer.parseInt(request.getParameter("main_num").toString());
 		ArrayList<SubPlan> sub = subPlanService.getSubPlans(main_num);
 		
 		ArrayList<String> time = getTime();
@@ -121,6 +122,7 @@ public class SubPlanController {
 		
 		ArrayList<SubPlanList> title = getTitlebyTime(sub);
 		mav.addObject("splist", title);
+		mav.addObject("main_num", main_num);
 		return mav;
 	}
 	
@@ -215,6 +217,7 @@ public class SubPlanController {
 		
 		ModelAndView mav = new ModelAndView("subplan/subPlanDetail");
 		mav.addObject("subplan", subplan); 
+		mav.addObject("photo",subplan.getPhoto());
 		ArrayList<SubPlan> sub = subPlanService.getSubPlans(1);
 		ArrayList<Integer> flag = getFlag(sub);
 		
@@ -246,6 +249,24 @@ public class SubPlanController {
 	
 	@RequestMapping(value = "/subplan/edit.do")
 	public String subPlanEdit(HttpServletRequest request, SubPlan sp){
+		
+		String fileName = sp.getImgfile().getOriginalFilename();
+		ServletContext sc = request.getSession().getServletContext();
+		String root = sc.getRealPath("/");
+		root+="img\\"+fileName;
+		File f = new File(root);
+		try {
+			sp.getImgfile().transferTo(f);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		sp.setPhoto(root);
+		sp.setSub_num(sp.getSub_num());
+		subPlanService.updatePhoto(sp);
 		subPlanService.editSubPlan(sp);
 		return "redirect:/subplan/list.do";
 	}
@@ -351,4 +372,41 @@ public class SubPlanController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value = "/subplan/addphoto")
+	public String addphoto(HttpServletRequest request,@RequestParam(value="sub_num")int subNum){
+		request.setAttribute("sub_num", subNum);
+		SubPlan sp = new SubPlan();
+		sp = subPlanService.getSubPlan(subNum);
+		request.setAttribute("photo", sp.getPhoto());
+		return "subplan/addPhoto";
+	}
+	
+	
+		@RequestMapping(value = "/subplan/addphoto_ok.do")
+	public String addphoto_ok(HttpServletRequest request,SubPlan subplan,@RequestParam(value="sub_num")int subNum){
+		String fileName = subplan.getImgfile().getOriginalFilename();
+		ServletContext sc = request.getSession().getServletContext();
+		String root = sc.getRealPath("/");
+		root+="img\\"+fileName;
+		File f = new File(root);
+		try {
+			subplan.getImgfile().transferTo(f);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		subplan.setPhoto(root);
+		subplan.setSub_num(subNum);
+		subPlanService.updatePhoto(subplan);
+		
+		SubPlan sub = subPlanService.getSubPlan(subNum);
+		
+		return "redirect:/subplan/list.do?main_num="+sub.getMain_num();
+	}
+	
+	
 }

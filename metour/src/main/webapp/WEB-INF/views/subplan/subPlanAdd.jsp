@@ -83,6 +83,44 @@ var time_index = "<c:out value='${index}'/>";
 			}
 		}
 	}
+	function addphoto() {
+		location.href="${pageContext.request.contextPath}/subplan/addphoto.do";
+	}
+	
+function duple() {
+		
+		var sel_obj = document.getElementsByName("start_time")[0];
+		var sel_obj1 = document.getElementsByName("end_time")[0];
+		var val;
+		var val1;
+		for (i = 0; i < sel_obj.options.length; i++) {
+			if (sel_obj.options[i].selected == true) {
+				val = sel_obj.options[i].value;
+				break;
+			}
+		}
+		for (i = 0; i < sel_obj1.options.length; i++) {
+			if (sel_obj1.options[i].selected == true) {
+				val1 = sel_obj1.options[i].value;
+				break;
+			}
+		}
+		var spilt1 = val.split(":");
+		var spilt2 = val1.split(":");
+		var a = parseInt(spilt1[0]);
+		var b = parseInt(spilt1[1]);
+		var c = parseInt(spilt2[0]);
+		var d = parseInt(spilt2[1]);
+		if(a>c){
+			alert("시간이 선택이 잘못되었습니다. 다시 선택하세요.");
+			timeSet();
+		} else if(a==c){
+			if(b>d){
+				alert("시간이 선택이 잘못되었습니다. 다시 선택하세요.");
+				timeSet();
+			}
+		}
+	}
 </script>
 <title>세부 계획 등록</title>
 </head>
@@ -155,7 +193,7 @@ var time_index = "<c:out value='${index}'/>";
 				</select> ~ </td>
 			<th>종료시간</th>
 			<td>
-				<select name="end_time">
+				<select name="end_time" onchange="duple()">
 					<option value="00:00">오전 12:00</option>
 					<option value="00:30">오전 12:30</option>
 				    <option value="01:00">오전 1:00</option>

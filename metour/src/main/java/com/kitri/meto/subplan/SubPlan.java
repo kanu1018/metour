@@ -1,6 +1,6 @@
 package com.kitri.meto.subplan;
 
-import java.sql.Date;
+import org.springframework.web.multipart.MultipartFile;
 
 public class SubPlan {
 	private int sub_num;
@@ -15,6 +15,8 @@ public class SubPlan {
 	private String mission_yn;
 	private String photo;
 	private int main_num;
+	private MultipartFile imgfile;
+	
 	
 	public SubPlan() {
 		super();
@@ -132,4 +134,13 @@ public class SubPlan {
 	public void setMain_num(int main_num) {
 		this.main_num = main_num;
 	}
+
+	public MultipartFile getImgfile() {
+		return imgfile;
+	}
+
+	public void setImgfile(MultipartFile imgfile) {
+		this.imgfile = imgfile;
+	}
+	
 }

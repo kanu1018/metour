@@ -9,4 +9,5 @@ public interface SubPlanService {
 	void delSubPlan(int subNum);
 	void editSubPlan(SubPlan sp);
 	SubPlan getSupPlanTime(int subNum);
+	void updatePhoto(SubPlan subplan);
 }

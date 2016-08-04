@@ -9,4 +9,5 @@ public interface SubPlanMapper {
 	void delete(int subNum);
 	void update(SubPlan sp);
 	SubPlan selectSupPlanTime(int subNum);
+	void upPhoto(SubPlan subplan);
 }
