@@ -57,10 +57,9 @@ public class ScheduleController {
 	
 	@RequestMapping(value="/schedule/schedule.do")
 	public ModelAndView calendar(HttpServletRequest request){
-		/*HttpSession session = request.getSession();
-		session.getId();
-		*/
-		int main_writer = 100;
+		HttpSession session = request.getSession();
+		String id = session.getAttribute("id").toString();
+		int main_writer = memberService.getMem_numById(id);
 		List<Schedule> schedules = scheduleService.getSchedules(main_writer);
 		List<CalendarDayFlag> DayFlag = new ArrayList<CalendarDayFlag>(42);
 		
@@ -147,10 +146,9 @@ public class ScheduleController {
 	@RequestMapping("/schedule/datePlan.do")
 	public ModelAndView specific(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView("schedule/datePlan");
-		/*HttpSession session = request.getSession();
-		session.getId();
-		*/
-		int main_writer = 100;
+		HttpSession session = request.getSession();
+		String id = session.getAttribute("id").toString();
+		int main_writer = memberService.getMem_numById(id);
 		
 		year = Integer.parseInt(request.getParameter("year"));
 		month = Integer.parseInt(request.getParameter("month"));

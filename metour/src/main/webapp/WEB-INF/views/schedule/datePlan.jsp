@@ -21,10 +21,14 @@
 </style>
 <script>
 function deletePlan(main_num){
-	var url = "${pageContext.request.contextPath}/schedule/deletePlan.do?main_num="+main_num;
-	//location.href = url;
-	window.opener.location.href = url;
-	window.close();
+	if(confirm("전체 계획을 삭제하시겠습니까?")==true){
+		var url = "${pageContext.request.contextPath}/schedule/deletePlan.do?main_num="+main_num;
+		//location.href = url;
+		window.opener.location.href = url;
+		window.close();
+	}else{
+		return;
+	}
 }
 
 function moveURL1(URL){
@@ -91,10 +95,10 @@ function insertPlan(year,month,day){
 		</table>
 	<table border='0' width='330' cellpadding='0' cellspacing='0'>
 		<tr style="height: 30px">
-			<td align="center">
+			<%-- <td align="center">
 				<button style="width: 100%;height: 100%" onclick="moveURL1('/subplan/add.do?main_num='+${schedule.main_num})">상세계획추가</button>
-			</td>
-			<td align="center">
+			</td> --%>
+			<td align="center" colspan="2">
 				<button style="width: 100%;height: 100%" onclick="moveURL2('/subplan/list.do?main_num='+${schedule.main_num})">상세계획보기</button>
 			</td>
 		</tr>

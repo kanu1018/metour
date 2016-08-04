@@ -38,5 +38,9 @@
  <select id = "selectByMainNum" resultType="int">
  	SELECT MAX(main_num) FROM main_plan
  </select>
+ 
+<!--  <select id = "selectByPointNum" resultType="int" parameterType="int">
+ 	SELECT point FROM point WHERE point_num=${point_num}
+ </select> -->
 
 </mapper>
