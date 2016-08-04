@@ -22,6 +22,7 @@
 <body>
 
 <form action="${pageContext.request.contextPath}/share/add.do"  method="post" id="frm">
+	<input type="hidden" name="share_title" value="${j.main_title }">
     <textarea name="content" id="content" rows="10" cols="300" style="width:766px; height:412px;">
     	<table border="1">
     		<c:if test="${j ne null }">

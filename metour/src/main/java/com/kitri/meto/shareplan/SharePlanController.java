@@ -1,6 +1,11 @@
 package com.kitri.meto.shareplan;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kitri.meto.JoinDTO.JoinDTO;
+import com.kitri.meto.admin.AdminService;
 import com.kitri.meto.member.Member;
 import com.kitri.meto.member.MemberDaoService;
 import com.kitri.meto.metoo.Metoo;
@@ -39,6 +46,12 @@ public class SharePlanController {
 		this.memberService = memberService;
 	}
 	
+	@Resource(name="AdminService")
+	private AdminService adminSerivce;
+
+	public void setAdminSerivce(AdminService adminSerivce) {
+		this.adminSerivce = adminSerivce;
+	}
 	/////////////
 	@RequestMapping(value = "/share/share.do")
 	public String share(){
@@ -47,14 +60,16 @@ public class SharePlanController {
 	
 	@RequestMapping(value = "/share/add.do")
 	public String shareAdd(HttpServletRequest req, SharePlan s, 
-			@RequestParam(value="content") String content, @RequestParam(value="point_num") int point_num){
+			@RequestParam(value="content") String content, @RequestParam(value="point_num") int point_num,
+			@RequestParam(value="share_title") String share_title){
 		//mem_num 받아오기
-		String id = req.getSession().getAttribute("id").toString();
-		Member m = memberService.getMember(id);
+		//String id = req.getSession().getAttribute("id").toString();
+		//Member m = memberService.getMember(id);
 		
-		s.setWriter(m.getMem_num()); //수정:세션
+		s.setWriter(1); //수정:세션
 		s.setContent(content);
 		s.setPoint_num(point_num);
+		s.setShare_title(share_title);
 		shareService.addSharePlan(s);
 		System.out.println("성공");
 		return "redirect:/share/list.do";
@@ -185,6 +200,88 @@ public class SharePlanController {
 		 return "redirect:"+return1+return2+return3;
 	}*/
 	
+	
+	//히송이 수정해욤
+	@RequestMapping(value = "/share/search.do")
+	public ModelAndView search(@RequestParam(value="search") String share_title){
+		ArrayList<SharePlan> list = shareService.getSharePlanByTitle(share_title);
+		ModelAndView mav = new ModelAndView("shareplan/sharelist");
+		mav.addObject("list", list);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/share/gender.do")
+	public String gender(){
+		return "/shareplan/genderselect";
+	}
+	
+	@RequestMapping(value = "/share/genderlist.do")
+	public ModelAndView genderlist(@RequestParam(value="gender") String gender){
+		ArrayList<JoinDTO> list = shareService.getSharePlanByGender(gender);
+		ModelAndView mav = new ModelAndView("shareplan/sharelist");
+		
+		System.out.println(gender);
+		mav.addObject("list", list);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/share/age.do")
+	public String age(){
+		return "/shareplan/ageselect";
+	}
+	
+	@RequestMapping(value = "/share/agelist.do")
+	public ModelAndView genderlist(@RequestParam(value="age") int age){
+		ArrayList<Member> member = (ArrayList<Member>)adminSerivce.getMemberAll();
+		ArrayList<Integer> mem_num = getAge(member, age);
+		
+		ArrayList<SharePlan> list = new ArrayList<SharePlan>();
+		for(int i = 0; i < mem_num.size(); i++){
+			ArrayList<SharePlan> tmp = shareService.getSharePlanByWriter(mem_num.get(i));
+			for(int j = 0; j < tmp.size(); j++){
+				list.add(tmp.get(j));
+			}
+		}
+
+		ModelAndView mav = new ModelAndView("shareplan/sharelist");
+		
+		mav.addObject("list", list);
+		return mav;
+	}
+	
+	public ArrayList<Integer> getAge(ArrayList<Member> member, int agegroup){
+		ArrayList<String> birth = new ArrayList<String>();
+		for(int i = 0; i < member.size(); i++){
+			birth.add(member.get(i).getBirth());
+		}
+		
+		ArrayList<AgeSelectDTO> age = new ArrayList<AgeSelectDTO>();
+		for(int i = 0; i < member.size(); i++){
+			AgeSelectDTO ageDTO = new AgeSelectDTO();
+			ageDTO.setMem_num(member.get(i).getMem_num());
+			ageDTO.setAge(calAge(member.get(i).getBirth()));
+			age.add(ageDTO);
+		}
+		
+		ArrayList<Integer> mem_num = new ArrayList<Integer>();
+
+		for(int i = 0; i < age.size(); i++){
+			if(age.get(i).getAge() > agegroup-1 && age.get(i).getAge() <= agegroup + 10){
+				mem_num.add(age.get(i).mem_num);
+			}
+		}
+		HashSet<Integer> hs = new HashSet<Integer>(mem_num);
+		ArrayList<Integer> newindex = new ArrayList<Integer>(hs);
+		return newindex;
+	}
+	
+	public int calAge(String birth){
+		SimpleDateFormat formatter = new SimpleDateFormat ("yyyy", Locale.KOREA);
+		Date currentTime = new Date ( );
+		String year = formatter.format ( currentTime );
+		String birth_year = birth.substring(0,4);
+		return Integer.parseInt(year) - Integer.parseInt(birth_year) + 1;
+	}
 	
 }
 
