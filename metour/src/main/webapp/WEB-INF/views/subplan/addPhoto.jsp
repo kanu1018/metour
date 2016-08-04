@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/subplan/addphoto_ok.do" method="post" enctype="multipart/form-data">
-	sub_num : <input type="text" name="sub_num" value="${sub_num}"/><br/>
+<form action="${pageContext.request.contextPath}/subplan/addphoto_ok.do?sub_num=${sub_num}" method="post" enctype="multipart/form-data">
+	<%-- sub_num : <input type="text" name="sub_num" value="${sub_num}"/><br/> --%>
 	사진파일 : <input type="file" name="imgfile"/><br/>
 	<c:if test="${photo ne null }">
 		<img src="${photo}" style="width:200px;height:200px"/>

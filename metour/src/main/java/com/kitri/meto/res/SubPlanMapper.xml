@@ -27,7 +27,7 @@
 	</select>
     
 	<select id="select" resultMap="SubPlanResultMap" parameterType="int">
-		SELECT sub_num, sub_title, TO_CHAR(start_time,'HH24:MI') start_time, TO_CHAR(end_time,'HH24:MI') end_time, place, mission, memo, mission_yn, photo FROM sub_plan WHERE sub_num = #{sub_num}
+		SELECT sub_num, sub_title, TO_CHAR(start_time,'HH24:MI') start_time, TO_CHAR(end_time,'HH24:MI') end_time, place, mission, memo, mission_yn, photo, main_num FROM sub_plan WHERE sub_num = #{sub_num}
 	</select>
 	
 	<insert id="insert" parameterType="com.kitri.meto.subplan.SubPlan" >
