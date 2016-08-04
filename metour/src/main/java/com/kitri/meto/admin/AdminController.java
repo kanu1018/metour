@@ -39,7 +39,7 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("admin/singoList");
 		List<Singo> list = adminSerivce.getSingoAll();
 		mav.addObject("list", list);
-		return mav;	
+		return mav;
 	}
 	
 	@RequestMapping(value="/admin/out.do")

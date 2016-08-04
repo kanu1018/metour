@@ -26,7 +26,7 @@
 		location.href = "${pageContext.request.contextPath }/share/list.do";
 	}
 	function goSchedule() {
-		location.href = "${pageContext.request.contextPath }/schedule.do";
+		location.href = "${pageContext.request.contextPath }/schedule/schedule.do";
 	}
 	function goJoin() {
 		location.href="${pageContext.request.contextPath }/member/joinForm.do";
@@ -53,23 +53,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-메인페이지~
-<div>
-	<c:choose>
-		<c:when test="${sessionScope.id eq id && id ne null}">
-			<a onclick="logout()">로그아웃&nbsp;</a>
-			<a onclick="goEditMember()">회원정보수정&nbsp;</a>
-				<c:if test="${type eq 'm'}">
-				<a onclick="goAdminPage()">관리자페이지&nbsp;</a>
-				</c:if>
-		</c:when>
-		<c:otherwise>
-			<a onclick="login()">로그인&nbsp;</a>
-			<a onclick="goJoin()">회원가입&nbsp;</a>
-		</c:otherwise>
-	</c:choose>
-</div>
-<div>
+<%@ include file="../include_login.jsp" %>
+<div align="center">
 	<c:choose>
 			<c:when test="${sessionScope.id eq id && id ne null}">
 				<a onclick="goSchedule()">일정등록&nbsp;</a>
@@ -80,7 +65,7 @@
 	</c:choose>
 		<a onclick="goShareList()">공유글보기&nbsp;</a>
 </div>
-<div>
+<div align="center">
 <select id="search_box">
 	<option value="1">제목</option>
 	<option value="2">작성자</option>

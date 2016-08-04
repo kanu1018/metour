@@ -6,10 +6,10 @@ import com.kitri.meto.JoinDTO.JoinDTO;
 
 public interface SharePlanService {
 	void addSharePlan(SharePlan s);
-	void editMetoo(int share_num, int metoo);
+	void metooPlue(int share_num);
+	void metooMinus(int share_num);
 	SharePlan getSharePlan(int share_num);
 	ArrayList<SharePlan> getSharePlanAll();
-	
 	ArrayList<SharePlan> getSharePlanByTitle(String share_title);
 	ArrayList<JoinDTO> getSharePlanByGender(String gender);
 	ArrayList<SharePlan> getSharePlanByWriter(int writer);

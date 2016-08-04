@@ -21,9 +21,13 @@
 				var myDiv = document.getElementById("checkMsg");
 				var html = "";
 				var id1=document.f.id1.value;
+				var id2=document.f.id2.value;
 				if(id1==""){
 					alert("아이디를 입력해주세요");
-				}else{
+				}else if(id2==""){
+					alert("도메인을 입력해주세요");
+				}
+				else{
 					if(o.flag){
 						html = "사용가능한아이디";
 					}
@@ -70,7 +74,7 @@
 			alert("id를 입력해주세요");
 			document.f.id1.focus();
 			return;
-		}else if(id2=="" && document.getElementById("id2").value == ""){
+		}else if(id2==""){
 			alert("도메인값 입력해주세요");
 			document.f.id2.focus();
 			return;
@@ -94,7 +98,7 @@
 			alert("전화번호을 입력해주세요");
 			document.f.phone.focus();
 			return;
-		}else if(document.f.gender[0].checked ==false && document.f.gender[1].checked ==false){
+		}else if(document.f.gender[0].checked == false && document.f.gender[1].checked == false){
 			 var num_temp = document.f.gender.length; 
 			 for (i=0;i<num_temp ;i++) { 
 			  if (document.f.gender[i].checked == true) { 
@@ -123,6 +127,7 @@
 		}else{
 			document.getElementById("selbox").style.visibility = "hidden";
 			document.getElementById("id2").value = "";
+			document.getElementById("id2").readOnly = false;
 		}
 	}
 </script>
@@ -137,14 +142,14 @@
 <br>
 <div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black; border-bottom-color: white">
 <input type="text" name="id1" id="id1" placeholder="이메일형식 ID" align="left">@
-<input type="text" name="id2" id="id2" align="left">
+<input type="text" name="id2" id="id2" align="left" readonly="readonly">
 <select name="email" onclick="select()" id="selbox">
 	<option value=" ">이메일선택</option>
-    <option value="">직접쓰기</option>
     <option value="naver.com">naver.com</option>
     <option value="google.com">google.com</option>
     <option value="daum.net">daum.net</option>
     <option value="daeyang.com">daeyang.com</option>
+    <option value="">직접쓰기</option>
 </select>
 <a onclick="idCheck()" style="height: 30px; width: 80px; background-color: #F7F7F7;">중복체크</a><br>
 <span id="checkMsg" style="color: red"></span>
