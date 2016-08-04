@@ -1,9 +1,13 @@
 package com.kitri.meto.member;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
+
+import com.kitri.meto.JoinDTO.JoinDTO;
 
 @Component("MemberService")
 public class MemberDaoService implements memberService {
@@ -55,5 +59,25 @@ public class MemberDaoService implements memberService {
 		}else{
 			return false;
 		}
+	}
+
+	public List<JoinDTO> getArticleByRoot() {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.articleListAll();
+	}
+
+	public List<JoinDTO> getArticleByTitle(String text) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.getArticleByTitle(text);
+	}
+
+	public Object getArticleByWriter(String text) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.getArticleByWriter(text);
+	}
+
+	public Object getArticleByNum(int num) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.getArticleByNum(num);
 	}
 }

@@ -4,6 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript">
+	function back() {
+		    window.history.back();
+	}
+</script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -11,7 +16,7 @@
 <input type="text" name="id" id="id" value="${sessionScope.id}"/>
 <input type="password" name="pwd" style="height: 25px; width: 200px">
 <input type="submit" value="확인"/>
-<input type="reset" value="취소"/>
+<input type="button" value="취소" onclick="back()"/>
 </form>
 </body>
 </html>

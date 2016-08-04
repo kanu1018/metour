@@ -117,9 +117,12 @@
 		var email = document.f.email.value;
 		if(email){
 			document.getElementById("id2").value = email;
-			/* document.getElementById("id2").style.visibility = "hidden"; */
+			if(email==" "){
+				document.getElementById("id2").value = "";
+			}
 		}else{
-			document.getElementById("id2").style.visibility = "visible";
+			document.getElementById("selbox").style.visibility = "hidden";
+			document.getElementById("id2").value = "";
 		}
 	}
 </script>
@@ -135,8 +138,9 @@
 <div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black; border-bottom-color: white">
 <input type="text" name="id1" id="id1" placeholder="이메일형식 ID" align="left">@
 <input type="text" name="id2" id="id2" align="left">
-<select name="email" onclick="select()">
-    <option value="">직접선택</option>
+<select name="email" onclick="select()" id="selbox">
+	<option value=" ">이메일선택</option>
+    <option value="">직접쓰기</option>
     <option value="naver.com">naver.com</option>
     <option value="google.com">google.com</option>
     <option value="daum.net">daum.net</option>

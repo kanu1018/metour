@@ -1,5 +1,8 @@
 package com.kitri.meto.member;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.kitri.meto.JoinDTO.JoinDTO;
 
 
 
@@ -22,8 +27,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/")
-	public String main(){
-		return "member/main";
+	public ModelAndView main(){
+		List<JoinDTO> list = new ArrayList<JoinDTO>();
+		ModelAndView mav = new ModelAndView("member/main");
+		list = memberService.getArticleByRoot();
+		mav.addObject("LIST",list);
+		return mav;
 	}
 	
 	@RequestMapping("/member/joinForm.do")
@@ -143,11 +152,19 @@ public class MemberController {
 		return "admin/admin";
 	}
 	
-	@RequestMapping(value="/member/deletecar.do")
-	public String deletecar(@RequestParam (value="car_num")int car_num){
-
-//		ModelAndView mav = new ModelAndView("admin/carList");
-
-		return "admin/admin";
-	}
+	@RequestMapping(value="/member/search.do")
+	   public ModelAndView select(@RequestParam(value="type")int type,@RequestParam(value="searchText")String text){
+	      ModelAndView mav = new ModelAndView("member/main");
+	      if(type==1){
+	         mav.addObject("LIST",memberService.getArticleByTitle(text));//제목
+	      } else if(type==2){
+	         mav.addObject("LIST",memberService.getArticleByWriter(text));//작성자
+	      } else if(type==3){
+	    	 int num = Integer.parseInt(text);
+	         mav.addObject("LIST",memberService.getArticleByNum(num));//글번호
+	      } else {
+	         mav.addObject("LIST",memberService.getArticleByRoot());
+	      }
+	      return mav;
+	   }
 }
