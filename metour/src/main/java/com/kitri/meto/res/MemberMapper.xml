@@ -41,12 +41,12 @@
     </delete>
     
     <select id="articleListAll" resultMap="ArticleMap">
-    	SELECT share_num, main_title, id, location, metoo FROM member join share_plan on mem_num = writer join main_plan on main_plan_num = main_num 
+    	SELECT share_num, main_title, id, location, metoo FROM member join share_plan s on mem_num = writer join main_plan m on s.point_num= m.point_num 
     	WHERE <![CDATA[ ROWNUM <= 10 ]]>  ORDER BY metoo 
     </select>
     
     <select id="getArticleByTitle" resultMap="ArticleMap" parameterType="String">
-    	SELECT share_num, main_title, id, location, metoo FROM member join share_plan on mem_num = writer join main_plan on main_plan_num = main_num 
+    	SELECT share_num, main_title, id, location, metoo FROM member join share_plan s on mem_num = writer join main_plan m on s.point_num= m.point_num 
     	WHERE <![CDATA[ ROWNUM <= 10 ]]> AND main_title like '%' || #{text} || '%' ORDER BY metoo 
     </select>
     
