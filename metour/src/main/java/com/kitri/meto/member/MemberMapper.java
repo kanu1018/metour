@@ -14,4 +14,5 @@ public interface MemberMapper {
 	List<JoinDTO> getArticleByTitle(String text);
 	List<JoinDTO> getArticleByWriter(String text);
 	List<JoinDTO> getArticleByNum(int num);
+	int selectById(String id);
 }

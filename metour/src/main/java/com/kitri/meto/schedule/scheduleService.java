@@ -8,5 +8,6 @@ public interface scheduleService {
 	void editSchedule(Schedule s);
 	Schedule getSchedule(Schedule schdeule);
 	List<Schedule> getSchedules(int main_writer);
-	
+	int getByPointNum();
+	int getByMainNum();
 }

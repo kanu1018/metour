@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<a href="${pageContext.request.contextPath}/subplan/add.do">등록</a>
+<a href="${pageContext.request.contextPath}/subplan/add.do?main_num=${main_num}">등록</a>
 
 <table border="1">
 	<tr>

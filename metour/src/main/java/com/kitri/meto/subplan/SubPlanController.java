@@ -27,10 +27,8 @@ public class SubPlanController {
 	}
 	
 	@RequestMapping(value = "/subplan/add.do")
-	public ModelAndView subPlanAdd(HttpServletRequest request){
+	public ModelAndView subPlanAdd(HttpServletRequest request, @RequestParam(value="main_num") int main_num){
 		ModelAndView mav = new ModelAndView("subplan/subPlanAdd");
-		
-		int main_num = Integer.parseInt(request.getParameter("main_num").toString());
 		
 		ArrayList<SubPlan> sub = subPlanService.getSubPlans(main_num);
 		
@@ -50,7 +48,7 @@ public class SubPlanController {
 			index = Integer.parseInt(hour) * 2;
 		}
 		
-		if(ampm.equals("�삤�썑")){
+		if(ampm.equals("오후")){
 			index += 24;
 		}
 		
@@ -111,16 +109,16 @@ public class SubPlanController {
 	}
 	
 	@RequestMapping(value = "/subplan/list.do")
-	public ModelAndView subPlanList(HttpServletRequest request){
+	public ModelAndView subPlanList(HttpServletRequest request, @RequestParam(value="main_num")int main_num){
 		ModelAndView mav = new ModelAndView("subplan/subPlanList");
-		int main_num = Integer.parseInt(request.getParameter("main_num").toString());
 		ArrayList<SubPlan> sub = subPlanService.getSubPlans(main_num);
-		
 		ArrayList<String> time = getTime();
 		mav.addObject("time", time);
 		
 		ArrayList<SubPlanList> title = getTitlebyTime(sub);
 		mav.addObject("splist", title);
+		
+		mav.addObject("main_num",main_num);
 		return mav;
 	}
 	

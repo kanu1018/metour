@@ -80,4 +80,10 @@ public class MemberDaoService implements memberService {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		return memberMapper.getArticleByNum(num);
 	}
+
+	@Override
+	public int getMem_numById(String id) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.selectById(id);
+	}
 }

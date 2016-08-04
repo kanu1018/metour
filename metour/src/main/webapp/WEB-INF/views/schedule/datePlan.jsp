@@ -36,7 +36,14 @@ function moveURL2(URL){
 	window.opener.location.href = url;
 	window.close();
 }		
-
+function insertPlan(year,month,day){
+	var title = document.getElementById("title").value;
+	var day = year + "/" + month + "/" + day;
+	var url = "${pageContext.request.contextPath}/schedule/insertPlan.do?title="+title+"&day="+day;
+	//location.href = url;
+	window.opener.location.href = url;
+	window.close();
+}
 </script>
 </head>
 <body>
@@ -104,6 +111,11 @@ function moveURL2(URL){
 <c:if test="${schedule eq null}">
 <div align ="center">
 	<table style="width:330px">
+		<tr style="height: 30px">
+		<td align="center">
+				<input type="text" placeholder="제목을 입력하세요." style="width: 97%;height: 100%" id="title"/>
+			</td>
+		</tr>
 		<tr style="height: 30px">
 			<td align="center">
 				<button style="width: 100%;height: 100%" onclick="insertPlan(${Year},${Month},${Day})">계획하기</button>

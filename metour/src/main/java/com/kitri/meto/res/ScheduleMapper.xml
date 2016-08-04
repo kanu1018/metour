@@ -24,7 +24,19 @@
  </select>
 
  <delete id="delete" parameterType="int">
-       delete from main_plan where main_num = #{main_num}
+    delete from main_plan where main_num = #{main_num}
  </delete>
+ 
+ <insert id="insert" parameterType="com.kitri.meto.schedule.Schedule" >
+	INSERT INTO main_plan values(main_seq.nextval ,#{main_title}, #{main_writer}, TO_DATE(#{main_date}, 'YYYY/MM/DD'), #{point_num})
+</insert>
+
+ <select id = "selectByPointNum" resultType="int">
+ 	SELECT MAX(point_num) FROM point
+ </select>
+ 
+ <select id = "selectByMainNum" resultType="int">
+ 	SELECT MAX(main_num) FROM main_plan
+ </select>
 
 </mapper>

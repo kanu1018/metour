@@ -7,11 +7,14 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kitri.meto.member.MemberDaoService;
 import com.kitri.meto.subplan.SubPlan;
 import com.kitri.meto.subplan.SubPlanService;
 
@@ -30,6 +33,13 @@ public class ScheduleController {
 
 	public void setSubPlanService(SubPlanService subPlanService) {
 		this.subPlanService = subPlanService;
+	}
+	
+	@Resource(name="MemberService")
+	private MemberDaoService memberService;
+
+	public void setMemberService(MemberDaoService memberService) {
+		this.memberService = memberService;
 	}
 
 	Calendar now = Calendar.getInstance();
@@ -273,6 +283,21 @@ public class ScheduleController {
              return false;
         }
         return true;
+	}
+	
+	@RequestMapping("/schedule/insertPlan.do")
+	public String insertPlan(HttpServletRequest request, @RequestParam(value="title") String main_title, 
+			@RequestParam(value="day") String day){
+		HttpSession session = request.getSession();
+		String id = session.getAttribute("id").toString();
+		Schedule s = new Schedule();
+		s.setMain_title(main_title);
+		s.setMain_writer(memberService.getMem_numById(id));
+		s.setMain_date(day);
+		s.setPoint_num(scheduleService.getByPointNum()+1);
+		
+		scheduleService.addSchedule(s);
+		return "redirect:/subplan/list.do?main_num="+scheduleService.getByMainNum();
 	}
 	
 	

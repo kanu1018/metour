@@ -49,4 +49,16 @@ public class ScheduleDaoService implements scheduleService {
 		return list;
 	}
 
+	@Override
+	public int getByPointNum() {
+		ScheduleMapper scheduleMapper = sqlSession.getMapper(ScheduleMapper.class);
+		return scheduleMapper.selectByPointNum();
+	}
+
+	@Override
+	public int getByMainNum() {
+		ScheduleMapper scheduleMapper = sqlSession.getMapper(ScheduleMapper.class);
+		return scheduleMapper.selectByMainNum();
+	}
+
 }

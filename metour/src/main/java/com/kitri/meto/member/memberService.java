@@ -6,5 +6,6 @@ public interface memberService {
 	void editMember(Member m);
 	Member getMember(String id);
 	boolean login(Member m);
+	int getMem_numById(String id);
 	
 }
