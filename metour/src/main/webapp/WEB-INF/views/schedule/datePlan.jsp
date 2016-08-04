@@ -30,6 +30,16 @@ function deletePlan(main_num){
 		return;
 	}
 }
+function sharePlan(main_num){
+	if(confirm("현재 날짜 계획을 공유하시겠습니까?")==true){
+		var url = "${pageContext.request.contextPath}/ms/select.do?main_num="+main_num;
+		//location.href = url;
+		window.opener.location.href = url;
+		window.close();
+	}else{
+		return;
+	}
+}
 
 function moveURL1(URL){
 	var url = "${pageContext.request.contextPath}"+URL;
@@ -107,7 +117,7 @@ function insertPlan(year,month,day){
 				<button style="width: 100%;height: 100%" onclick="deletePlan(${schedule.main_num})">계획삭제하기</button>
 			</td>
 			<td align="center">
-				<button style="width: 100%;height: 100%">계획공유하기</button>
+				<button style="width: 100%;height: 100%" onclick="sharePlan(${schedule.main_num})">계획공유하기</button>
 			</td>
 		</tr>
 	</table>
