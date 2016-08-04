@@ -8,4 +8,6 @@ public interface ScheduleMapper {
 	Schedule select(Schedule schedule);
 	List<Schedule> selectAll(int main_writer);
 	void update(Schedule s);
+	int selectByPointNum();
+	int selectByMainNum();
 }

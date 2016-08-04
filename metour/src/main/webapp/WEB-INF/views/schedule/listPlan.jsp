@@ -5,6 +5,45 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript">
+	function sharePlans(){
+		var sel_obj = document.getElementsByName("checked");
+		var selected = "";
+		for(var i = 0; i < sel_obj.length; i++){
+			if(sel_obj[i].checked == true){
+				selected += sel_obj[i].value+"/";
+			}
+		}
+		
+		if(confirm("선택된 날짜 계획을 공유하시겠습니까?")==true){
+			var url = "${pageContext.request.contextPath}/ms/selectPlans.do?main_num="+selected;
+			//location.href = url;
+			window.opener.location.href = url;
+			window.close();
+		}else{
+			return;
+		}
+	}
+	
+	function deletePlans(){
+		var sel_obj = document.getElementsByName("checked");
+		var selected = "";
+		for(var i = 0; i < sel_obj.length; i++){
+			if(sel_obj[i].checked == true){
+				selected += sel_obj[i].value+"/";
+			}
+		}
+		
+		if(confirm("선택된 계획을 삭제하시겠습니까?")==true){
+			var url = "${pageContext.request.contextPath}/schedule/deletePlans.do?main_num="+selected;
+			//location.href = url;
+			window.opener.location.href = url;
+			window.close();
+		}else{
+			return;
+		}
+	}
+</script>
 <title>Insert title here</title>
 
 <style> 
@@ -47,7 +86,7 @@
 	</c:if>
 	<table id="mainPlanTable">
 		<tr>
-			<td rowspan="2" style="height: 60px; width: 45px;">ch</td>
+			<td rowspan="2" style="height: 60px; width: 45px;"><input type="checkbox" name="checked" value="${s.main_num}"></td>
 			<td colspan="2" style="height: 30px; width: 310px;">${s.main_title}</td>
 			<td rowspan="2" style="height: 60px; width: 25px;">상세</td>
 		</tr>
@@ -60,10 +99,10 @@
 </div>
 <div style="width:100%;height:15px;margin-top: 5px" align="center">
 	<c:if test="${action eq 0}">
-	<button style="width:50%;height:20px;">삭제하기</button>
+	<button style="width:50%;height:20px;" onclick="deletePlans()">삭제하기</button>
 </c:if>
 <c:if test="${action eq 1}">
-	<button style="width:50%;height:20px;">공유하기</button>
+	<button style="width:50%;height:20px;" onclick="sharePlans()">공유하기</button>
 </c:if>
 </div>
 

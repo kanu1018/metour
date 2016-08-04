@@ -1,8 +1,11 @@
 package com.kitri.meto.mainsub;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +31,30 @@ public class MainSubPlanController {
 		mav.addObject("j", j);
 		mav.addObject("s", subList);
 		return mav;
+	}
+	
+	@RequestMapping("/ms/selectPlans.do")
+	public String selectPlans(HttpServletRequest request, @RequestParam(value="main_num") String main_num){
+		String main_nums[] = main_num.split("/");
+
+		for(int i = 0; i < main_nums.length; i++){
+			System.out.println("main_nums"+i+":"+main_nums[i]);
+		}
+		
+		return "redirect:/schedule/schedule.do";
+	}
+	
+	
+	private boolean isDate(int y, int m, int d) {
+		m -= 1;
+        Calendar c = Calendar.getInstance();
+        c.setLenient(false);   
+        try {  
+             c.set(y, m, d);
+             Date dt = c.getTime();
+        } catch(IllegalArgumentException e) {
+             return false;
+        }
+        return true;
 	}
 }
