@@ -128,9 +128,13 @@ public class SubPlanController {
 		ArrayList<SubPlan> sub = subPlanService.getSubPlans(main_num);
 		
 		ArrayList<String> time = getTime();
-		mav.addObject("time", time);
 		
 		ArrayList<SubPlanList> title = getTitlebyTime(sub);
+		
+		for(int i = 0; i < title.size(); i++){
+			title.get(i).setTime(time.get(i));
+		}
+		
 		mav.addObject("splist", title);
 		mav.addObject("main_num", main_num);
 		return mav;
@@ -200,13 +204,24 @@ public class SubPlanController {
 		
 		ArrayList<SubPlanList> title = new ArrayList<SubPlanList>();
 		for(int i = 0; i < 48; i++){
-			SubPlanList sp = new SubPlanList(0,"","","","");
+			SubPlanList sp = new SubPlanList(0,"","","","", 0);
 			title.add(sp);
 		}
 		
 		for(int j = 0; j < start_now.length; j++){
 			int start_i = getIndex(start_now[j].substring(2, 4), start_now[j].substring(3, 5), start_now[j].substring(0, 2));
 			int end_i = getIndex(end_now[j].substring(2, 4), end_now[j].substring(5, 7), end_now[j].substring(0, 2));
+			
+			/*SubPlanList sp = new SubPlanList();
+			sp.setSub_num(sub.get(j).getSub_num());
+			sp.setTitle(sub.get(j).getSub_title());
+			sp.setPlace(sub.get(j).getPlace());
+			sp.setMission(sub.get(j).getMission());
+			sp.setMission_yn(sub.get(j).getMission_yn());
+			*/
+			
+			//title.set(start_i+1, sp);
+			//title.set(start_i+1, sp);
 			for(int i = start_i; i < end_i; i++){
 				SubPlanList sp = new SubPlanList();
 				sp.setSub_num(sub.get(j).getSub_num());
@@ -214,8 +229,18 @@ public class SubPlanController {
 				sp.setPlace(sub.get(j).getPlace());
 				sp.setMission(sub.get(j).getMission());
 				sp.setMission_yn(sub.get(j).getMission_yn());
+				int row = 0;
+				for(int k = start_i; k < end_i; k++){
+					row++;
+				}
+				
+				sp.setRow(row);
 				title.set(i, sp);
 			}
+		}
+		
+		for(int i = 0 ; i < 48; i++){
+			System.out.println(title.get(i).getRow());
 		}
 		
 		return title;
@@ -278,7 +303,7 @@ public class SubPlanController {
 		sp.setSub_num(sp.getSub_num());
 		subPlanService.updatePhoto(sp);
 		subPlanService.editSubPlan(sp);
-		return "redirect:/subplan/list.do";
+		return "redirect:/subplan/list.do?main_num="+sp.getMain_num();
 	}
 	
 	@RequestMapping(value = "/subplan/del.do")

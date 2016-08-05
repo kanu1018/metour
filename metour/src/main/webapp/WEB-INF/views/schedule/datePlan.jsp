@@ -62,24 +62,25 @@ function insertPlan(year,month,day){
 </head>
 <body>
 
-<table border='0' width='330' cellpadding='0' cellspacing='0'>
+<table width='330px' style="margin: auto; background-color: #282832;">
   <tr>
-     <td width='90' align='center' valign='middle'>
-         <a href="${pageContext.request.contextPath}/schedule/datePlan.do?year=${L_Year}&month=${L_Month}&day=${L_Day}">
+     <td width='80' align="center" valign="bottom">
+        <a style="text-decoration:none; color: #ffffff;" href="${pageContext.request.contextPath}/schedule/datePlan.do?year=${L_Year}&month=${L_Month}&day=${L_Day}">
              <font size="2">${L_Month}월 ${L_Day}일</font>
          </a>
      </td>
-     <td width='130' align='center' valign='middle'> 
-			     
-         <b>${Year}년 ${Month}월 ${Day}일</b>
+    
+     <td width='170' align='center' valign='middle' style="color: #ffffff; font-size: 20px">
+     	<b>${Year}년 ${Month}월 ${Day}일</b>
      </td>
-     <td width='90'align='center' valign='middle'>
-         <a href="${pageContext.request.contextPath}/schedule/datePlan.do?year=${N_Year}&month=${N_Month}&day=${N_Day}">
-             <font size="2">${N_Month}월 ${N_Day}일</font>
+     <td width='80' align='center' valign="bottom">
+         <a style="text-decoration:none;  color: #ffffff;" href="${pageContext.request.contextPath}/schedule/datePlan.do?year=${N_Year}&month=${N_Month}&day=${N_Day}">
+             <font size="2">${L_Month}월 ${L_Day}일</font>
          </a>
     </td>
   </tr>
 </table>
+
 <c:if test="${schedule ne null}">
 	<table id ="mainPlanTable">
 		<tr>
