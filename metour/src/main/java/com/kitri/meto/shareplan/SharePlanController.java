@@ -1,6 +1,5 @@
 package com.kitri.meto.shareplan;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +21,8 @@ import com.kitri.meto.member.Member;
 import com.kitri.meto.member.MemberDaoService;
 import com.kitri.meto.metoo.Metoo;
 import com.kitri.meto.metoo.MetooService;
+import com.kitri.meto.rep.Rep;
+import com.kitri.meto.rep.RepService;
 
 @Controller
 public class SharePlanController {
@@ -51,6 +52,13 @@ public class SharePlanController {
 
 	public void setAdminSerivce(AdminService adminSerivce) {
 		this.adminSerivce = adminSerivce;
+	}
+	
+	@Resource(name="RepService")
+	private RepService repService;
+	
+	public void setSharePlanService(RepService repService){
+		this.repService = repService;
 	}
 	/////////////
 	@RequestMapping(value = "/share/share.do")
@@ -86,9 +94,9 @@ public class SharePlanController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/share/view.do")//세션받기
+	@RequestMapping(value="/share/view.do")
 	public ModelAndView shareView(HttpServletRequest req, @RequestParam(value="share_num") int share_num){
-		//세션 id, mem_num 받아오기
+		/*//세션 id, mem_num 받아오기
 		HttpSession session = req.getSession();
 		String id = session.getAttribute("id").toString();
 		Member m = memberService.getMember(id);
@@ -100,6 +108,10 @@ public class SharePlanController {
 		Metoo me = new Metoo();
 		me.setMem_num(m.getMem_num());
 		me.setShare_num(share_num);
+		//전체 댓글 목록
+		ArrayList<Rep> list = repService.getRepByShareNum(share_num);
+		//내 댓글 목록
+		ArrayList<Rep> myRep = repService.getRep(share_num, mem_num);
 		
 		// metoo table 컬럼 존재 확인
 		int cnt = metooService.getMetooCnt(me); 
@@ -112,99 +124,70 @@ public class SharePlanController {
 			// 컬럼 있을 시 본인 yn 확인
 			me = metooService.getMetoo(me);
 			System.out.println(me.getMetoo_yn());
-		}
-		
-		
+		}*/
 		//
 		ModelAndView mav = new ModelAndView("shareplan/shareview");
-		mav.addObject("s", s);
-		mav.addObject("me", me);
-		mav.addObject("cnt", cnt);
+		
+		//세션 받기
+		HttpSession session = req.getSession();
+		
+		//공유글 받기
+		SharePlan s = shareService.getSharePlan(share_num);
+		
+		//전체 댓글 목록
+		ArrayList<Rep> list = repService.getRepByShareNum(share_num);
+		
+		if(session != null){
+			//로그인 했을 경우
+			//세션 id, mem_num 받아오기
+			String id = session.getAttribute("id").toString();
+			Member m = memberService.getMember(id);
+			int mem_num = m.getMem_num();
+			System.out.println(mem_num);
+			
+			//내 댓글 목록
+			Rep r = new Rep();
+			r.setRep_writer(mem_num);
+			r.setShare_num(share_num);
+			ArrayList<Rep> myRep = repService.getRep(r);
+			
+			//metoo_yn 받기
+			Metoo me = new Metoo();
+			me.setMem_num(m.getMem_num());
+			me.setShare_num(share_num);
+			
+			// metoo table 컬럼 존재 확인
+			int cnt = metooService.getMetooCnt(me); 
+			System.out.println(cnt);
+			
+			if(cnt == 0){ 
+				// 컬럼 없을 시 metoo add
+				metooService.addMetoo(me);
+			} else {
+				// 컬럼 있을 시 본인 yn 확인
+				me = metooService.getMetoo(me);
+				System.out.println(me.getMetoo_yn());
+			}
+			mav.addObject("me", me); // 좋아요
+			mav.addObject("r", myRep); // 내 댓글
+		} 
+		for(int i = 0; i<list.size(); i++){
+			System.out.println("list:" + list.get(i).getRep_content());
+		}
+		//
+		//ModelAndView mav = new ModelAndView("shareplan/shareview");
+		mav.addObject("s", s); // 공유글
+		//mav.addObject("me", me); // 좋아요
+		mav.addObject("list", list); // 전체 댓글
+		//mav.addObject("r", r); // 내 댓글
 		return mav;
 	}
 	
-	/*@RequestMapping(value = "/share/metoo.do")
-	public String view(HttpServletRequest req, @RequestParam(value="share_num") int share_num, @RequestParam(value="type") int type){//세션받기
-		//세션 id, mem_num 받아오기
-		//String id = req.getSession().getAttribute("id").toString();
-		//Member m = memberService.getMember(id);
-		
-		//share_plan metoo 수 변경
-		if(type == 1){
-			metooService.addMetoo(me);
-		} else if (type == 2){
-			shareService.editMetoo(share_num, metoo);
-		} else if (type == 3) {
-			
-		}
-		
-		
-		// metoo insert
-		Metoo me = new Metoo();
-		me.setMem_num(2); //세션값
-		me.setShare_num(share_num);
-		metooService.addMetoo(me);
-		
-		return "redirect:/share/list.do";
-	}*/
-	
+	///////
 	@RequestMapping(value = "/resourceTest")
 	public String resourceTest(){
 		return "/subplan/subPlanPhoto";
 	}
-	
-	/*@RequestMapping("/file_uploader")
-	public String file_uploader(HttpServletRequest request, HttpServletResponse response, Editor editor){
-		System.out.println("들어와"); 
-		String return1=request.getParameter("callback");
-		 String return2="?callback_func=" + request.getParameter("callback_func");
-		 String return3="";
-		 String name = "";
-		 try {
-			if(editor.getFiledata() != null && editor.getFiledata().getOriginalFilename() != null && !editor.getFiledata().getOriginalFilename().equals("")) {
-	             // 기존 상단 코드를 막고 하단코드를 이용
-	            name = editor.getFiledata().getOriginalFilename().substring(editor.getFiledata().getOriginalFilename().lastIndexOf(File.separator)+1);
-				String filename_ext = name.substring(name.lastIndexOf(".")+1);
-				filename_ext = filename_ext.toLowerCase();
-			   	String[] allow_file = {"jpg","png","bmp","gif"};
-			   	int cnt = 0;
-			   	for(int i=0; i<allow_file.length; i++) {
-			   		if(filename_ext.equals(allow_file[i])){
-			   			cnt++;
-			   		}
-			   	}
-			   	if(cnt == 0) {
-			   		return3 = "&errstr="+name;
-			   	} else {
-			   		//파일 기본경로
-		    		String dftFilePath = request.getSession().getServletContext().getRealPath("/");
-		    		//파일 기본경로 _ 상세경로
-		    		String filePath = dftFilePath + "resources"+ File.separator + "smarteditor" + File.separator +"upload" + File.separator;
-		    		File file = new File(filePath);
-		    		if(!file.exists()) {
-		    			file.mkdirs();
-		    		}
-		    		String realFileNm = "";
-		    		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
-					String today= formatter.format(new java.util.Date());
-					realFileNm = today+UUID.randomUUID().toString() + name.substring(name.lastIndexOf("."));
-					String rlFileNm = filePath + realFileNm;
-					///////////////// 서버에 파일쓰기 /////////////////
-					editor.getFiledata().transferTo(new File(rlFileNm));
-					///////////////// 서버에 파일쓰기 /////////////////
-		    		return3 += "&bNewLine=true";
-		    		return3 += "&sFileName="+ name;
-		    		return3 += "&sFileURL=/resources/smarteditor/upload/"+realFileNm;
-			   	}
-			}else {
-				  return3 += "&errstr=error";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		 return "redirect:"+return1+return2+return3;
-	}*/
-	
 	
 	//히송이 수정해욤
 	@RequestMapping(value = "/share/search.do")
