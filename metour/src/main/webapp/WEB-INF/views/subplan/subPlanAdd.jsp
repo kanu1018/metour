@@ -5,6 +5,64 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style type="text/css">
+*,body{
+ font-family: "맑은 고딕";
+ margin:0px;
+ padding:0px;
+ font-size:14px;
+}
+caption{
+ background: url(images/title_event.png) no-repeat center center;
+ width:700px;
+ height:50px;
+}
+caption span{
+ display:none;
+}
+table{
+ border-collapse: collapse;
+}
+
+th{
+ padding:5px;
+}
+
+td{
+ padding:5px;
+}
+
+input[type="text"]{
+  line-height: normal;
+  width: 350px;
+  height: 30px;
+}
+
+ INPUT[type="button"]{
+		width: 200px;
+		height: 30px;
+		font-size: 11pt;
+		border: solid 2px;
+		border-radius:7px;
+		background-color:#1dabb8;
+		text-align:center;
+		color: #FFFFFF;
+} 
+select {
+	width:130px;
+    position: relative;
+    border: 1px solid #E9DDDD;
+}
+
+div.bodytable{
+	margin: 50px;
+
+}
+/*  IE 10, 11의 네이티브 화살표 숨기기 */
+select::-ms-expand { 
+  display: none;
+} 
+</style>
 <script type="text/javascript">
 var newWindow;
 
@@ -29,9 +87,9 @@ var time_index = "<c:out value='${index}'/>";
 		}
 	}
 	
-	function subPlanCancel(){
+	function subPlanCancel(num){
 		if(confirm("이전페이지로 돌아가시겠습니까?") == true){
-			location.href="${pageContext.request.contextPath}/subplan/list.do";
+			location.href="${pageContext.request.contextPath}/subplan/list.do?main_num="+num;
 		} else{
 			if(confirm("입력된 정보를 모두 삭제하시겠습니까?") == true){
 				document.f.sub_title.value = "";
@@ -125,6 +183,7 @@ function duple() {
 <title>세부 계획 등록</title>
 </head>
 <body>
+<div class="bodytable">
 <h3>세부 계획 등록</h3>
 <form action="${pageContext.request.contextPath}/subplan/addok.do" name="f" method="post" >
 
@@ -133,7 +192,7 @@ function duple() {
 <input type="hidden" name="main_num" value="${main_num}"/>
 <input type="hidden" name="mission_yn" value="0"/>
 
-	<table border="1">
+	<table>
 		<tr>
 			<th>제목</th>
 			<td colspan="3"><input type="text" name="sub_title"/></td>
@@ -246,12 +305,12 @@ function duple() {
 		</tr>
 		<tr>
 			<th>장소검색</th>
-			<td colspan="3"><input type="text" name="place"><input type="button" value="돋보기" onclick="openNewWindow()"/></td>
+			<td colspan="3"><input type="text" name="place" style="width: 300px;"><input type="button" value="돋보기" onclick="openNewWindow()" style="width: 50px;"/></td>
 		</tr>
 		<tr>
 			<th>미션</th>
 			<td colspan="3">
-				<select name="mission">
+				<select name="mission" style="width: 350px;">
 					<option value="n" >미션 선택안함</option>
 					<option value="g" >명소 찾아가기</option>
 					<option value="p" >명소 사진찍기</option>
@@ -259,16 +318,17 @@ function duple() {
 			</td>
 		</tr>
 		<tr>
-			<th>설명</th>
-			<td colspan="3"><textarea name="memo"></textarea></td>
+			<th>메모</th>
+			<td colspan="3"><textarea name="memo" style="width: 350px; height: 100px;"></textarea></td>
 		</tr>
 		<tr>
 			<td colspan="2"><input type="button" value="등록" onclick="subPlanAdd()"/></td>
-			<td colspan="2"><input type="button" value="취소" onclick="subPlanCancel()"/></td>
+			<td colspan="2"><input type="button" value="취소" onclick="subPlanCancel(${main_num})"/></td>
 		</tr>
 	</table>
 	
 	
 </form>
+</div>
 </body>
 </html>
