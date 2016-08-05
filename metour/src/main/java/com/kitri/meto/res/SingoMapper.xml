@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.meto.singo.SingoMapper">
+ 	<resultMap type="com.kitri.meto.singo.Singo" id="SingoResultMap">
+ 		<result property="singo_num" column="singo_num" />
+ 		<result property="singo_content" column="singo_content" />
+ 		<result property="singo_state" column="singo_state" />
+ 		<result property="content_num" column="content_num" />
+ 		<result property="singo_num" column="singo_num" />
+	</resultMap>
+		
+	<insert id="insert" parameterType="com.kitri.meto.singo.Singo" >
+		INSERT INTO singo values(singo_seq.nextval, #{singo_kind}, #{singo_content}, 'n',#{content_num}, #{singo_mem})
+	</insert>
+</mapper>

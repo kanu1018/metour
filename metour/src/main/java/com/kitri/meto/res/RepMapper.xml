@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.meto.rep.RepMapper">
+ 	<resultMap type="com.kitri.meto.rep.Rep" id="RepResultMap">
+ 		<result property="rep_num" column="rep_num" />
+ 		<result property="rep_content" column="rep_content" />
+ 		<result property="rep_writer" column="rep_writer" />
+ 		<result property="share_num" column="share_num" />
+	</resultMap>
+		
+	<insert id="insert" parameterType="com.kitri.meto.rep.Rep" >
+		INSERT INTO rep values(rep_seq.nextval, #{rep_content}, #{rep_writer}, #{share_num})
+	</insert>
+	
+	<update id="update" parameterType="com.kitri.meto.rep.Rep">
+		UPDATE rep SET rep_content = #{rep_content} WHERE rep_num = #{rep_num}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM rep WHERE rep_num = #{rep_num}
+	</delete>
+	
+	<select id="select" resultMap="RepResultMap" parameterType="com.kitri.meto.rep.Rep">
+		SELECT * FROM rep WHERE rep_writer = #{rep_writer} AND share_num = #{share_num}
+	</select>
+	
+	<select id="selectByShareNum" resultMap="RepResultMap" parameterType="int">
+		SELECT * FROM rep WHERE share_num = #{share_num} ORDER BY rep_num desc
+	</select>
+</mapper>

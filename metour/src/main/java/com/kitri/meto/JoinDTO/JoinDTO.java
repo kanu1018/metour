@@ -54,7 +54,8 @@ public class JoinDTO {
 	private String singo_kind;
 	private String singo_content;
 	private String singo_state;
-	private String singo_mem;
+	private int content_num;
+	private int singo_mem;
 	
 	
 	//metoo
@@ -67,9 +68,9 @@ public class JoinDTO {
 			String mem_status, int main_num, String main_title, int main_writer, String main_date, int sub_num,
 			String sub_title, String start_time, String end_time, String place, String llh_x, String llh_y,
 			String mission, String memo, String mission_yn, String photo, int share_num, String writer, String location,
-			String content, String metoo,String share_title, int rep_num, String rep_content, String rep_writer, int point_num, int point,
-			int singo_num, String singo_kind, String singo_content, String singo_state, String singo_mem, int metoo_num,
-			String metoo_yn) {
+			String content, String metoo, String share_title, int rep_num, String rep_content, String rep_writer,
+			int point_num, int point, int singo_num, String singo_kind, String singo_content, String singo_state,
+			int content_num, int singo_mem, int metoo_num, String metoo_yn) {
 		super();
 		this.mem_num = mem_num;
 		this.id = id;
@@ -109,10 +110,12 @@ public class JoinDTO {
 		this.singo_kind = singo_kind;
 		this.singo_content = singo_content;
 		this.singo_state = singo_state;
+		this.content_num = content_num;
 		this.singo_mem = singo_mem;
 		this.metoo_num = metoo_num;
 		this.metoo_yn = metoo_yn;
 	}
+
 
 	// setter, getter
 	public int getMem_num() {
@@ -343,11 +346,17 @@ public class JoinDTO {
 	public void setSingo_state(String singo_state) {
 		this.singo_state = singo_state;
 	}
-	public String getSingo_mem() {
+	public int getSingo_mem() {
 		return singo_mem;
 	}
-	public void setSingo_mem(String singo_mem) {
+	public void setSingo_mem(int singo_mem) {
 		this.singo_mem = singo_mem;
+	}
+	public int getContent_num() {
+		return content_num;
+	}
+	public void setContent_num(int content_num) {
+		this.content_num = content_num;
 	}
 	public int getMetoo_num() {
 		return metoo_num;
