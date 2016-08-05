@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id="selectAll" resultMap="SharePlanResultMap" parameterType="int">
-		SELECT * FROM share_plan ORDER BY share_num
+		SELECT * FROM share_plan ORDER BY share_num desc
 	</select>
 	
 	<update id="metooPlus" parameterType="com.kitri.meto.shareplan.SharePlan">

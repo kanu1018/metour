@@ -79,7 +79,7 @@ td{
 	.a2:hover {text-decoration: none; color: #FFFFFF; background-color: #1ABC9C;}
 	
 	div.top{
-		height: 60px;
+		height: 80px;
 		background-color: #1ABC9C; 
 		color: #ffffff;
 		padding: 0px;
@@ -121,6 +121,20 @@ td{
 	img.person{
 		width: 25px;
 		height: 25px;
+	}
+	img.search{
+		width: 25px;
+		height: 25px;
+	}
+	
+	INPUT[type=text]{
+		font-size: 12pt;
+		border:1px;
+		border-color: #808080;
+		border-style: solid;
+		background-color: #ffffff;
+		width: 300px;
+		font-family: 맑은 고딕;
 	}
 
 </style>
@@ -216,19 +230,21 @@ td{
 			</c:otherwise>
 	</c:choose>
 		<a onclick="goShareList()">공유글보기&nbsp;</a><br> --%>
-	<table class="tabtop">
+	<table class="tabtop" >
 		<tr>
-			<td class="menu">
-				이미지&nbsp;&nbsp;&nbsp;
+			<td style="width: 100px;">
+				<img src="/img/metos.png">
+			</td>
+			<td class="menu" style="text-align: left;">
 				<c:choose>
 					<c:when test="${sessionScope.id eq id && id ne null}">
-						<a onclick="goSchedule()" target="ppp" class="a2">일정등록&nbsp;</a>
+						<a href="${pageContext.request.contextPath }/schedule/schedule.do" target="ppp" class="a2">일정등록&nbsp;</a>
 					</c:when>
 					<c:otherwise>
 						<a onclick="goLoginForm()" target="ppp" class="a2">일정등록&nbsp;</a>
 					</c:otherwise>
 				</c:choose>
-				<a onclick="goShareList()" target="ppp" class="a2">공유글보기&nbsp;</a><br>
+				<a href="${pageContext.request.contextPath }/share/list.do" target="ppp" class="a2">공유글보기&nbsp;</a><br>
 			</td>
 			<td class="dropdown">
 				<ul>
@@ -237,10 +253,10 @@ td{
 						<ul>
 							<c:choose>
 								<c:when test="${sessionScope.id eq id && id ne null}">
-									<li><a onclick="logout()" class="a1">로그아웃&nbsp;</a></li>
-									<li><br><a onclick="goEditMember()" class="a1">회원정보수정&nbsp;</a></li>
+									<li><a onclick="logout()" class="a1">LOGOUT&nbsp;</a></li>
+									<li><br><a onclick="goEditMember()" class="a1">MODIFY&nbsp;</a></li>
 										<c:if test="${type eq 'm'}">
-											<li><br><a onclick="goAdminPage()" class="a1">관리자페이지&nbsp;</a></li>
+											<li><br><a onclick="goAdminPage()" class="a1">ADMIN&nbsp;</a></li>
 										</c:if>
 								</c:when>
 								<c:otherwise>
@@ -255,51 +271,8 @@ td{
 		</tr>
 	</table>
 </div>
-<div class="search" align="center" style="margin-top: 10px;">
-<table>
-	<tr>
-		<td>
-			<select id="search_box">
-				<option value="1">제목</option>
-				<option value="2">작성자</option>
-				<option value="3">글번호</option>
-			</select>
-		</td>
-		<td>
-			<input type="text" id="searchText" onkeypress="if(event.keyCode==13) {search1();}else{return showKeyCode(event)}">
-		</td>
-		<td>
-			<input type="button" value="검색" onclick="search1()">
-		</td>
-	</tr>
-</table>
-
-<!-- <select id="search_box">
-	<option value="1">제목</option>
-	<option value="2">작성자</option>
-	<option value="3">글번호</option>
-</select>
-<input type="text" id="searchText" onkeypress="if(event.keyCode==13) {search1();}else{return showKeyCode(event)}">
-<input type="button" value="검색" onclick="search1()"> -->
-<br>
-<%-- <table border="1" style="margin-top: 20px;text-align: center" >
-	<tr class="aa">
-	<th>게시글번호</th>
-	<th>제목</th>
-	<th>작성자</th>
-	<th>지역</th>
-	<th>추천수</th>
-	<c:forEach var="m" items="${LIST}">
-		<tr><td>${m.share_num}</td>
-		<td>${m.main_title}</td>
-		<td>${m.id}</td>
-		<td>${m.location}</td>
-		<td>${m.metoo}</td><tr>
-	</c:forEach>
-</table> --%>
-</div>
 <div id="div4">
-	<iframe name="ppp" frameborder="0" width="100%" height="100%"></iframe>
+	<iframe name="ppp" frameborder="0" width="100%" height="800px;" src="${pageContext.request.contextPath }/share/list.do"></iframe>
 </div>
 </body>
 </html>

@@ -24,6 +24,17 @@
 	function ageList(){
 		newWindow = window.open("${pageContext.request.contextPath}/share/age.do", "newWindow", "height=200, width=400, resizable=yes");
 	}
+	function search1(){
+		var text = document.getElementById("searchText").value;
+		var select = document.getElementById("search_box");
+		var option_value = select.options[select.selectedIndex].value;
+		if(text==''){
+			option_value = 0;
+			alert("검색어를 입력해주세요");
+		}else{
+			location.href = "${pageContext.request.contextPath }/member/search.do?type="+option_value+"&searchText="+text;
+		}
+	}
 </script>
 <meta charset="UTF-8">
 <style type="text/css">
@@ -87,22 +98,35 @@
 <form action="${pageContext.request.contextPath}/share/search.do" method="post" name="f ">
 	<!-- <input type="text" name="search">
 	<img class="search" src="/img/search.png" onclick="shareplanSearch()"> -->
-	<table class="tabs" align="center">
+	<!-- <table class="tabs" align="center">
 		<tr>
 			<td><input type="text" name="search"></td>
 			<td>&nbsp;
 				<img class="search" src="/img/search.png" onclick="shareplanSearch()">
 			</td>			
 		</tr>
+	</table> -->
+	<table class="tabs" align="center">
+		<tr>
+			<td>
+				<select id="search_box">
+					<option value="1">제목</option>
+					<option value="2">작성자</option>
+					<option value="3">글번호</option>
+				</select>
+			</td>
+			<td>
+				<input type="text" id="searchText" onkeypress="if(event.keyCode==13) {search1();}else{return showKeyCode(event)}">
+			</td>
+			<td>&nbsp;
+				<img class="search" src="/img/search.png" onclick="search1()">
+				<!-- <input type="button" value="검색" onclick="search1()"> -->
+			</td>
+		</tr>
 	</table>
 </form>
 <br>
 <table class="tabp" align="center" style="border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
-<!-- 	<tr>
-		<th>share_title</th>
-		<th>writer</th>
-		<th>metoo</th>
-	</tr> -->
 	<c:forEach var="s" items="${list }">
 		<tr class="tr1" style="border-collapse: collapse; width:500px; height: 500px; ">
 			<td colspan="2" style="width:300px; border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
@@ -112,7 +136,7 @@
 				</a>
 			</td>
 		</tr>
-		<tr style="border-collapse: collapse; width: 500px; height: 30px;">
+		<tr style="border-collapse: collapse; width: 500px; height: 50px;">
 			<%-- <td>
 				<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">${s.share_title}</a>
 			</td>
