@@ -233,7 +233,7 @@ td{
 	<table class="tabtop" >
 		<tr>
 			<td style="width: 100px; padding-left: 5px;">
-				<img src="/img/metos.png">
+				<img src="${pageContext.request.contextPath}/resources/img/metos.png">
 			</td>
 			<td class="menu" style="text-align: left;">
 				<c:choose>
@@ -249,7 +249,7 @@ td{
 			<td class="dropdown">
 				<ul>
 					<li style="list-style-type: none;"><a href="#" class="a2">
-						<img src="/img/person.png"></a>
+						<img src="${pageContext.request.contextPath}/resources/img/person.png"></a>
 						<ul>
 							<c:choose>
 								<c:when test="${sessionScope.id eq id && id ne null}">
