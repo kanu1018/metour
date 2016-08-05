@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/joinstyle.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/httpRequest.js"></script>
 <script type="text/javascript">
 	var flag=false;
@@ -18,8 +19,6 @@
 				flag=true;
 				var str = httpRequest.responseText;
 				var o = eval("("+str+")");
-				var myDiv = document.getElementById("checkMsg");
-				var html = "";
 				var id1=document.f.id1.value;
 				var id2=document.f.id2.value;
 				if(id1==""){
@@ -29,12 +28,11 @@
 				}
 				else{
 					if(o.flag){
-						html = "사용가능한아이디";
+						alert("사용 가능 아이디");
 					}
 					else{
-						html = "사용불가능한아이디";
+						alert("사용 불가능 아이디");
 					}
-					myDiv.innerHTML = html;
 				}
 			}
 		}
@@ -130,52 +128,81 @@
 			document.getElementById("id2").readOnly = false;
 		}
 	}
+	function back() {
+		history.go(-1)
+	}
 </script>
 </head>
 <body>
-<div style="height: 100px"></div>
-<div align="center">
-<div style="background-color: #F7F7F7; width: 600px">
-<form action="${pageContext.request.contextPath}/member/join.do" method="post" name="f">
+<form action="${pageContext.request.contextPath}/member/join.do" method="post" name="f" id="f">
+<fieldset>
+<table>
+<tr><td colspan="5">
+<h3>Me, To</h3>
 <br>
-<h1 align="center"><a href="${pageContext.request.contextPath}/" style="width: 400px; font-size: 25px;text-decoration:none;">Oops</a></h1>
-<br>
-<div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black; border-bottom-color: white">
-<input type="text" name="id1" id="id1" placeholder="이메일형식 ID" align="left">@
-<input type="text" name="id2" id="id2" align="left" readonly="readonly">
-<select name="email" onclick="select()" id="selbox">
-	<option value=" ">이메일선택</option>
+</td></tr>
+<tr>
+<td>
+<input type="text" name="id1" id="id1" placeholder="이메일" align="left"><td>@</td>
+</td>
+<td>
+<input type="text" name="id2" id="id2" placeholder="도메인" align="left" readonly="readonly">
+</td>
+<td>
+<select name="email" onclick="select()" id="selbox" align="left">
+	<option value=" ">선택하기</option>
     <option value="naver.com">naver.com</option>
     <option value="google.com">google.com</option>
     <option value="daum.net">daum.net</option>
     <option value="daeyang.com">daeyang.com</option>
     <option value="">직접쓰기</option>
 </select>
-<a onclick="idCheck()" style="height: 30px; width: 80px; background-color: #F7F7F7;">중복체크</a><br>
-<span id="checkMsg" style="color: red"></span>
-</div>
-<div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black; border-bottom-color: white">
-<input type="password" name="pwd" placeholder="비밀번호" style="height: 25px; width: 200px">
-<input type="password" name="pwd_chk" onkeyup="pwdchk()" placeholder="비밀번호확인" style="height: 25px; width: 200px">
-<span id="pwdcheckMsg" style="color: red"></span>
-</div>
-<div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black;border-bottom-color: white">
-<input type="text" name="name" placeholder="이름" style="height: 25px; width: 300px">
-</div>
-<div align="left" style="width: 380px; height: 30px; background-color: #FFFFFF; padding: 10px; border: 1px solid black;border-bottom-color: white">
-<input type="date" name="birth" placeholder="생일" style="height: 25px; width: 300px;border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;">
-</div>
-<div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black;border-bottom-color: white">
-<input type=text name="phone" placeholder="전화번호" style="height: 25px; width: 375px;">
-</div>
-<div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black;border-bottom-color: white">
+</td>
+<td>
+<a onclick="idCheck()" style="width: 200px">중복체크</a>
+</td>
+</tr>
+<tr>
+<td colspan="5">
+<input type="password" name="pwd" placeholder="비밀번호" >
+</td>
+</tr>
+<tr>
+<td colspan="5">
+<input type="password" name="pwd_chk" onkeyup="pwdchk()" placeholder="비밀번호확인" >
+<span id="pwdcheckMsg"></span>
+</td>
+</tr>
+<tr>
+<td colspan="5">
+<input type="text" name="name" placeholder="이름" >
+</td>
+</tr>
+<tr>
+<td colspan="5">
+<input type="date" name="birth" placeholder="생일">
+</td>
+</tr>
+<tr>
+<td colspan="5">
+<input type=text name="phone" placeholder="전화번호">
+</td>
+</tr>
+<tr>
+<td colspan="5">
 <input type="radio" name="gender" value="m">남
 <input type="radio" name="gender" value="f">여
-</div>
-<div align="center" style="width: 400px; height: 35px; margin-top: 20px; color: white; font-size: 20px; background-color: #1fbc02; padding-top: 15px"><a onclick="join()">가입하기</a></div>
-<div style="height:50px"></div>
+</td>
+</tr>
+<tr>
+<td colspan="5" style="text-align: center">
+<input type="button" onclick="join()" value="가입">
+<input type="button" onclick="back()" value="취소">
+
+</td>
+</tr>
+</table>
+</fieldset>
 </form>
-</div>
-</div>
 </body>
 </html>

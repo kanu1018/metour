@@ -8,4 +8,6 @@ public interface AdminMapper {
 	List<Member> selectAll();
 	List<Singo> singoselectAll();
 	void delSingo(int singo_num);
+	List<Member> outMemberAll();
+	void inMember(String id);
 }

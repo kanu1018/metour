@@ -42,6 +42,10 @@
     	 phone = #{phone} where id = #{id}
     </update>
     
+    <update id="inMember" parameterType="String">
+        update member SET mem_status = 'y' where id = #{id}
+    </update>
+    
     <update id="delMember" parameterType="String">
         update member SET mem_status = 'n' where id = #{id}
     </update>
@@ -53,4 +57,8 @@
     <update id="delSingo" parameterType="int">
         update singo SET singo_state='y' where singo_num = #{singo_num}
     </update>
+    
+    <select id="outMemberAll" resultMap="MemberResultMap">
+    	SELECT * FROM member WHERE mem_status='n'
+    </select>
 </mapper>

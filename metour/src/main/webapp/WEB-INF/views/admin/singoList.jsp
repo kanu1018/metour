@@ -12,11 +12,19 @@
  padding:0px;
  font-size:14px;
 }
-caption{
+input[type="button"] {
+  background: #1dabb8;
+  border-radius: 3px;
+  color: #fff;
+  float: center;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+/* caption{
  background: url(images/title_event.png) no-repeat center center;
  width:700px;
  height:50px;
-}
+} */
 caption span{
  display:none;
 }
@@ -30,25 +38,25 @@ td{
 }
 th{
  height:34px;
- padding:0px 0px;
+ padding:0px 10px;
  font-size:16px;
 }
-th span{
-/*  border-right:1px solid #666; */
+/* th span{
+  border-right:1px solid #666; 
  background: url(images/bar7_1.png) no-repeat right 10px;
   display:block;
   padding:0px 0px 2px 0px;
-}
+} */
 tr:FIRST-CHILD{
  
 }
 tr:last-CHILD{
  border-bottom: 2px solid #000;
 }
-th:FIRST-CHILD{
+/* th:FIRST-CHILD{
  background: url(images/table_header_bg.png) repeat-x;
 }
- /* 2열의 th 내용*/ 
+  2열의 th 내용
 th:nth-child(2) {
  background: url(images/table_header_bg.png) center top repeat-x;
 } 
@@ -66,24 +74,25 @@ th:nth-child(5) {
 }
 td{
  background: url(images/bar7_1.png) no-repeat right bottom;
-}
+} */
 </style>
 <script type="text/javascript">
-function goBack() {
-    window.history.back();
-}
-function a(singo_num) {
-	if(confirm("정말 처리하시겠습니까?")==true){
-		location.href = "${pageContext.request.contextPath }/admin/singoCom.do?singo_num="+singo_num;
-	   } else{
-	      return;
-	   }
-}
+	function a(singo_num) {
+		if(confirm("정말 처리하시겠습니까?")==true){
+			location.href = "${pageContext.request.contextPath }/admin/singoCom.do?singo_num="+singo_num;
+		   } else{
+		      return;
+		   }
+	}
+	function goMain() {
+		location.href="${pageContext.request.contextPath}/admin/adminForm.do";
+	}
 </script>
 <title>Insert title here</title>
 </head>
+<%@ include file="../include_login.jsp" %>
 <body>
-<form >
+<form style="margin: 0 auto;text-align: center;margin-top: 100px">
 <table style="margin: 0 auto;text-align: center">
 <tr class="aa">
 	<th>신고번호</th>
@@ -110,9 +119,8 @@ function a(singo_num) {
 	<%-- <td><a href ="${pageContext.request.contextPath }/admin/singoCom.do?singo_num=${l.singo_num}">처리완료</a></td> --%>
 </tr>
 </c:forEach>
-
 </table>
-<input type="button" value="처리완료된 신고보기">
+<input type="button" value="돌아가기" onclick="goMain()" style="margin-top: 25px">
 </form>
 </body>
 </html>
