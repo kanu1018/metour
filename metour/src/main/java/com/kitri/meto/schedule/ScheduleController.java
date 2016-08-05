@@ -174,6 +174,9 @@ public class ScheduleController {
 				Schedule schedule= scheduleService.getSchedule(ss);
 				
 				int main_num = schedule.getMain_num();
+				
+				System.out.println(main_num);
+				
 				ArrayList<SubPlan> subPlans = subPlanService.getSubPlans(main_num);
 				
 				mav.addObject("subPlans",subPlans);
@@ -218,12 +221,7 @@ public class ScheduleController {
 					l_day=28;
 				}
 			}
-		}	
-		
-
-		
-		
-		
+		}			
 		
 		
 		mav.addObject("Year",year);
@@ -239,6 +237,15 @@ public class ScheduleController {
 			
 		return mav;
 	}
+	
+	@RequestMapping("/schedule/selectMonth.do")
+	public ModelAndView selectMonth(@RequestParam(value="year") int year, @RequestParam(value="month") int month){
+		ModelAndView mav = new ModelAndView("/schedule/selectMonth");
+		mav.addObject("Year",year);
+		mav.addObject("Month",month);
+		return mav;
+	}
+	
 	
 	@RequestMapping("/schedule/listPlan.do")
 	public ModelAndView ShareAndDelete(HttpServletRequest request, @RequestParam(value="action") int action){

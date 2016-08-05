@@ -22,7 +22,7 @@ public class MainSubPlanController {
 	public void setMainSubPlanService(MainSubPlanService msService){
 		this.msService = msService;
 	}
-	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////여기수정할거얌
 	@RequestMapping(value="/ms/select.do")//사진불러오기
 	public ModelAndView msList(@RequestParam(value="main_num") int main_num){
 		ModelAndView mav = new ModelAndView("shareplan/share");
@@ -44,7 +44,7 @@ public class MainSubPlanController {
 		return "redirect:/schedule/schedule.do";
 	}
 	
-	
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	private boolean isDate(int y, int m, int d) {
 		m -= 1;
         Calendar c = Calendar.getInstance();
