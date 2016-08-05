@@ -232,7 +232,7 @@ td{
 		<a onclick="goShareList()">공유글보기&nbsp;</a><br> --%>
 	<table class="tabtop" >
 		<tr>
-			<td style="width: 100px;">
+			<td style="width: 100px; padding-left: 5px;">
 				<img src="/img/metos.png">
 			</td>
 			<td class="menu" style="text-align: left;">
