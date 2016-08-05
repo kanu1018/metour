@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
+import com.kitri.meto.JoinDTO.JoinDTO;
+
 @Component("scheduleSerivce")
 public class ScheduleDaoService implements scheduleService {
 	
@@ -59,6 +61,18 @@ public class ScheduleDaoService implements scheduleService {
 	public int getByMainNum() {
 		ScheduleMapper scheduleMapper = sqlSession.getMapper(ScheduleMapper.class);
 		return scheduleMapper.selectByMainNum();
+	}
+
+	@Override
+	public Schedule getByTitle(int main_num) {
+		ScheduleMapper scheduleMapper = sqlSession.getMapper(ScheduleMapper.class);
+		return scheduleMapper.selectByTitle(main_num);
+	}
+
+	@Override
+	public void addPoint(JoinDTO j) {
+		ScheduleMapper scheduleMapper = sqlSession.getMapper(ScheduleMapper.class);
+		scheduleMapper.insertPoint(j);
 	}
 
 }

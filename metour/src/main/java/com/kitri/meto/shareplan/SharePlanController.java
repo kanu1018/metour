@@ -23,7 +23,8 @@ import com.kitri.meto.metoo.Metoo;
 import com.kitri.meto.metoo.MetooService;
 import com.kitri.meto.rep.Rep;
 import com.kitri.meto.rep.RepService;
-import com.kitri.meto.subplan.SubPlan;
+import com.kitri.meto.schedule.Schedule;
+import com.kitri.meto.schedule.scheduleService;
 
 @Controller
 public class SharePlanController {
@@ -60,6 +61,13 @@ public class SharePlanController {
 	
 	public void setSharePlanService(RepService repService){
 		this.repService = repService;
+	}
+	
+	@Resource(name="scheduleSerivce")
+	private scheduleService scheduleService;
+	
+	public void setScheduleService(scheduleService scheduleService){
+		this.scheduleService = scheduleService;
 	}
 	/////////////
 	@RequestMapping(value = "/share/share.do")
@@ -288,7 +296,15 @@ public class SharePlanController {
 	}
 	
 	@RequestMapping(value = "/subplan/com.do")
-	public String com(HttpServletRequest req, @RequestParam(value="html")String html){
+	public String com(HttpServletRequest req, @RequestParam(value="html")String html
+			,@RequestParam(value="main_num")int main_num){
+		//
+		int point_num = scheduleService.getByPointNum();
+		JoinDTO j = new JoinDTO();
+		j.setPoint_num(point_num+1);
+		j.setPoint(0);
+		scheduleService.addPoint(j);
+		//
 		System.out.println(html);
 		HttpSession session = req.getSession();
 		String id = session.getAttribute("id").toString();
@@ -297,12 +313,15 @@ public class SharePlanController {
 		SharePlan s = new SharePlan();
 		s.setWriter(mem_num);
 		s.setContent(html);
-		s.setPoint_num(1);
-		s.setShare_title("타이틀");
+		s.setPoint_num(point_num+1);
+		Schedule schedule = scheduleService.getByTitle(main_num);
+		s.setShare_title(schedule.getMain_title());
 		shareService.addSharePlan(s);
 		System.out.println("성공");
 		return "redirect:/share/list.do";
 	}
+	
+
 }
 
 

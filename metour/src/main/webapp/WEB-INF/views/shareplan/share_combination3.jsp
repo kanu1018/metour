@@ -25,9 +25,7 @@
 <body>
 <div id="content">
 <c:forEach items="${item}" var="i" varStatus="status1">
-	<h1>${i.main_title }</h1>
-	<h2>${i.date }</h2>
-	<c:forEach items="${item.get(status1.index).list}" var="m" varStatus="status">
+	<c:forEach items="${item.get(status1.index)}" var="m" varStatus="status">
 		<div align="center">
 		<div style="width:600px; ">
 			<div style="background-color: #E9E7DB; height: 35px; padding-top: 15px;" >${m.sub_title }</div>
