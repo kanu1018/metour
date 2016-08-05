@@ -1,0 +1,12 @@
+diff a/metour/src/main/java/com/kitri/meto/subplan/SubPlanController.java b/metour/src/main/java/com/kitri/meto/subplan/SubPlanController.java	(rejected hunks)
+@@ -338,6 +338,10 @@
+ 					}
+ 				}
+ 				//占쏙옙占쏙옙占싶곤옙 占쏙옙占쏙옙 占쏙옙載� 占쏙옙占쏙옙 占쏙옙占쏙옙트占쏙옙 占쌍곤옙 화占썽에 占싼몌옙 占쌔븝옙.
++				if(!pub.getContenttypeid().equals("38") && !pub.getContenttypeid().equals("39")){
++					System.out.println(pub.getContenttypeid());
++					pubList.add(pub);
++				}
+ 			}
+ 			} catch (Exception e) {
+ 				//e.printStackTrace();

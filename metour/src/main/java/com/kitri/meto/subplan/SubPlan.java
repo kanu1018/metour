@@ -17,7 +17,7 @@ public class SubPlan {
 	private int main_num;
 	private MultipartFile imgfile;
 	
-	
+
 	public SubPlan() {
 		super();
 	}
@@ -142,5 +142,6 @@ public class SubPlan {
 	public void setImgfile(MultipartFile imgfile) {
 		this.imgfile = imgfile;
 	}
+	
 	
 }

@@ -1,22 +1,25 @@
 package com.kitri.meto.subplan;
 
 public class SubPlanList {
+	private String time;
 	private int sub_num;
 	private String title;
 	private String place;
 	private String mission;
 	private String mission_yn;
+	private int row;
 	
 	public SubPlanList() {
 		super();
 	}
-	public SubPlanList(int sub_num, String title, String place, String mission, String mission_yn) {
+	public SubPlanList(int sub_num, String title, String place, String mission, String mission_yn, int row) {
 		super();
 		this.sub_num = sub_num;
 		this.title = title;
 		this.place = place;
 		this.mission = mission;
 		this.mission_yn = mission_yn;
+		this.row = row;
 	}
 	
 	public int getSub_num() {
@@ -48,6 +51,18 @@ public class SubPlanList {
 	}
 	public void setMission_yn(String mission_yn) {
 		this.mission_yn = mission_yn;
+	}
+	public int getRow() {
+		return row;
+	}
+	public void setRow(int row) {
+		this.row = row;
+	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
 	}
 	
 	

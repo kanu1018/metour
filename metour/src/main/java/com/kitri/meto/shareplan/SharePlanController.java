@@ -23,6 +23,7 @@ import com.kitri.meto.metoo.Metoo;
 import com.kitri.meto.metoo.MetooService;
 import com.kitri.meto.rep.Rep;
 import com.kitri.meto.rep.RepService;
+import com.kitri.meto.subplan.SubPlan;
 
 @Controller
 public class SharePlanController {
@@ -96,6 +97,8 @@ public class SharePlanController {
 	
 	@RequestMapping(value="/share/view.do")
 	public ModelAndView shareView(HttpServletRequest req, @RequestParam(value="share_num") int share_num){
+		ModelAndView mav = new ModelAndView();
+		
 		/*//세션 id, mem_num 받아오기
 		HttpSession session = req.getSession();
 		String id = session.getAttribute("id").toString();
@@ -126,10 +129,10 @@ public class SharePlanController {
 			System.out.println(me.getMetoo_yn());
 		}*/
 		//
-		ModelAndView mav = new ModelAndView("shareplan/shareview");
+		
 		
 		//세션 받기
-		HttpSession session = req.getSession();
+		HttpSession session = req.getSession(false);
 		
 		//공유글 받기
 		SharePlan s = shareService.getSharePlan(share_num);
@@ -137,7 +140,7 @@ public class SharePlanController {
 		//전체 댓글 목록
 		ArrayList<Rep> list = repService.getRepByShareNum(share_num);
 		
-		if(session != null){
+		if(session.getAttribute("id") != null){
 			//로그인 했을 경우
 			//세션 id, mem_num 받아오기
 			String id = session.getAttribute("id").toString();
@@ -170,16 +173,29 @@ public class SharePlanController {
 			}
 			mav.addObject("me", me); // 좋아요
 			mav.addObject("r", myRep); // 내 댓글
-		} 
-		for(int i = 0; i<list.size(); i++){
-			System.out.println("list:" + list.get(i).getRep_content());
+			
+			for(int i = 0; i<list.size(); i++){
+				System.out.println("list:" + list.get(i).getRep_content());
+			}
+			
+			mav.addObject("s", s); // 공유글
+			//mav.addObject("me", me); // 좋아요
+			mav.addObject("list", list); // 전체 댓글
+			//mav.addObject("r", r); // 내 댓글
+			mav.setViewName("shareplan/shareview");
+		} else {
+
+			for (int i = 0; i < list.size(); i++) {
+				System.out.println("list:" + list.get(i).getRep_content());
+			}
+			//
+			// ModelAndView mav = new ModelAndView("shareplan/shareview");
+			mav.addObject("s", s); // 공유글
+			// mav.addObject("me", me); // 좋아요
+			mav.addObject("list", list); // 전체 댓글
+			// mav.addObject("r", r); // 내 댓글
+			mav.setViewName("shareplan/shareview2");
 		}
-		//
-		//ModelAndView mav = new ModelAndView("shareplan/shareview");
-		mav.addObject("s", s); // 공유글
-		//mav.addObject("me", me); // 좋아요
-		mav.addObject("list", list); // 전체 댓글
-		//mav.addObject("r", r); // 내 댓글
 		return mav;
 	}
 	
@@ -258,7 +274,7 @@ public class SharePlanController {
 				mem_num.add(age.get(i).mem_num);
 			}
 		}
-		HashSet<Integer> hs = new HashSet<Integer>(mem_num);
+		HashSet<Integer> hs = new HashSet<Integer>(mem_num); 
 		ArrayList<Integer> newindex = new ArrayList<Integer>(hs);
 		return newindex;
 	}
@@ -271,6 +287,22 @@ public class SharePlanController {
 		return Integer.parseInt(year) - Integer.parseInt(birth_year) + 1;
 	}
 	
+	@RequestMapping(value = "/subplan/com.do")
+	public String com(HttpServletRequest req, @RequestParam(value="html")String html){
+		System.out.println(html);
+		HttpSession session = req.getSession();
+		String id = session.getAttribute("id").toString();
+		Member m = memberService.getMember(id);
+		int mem_num = m.getMem_num();
+		SharePlan s = new SharePlan();
+		s.setWriter(mem_num);
+		s.setContent(html);
+		s.setPoint_num(1);
+		s.setShare_title("타이틀");
+		shareService.addSharePlan(s);
+		System.out.println("성공");
+		return "redirect:/share/list.do";
+	}
 }
 
 

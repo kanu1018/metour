@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<style type="text/css">j
+<style type="text/css">
 *,body{
  font-family: "맑은 고딕";
  margin:0px;

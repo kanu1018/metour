@@ -5,6 +5,71 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style type="text/css">
+*,body{
+ font-family: "맑은 고딕";
+ margin:0px;
+ padding:0px;
+ font-size:14px;
+}
+caption{
+ width:700px;
+ height:50px;
+}
+caption span{
+ display:none;
+}
+table{
+ border-collapse: collapse;
+}
+
+th{
+ padding:5px;
+}
+
+td{
+ padding:5px;
+}
+
+input[type="text"]{
+  line-height: normal;
+  width: 350px;
+  height: 30px;
+}
+input[type="file"]{
+  line-height: normal;
+  width: 260px;
+  height: 20px;
+}
+
+
+ INPUT[type="button"]{
+		width: 135px;
+		height: 30px;
+		font-size: 11pt;
+		border: solid 2px;
+		border-radius:7px;
+		background-color:#1dabb8;
+		text-align:center;
+		color: #FFFFFF;
+} 
+select {
+	width:120px;
+    position: relative;
+    border: 1px solid #E9DDDD;
+}
+
+div.bodytable{
+	margin: 50px;
+
+}
+/*  IE 10, 11의 네이티브 화살표 숨기기 */
+select::-ms-expand { 
+  display: none;
+} 
+
+
+</style>
 <script type="text/javascript">
 var newWindow;
 
@@ -55,9 +120,9 @@ var time_index = "<c:out value='${index}'/>";
 		}
 	}
 	
-	function editCancel(){
+	function editCancel(num){
 		if(confirm("이전페이지로 돌아가시겠습니까?") == true){
-			location.href="${pageContext.request.contextPath}/subplan/list.do";
+			location.href="${pageContext.request.contextPath}/subplan/list.do?main_num="+num;
 		} else{
 			return;
 		}
@@ -108,15 +173,15 @@ function duple() {
 <title>세부 계획 상세보기</title>
 </head>
 <body>
-
-
+<div class="bodytable">
+<h3>세부 계획 상세보기 및 수정</h3>
 <form action="${pageContext.request.contextPath}/subplan/edit.do" name="f" method="post" enctype="multipart/form-data">
 <input type="hidden" name="llh_x" value="${subplan.llh_x}"/>
 <input type="hidden" name="llh_y" value="${subplan.llh_y}"/>
 <input type="hidden" name="main_num" value="${subplan.main_num}"/>
 <input type="hidden" name="mission_yn" value="${subplan.mission_yn}"/>
 <input type="hidden" name="sub_num" value="${subplan.sub_num}"/>
-	<table border="1">
+	<table>
 		<tr>
 			<th>제목</th>
 			<td colspan="3"><input type="text" name="sub_title" value="${subplan.sub_title}"/></td>
@@ -229,12 +294,12 @@ function duple() {
 		</tr>
 		<tr>
 			<th>장소</th>
-			<td colspan="3"><input type="text" name="place" value="${subplan.place}"/><input type="button" value="돋보기" onclick="openNewWindow()"></td>
+			<td colspan="3"><input type="text" name="place" value="${subplan.place}" style="width: 300px;"/><input type="button" value="돋보기" onclick="openNewWindow()" style="width: 50px;"></td>
 		</tr>
 		<tr>
 			<th>미션</th>
 			<td colspan="3">
-				<select name="mission">
+				<select name="mission" style="width: 350px;">
 						<option value="n" >미션 선택안함</option>
 						<option value="g">명소 찾아가기</option>
 						<option value="p">명소 사진찍기</option>
@@ -243,26 +308,27 @@ function duple() {
 		</tr>
 		<c:if test="${photo ne null }">
 		<tr>
+			<td colspan="4"><img src="${photo}" style="width:200px;height:200px"/></td>
+		</tr>
+		<tr>
 			<th>사진</th>
 			<td colspan="3">사진 파일 : <input type="file" value="카메라이미지" name="imgfile"></td>
-		<td><img src="${photo}" style="width:200px;height:200px"/></td>
 		</tr>
 		</c:if>
 		
 		<tr>
-			<th colspan="4">메모</th>
-		</tr>
-		<tr>
-			<td colspan="4"><textarea name="memo">${subplan.memo}</textarea></td>
+			<th>메모</th>
+			<td colspan="3"><textarea name="memo" style="width: 350px; height: 100px;">${subplan.memo}</textarea></td>
 		</tr>
 		<tr>
 			<td colspan="4">
 				<input type="button" value="수정" onclick="subplanEdit()">
-				<input type="button" value="취소" onclick="editCancel()">
+				<input type="button" value="취소" onclick="editCancel(${subplan.main_num})">
 				<input type="button" value="삭제" onclick="subplanDel(${subplan.sub_num})">
 			</td>
 		</tr>
 	</table>
 </form>
+</div>
 </body>
 </html>
