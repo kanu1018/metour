@@ -32,7 +32,7 @@ function deletePlan(main_num){
 }
 function sharePlan(main_num){
 	if(confirm("현재 날짜 계획을 공유하시겠습니까?")==true){
-		var url = "${pageContext.request.contextPath}/ms/select.do?main_num="+main_num;
+		var url = "${pageContext.request.contextPath}/subplan/combination.do?main_num="+main_num;
 		//location.href = url;
 		window.opener.location.href = url;
 		window.close();

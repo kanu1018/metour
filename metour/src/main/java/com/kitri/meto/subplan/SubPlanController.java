@@ -26,6 +26,8 @@ import org.w3c.dom.NodeList;
 
 import com.kitri.meto.member.Member;
 import com.kitri.meto.member.MemberDaoService;
+import com.kitri.meto.schedule.Schedule;
+import com.kitri.meto.schedule.scheduleService;
 
 @Controller
 public class SubPlanController {
@@ -40,6 +42,13 @@ public class SubPlanController {
 
 	public void setMemberService(MemberDaoService memberService) {
 		this.memberService = memberService;
+	}
+	
+	@Resource(name="scheduleSerivce")
+	private scheduleService scheduleService;
+	
+	public void setScheduleService(scheduleService scheduleService){
+		this.scheduleService = scheduleService;
 	}
 	
 	@RequestMapping(value = "/subplan/add.do")
@@ -238,11 +247,6 @@ public class SubPlanController {
 				title.set(i, sp);
 			}
 		}
-		
-		for(int i = 0 ; i < 48; i++){
-			System.out.println(title.get(i).getRow());
-		}
-		
 		return title;
 		
 	}
@@ -458,7 +462,7 @@ public class SubPlanController {
 		String[] num = main_num.split("/");
 		int[] main_nums = new int[num.length];
 		
-		ArrayList<ArrayList<SubPlan>> sublist = new ArrayList<ArrayList<SubPlan>>();
+		/*ArrayList<ArrayList<SubPlan>> sublist = new ArrayList<ArrayList<SubPlan>>();
 		// sublist에누적
 		for(int i=0;i<num.length;i++){
 			main_nums[i] = Integer.parseInt(num[i]);
@@ -471,10 +475,22 @@ public class SubPlanController {
 			for(int j=0;j<sublist.get(i).size();j++){
 				System.out.println(sublist.get(i).get(j).getSub_title());
 			}
+		}*/
+		
+		ArrayList<SubPlans> sublist = new ArrayList<SubPlans>();
+		for(int i=0;i<num.length;i++){
+			main_nums[i] = Integer.parseInt(num[i]);
+			SubPlans list = new SubPlans();
+			list.setList(subPlanService.getSubPlans(main_nums[i]));
+			Schedule sche = scheduleService.getByTitle(main_nums[i]);
+			list.setMain_title(sche.getMain_title());
+			list.setDate(sche.getMain_date());
+			list.setMain_num(sche.getMain_num());
+			sublist.add(list);
 		}
 		//ArrayList<SubPlan> sublist = new ArrayList<SubPlan>();
 		//sublist = subPlanService.getSubPlans(main_num);
-		//mav.addObject("main_num",main_num);
+		mav.addObject("main_num",main_nums[0]);
 		mav.addObject("item",sublist);
 		
 		return mav;

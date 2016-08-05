@@ -2,6 +2,8 @@ package com.kitri.meto.schedule;
 
 import java.util.List;
 
+import com.kitri.meto.JoinDTO.JoinDTO;
+
 public interface ScheduleMapper {
 	void insert(Schedule s);
 	void delete(int main_num);
@@ -10,4 +12,6 @@ public interface ScheduleMapper {
 	void update(Schedule s);
 	int selectByPointNum();
 	int selectByMainNum();
+	Schedule selectByTitle(int main_num);
+	void insertPoint(JoinDTO j);
 }
