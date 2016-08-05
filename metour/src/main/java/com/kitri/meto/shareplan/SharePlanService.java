@@ -13,4 +13,5 @@ public interface SharePlanService {
 	ArrayList<SharePlan> getSharePlanByTitle(String share_title);
 	ArrayList<JoinDTO> getSharePlanByGender(String gender);
 	ArrayList<SharePlan> getSharePlanByWriter(int writer);
+	ArrayList<SharePlan> getSharePlanByBest();
 }

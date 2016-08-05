@@ -321,6 +321,15 @@ public class SharePlanController {
 		return "redirect:/share/list.do";
 	}
 	
+	@RequestMapping(value = "/share/best.do")
+	public ModelAndView bestlist(){
+		ArrayList<SharePlan> list = shareService.getSharePlanByBest();
+		ModelAndView mav = new ModelAndView("shareplan/sharelist");
+	
+		mav.addObject("list", list);
+		return mav;
+	}
+	
 
 }
 
