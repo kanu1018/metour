@@ -275,7 +275,7 @@ public class SharePlanController {
 				mem_num.add(age.get(i).mem_num);
 			}
 		}
-		HashSet<Integer> hs = new HashSet<Integer>(mem_num);
+		HashSet<Integer> hs = new HashSet<Integer>(mem_num); 
 		ArrayList<Integer> newindex = new ArrayList<Integer>(hs);
 		return newindex;
 	}
