@@ -13,10 +13,16 @@
 			if(sel_obj[i].checked == true){
 				selected += sel_obj[i].value+"/";
 			}
+			if(i==sel_obj.length-1){
+				selected = selected.substring(0,selected.length-1);
+			}
 		}
 		
 		if(confirm("선택된 날짜 계획을 공유하시겠습니까?")==true){
-			var url = "${pageContext.request.contextPath}/ms/selectPlans.do?main_num="+selected;
+			
+			var url = "${pageContext.request.contextPath}/subplan/combination.do?main_num="+selected;
+			
+			/* var url = "${pageContext.request.contextPath}/ms/selectPlans.do?main_num="+selected; */
 			//location.href = url;
 			window.opener.location.href = url;
 			window.close();

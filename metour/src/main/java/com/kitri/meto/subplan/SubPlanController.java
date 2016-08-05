@@ -10,6 +10,7 @@ import javax.servlet.GenericServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -23,6 +24,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.kitri.meto.member.Member;
+import com.kitri.meto.member.MemberDaoService;
+
 @Controller
 public class SubPlanController {
 	@Resource(name="SubPlanService")
@@ -30,6 +34,12 @@ public class SubPlanController {
 
 	public void setSubPlanService(SubPlanService subPlanService) {
 		this.subPlanService = subPlanService;
+	}
+	@Resource(name="MemberService")
+	private MemberDaoService memberService;
+
+	public void setMemberService(MemberDaoService memberService) {
+		this.memberService = memberService;
 	}
 	
 	@RequestMapping(value = "/subplan/add.do")
@@ -362,7 +372,10 @@ public class SubPlanController {
 					}
 				}
 				//占쏙옙占쏙옙占싶곤옙 占쏙옙占쏙옙 占쏙옙載� 占쏙옙占쏙옙 占쏙옙占쏙옙트占쏙옙 占쌍곤옙 화占썽에 占싼몌옙 占쌔븝옙.
-				pubList.add(pub);
+				if(!pub.getContenttypeid().equals("38") && !pub.getContenttypeid().equals("39")){
+					System.out.print(pub.getContenttypeid());
+					pubList.add(pub);
+				}
 			}
 			} catch (Exception e) {
 				//e.printStackTrace();
@@ -407,6 +420,41 @@ public class SubPlanController {
 		
 		return "redirect:/subplan/list.do?main_num="+sub.getMain_num();
 	}
+
+	////////////////////////////////////////////////////////////////////////////
+	@RequestMapping(value = "/subplan/combination.do")
+	public ModelAndView combination(HttpServletRequest req, @RequestParam(value="main_num")String main_num) {
+		// 세션 id, mem_num 받아오기
+		ModelAndView mav = new ModelAndView("/shareplan/share_combination");
+		HttpSession session = req.getSession();
+		String id = session.getAttribute("id").toString();
+		Member m = memberService.getMember(id);
+		
+		String[] num = main_num.split("/");
+		int[] main_nums = new int[num.length];
+		
+		ArrayList<ArrayList<SubPlan>> sublist = new ArrayList<ArrayList<SubPlan>>();
+		// sublist에누적
+		for(int i=0;i<num.length;i++){
+			main_nums[i] = Integer.parseInt(num[i]);
+			ArrayList<SubPlan> list = new ArrayList<SubPlan>();
+			list = subPlanService.getSubPlans(main_nums[i]);
+			sublist.add(list);
+		}
+		//그냥 뭐 있나 찍어보는 문장이야.. 
+		for(int i=0;i<sublist.size();i++){
+			for(int j=0;j<sublist.get(i).size();j++){
+				System.out.println(sublist.get(i).get(j).getSub_title());
+			}
+		}
+		//ArrayList<SubPlan> sublist = new ArrayList<SubPlan>();
+		//sublist = subPlanService.getSubPlans(main_num);
+		//mav.addObject("main_num",main_num);
+		mav.addObject("item",sublist);
+		
+		return mav;
+	}
 	
 	
+	/////////////////////////////////////////////////////////////////////////////
 }
