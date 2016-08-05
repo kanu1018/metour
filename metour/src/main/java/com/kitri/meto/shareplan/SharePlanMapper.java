@@ -13,4 +13,5 @@ public interface SharePlanMapper {
 	ArrayList<SharePlan> selectByTitle(String tmp);
 	ArrayList<JoinDTO> selectByGender(String gender);
 	ArrayList<SharePlan> selectByWriter(int writer);
+	ArrayList<SharePlan> selectByBest();
 }

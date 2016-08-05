@@ -13,7 +13,7 @@
 		location.href="${pageContext.request.contextPath}/share/list.do";
 	}
 	function bestList(){
-		location.href="${pageContext.request.contextPath}/share/list.do";
+		location.href="${pageContext.request.contextPath}/share/best.do";
 	}
 	function placeList(){
 		location.href="${pageContext.request.contextPath}/share/list.do";
