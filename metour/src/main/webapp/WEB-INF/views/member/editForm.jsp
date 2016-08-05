@@ -87,42 +87,51 @@
 </script>
 </head>
 <body>
-<div style="height: 100px"></div>
-<div align="center">
-<div style="background-color: #F7F7F7; width: 600px">
-<form action="${pageContext.request.contextPath}/member/edit.do" method="post" name="f">
+<form action="${pageContext.request.contextPath}/member/edit.do" id="f" method="post" name="f">
+<fieldset>
+<table>
+<tr><td colspan="3">
+<h3>Edit Member</h3>
 <br>
-<div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black; border-bottom-color: white">
-<input type="text" name="id" style="height: 25px; width: 300px" value="${join.id}" readonly>
-</div>
-<div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black; border-bottom-color: white">
-<input type="password" name="pwd" style="height: 25px; width: 300px" placeholder="비밀번호">
-<input type="password" name="pwd_chk" onkeyup="pwdchk()" placeholder="비밀번호확인" style="height: 25px; width: 200px">
+</td></tr>
+<tr>
+<td>
+<input type="text" name="id" value="${join.id}" readonly="readonly">
+</td>
+</tr>
+<tr>
+<td>
+<input type="password" name="pwd"  placeholder="비밀번호">
+<input type="password" name="pwd_chk" onkeyup="pwdchk()" placeholder="비밀번호확인" >
 <span id="pwdcheckMsg" style="color: red"></span>
-</div>
-<div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black;border-bottom-color: white">
-<input type="text" name="name" style="height: 25px; width: 300px" value="${join.name}">
-</div>
-<div align="left" style="width: 380px; height: 30px; background-color: #FFFFFF; padding: 10px; border: 1px solid black;border-bottom-color: white">
-<input type="date" name="birth" style="height: 25px; width: 300px;border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" value="${join.birth }">
-</div>
-<div align="left" style="width: 380px; height: 40px; background-color: #FFFFFF; padding: 10px; border: 1px solid black;border-bottom-color: white">
-<input type=text name="phone" style="height: 25px; width: 375px;" value="${join.phone }">
-</div>
-<div align="left" style="text-align:center; width: 100px; height: 35px; margin-top: 20px; margin-left:120px; color: white; font-size: 20px; background-color: #1fbc02; padding-top: 10px; float: left;">
-<a onclick="ok()">수정</a>
-</div>
-<div align="left" style="text-align:center; width: 100px; height: 35px; margin-top: 20px; margin-left:20px; color: white; font-size: 20px; background-color: #1fbc02; padding-top: 10px; float: left;">
-<a onclick="out()">탈퇴</a>
-</div>
-<div align="left" style="text-align:center; width: 100px; height: 35px; margin-top: 20px; margin-left:20px; color: white; font-size: 20px; background-color: #1fbc02; padding-top: 10px; float: left;">
-<a onclick="c()">취소</a>
-</div>
-<div style="height:50px"></div>
-<div style="height:50px"></div>
+</td>
+</tr>
+<tr>
+<td>
+<input type="text" name="name" value="${join.name}">
+</td>
+</tr>
+<tr>
+<td>
+<input type="date" name="birth" value="${join.birth }">
+</td>
+</tr>
+<tr>
+<td>
+<input type=text name="phone" value="${join.phone }">
+</td>
+</tr>
+<tr>
+<td>
+<input type="button" onclick="ok()" value="수정">
+<input type="button" onclick="out()" value="탈퇴">
+<input type="button" onclick="c()" value="취소">
+</td>
+</tr>
+</table>
+</fieldset>
 </form>
-</div>
-</div>
+
 
 <%-- <form action="${pageContext.request.contextPath}/member/edit.do" name="f" method="POST">
 <table>

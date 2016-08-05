@@ -44,11 +44,11 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/pwdchk_ok.do")
-	public String pwdchk_ok(HttpServletRequest req,@RequestParam(value="pwd")String pwd,Member m){
+	public String pwdchk_ok(HttpServletRequest req,@RequestParam(value="pwd")String pwd,Member m,@RequestParam(value="id")String id){
 		HttpSession session = null;
 		if(m.getPwd().equals(pwd)){
 			session = req.getSession();
-			m=memberService.getMember(m.getId());
+			m=memberService.getMember(id);
 			req.setAttribute("join", m);
 			return "member/editForm";
 		}
