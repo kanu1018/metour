@@ -3,6 +3,8 @@ package com.kitri.meto.admin;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +33,8 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("admin/memberList");
 		List<Member> list = adminSerivce.getMemberAll();
 		mav.addObject("list", list);
+		mav.addObject("a", "n");
+		
 		return mav;	
 	}
 	
@@ -48,9 +52,26 @@ public class AdminController {
 		return "redirect:/admin/memberList.do";
 	}
 	
+	@RequestMapping(value="/admin/in.do")
+	public String in(@RequestParam (value="id")String id){
+		adminSerivce.inMember(id);
+		return "redirect:/admin/memberList.do";
+	}
+	
 	@RequestMapping(value="/admin/singoCom.do")
 	public String singoCom(@RequestParam (value="singo_num")int singo_num){
 		adminSerivce.delSingo(singo_num);
 		return "redirect:/admin/singoList.do";
 	}
+	
+		@RequestMapping(value="/admin/outMemberList.do")
+	public ModelAndView outMemberList(){
+		ModelAndView mav = new ModelAndView("admin/memberList");
+		List<Member> list = adminSerivce.getOutMemberAll();
+		mav.addObject("list", list);
+		mav.addObject("a", "y");
+		return mav;
+	}
+	
+	
 }
