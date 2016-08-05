@@ -85,7 +85,7 @@
 		<td><input type="button" value="성별보기" onclick="genderList()"></td>
 		<td><input type="button" value="연령대별보기" onclick="ageList()"></td> -->
 		<td>
-			<img src="${pageContext.request.contextPath}/resources/img/all01.png" onclick="backList()" onmouseover="this.src='/img/all02.png'" onmouseout="this.src='/img/all01.png'">&nbsp;&nbsp;
+			<img src="${pageContext.request.contextPath}/resources/img/all01.png" onclick="backList()" onmouseover="this.src='/img/all02.png'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/all01.png'">&nbsp;&nbsp;
 			<img src="${pageContext.request.contextPath}/resources/img/best01.png" onclick="bestList()" onclick="backList()" onmouseover="this.src='${pageContext.request.contextPath}/resources/img/best02.png'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/best01.png'">&nbsp;&nbsp;
 			<img src="${pageContext.request.contextPath}/resources/img/map01.png" onclick="placeList()" onclick="backList()" onmouseover="this.src='${pageContext.request.contextPath}/resources/img/map02.png'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/map01.png'">&nbsp;&nbsp;
 			<img src="${pageContext.request.contextPath}/resources/img/gender01.png" onclick="genderList()" onclick="backList()" onmouseover="this.src='${pageContext.request.contextPath}/resources/img/gender02.png'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/gender01.png'">&nbsp;&nbsp;
