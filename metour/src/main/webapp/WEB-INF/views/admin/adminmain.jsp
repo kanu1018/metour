@@ -4,18 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<script type="text/javascript">
-function member() {
-	location.href = "${pageContext.request.contextPath}/admin/memberList.do"
-}
-function singo() {
-	location.href = "${pageContext.request.contextPath}/admin/singoList.do"
-}
-</script>
 <title>Insert title here</title>
 </head>
 <body>
-<input type="button" value="회원관리" onclick="member()">
-<input type="button" value="신고조회" onclick="singo()">
+<form style="text-align: center;margin-top: 200px;">
+<a href ="${pageContext.request.contextPath}/admin/memberList.do"><img src="${pageContext.request.contextPath}/resources/img/user.png" style="width: 240px;height: 300px;align: center;"/></a>
+<a href ="${pageContext.request.contextPath}/admin/singoList.do"><img src="${pageContext.request.contextPath}/resources/img/siren.png" style="margin-left:100px; width: 240px;height: 300px"/></a>
+</form>
 </body>
 </html>

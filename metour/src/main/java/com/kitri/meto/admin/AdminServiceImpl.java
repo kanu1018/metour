@@ -42,4 +42,16 @@ public class AdminServiceImpl implements AdminService {
 		AdminMapper adminMapper = sqlSession.getMapper(AdminMapper.class);
 		adminMapper.delSingo(singo_num);
 	}
+
+	@Override
+	public List<Member> getOutMemberAll() {
+		AdminMapper adminMapper = sqlSession.getMapper(AdminMapper.class);
+		return adminMapper.outMemberAll();
+	}
+
+	@Override
+	public void inMember(String id) {
+		AdminMapper adminMapper = sqlSession.getMapper(AdminMapper.class);
+		adminMapper.inMember(id);
+	}
 }

@@ -9,4 +9,6 @@ public interface AdminService {
 	public List<Member> getMemberAll();
 	public List<Singo> getSingoAll();
 	public void delSingo(int singo_num);
+	public List<Member> getOutMemberAll();
+	public void inMember(String id);
 }
