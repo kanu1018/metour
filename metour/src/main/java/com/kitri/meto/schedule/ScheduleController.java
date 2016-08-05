@@ -238,6 +238,15 @@ public class ScheduleController {
 		return mav;
 	}
 	
+	@RequestMapping("/schedule/selectMonth.do")
+	public ModelAndView selectMonth(@RequestParam(value="year") int year, @RequestParam(value="month") int month){
+		ModelAndView mav = new ModelAndView("/schedule/selectMonth");
+		mav.addObject("Year",year);
+		mav.addObject("Month",month);
+		return mav;
+	}
+	
+	
 	@RequestMapping("/schedule/listPlan.do")
 	public ModelAndView ShareAndDelete(HttpServletRequest request, @RequestParam(value="action") int action){
 		ModelAndView mav = new ModelAndView("/schedule/listPlan");
