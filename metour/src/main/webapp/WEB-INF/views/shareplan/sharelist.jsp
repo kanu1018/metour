@@ -119,7 +119,7 @@
 				<input type="text" id="searchText" onkeypress="if(event.keyCode==13) {search1();}else{return showKeyCode(event)}">
 			</td>
 			<td>&nbsp;
-				<img class="search" src="/img/search.png" onclick="search1()">
+				<img class="search" src="${pageContext.request.contextPath}/resources/img/search.png" onclick="search1()">
 				<!-- <input type="button" value="검색" onclick="search1()"> -->
 			</td>
 		</tr>
