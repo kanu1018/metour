@@ -9,23 +9,19 @@
 <style> 
 
     #calendarTable {
-    	border-collapse: collapse;
-        border:2px solid #000;
         width:519px;
     }
     
     #calendarTable th, #calendarTable td {
-        width: 70px;
-        border:1px solid #000;        
-        border-collapse: collapse;      
+        width: 76px; 
     }
    
     #calendarTable th {        
-        background-color: #666;
+        background-color: #282832;
         color: #ffffff;  
     }    
     #calendarTable td {        
-        height: 70px;         
+        height: 65px;         
     }
     #calendarTable td.empty {
         background-color: #DFDCD8;
@@ -36,16 +32,21 @@
     	width: 100%;
     	height: 100%; 
     	border:0px;
+    	font-weight: bold;
+    	font-size: 20px
     }
     
     #calendarTable button.Reserved{ 
-    	background-color: #037E8C;
+    	background-color: #1DABB9;
+    	color: #ffffff
     } 
    	#calendarTable button.Today{
     	background-color: #f24c27; 
+    	color: #ffffff
     } 
     #calendarTable button.NotR{
-    	background-color: #ffffff; 
+    	background-color: #fffff3;
+    	color:#282832 
     } 
 
 </style>
@@ -100,28 +101,27 @@
 </head>
 <body bgcolor='white'>
 <div>
-<table border='0' width='521' cellpadding='0' cellspacing='0'>
+<table width='519px' style="margin: auto; background-color: #282832;">
   <tr>
-     <td width='150' align='right' valign='middle'>
-         <a href="${pageContext.request.contextPath }/schedule/schedule.do?year=${Year}&month=${Month}&action=0">
+     <td width='160' align='right' valign='middle'>
+         <a style="text-decoration: none; color: #ffffff;" href="${pageContext.request.contextPath }/schedule/schedule.do?year=${Year}&month=${Month}&action=0">
              <font size="2">이전달</font>
          </a>
      </td>
-     <td width='260' align='center' valign='middle'> 
-			     
+     <td width='199' align='center' valign='middle' style="color: #ffffff; font-size: 30px"> 
          <b>${Year}년 ${Month+1}월</b>
      </td>
-     <td width='173' align='left' valign='middle'>
-         <a href="${pageContext.request.contextPath }/schedule/schedule.do?year=${Year}&month=${Month}&action=1">
+     <td width='160' align='left' valign='middle'>
+         <a style="text-decoration: none; color: #ffffff;" href="${pageContext.request.contextPath }/schedule/schedule.do?year=${Year}&month=${Month}&action=1">
              <font size="2">다음달</font>
          </a>
     </td>
   </tr>
 </table>
 
-<table id="calendarTable">
-	<tr>
-              <th style="color: red;">일</th>
+<table id="calendarTable" style="margin: auto;">
+		<tr>
+              <th style="color: red; height: 30px">일</th>
               <th>월</th>
               <th>화</th>
               <th>수</th>
@@ -161,13 +161,13 @@
 			</c:if>
 	</c:forEach>
 </table>
-<table border='0' width='521' cellpadding='0' cellspacing='0'>
+<table width='520' style="margin: auto;">
   <tr>
      <td width='260' align='right' valign='middle'>
-         <button onclick="listPlan(1)">공유하기</button>
+         <button style="width: 76px; height: 30px; background-color: #282832; color: #ffffff; border: 0px" onclick="listPlan(1)">공유하기</button>
      </td>
-     <td width='261' align='left' valign='middle'>
-		<button onclick="listPlan(0)">삭제하기</button>
+     <td width='260' align='left' valign='middle'>
+		<button style="width: 76px; height: 30px; background-color: #282832; color: #ffffff; border: 0px"  onclick="listPlan(0)">삭제하기</button>
     </td>
   </tr>
 </table>

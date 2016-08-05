@@ -174,6 +174,9 @@ public class ScheduleController {
 				Schedule schedule= scheduleService.getSchedule(ss);
 				
 				int main_num = schedule.getMain_num();
+				
+				System.out.println(main_num);
+				
 				ArrayList<SubPlan> subPlans = subPlanService.getSubPlans(main_num);
 				
 				mav.addObject("subPlans",subPlans);
@@ -218,12 +221,7 @@ public class ScheduleController {
 					l_day=28;
 				}
 			}
-		}	
-		
-
-		
-		
-		
+		}			
 		
 		
 		mav.addObject("Year",year);
