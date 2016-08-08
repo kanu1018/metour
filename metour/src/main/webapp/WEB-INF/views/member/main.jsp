@@ -244,7 +244,7 @@ td{
 						<a onclick="goLoginForm()" target="ppp" class="a2">일정등록&nbsp;</a>
 					</c:otherwise>
 				</c:choose>
-				<a href="${pageContext.request.contextPath }/share/list.do" target="ppp" class="a2">공유글보기&nbsp;</a><br>
+				<a href="${pageContext.request.contextPath }/share/list.do" target="ppp" class="a2">Meto보기&nbsp;</a><br>
 			</td>
 			<td class="dropdown">
 				<ul>
