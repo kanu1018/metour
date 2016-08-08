@@ -330,6 +330,21 @@ public class SharePlanController {
 		return mav;
 	}
 	
+	
+	@RequestMapping(value = "/share/place.do")
+	public String place(){
+		return "/shareplan/placesearch";
+	}
+	
+	@RequestMapping(value = "/share/placelist.do")
+	public ModelAndView placelist(@RequestParam(value="place") String place){
+		String tmp = "%"+place+"%";
+		ArrayList<SharePlan> list = shareService.getSharePlanByPlace(tmp);
+
+		ModelAndView mav = new ModelAndView("shareplan/sharelist");
+		mav.addObject("list", list);
+		return mav;
+	}
 
 }
 

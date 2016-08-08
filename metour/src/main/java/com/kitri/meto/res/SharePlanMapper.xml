@@ -63,4 +63,8 @@
       where rownum <![CDATA[<]]>  10
    </select>
    
+   <select id="selectByPlace" resultMap="SharePlanResultMap" parameterType="String">
+      SELECT * FROM share_plan WHERE location like #{location} ORDER BY share_num
+   </select>
+   
 </mapper>
