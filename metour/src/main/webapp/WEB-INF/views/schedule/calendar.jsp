@@ -9,11 +9,11 @@
 <style> 
 
     #calendarTable {
-        width:519px;
+        width:630px;
     }
     
     #calendarTable th, #calendarTable td {
-        width: 70px; 
+        width: 90px; 
     }
    
     #calendarTable th {        
@@ -21,7 +21,7 @@
         color: #ffffff;  
     }    
     #calendarTable td {        
-        height: 70px;         
+        height: 90px;         
     }
     #calendarTable td.empty {
         background-color: #DFDCD8;
@@ -29,7 +29,7 @@
     
     
     #calendarTable button{
-    	width: 70px;
+    	width: 90px;
     	height: 100%; 
     	border:0px;
     	font-weight: bold;
@@ -45,7 +45,7 @@
     
     
     #calendarTable button.Reserved{ 
-    	background-color: #1DABB9;
+    	background-color: #1ABC9C;
     	color: #ffffff;
     	font-size: 20px;
     } 
@@ -55,7 +55,7 @@
     	font-size: 20px;
     } 
     #calendarTable button.NotR{
-    	background-color: #fffff3;
+    	background-color: #fffff9;
     	color:#282832;
     	font-size: 20px
     } 
@@ -69,7 +69,7 @@
 		var url = "${pageContext.request.contextPath}/schedule/datePlan.do?year="+year
 				+"&month="+month+"&day="+day;
 		//location.href = url;
-		window.open(url, "idcheck", "top=200, left=200, toolbar=no, menubar=no, scrollbars=yes, resizable=yes, width=340, height=500" );
+		window.open(url, "idcheck", "top=200, left=200, toolbar=no, menubar=no, scrollbars=yes, resizable=yes, width=370, height=500" );
 	
 	}
 	
@@ -90,7 +90,7 @@
 	}
 	
 	function goHome(){
-		var url = "${pageContext.request.contextPath}";
+		var url = "${pageContext.request.contextPath}/share/list.do";
 		location.href = url;
 	}
 	
@@ -102,19 +102,29 @@
 </script>
 </head>
 <body bgcolor='white'>
-<div>
-<table width='519px' style="margin: auto; background-color: #282832;">
+<div style="margin-top: 30px">
+<table width='652px' style="margin: auto; background-color: #282832;">
   <tr>
-     <td width='160' align='right' valign="bottom" style="padding-bottom: 5px">
+     <td width='195' align='right' valign="middle">
          <a style="text-decoration: none; color: #ffffff;" href="${pageContext.request.contextPath }/schedule/schedule.do?year=${Year}&month=${Month}&action=0">
              <font size="2">이전달</font>
          </a>
      </td>
-    
-     <td width='199' align='center' valign='middle' style="color: #ffffff; font-size: 30px">
+     <td width='30' align='right' valign="middle">
+         <a style="text-decoration: none; color: #ffffff;" href="${pageContext.request.contextPath }/schedule/schedule.do?year=${Year}&month=${Month}&action=0">
+             <img style="height: 30px;" src="${pageContext.request.contextPath}/resources/img/left.png">
+         </a>
+     </td>
+     <td width='202' align='center' valign='middle' style="color: #ffffff; font-size: 30px">
      <button style="width: 100%; background-color: #282832; border:0px; color: #ffffff; cursor:pointer;font-size: 30px" onclick="goMonth(${Year}, ${Month+1})">${Year}년 ${Month+1}월</button>
      </td>
-     <td width='160' align='left' valign="bottom" style="padding-bottom: 5px">
+      </td>
+     <td width='30' align='left' valign="middle">
+         <a style="text-decoration: none; color: #ffffff;" href="${pageContext.request.contextPath }/schedule/schedule.do?year=${Year}&month=${Month}&action=1">
+             <img style="height: 30px;" src="${pageContext.request.contextPath}/resources/img/right.png">
+         </a>
+     </td>
+     <td width='195' align='left' valign="middle">
          <a style="text-decoration: none; color: #ffffff;" href="${pageContext.request.contextPath }/schedule/schedule.do?year=${Year}&month=${Month}&action=1">
              <font size="2">다음달</font>
          </a>

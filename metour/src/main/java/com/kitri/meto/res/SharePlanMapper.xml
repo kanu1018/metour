@@ -24,7 +24,7 @@
 	</resultMap>
 	
 	<insert id="insert" parameterType="com.kitri.meto.shareplan.SharePlan" >
-		INSERT INTO share_plan values(share_seq.nextval, #{writer}, null, #{content}, 0,#{point_num}, #{share_title})
+		INSERT INTO share_plan values(share_seq.nextval, #{writer}, #{location}, #{content}, 0,#{point_num}, #{share_title})
 	</insert>
 	
 	<select id="select" resultMap="SharePlanResultMap" parameterType="int">
@@ -61,6 +61,10 @@
    <select id="selectByBest" resultMap="SharePlanResultMap">
       SELECT * FROM (select * from share_plan order by metoo)
       where rownum <![CDATA[<]]>  10
+   </select>
+   
+   <select id="selectByPlace" resultMap="SharePlanResultMap" parameterType="String">
+      SELECT * FROM share_plan WHERE location like #{location} ORDER BY share_num
    </select>
    
 </mapper>

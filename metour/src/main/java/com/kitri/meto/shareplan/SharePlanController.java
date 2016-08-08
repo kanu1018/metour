@@ -297,7 +297,7 @@ public class SharePlanController {
 	
 	@RequestMapping(value = "/subplan/com.do")
 	public String com(HttpServletRequest req, @RequestParam(value="html")String html
-			,@RequestParam(value="main_num")int main_num){
+			,@RequestParam(value="main_num")int main_num,@RequestParam(value="location")String location){
 		//
 		int point_num = scheduleService.getByPointNum();
 		JoinDTO j = new JoinDTO();
@@ -314,6 +314,7 @@ public class SharePlanController {
 		s.setWriter(mem_num);
 		s.setContent(html);
 		s.setPoint_num(point_num+1);
+		s.setLocation(location);
 		Schedule schedule = scheduleService.getByTitle(main_num);
 		s.setShare_title(schedule.getMain_title());
 		shareService.addSharePlan(s);
@@ -330,6 +331,21 @@ public class SharePlanController {
 		return mav;
 	}
 	
+	
+	@RequestMapping(value = "/share/place.do")
+	public String place(){
+		return "/shareplan/placesearch";
+	}
+	
+	@RequestMapping(value = "/share/placelist.do")
+	public ModelAndView placelist(@RequestParam(value="place") String place){
+		String tmp = "%"+place+"%";
+		ArrayList<SharePlan> list = shareService.getSharePlanByPlace(tmp);
+
+		ModelAndView mav = new ModelAndView("shareplan/sharelist");
+		mav.addObject("list", list);
+		return mav;
+	}
 
 }
 

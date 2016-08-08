@@ -16,7 +16,7 @@
 		location.href="${pageContext.request.contextPath}/share/best.do";
 	}
 	function placeList(){
-		location.href="${pageContext.request.contextPath}/share/list.do";
+		newWindow = window.open("${pageContext.request.contextPath}/share/place.do", "newWindow", "height=200, width=400, resizable=yes"); 
 	}
 	function genderList(){
 		newWindow = window.open("${pageContext.request.contextPath}/share/gender.do", "newWindow", "height=200, width=400, resizable=yes"); 

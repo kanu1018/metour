@@ -6,6 +6,22 @@
 <head>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/httpRequest.js"></script>
 <meta charset="UTF-8">
+<style type="text/css">
+	table, tr, th, td{
+	 border-collapse: collapse;
+	 border: 1px;
+	 border-color: #808080;
+	 border-style: solid;
+	}
+	table {
+		width: 650px;
+		text-align: center;
+	}
+	img {
+		width: 25px;
+		height: 25px;
+	}
+</style>
 <script type="text/javascript">
 	var newWindow;
 
@@ -43,33 +59,38 @@
 <title>:::ShareView:::</title>
 </head>
 <body>
-<table border="1">
+<div align="center">
+<table>
 	<tr>
-		<th>share_num</th>
-		<td>${s.share_num }</td>
-		<th>writer</th>
-		<td>${s.writer }</td>
-	</tr>
-	<tr>
-		<th colspan="2">content</th>
-		<td colspan="2">
+		<td colspan="4">
 			 <c:if test="${s.content ne null }">${s.content }</c:if>
 		</td>
 	</tr>
 	<tr>
-		<td colspan="4"><input type="text" id="metoo" value="${s.metoo }" readonly="readonly">
+		<td colspan="4" style="height: 30px; text-align: right; text-indent: 10px;">
+			${s.writer }
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" style="text-align:left; text-indent: 5px;">
 			<c:choose>
-				<c:when test="${me.metoo_yn eq 'n'}">
-					<input type="button" value="metoo" onclick="metoo(${s.share_num },1)" style="background-color: #B2EBF4;">
+				<c:when test="${me.metoo_yn eq 'n'}">&nbsp;
+					<img src="${pageContext.request.contextPath}/resources/img/like02.png" onclick="metoo(${s.share_num },1)">&nbsp;
+					<%-- <input type="button" value="metoo" onclick="metoo(${s.share_num },1)" style="background-color: #B2EBF4;"> --%>
 				</c:when>
 				<c:when test="${me.metoo_yn eq 'y'}">
-					<input type="button" value="metoo" onclick="metoo(${s.share_num },2)" style="background-color: #FFA7A7;">
+					<img src="${pageContext.request.contextPath}/resources/img/like01.png" onclick="metoo(${s.share_num },2)">&nbsp;
+					<%-- <input type="button" value="metoo" onclick="metoo(${s.share_num },2)" style="background-color: #FFA7A7;"> --%>
 				</c:when>
 			</c:choose>
+			${s.metoo }
+		</td>
+		<td colspan="2" align="right">
 			<form action="${pageContext.request.contextPath}/singo" method="post" name="fs">
 				<input type="hidden" name="share_num" value="${s.share_num }">
 				<input type="hidden" name="singo_kind" value="s">
-				<input type="button" value="신고11" onclick="singo()">
+				<img src="${pageContext.request.contextPath}/resources/img/singo02.png" onclick="singo()">&nbsp;
+				<!-- <input type="button" value="신고" onclick="singo()"> -->
 			</form>
 		</td>
 	</tr>
@@ -106,5 +127,6 @@
 		</tr>
 	</c:forEach>
 	</table>
+</div>
 </body>
 </html>
