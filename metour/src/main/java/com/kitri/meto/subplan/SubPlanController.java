@@ -218,7 +218,8 @@ public class SubPlanController {
 		}
 		
 		for(int j = 0; j < start_now.length; j++){
-			int start_i = getIndex(start_now[j].substring(2, 4), start_now[j].substring(3, 5), start_now[j].substring(0, 2));
+			System.out.println(start_now[j].substring(2, 4) +  start_now[j].substring(5, 7) +  start_now[j].substring(0, 2));
+			int start_i = getIndex(start_now[j].substring(2, 4), start_now[j].substring(5, 7), start_now[j].substring(0, 2));
 			int end_i = getIndex(end_now[j].substring(2, 4), end_now[j].substring(5, 7), end_now[j].substring(0, 2));
 			
 			/*SubPlanList sp = new SubPlanList();
@@ -232,6 +233,7 @@ public class SubPlanController {
 			//title.set(start_i+1, sp);
 			//title.set(start_i+1, sp);
 			for(int i = start_i; i < end_i; i++){
+				System.out.println(i + ":" + start_i);
 				SubPlanList sp = new SubPlanList();
 				sp.setSub_num(sub.get(j).getSub_num());
 				sp.setTitle(sub.get(j).getSub_title());
@@ -311,9 +313,11 @@ public class SubPlanController {
 	}
 	
 	@RequestMapping(value = "/subplan/del.do")
-	public String subPlanDel(HttpServletRequest request, @RequestParam(value="subnum")int subNum){
+	public String subPlanDel(HttpServletRequest request, @RequestParam(value="subnum")int subNum,
+			@RequestParam(value="mainnum")int mainNum){
 		subPlanService.delSubPlan(subNum);
-		return "redirect:/subplan/list.do";
+		
+		return "redirect:/subplan/list.do?main_num="+mainNum;
 	}
 	
 	@RequestMapping(value="/subplan/place.do")

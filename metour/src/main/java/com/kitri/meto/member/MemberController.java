@@ -25,10 +25,26 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 	
-	@RequestMapping(value="/")
+	/*@RequestMapping(value="/")
 	public ModelAndView main(){
 		List<JoinDTO> list = new ArrayList<JoinDTO>();
 		ModelAndView mav = new ModelAndView("member/main");
+		//ModelAndView mav = new ModelAndView("member/mainhome");
+		list = memberService.getArticleByRoot();
+		mav.addObject("LIST",list);
+		return mav;
+	}*/
+	
+	@RequestMapping("/")
+	public String home(){
+		return "/mainhome";
+	}
+	
+	@RequestMapping(value="/member/main.do")
+	public ModelAndView main(){
+		List<JoinDTO> list = new ArrayList<JoinDTO>();
+		ModelAndView mav = new ModelAndView("member/main");
+		//ModelAndView mav = new ModelAndView("member/mainhome");
 		list = memberService.getArticleByRoot();
 		mav.addObject("LIST",list);
 		return mav;

@@ -57,4 +57,10 @@
    <select id="selectByWriter" resultMap="SharePlanResultMap" parameterType="int">
       SELECT * FROM share_plan WHERE writer = #{writer}
    </select>
+   
+   <select id="selectByBest" resultMap="SharePlanResultMap">
+      SELECT * FROM (select * from share_plan order by metoo)
+      where rownum <![CDATA[<]]>  10
+   </select>
+   
 </mapper>
