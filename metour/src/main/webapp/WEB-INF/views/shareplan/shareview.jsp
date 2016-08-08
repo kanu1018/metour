@@ -8,10 +8,10 @@
 <meta charset="UTF-8">
 <style type="text/css">
 	table, tr, th, td{
-	 border-collapse: collapse;
-	 border: 1px;
-	 border-color: #808080;
-	 border-style: solid;
+		border-collapse: collapse;
+		border: 1px;
+		border-color: #808080;
+		border-style: solid;
 	}
 	table {
 		width: 650px;
@@ -21,6 +21,32 @@
 		width: 25px;
 		height: 25px;
 	}
+	INPUT[type="button"]{
+		width: 50px;
+		height: 30px;
+		font-size: 11pt;
+		border: solid 2px;
+		border-radius:7px;
+		background-color:#1ABC9C;
+		text-align:center;
+		color: #FFFFFF;
+	} 
+	INPUT[type="submit"]{
+		width: 110px;
+		height: 30px;
+		font-size: 11pt;
+		border: solid 2px;
+		border-radius:7px;
+		background-color:#1ABC9C;
+		text-align:center;
+		color: #FFFFFF;
+	} 
+ 	#tab1 table, tr, th, td{
+		border-collapse: collapse;
+		border: 0px;
+		border-color: #808080;
+		border-style: solid;
+	} 
 </style>
 <script type="text/javascript">
 	var newWindow;
@@ -67,12 +93,12 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan="4" style="height: 30px; text-align: right; text-indent: 10px;">
+		<td colspan="4" style="height: 30px; text-align: left; text-indent: 10px;">
 			${s.writer }
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2" style="text-align:left; text-indent: 5px;">
+		<td colspan="2" style="text-align:left; text-indent: 5px; height: 30px;">
 			<c:choose>
 				<c:when test="${me.metoo_yn eq 'n'}">&nbsp;
 					<img src="${pageContext.request.contextPath}/resources/img/like02.png" onclick="metoo(${s.share_num },1)">&nbsp;
@@ -97,34 +123,39 @@
 </table>
 	<form action="${pageContext.request.contextPath}/rep/add.do" method="post" id="f">
 	<input type="hidden" name="share_num" value="${s.share_num }">
-	<table id="tab1">
-		<tr>
-			<td>
-				<input type="text" id="rep" name="rep_content">
-			</td>
-			<td colspan="2">
-				<input type="submit" id="add" value="댓글작성">
-			</td>			
-		</tr>
+		<table id="tab1" style="width: 650px;">
+			<tr>
+				<td colspan="2" style="width: 600px; height: 40px;">
+					<input type="text" id="rep" name="rep_content" style="width: 95%; height: 20px;">
+				</td>
+				<td colspan="2" style="width: 50px; text-align: right;">
+					<input type="submit" id="add" value="등록">
+				</td>			
+			</tr>
+		</table>
 	</form>
+	<table style="width: 650px;">
 	<c:forEach var="reps" items="${list }">
 		<input type="hidden" name="share_num" value="${s.share_num }">
 		<input type="hidden" name="rep_num" value="${reps.rep_num}">
-		<tr>
-			<td>${reps.rep_content }</td>
-			<td>${reps.rep_writer }</td>
-			<td>
-				<input type="button" value="신고" onclick="singoRep(${reps.rep_num}, 'r')">
-			</td>
-			<c:forEach var="r" items="${r }">
-				<c:if test="${reps.rep_num eq r.rep_num && reps.rep_writer eq r.rep_writer }">
-					<td>
-						<input type="button" value="수정" onclick="focusOn(${reps.rep_num}, '${reps.rep_content }', ${s.share_num })">
-						<input type="button" value="삭제" onclick="repDel(${reps.rep_num}, ${s.share_num })">	
-					</td>
-				</c:if>
-			</c:forEach>
-		</tr>
+			<tr>
+				<th style="width: 50px; height: 40px;">${reps.rep_writer }</th>
+				<td style="width:450px; height: 40px; text-align: left; text-indent: 10px;">${reps.rep_content }</td>
+				<td style="width: 150px; height: 40px; text-align: right;">
+					<c:forEach var="r" items="${r }">
+						<c:if test="${reps.rep_num eq r.rep_num && reps.rep_writer eq r.rep_writer }">
+							<input type="button" value="수정" onclick="focusOn(${reps.rep_num}, '${reps.rep_content }', ${s.share_num })">&nbsp;
+							<input type="button" value="삭제" onclick="repDel(${reps.rep_num}, ${s.share_num })">&nbsp;			
+						</c:if>
+					</c:forEach>
+					<c:forEach var="r" items="${r }">
+						<c:if test="${reps.rep_num eq r.rep_num && reps.rep_writer ne r.rep_writer }">
+							<img src="${pageContext.request.contextPath}/resources/img/singo02.png" onclick="singoRep(${reps.rep_num}, 'r')">&nbsp;
+							<%-- <input type="button" value="신고" onclick="singoRep(${reps.rep_num}, 'r')"> --%>
+						</c:if>
+					</c:forEach>
+				</td>
+			</tr>
 	</c:forEach>
 	</table>
 </div>

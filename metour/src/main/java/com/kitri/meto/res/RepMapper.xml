@@ -27,6 +27,6 @@
 	</select>
 	
 	<select id="selectByShareNum" resultMap="RepResultMap" parameterType="int">
-		SELECT * FROM rep WHERE share_num = #{share_num} ORDER BY rep_num desc
+		SELECT * FROM rep WHERE share_num = #{share_num} ORDER BY rep_num
 	</select>
 </mapper>
