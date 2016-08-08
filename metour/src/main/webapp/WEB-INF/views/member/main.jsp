@@ -104,7 +104,7 @@ td{
 		padding:0px;
 		margin:0px;
 		border:0px;
-		position: absolute;
+		position: absolute;right: 0;top: 60px;
 		width:200px;
 		z-index:200;
 		list-style-type: none;
