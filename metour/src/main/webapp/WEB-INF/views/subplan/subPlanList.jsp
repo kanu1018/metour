@@ -103,6 +103,7 @@ a:hover {text-decoration: none; color: #ffffff;}
 						<c:if test="${rowCnt ne 0 and rowCnt ne rowNum }">
 							<c:set var="rowCnt" value="${rowCnt+1}" />
 						</c:if>
+						${rowCnt }
 						<%-- </c:choose> --%>
 					</c:when>
 					</c:choose>					
