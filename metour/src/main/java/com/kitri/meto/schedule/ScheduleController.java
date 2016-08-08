@@ -221,8 +221,7 @@ public class ScheduleController {
 					l_day=28;
 				}
 			}
-		}			
-		
+		}				
 		
 		mav.addObject("Year",year);
 		mav.addObject("Month",month);
@@ -234,6 +233,10 @@ public class ScheduleController {
 		mav.addObject("L_Month",l_month);
 		mav.addObject("L_Day",l_day);
 		
+		if (request.getParameter("action") !=null){
+			int action = Integer.parseInt(request.getParameter("action"));
+			mav.addObject("action",action);
+		}
 			
 		return mav;
 	}
