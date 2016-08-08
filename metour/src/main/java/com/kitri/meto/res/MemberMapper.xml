@@ -17,7 +17,7 @@
  
  <resultMap type="com.kitri.meto.JoinDTO.JoinDTO" id="ArticleMap">
  		<result property="share_num" column="SHARE_NUM"/>
- 		<result property="main_title" column="MAIN_TITLE"/>
+ 		<result property="share_title" column="SHARE_TITLE"/>
  		<result property="id" column="ID"/>
  		<result property="location" column="LOCATION"/>
  		<result property="metoo" column="METOO"/>
@@ -41,22 +41,22 @@
     </delete>
     
     <select id="articleListAll" resultMap="ArticleMap">
-    	SELECT share_num, main_title, id, location, metoo FROM member join share_plan s on mem_num = writer join main_plan m on s.point_num= m.point_num 
+    	SELECT share_num, share_title, id, location, metoo FROM member join share_plan s on mem_num = writer join main_plan m on s.point_num= m.point_num 
     	WHERE <![CDATA[ ROWNUM <= 10 ]]>  ORDER BY metoo 
     </select>
     
     <select id="getArticleByTitle" resultMap="ArticleMap" parameterType="String">
-    	SELECT share_num, main_title, id, location, metoo FROM member join share_plan s on mem_num = writer join main_plan m on s.point_num= m.point_num 
-    	WHERE <![CDATA[ ROWNUM <= 10 ]]> AND main_title like '%' || #{text} || '%' ORDER BY metoo 
+    	SELECT share_num, share_title, id, location, metoo FROM member join share_plan s on mem_num = writer join main_plan m on s.point_num= m.point_num 
+    	WHERE <![CDATA[ ROWNUM <= 10 ]]> AND share_title like '%' || #{text} || '%' ORDER BY metoo 
     </select>
     
     <select id="getArticleByWriter" resultMap="ArticleMap" parameterType="String">
-    	SELECT share_num, main_title, id, location, metoo FROM member join share_plan s on mem_num = writer join main_plan m on s.point_num= m.point_num 
+    	SELECT share_num, share_title, id, location, metoo FROM member join share_plan s on mem_num = writer join main_plan m on s.point_num= m.point_num 
     	WHERE <![CDATA[ ROWNUM <= 10 ]]> AND id like '%' || #{text} || '%' ORDER BY metoo 
     </select>
     
     <select id="getArticleByNum" resultMap="ArticleMap" parameterType="Int">
-    	SELECT share_num, main_title, id, location, metoo FROM member join share_plan s on mem_num = writer join main_plan m on s.point_num= m.point_num 
+    	SELECT share_num, share_title, id, location, metoo FROM member join share_plan s on mem_num = writer join main_plan m on s.point_num= m.point_num 
     	WHERE <![CDATA[ ROWNUM <= 10 ]]> AND share_num like '%' || #{num} || '%' ORDER BY metoo 
     </select>
     
