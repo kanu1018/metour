@@ -8,6 +8,7 @@ public class SubPlans {
 	private String date;
 	private int point_num;
 	private int main_num;
+	private String place;
 	public SubPlans() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -20,6 +21,19 @@ public class SubPlans {
 		this.point_num = point_num;
 		this.main_num = main_num;
 	}
+	
+	
+	public SubPlans(ArrayList<SubPlan> list, String main_title, String date, int point_num, int main_num,
+			String place) {
+		super();
+		this.list = list;
+		this.main_title = main_title;
+		this.date = date;
+		this.point_num = point_num;
+		this.main_num = main_num;
+		this.place = place;
+	}
+	
 	public ArrayList<SubPlan> getList() {
 		return list;
 	}
@@ -49,6 +63,12 @@ public class SubPlans {
 	}
 	public void setMain_num(int main_num) {
 		this.main_num = main_num;
+	}
+	public String getPlace() {
+		return place;
+	}
+	public void setPlace(String place) {
+		this.place = place;
 	}
 	
 	
