@@ -1,5 +1,6 @@
 package com.kitri.meto.member;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,16 +160,16 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/search.do")
 	   public ModelAndView select(@RequestParam(value="type")int type,@RequestParam(value="searchText")String text){
-	      ModelAndView mav = new ModelAndView("member/main");
+	      ModelAndView mav = new ModelAndView("shareplan/sharelist");
 	      if(type==1){
-	         mav.addObject("LIST",memberService.getArticleByTitle(text));//제목
+	         mav.addObject("list",memberService.getArticleByTitle(text));//제목
 	      } else if(type==2){
-	         mav.addObject("LIST",memberService.getArticleByWriter(text));//작성자
+	         mav.addObject("list",memberService.getArticleByWriter(text));//작성자
 	      } else if(type==3){
 	    	 int num = Integer.parseInt(text);
-	         mav.addObject("LIST",memberService.getArticleByNum(num));//글번호
+	         mav.addObject("list",memberService.getArticleByNum(num));//글번호
 	      } else {
-	         mav.addObject("LIST",memberService.getArticleByRoot());
+	         mav.addObject("list",memberService.getArticleByRoot());
 	      }
 	      return mav;
 	   }
