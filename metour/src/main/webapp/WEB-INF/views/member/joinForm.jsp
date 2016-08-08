@@ -123,9 +123,8 @@
 				document.getElementById("id2").value = "";
 			}
 		}else{
-			document.getElementById("selbox").style.visibility = "hidden";
 			document.getElementById("id2").value = "";
-			document.getElementById("id2").readOnly = false;
+			document.getElementById("id2").readOnly = true;
 		}
 	}
 	function back() {
@@ -146,16 +145,15 @@
 <input type="text" name="id1" id="id1" placeholder="이메일" align="left"><td>@</td>
 </td>
 <td>
-<input type="text" name="id2" id="id2" placeholder="도메인" align="left" readonly="readonly">
+<input type="text" name="id2" id="id2" placeholder="도메인" align="left">
 </td>
 <td>
 <select name="email" onclick="select()" id="selbox" align="left">
-	<option value=" ">선택하기</option>
+	<option value=" ">직접쓰기</option>
     <option value="naver.com">naver.com</option>
     <option value="google.com">google.com</option>
     <option value="daum.net">daum.net</option>
     <option value="daeyang.com">daeyang.com</option>
-    <option value="">직접쓰기</option>
 </select>
 </td>
 <td>
