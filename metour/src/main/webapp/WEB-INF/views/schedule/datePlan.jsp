@@ -10,7 +10,7 @@
     #mainPlanTable {
     	border-collapse: collapse;
         border:2px solid #000;
-        width:330px;
+        width:360px;
     }
      
     #mainPlanTable td { 
@@ -58,30 +58,47 @@ function insertPlan(year,month,day){
 	window.opener.location.href = url;
 	window.close();
 }
+
+function addPlan(year,month,day,action){
+	var url = "${pageContext.request.contextPath}/schedule/datePlan.do?year="+year
+			+"&month="+month+"&day="+day+"&action="+action;
+	location.href = url;
+}
 </script>
 </head>
 <body>
 
-<table width='330px' style="margin: auto; background-color: #282832;">
+<table width='360px' style="margin: auto; background-color: #282832;">
   <tr>
-     <td width='80' align="center" valign="bottom">
+     <td width='65' height="35px" align="right" valign="middle">
         <a style="text-decoration:none; color: #ffffff;" href="${pageContext.request.contextPath}/schedule/datePlan.do?year=${L_Year}&month=${L_Month}&day=${L_Day}">
              <font size="2">${L_Month}월 ${L_Day}일</font>
          </a>
      </td>
+     <td width='20' align='center' valign="middle">
+         <a style="text-decoration: none; color: #ffffff;" href="${pageContext.request.contextPath}/schedule/datePlan.do?year=${L_Year}&month=${L_Month}&day=${L_Day}">
+             <img style="height: 15px;" src="${pageContext.request.contextPath}/resources/img/left.png">
+         </a>
+     </td>
     
-     <td width='170' align='center' valign='middle' style="color: #ffffff; font-size: 20px">
+     <td width='190' align='center' valign='middle' style="color: #ffffff; font-size: 23px">
      	<b>${Year}년 ${Month}월 ${Day}일</b>
      </td>
-     <td width='80' align='center' valign="bottom">
+     <td width='20' align='center' valign="middle">
+         <a style="text-decoration: none; color: #ffffff;" href="${pageContext.request.contextPath}/schedule/datePlan.do?year=${N_Year}&month=${N_Month}&day=${N_Day}">
+             <img style="height: 15px;" src="${pageContext.request.contextPath}/resources/img/right.png">
+         </a>
+     </td>
+     <td width='65' align='left' valign="middle">
          <a style="text-decoration:none;  color: #ffffff;" href="${pageContext.request.contextPath}/schedule/datePlan.do?year=${N_Year}&month=${N_Month}&day=${N_Day}">
-             <font size="2">${L_Month}월 ${L_Day}일</font>
+             <font size="2">${N_Month}월 ${N_Day}일</font>
          </a>
     </td>
   </tr>
 </table>
 
 <c:if test="${schedule ne null}">
+	<div style="padding-top: 15px">
 	<table id ="mainPlanTable">
 		<tr>
 			<td colspan="3" align="center">
@@ -122,10 +139,23 @@ function insertPlan(year,month,day){
 			</td>
 		</tr>
 	</table>
+	</div>
+	
 </c:if>
+
+
+
 <c:if test="${schedule eq null}">
+<c:if test="${action eq null}">
 <div align ="center">
-	<table style="width:330px">
+	<img src="${pageContext.request.contextPath}/resources/img/addb.png" style="width: 50px; padding-top: 50px; cursor: pointer" onclick="addPlan(${Year},${Month},${Day},1)" onmouseover="this.src='${pageContext.request.contextPath}/resources/img/adda.png'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/addb.png'">
+</div>
+</c:if>
+
+<c:if test="${action eq 1}">
+<div align ="center" style="padding-top: 10px">
+	
+	<table style="width:360px">
 		<tr style="height: 30px">
 		<td align="center">
 				<input type="text" placeholder="제목을 입력하세요." style="width: 97%;height: 100%" id="title"/>
@@ -138,6 +168,10 @@ function insertPlan(year,month,day){
 		</tr>
 	</table>
 </div>
+</c:if>
+
+	
+
 	
 </c:if>
 
