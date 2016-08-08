@@ -53,6 +53,7 @@
 </div>
 <form action="${pageContext.request.contextPath}/subplan/com.do" method="post" name="frm">
 <input type="hidden" name="html">
+<input type="hidden" name="location" value="${location}">
 <input type="hidden" name="main_num" value="${main_num}">
 <input type="button" value="공유하기" onclick="ss()">
 </form>

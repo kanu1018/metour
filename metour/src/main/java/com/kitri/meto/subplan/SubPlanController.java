@@ -480,7 +480,7 @@ public class SubPlanController {
 				System.out.println(sublist.get(i).get(j).getSub_title());
 			}
 		}*/
-		
+		String place="";
 		ArrayList<SubPlans> sublist = new ArrayList<SubPlans>();
 		for(int i=0;i<num.length;i++){
 			main_nums[i] = Integer.parseInt(num[i]);
@@ -491,9 +491,19 @@ public class SubPlanController {
 			list.setDate(sche.getMain_date());
 			list.setMain_num(sche.getMain_num());
 			sublist.add(list);
+			ArrayList<SubPlan> s;
+			s = subPlanService.getSubPlans(main_nums[i]);
+			for(int j=0;j<s.size();j++){
+				place += s.get(j).getPlace()+"/";
+			}
+			if(i==num.length-1){
+				place = place.substring(0,place.length()-1);
+			}
 		}
+		System.out.println(place);
 		//ArrayList<SubPlan> sublist = new ArrayList<SubPlan>();
 		//sublist = subPlanService.getSubPlans(main_num);
+		mav.addObject("location",place);
 		mav.addObject("main_num",main_nums[0]);
 		mav.addObject("item",sublist);
 		

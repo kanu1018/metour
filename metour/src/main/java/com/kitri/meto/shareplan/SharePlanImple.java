@@ -78,5 +78,12 @@ public class SharePlanImple implements SharePlanService {
 	      ArrayList<SharePlan> list = shareMapper.selectByBest();
 	      return list;
 	}
+
+	@Override
+	public ArrayList<SharePlan> getSharePlanByPlace(String place) {
+		SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
+	    ArrayList<SharePlan> list = shareMapper.selectByPlace(place);
+		return list;
+	}
    
 }

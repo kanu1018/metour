@@ -16,13 +16,26 @@
 		location.href="${pageContext.request.contextPath}/share/best.do";
 	}
 	function placeList(){
-		location.href="${pageContext.request.contextPath}/share/list.do";
+		newWindow = window.open("${pageContext.request.contextPath}/share/place.do", "newWindow", "height=200, width=400, resizable=yes"); 
 	}
 	function genderList(){
 		newWindow = window.open("${pageContext.request.contextPath}/share/gender.do", "newWindow", "height=200, width=400, resizable=yes"); 
 	}
 	function ageList(){
 		newWindow = window.open("${pageContext.request.contextPath}/share/age.do", "newWindow", "height=200, width=400, resizable=yes");
+	}
+	function showKeyCode(event) {
+		var select = document.getElementById("search_box");
+		var option_value = select.options[select.selectedIndex].value;
+		var keyValue = event.keyCode;
+		if(option_value == 3){
+			if(((keyValue>=48) && (keyValue<=57))){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
 	}
 	function search1(){
 		var text = document.getElementById("searchText").value;
@@ -35,6 +48,7 @@
 			location.href = "${pageContext.request.contextPath }/member/search.do?type="+option_value+"&searchText="+text;
 		}
 	}
+	
 </script>
 <meta charset="UTF-8">
 <style type="text/css">
@@ -95,7 +109,7 @@
 </table>
 <br>
 
-<form action="${pageContext.request.contextPath}/share/search.do" method="post" name="f ">
+<form <%-- action="${pageContext.request.contextPath}/share/search.do" --%> method="post" name="f ">
 	<!-- <input type="text" name="search">
 	<img class="search" src="/img/search.png" onclick="shareplanSearch()"> -->
 	<!-- <table class="tabs" align="center">
