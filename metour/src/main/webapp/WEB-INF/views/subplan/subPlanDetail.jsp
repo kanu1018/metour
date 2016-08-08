@@ -128,9 +128,9 @@ var time_index = "<c:out value='${index}'/>";
 		}
 	}
 	
-	function subplanDel(num){
+	function subplanDel(num,mainnum){
 		if(confirm("계획을 삭제하시겠습니까?") == true){
-			location.href="${pageContext.request.contextPath}/subplan/del.do?subnum="+num;
+			location.href="${pageContext.request.contextPath}/subplan/del.do?subnum="+num+"&mainnum="+mainnum;
 		} else{
 			return;
 		}
@@ -324,7 +324,7 @@ function duple() {
 			<td colspan="4">
 				<input type="button" value="수정" onclick="subplanEdit()">
 				<input type="button" value="취소" onclick="editCancel(${subplan.main_num})">
-				<input type="button" value="삭제" onclick="subplanDel(${subplan.sub_num})">
+				<input type="button" value="삭제" onclick="subplanDel(${subplan.sub_num}, ${subplan.main_num})">
 			</td>
 		</tr>
 	</table>
