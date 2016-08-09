@@ -48,8 +48,10 @@ public class MemberDaoService implements memberService {
 
 	@Override
 	public boolean login(Member m) {
+		System.out.println("id="+m.getId());
 		// TODO Auto-generated method stub
 		Member result = getMember(m.getId());
+		System.out.println("status+"+result.getMem_status());
 		if(!result.getMem_status().equals("n")){
 			if(result!=null && m.getPwd().equals(result.getPwd())){
 				return true; 

@@ -36,12 +36,12 @@ public class AndMemberController {
 		return mav;
 	}*/
 	
-	@RequestMapping("/")
+	@RequestMapping("/and")
 	public String home(){
 		return "/mainhome";
 	}
 	
-	@RequestMapping(value="/member/main.do")
+	@RequestMapping(value="/and/member/main.do")
 	public ModelAndView main(){
 		List<JoinDTO> list = new ArrayList<JoinDTO>();
 		ModelAndView mav = new ModelAndView("member/main");
@@ -51,17 +51,17 @@ public class AndMemberController {
 		return mav;
 	}
 	
-	@RequestMapping("/member/joinForm.do")
+	@RequestMapping("/and/member/joinForm.do")
 	public String joinForm(){
 		return "member/joinForm";
 	}
 	
-	@RequestMapping("/member/loginForm.do")
+	@RequestMapping("/and/member/loginForm.do")
 	public String loginForm(){
 		return "member/loginForm";
 	}
 	
-	@RequestMapping("/member/pwdchk_ok.do")
+	@RequestMapping("/and/member/pwdchk_ok.do")
 	public String pwdchk_ok(HttpServletRequest req,@RequestParam(value="pwd")String pwd,Member m,@RequestParam(value="id")String id){
 		HttpSession session = null;
 		if(m.getPwd().equals(pwd)){
@@ -73,14 +73,14 @@ public class AndMemberController {
 		return "member/pwdchkForm";
 	}
 	
-	@RequestMapping("/member/pwdchkForm.do")
+	@RequestMapping("/and/member/pwdchkForm.do")
 	public String pwdchkForm(HttpServletRequest req,Member m){
 		HttpSession session = null;
 		session = req.getSession();
 		return "member/pwdchkForm";
 	}
 	
-	@RequestMapping(value="/member/join.do")
+	@RequestMapping(value="/and/member/join.do")
 	public String join(@RequestParam(value="id1")String id1,@RequestParam(value="id2")String id2,@RequestParam(value="email")String email,Member m){
 		if(email.equals("")){
 			m.setId(id1+"@"+id2);
@@ -91,7 +91,7 @@ public class AndMemberController {
 		return "member/loginForm";
 	}
 	
-	@RequestMapping(value="/member/idCheck.do")
+	@RequestMapping(value="/and/member/idCheck.do")
 	public ModelAndView idCheck(@RequestParam(value="id1")String id1,@RequestParam(value="id2")String id2,@RequestParam(value="email")String email){
 		String id="";
 		if(email.equals("")){
@@ -109,7 +109,7 @@ public class AndMemberController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/member/pwdCheck.do")
+	@RequestMapping(value="/and/member/pwdCheck.do")
 	public ModelAndView pwdCheck(@RequestParam(value="pwd")String pwd, @RequestParam(value="pwd_chk")String pwd_chk){
 		boolean flag = false;
 		if(pwd.equals(pwd_chk)){
@@ -120,7 +120,7 @@ public class AndMemberController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/member/login.do")
+	@RequestMapping(value="/and/member/login.do")
 	public String login(Member m, HttpServletRequest req){
 		HttpSession session = null;
 		boolean flag = memberService.login(m);
@@ -137,7 +137,7 @@ public class AndMemberController {
 		return "member/loginForm";
 	}
 	
-	@RequestMapping(value="/member/editForm.do")
+	@RequestMapping(value="/and/member/editForm.do")
 	public String modify(HttpServletRequest req){
 		Member m = memberService.getMember(req.getSession().getAttribute("id").toString());
 		if(m==null){
@@ -147,13 +147,13 @@ public class AndMemberController {
 		return "member/editForm";
 	}
 	
-	@RequestMapping(value="/member/edit.do")
+	@RequestMapping(value="/and/member/edit.do")
 	public String edit(Member m){
 		memberService.editMember(m);
 		return "member/main";
 	}
 	
-	@RequestMapping(value="/member/logout.do")
+	@RequestMapping(value="/and/member/logout.do")
 	public ModelAndView logout(HttpServletRequest req){
 		req.getSession().invalidate();
 		List<JoinDTO> list = new ArrayList<JoinDTO>();
@@ -163,19 +163,19 @@ public class AndMemberController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/member/out.do")
+	@RequestMapping(value="/and/member/out.do")
 	public String out(HttpServletRequest req){
 		memberService.delMember(req.getSession().getAttribute("id").toString());
 		req.getSession().invalidate();
 		return "member/loginForm";
 	}
 	
-	@RequestMapping(value="/member/admin.do")
+	@RequestMapping(value="/and/member/admin.do")
 	public String adminForm(){
 		return "admin/admin";
 	}
 	
-	@RequestMapping(value="/member/search.do")
+	@RequestMapping(value="/and/member/search.do")
 	   public ModelAndView select(@RequestParam(value="type")int type,@RequestParam(value="searchText")String text){
 	      ModelAndView mav = new ModelAndView("shareplan/sharelist");
 	      if(type==1){

@@ -23,8 +23,8 @@ public class AndMainSubPlanController {
 	public void setMainSubPlanService(MainSubPlanService msService){
 		this.msService = msService;
 	}
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////여기수정할거얌
-	@RequestMapping(value="/ms/select.do")//사진불러오기
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////�뿬湲곗닔�젙�븷嫄곗뼂
+	@RequestMapping(value="/and/ms/select.do")//�궗吏꾨텋�윭�삤湲�
 	public ModelAndView msList(@RequestParam(value="main_num") int main_num){
 		ModelAndView mav = new ModelAndView("shareplan/share");
 		JoinDTO j = msService.getMainPlan(main_num);
@@ -34,7 +34,7 @@ public class AndMainSubPlanController {
 		return mav;
 	}
 	
-	@RequestMapping("/ms/selectPlans.do")
+	@RequestMapping("/and/ms/selectPlans.do")
 	public String selectPlans(HttpServletRequest request, @RequestParam(value="main_num") String main_num){
 		String main_nums[] = main_num.split("/");
 

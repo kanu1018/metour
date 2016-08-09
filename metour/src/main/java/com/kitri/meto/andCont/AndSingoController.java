@@ -31,12 +31,12 @@ public class AndSingoController {
 	//@RequestParam(value="type") String type, @RequestParam(value="num") int num
 	
 	
-	@RequestMapping("/singo/popup.do")
+	@RequestMapping("/and/singo/popup.do")
 	public String popUp(){
 		return "/singo/singoinsert";
 	}
 	
-	@RequestMapping(value = "/singo/add.do")
+	@RequestMapping(value = "/and/singo/add.do")
 	public String singoAdd(HttpServletRequest req, @RequestParam(value="singo_kind") String singo_kind,
 			 @RequestParam(value="share_num") int share_num, @RequestParam(value="singo_content") String singo_content){
 		System.out.println(share_num);

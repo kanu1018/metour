@@ -317,6 +317,9 @@ public class SharePlanController {
 		s.setLocation(location);
 		Schedule schedule = scheduleService.getByTitle(main_num);
 		s.setShare_title(schedule.getMain_title());
+		
+		System.out.println(s.getShare_title()+"/"+s.getWriter()+"/"+s.getLocation()+"/"+"/"+s.getMetoo()+"/"+s.getPoint_num());
+		System.out.println(s.getContent());
 		shareService.addSharePlan(s);
 		System.out.println("성공");
 		return "redirect:/share/list.do";

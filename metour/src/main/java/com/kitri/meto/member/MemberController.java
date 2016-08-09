@@ -81,7 +81,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/join.do")
 	public String join(@RequestParam(value="id1")String id1,@RequestParam(value="id2")String id2,@RequestParam(value="email")String email,Member m){
-		if(email.equals("")){
+		if(email.equals(" ")){
 			m.setId(id1+"@"+id2);
 		}else{
 			m.setId(id1+"@"+email);
@@ -93,7 +93,7 @@ public class MemberController {
 	@RequestMapping(value="/member/idCheck.do")
 	public ModelAndView idCheck(@RequestParam(value="id1")String id1,@RequestParam(value="id2")String id2,@RequestParam(value="email")String email){
 		String id="";
-		if(email.equals("")){
+		if(email.equals(" ")){
 			id=id1+"@"+id2;
 		}else{
 			id=id1+"@"+email;

@@ -37,7 +37,7 @@ public class AndMetooController {
 		this.memberService = memberService;
 	}
 	
-	@RequestMapping(value = "/metoo/metoo.do")
+	@RequestMapping(value = "/and/metoo/metoo.do")
 	public String view(HttpServletRequest req, @RequestParam(value="share_num") int share_num, @RequestParam(value="type") int type){//세션받기
 		System.out.println("metoo");
 		//세션 id, mem_num 받아오기
