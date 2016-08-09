@@ -5,12 +5,12 @@ public class SharePlan {
 	private int writer;
 	private String location;
 	private String content;
-	private String metoo;
+	private int metoo;
 	private int point_num;
 	private String share_title;
 	
 	public SharePlan(){}
-	public SharePlan(int share_num, int writer, String location, String content, String metoo, int point_num, String share_title) {
+	public SharePlan(int share_num, int writer, String location, String content, int metoo, int point_num, String share_title) {
 		super();
 		this.share_num = share_num;
 		this.writer = writer;
@@ -43,10 +43,10 @@ public class SharePlan {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getMetoo() {
+	public int getMetoo() {
 		return metoo;
 	}
-	public void setMetoo(String metoo) {
+	public void setMetoo(int metoo) {
 		this.metoo = metoo;
 	}
 	public int getPoint_num() {
