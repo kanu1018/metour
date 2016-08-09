@@ -9,6 +9,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/httpRequest.js"></script>
 <script type="text/javascript">
 	var flag=false;
+	var flagpwd=false;
 	function idCheck() {
 		var params = "id1="+document.f.id1.value+"&id2="+document.f.id2.value+"&email="+document.f.email.value;
 		sendRequest("${pageContext.request.contextPath}/member/idCheck.do", params, checkResult,'POST');
@@ -44,7 +45,7 @@
 	function pwdResult() {
 		if(httpRequest.readyState==4){
 			if(httpRequest.status==200){
-				flag=true;
+				flagpwd=true;
 				var str = httpRequest.responseText;
 				var o = eval("("+str+")");
 				var myDiv = document.getElementById("pwdcheckMsg");
@@ -148,7 +149,7 @@
 <input type="text" name="id2" id="id2" placeholder="도메인" align="left">
 </td>
 <td>
-<select name="email" onclick="select()" id="selbox" align="left">
+<select name="email" onclick="select()" id="selbox" align="left" >
 	<option value=" ">직접쓰기</option>
     <option value="naver.com">naver.com</option>
     <option value="google.com">google.com</option>
