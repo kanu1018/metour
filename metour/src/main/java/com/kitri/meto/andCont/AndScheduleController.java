@@ -58,7 +58,7 @@ public class AndScheduleController {
 
 	
 	
-	@RequestMapping(value="/schedule/schedule.do")
+	@RequestMapping(value="/and/schedule/schedule.do")
 	public ModelAndView calendar(HttpServletRequest request){
 		HttpSession session = request.getSession();
 		String id = session.getAttribute("id").toString();
@@ -146,7 +146,7 @@ public class AndScheduleController {
 	}
 
 	
-	@RequestMapping("/schedule/datePlan.do")
+	@RequestMapping("/and/schedule/datePlan.do")
 	public ModelAndView specific(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView("schedule/datePlan");
 		HttpSession session = request.getSession();
@@ -244,7 +244,7 @@ public class AndScheduleController {
 		return mav;
 	}
 	
-	@RequestMapping("/schedule/selectMonth.do")
+	@RequestMapping("/and/schedule/selectMonth.do")
 	public ModelAndView selectMonth(@RequestParam(value="year") int year, @RequestParam(value="month") int month){
 		ModelAndView mav = new ModelAndView("/schedule/selectMonth");
 		mav.addObject("Year",year);
@@ -253,7 +253,7 @@ public class AndScheduleController {
 	}
 	
 	
-	@RequestMapping("/schedule/listPlan.do")
+	@RequestMapping("/and/schedule/listPlan.do")
 	public ModelAndView ShareAndDelete(HttpServletRequest request, @RequestParam(value="action") int action){
 		ModelAndView mav = new ModelAndView("/schedule/listPlan");
 		HttpSession session = request.getSession();
@@ -266,7 +266,7 @@ public class AndScheduleController {
 		return mav;
 	}
 	
-	@RequestMapping("/schedule/deletePlan.do")
+	@RequestMapping("/and/schedule/deletePlan.do")
 	public String deleteMainPlan(HttpServletRequest request){
 		int main_num = Integer.parseInt(request.getParameter("main_num").toString());
 		
@@ -278,7 +278,7 @@ public class AndScheduleController {
 		return "redirect:/schedule/schedule.do";
 	}
 	
-	@RequestMapping("/schedule/deletePlans.do")
+	@RequestMapping("/and/schedule/deletePlans.do")
 	public String deletePlans(HttpServletRequest request, @RequestParam(value="main_num") String main_num){
 		String main_nums[] = main_num.split("/");
 		
@@ -302,7 +302,7 @@ public class AndScheduleController {
         return true;
 	}
 	
-	@RequestMapping("/schedule/insertPlan.do")
+	@RequestMapping("/and/schedule/insertPlan.do")
 	public String insertPlan(HttpServletRequest request, @RequestParam(value="title") String main_title, 
 			@RequestParam(value="day") String day){
 		HttpSession session = request.getSession();

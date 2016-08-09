@@ -73,12 +73,12 @@ public class AndSharePlanController {
 		this.scheduleService = scheduleService;
 	}
 	/////////////
-	@RequestMapping(value = "/share/share.do")
+	@RequestMapping(value = "/and/share/share.do")
 	public String share(){
 		return "/shareplan/share";
 	}
 	
-	@RequestMapping(value = "/share/add.do")
+	@RequestMapping(value = "/and/share/add.do")
 	public String shareAdd(HttpServletRequest req, SharePlan s, 
 			@RequestParam(value="content") String content, @RequestParam(value="point_num") int point_num,
 			@RequestParam(value="share_title") String share_title){
@@ -97,7 +97,7 @@ public class AndSharePlanController {
 		return "redirect:/share/list.do";
 	}
 	
-	@RequestMapping(value="/share/list.do")
+	@RequestMapping(value="/and/share/list.do")
 	public ModelAndView shareList(){
 		//공유글
 		ArrayList<SharePlan> list = shareService.getSharePlanAll();
@@ -106,7 +106,7 @@ public class AndSharePlanController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/share/view.do")
+	@RequestMapping(value="/and/share/view.do")
 	public ModelAndView shareView(HttpServletRequest req, @RequestParam(value="share_num") int share_num){
 		ModelAndView mav = new ModelAndView();
 		
@@ -211,13 +211,13 @@ public class AndSharePlanController {
 	}
 	
 	///////
-	@RequestMapping(value = "/resourceTest")
+	@RequestMapping(value = "/and/resourceTest")
 	public String resourceTest(){
 		return "/subplan/subPlanPhoto";
 	}
 	
 	//히송이 수정해욤
-	@RequestMapping(value = "/share/search.do")
+	@RequestMapping(value = "/and/share/search.do")
 	public ModelAndView search(@RequestParam(value="search") String share_title){
 		ArrayList<SharePlan> list = shareService.getSharePlanByTitle(share_title);
 		ModelAndView mav = new ModelAndView("shareplan/sharelist");
@@ -225,12 +225,12 @@ public class AndSharePlanController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/share/gender.do")
+	@RequestMapping(value = "/and/share/gender.do")
 	public String gender(){
 		return "/shareplan/genderselect";
 	}
 	
-	@RequestMapping(value = "/share/genderlist.do")
+	@RequestMapping(value = "/and/share/genderlist.do")
 	public ModelAndView genderlist(@RequestParam(value="gender") String gender){
 		ArrayList<JoinDTO> list = shareService.getSharePlanByGender(gender);
 		ModelAndView mav = new ModelAndView("shareplan/sharelist");
@@ -240,12 +240,12 @@ public class AndSharePlanController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/share/age.do")
+	@RequestMapping(value = "/and/share/age.do")
 	public String age(){
 		return "/shareplan/ageselect";
 	}
 	
-	@RequestMapping(value = "/share/agelist.do")
+	@RequestMapping(value = "/and/share/agelist.do")
 	public ModelAndView genderlist(@RequestParam(value="age") int age){
 		ArrayList<Member> member = (ArrayList<Member>)adminSerivce.getMemberAll();
 		ArrayList<Integer> mem_num = getAge(member, age);
@@ -298,7 +298,7 @@ public class AndSharePlanController {
 		return Integer.parseInt(year) - Integer.parseInt(birth_year) + 1;
 	}
 	
-	@RequestMapping(value = "/subplan/com.do")
+	@RequestMapping(value = "/and/subplan/com.do")
 	public String com(HttpServletRequest req, @RequestParam(value="html")String html
 			,@RequestParam(value="main_num")int main_num,@RequestParam(value="location")String location){
 		//
@@ -325,7 +325,7 @@ public class AndSharePlanController {
 		return "redirect:/share/list.do";
 	}
 	
-	@RequestMapping(value = "/share/best.do")
+	@RequestMapping(value = "/and/share/best.do")
 	public ModelAndView bestlist(){
 		ArrayList<SharePlan> list = shareService.getSharePlanByBest();
 		ModelAndView mav = new ModelAndView("shareplan/sharelist");
@@ -335,12 +335,12 @@ public class AndSharePlanController {
 	}
 	
 	
-	@RequestMapping(value = "/share/place.do")
+	@RequestMapping(value = "/and/share/place.do")
 	public String place(){
 		return "/shareplan/placesearch";
 	}
 	
-	@RequestMapping(value = "/share/placelist.do")
+	@RequestMapping(value = "/and/share/placelist.do")
 	public ModelAndView placelist(@RequestParam(value="place") String place){
 		String tmp = "%"+place+"%";
 		ArrayList<SharePlan> list = shareService.getSharePlanByPlace(tmp);

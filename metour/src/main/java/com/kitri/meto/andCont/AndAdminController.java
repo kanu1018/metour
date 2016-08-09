@@ -23,12 +23,12 @@ public class AndAdminController {
 		this.adminSerivce = adminSerivce;
 	}
 	
-	@RequestMapping("/admin/adminForm.do")
+	@RequestMapping("/and/admin/adminForm.do")
 	public String admin(){
 		return "admin/adminmain";
 	}
 	
-	@RequestMapping(value="/admin/memberList.do")
+	@RequestMapping(value="/and/admin/memberList.do")
 	public ModelAndView memberList(){
 		ModelAndView mav = new ModelAndView("admin/memberList");
 		List<Member> list = adminSerivce.getMemberAll();
@@ -38,7 +38,7 @@ public class AndAdminController {
 		return mav;	
 	}
 	
-	@RequestMapping(value="/admin/singoList.do")
+	@RequestMapping(value="/and/admin/singoList.do")
 	public ModelAndView singoList(){
 		ModelAndView mav = new ModelAndView("admin/singoList");
 		List<Singo> list = adminSerivce.getSingoAll();
@@ -46,25 +46,25 @@ public class AndAdminController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/admin/out.do")
+	@RequestMapping(value="/and/admin/out.do")
 	public String out(@RequestParam (value="id")String id){
 		adminSerivce.delMember(id);
 		return "redirect:/admin/memberList.do";
 	}
 	
-	@RequestMapping(value="/admin/in.do")
+	@RequestMapping(value="/and/admin/in.do")
 	public String in(@RequestParam (value="id")String id){
 		adminSerivce.inMember(id);
 		return "redirect:/admin/memberList.do";
 	}
 	
-	@RequestMapping(value="/admin/singoCom.do")
+	@RequestMapping(value="/and/admin/singoCom.do")
 	public String singoCom(@RequestParam (value="singo_num")int singo_num){
 		adminSerivce.delSingo(singo_num);
 		return "redirect:/admin/singoList.do";
 	}
 	
-		@RequestMapping(value="/admin/outMemberList.do")
+		@RequestMapping(value="/and/admin/outMemberList.do")
 	public ModelAndView outMemberList(){
 		ModelAndView mav = new ModelAndView("admin/memberList");
 		List<Member> list = adminSerivce.getOutMemberAll();

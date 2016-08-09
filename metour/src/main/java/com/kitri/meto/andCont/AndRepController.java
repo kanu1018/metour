@@ -29,7 +29,7 @@ public class AndRepController {
 		this.memberService = memberService;
 	}
 	
-	@RequestMapping(value = "/rep/add.do")
+	@RequestMapping(value = "/and/rep/add.do")
 	public String shareAdd(HttpServletRequest req,  @RequestParam(value="rep_content") String rep_content, @RequestParam(value="share_num") int share_num){
 		//세션 id, mem_num 받아오기
 		HttpSession session = req.getSession();
@@ -48,7 +48,7 @@ public class AndRepController {
 		return "redirect:/share/view.do?share_num="+share_num;
 	}
 	
-	@RequestMapping(value = "/rep/edit.do")
+	@RequestMapping(value = "/and/rep/edit.do")
 	public String subPlanEdit(HttpServletRequest req, @RequestParam(value="rep_content") String rep_content,
 			@RequestParam(value="rep_num") int rep_num, @RequestParam(value="share_num") int share_num){
 		//세션 id, mem_num 받아오기
@@ -68,7 +68,7 @@ public class AndRepController {
 		return "redirect:/share/view.do?share_num="+share_num;
 	}
 	
-	@RequestMapping(value = "/rep/del.do")
+	@RequestMapping(value = "/and/rep/del.do")
 	public String subPlanDel(HttpServletRequest request, 
 			@RequestParam(value="rep_num") int rep_num, @RequestParam(value="share_num") int share_num){
 		repService.delRep(rep_num);
