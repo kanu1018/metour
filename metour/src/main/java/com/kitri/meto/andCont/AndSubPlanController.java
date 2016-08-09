@@ -135,7 +135,7 @@ public class AndSubPlanController {
 	
 	@RequestMapping(value = "/and/subplan/list.do")
 	public ModelAndView subPlanList(HttpServletRequest request, @RequestParam(value="main_num")int main_num){
-		ModelAndView mav = new ModelAndView("subplan/subPlanList");
+		ModelAndView mav = new ModelAndView("subplan/AndsubPlanList");
 		ArrayList<SubPlan> sub = subPlanService.getSubPlans(main_num);
 		
 		ArrayList<String> time = getTime();
@@ -258,7 +258,7 @@ public class AndSubPlanController {
 	public ModelAndView subPlanList_detail(HttpServletRequest request, @RequestParam(value="sub_num")int subNum){
 		SubPlan subplan = subPlanService.getSubPlan(subNum);
 		
-		ModelAndView mav = new ModelAndView("subplan/subPlanDetail");
+		ModelAndView mav = new ModelAndView("subplan/SubPlanView");
 		mav.addObject("subplan", subplan); 
 		mav.addObject("photo",subplan.getPhoto());
 		ArrayList<SubPlan> sub = subPlanService.getSubPlans(1);
@@ -291,8 +291,11 @@ public class AndSubPlanController {
 		String place = request.getParameter("place");
 		String mission = request.getParameter("mission");
 		String memo = request.getParameter("memo");
+		String llh_x = "";
+		String llh_y = "";
+		String mission_yn = "0";
 
-		System.out.println(sub_title);
+		System.out.println(place);
 		
 		SubPlan sp = new SubPlan();
 		sp.setSub_title(sub_title);
@@ -302,14 +305,45 @@ public class AndSubPlanController {
 		sp.setMission(mission);
 		sp.setMemo(memo);
 		sp.setMain_num(main_num);
+		sp.setLlh_x(llh_x);
+		sp.setLlh_y(llh_y);
+		sp.setMission_yn(mission_yn);
 		subPlanService.addSubPlan(sp);
 		return "redirect:/subplan/list.do?main_num="+main_num;
 	}
 	
 	@RequestMapping(value = "/and/subplan/edit.do")
-	public String subPlanEdit(HttpServletRequest request, SubPlan sp){
+	public String subPlanEdit(HttpServletRequest request){
+		int main_num = Integer.parseInt(request.getParameter("main_num").toString());
+		String sub_title = request.getParameter("sub_title");
+		String start_time = request.getParameter("start_time");
+		String end_time = request.getParameter("end_time");
+		String place = request.getParameter("place");
+		String mission = request.getParameter("mission");
+		String photo = request.getParameter("photo");
+		String memo = request.getParameter("memo");
+		/*String llh_x = "";
+		String llh_y = "";
+		String mission_yn = "0";*/
+		int sub_num = Integer.parseInt(request.getParameter("sub_num").toString());
 		
-		String fileName = sp.getImgfile().getOriginalFilename();
+
+		SubPlan sp = new SubPlan();
+		sp.setSub_title(sub_title);
+		sp.setStart_time(start_time);
+		sp.setEnd_time(end_time);
+		sp.setPlace(place);
+		sp.setMission(mission);
+		sp.setMemo(memo);
+		sp.setPhoto(photo);
+		sp.setMain_num(main_num);
+		/*sp.setLlh_x(llh_x);
+		sp.setLlh_y(llh_y);
+		sp.setMission_yn(mission_yn);*/
+		sp.setSub_num(sub_num);
+		
+		subPlanService.editSubPlan(sp);
+		/*String fileName = sp.getImgfile().getOriginalFilename();
 		ServletContext sc = request.getSession().getServletContext();
 		String root = sc.getRealPath("/");
 		root+="img\\"+fileName;
@@ -326,7 +360,7 @@ public class AndSubPlanController {
 		sp.setPhoto(root);
 		sp.setSub_num(sp.getSub_num());
 		subPlanService.updatePhoto(sp);
-		subPlanService.editSubPlan(sp);
+		subPlanService.editSubPlan(sp);*/
 		return "redirect:/subplan/list.do?main_num="+sp.getMain_num();
 	}
 	
