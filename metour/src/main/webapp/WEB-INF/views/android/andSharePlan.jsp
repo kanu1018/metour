@@ -7,31 +7,27 @@
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	
-	int sNum, sWriter, sPoint;
-	String stitle, sCont, sLoc, sMetoo;
-	ArrayList<SharePlan> list = (ArrayList)request.getAttribute("list");
+	int sNum, sWriter, sPoint, sMetoo;
+	String sTitle, sLoc;
+	SharePlan s = (SharePlan)request.getAttribute("s");
 	
 %>
 
 <shareplans>
-<%
-	for(SharePlan dto : list){
-		sNum = dto.getShare_num();
-		stitle = dto.getShare_title();
-		sCont = dto.getContent();
-		sWriter = dto.getWriter();
-		sLoc = dto.getLocation();
-		sMetoo = dto.getMetoo();
-		sPoint = dto.getPoint_num();
-		%>
+	<%
+		sNum = s.getShare_num();
+		sTitle = s.getShare_title();
+		sWriter = s.getWriter();
+		sLoc = s.getLocation();
+		sMetoo = s.getMetoo();
+		sPoint = s.getPoint_num();
+	%>
 	<shareplan>
 		<sNum><%=sNum %></sNum>
-		<stitle><%=stitle %></stitle>
-		<sCont><%=sCont %></sCont>
+		<sTitle><%=sTitle %></sTitle>
 		<sWriter><%=sWriter %></sWriter>
 		<sLoc><%=sLoc %></sLoc>
 		<sMetoo><%=sMetoo %></sMetoo>
 		<sPoint><%=sPoint %></sPoint>
 	</shareplan>
-	<%}%>
 </shareplans>

@@ -12,19 +12,6 @@
 <title>:::ShareView:::</title>
 </head>
 <body>
-<table border="1">
-	<tr>
-		<th>share_num</th>
-		<td>${s.share_num }</td>
-		<th>writer</th>
-		<td>${s.writer }</td>
-	</tr>
-	<tr>
-		<th colspan="2">content</th>
-		<td colspan="2">
-			 <c:if test="${s.content ne null }">${s.content }</c:if>
-		</td>
-	</tr>
-</table>
+<c:if test="${s.content ne null }">${s.content }</c:if>
 </body>
 </html>

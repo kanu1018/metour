@@ -106,11 +106,11 @@ public class AndSharePlanController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/and/share/view.do")
+	/*@RequestMapping(value="/and/share/view.do")
 	public ModelAndView shareView(HttpServletRequest req, @RequestParam(value="share_num") int share_num){
 		ModelAndView mav = new ModelAndView();
 		
-		/*//세션 id, mem_num 받아오기
+		//세션 id, mem_num 받아오기
 		HttpSession session = req.getSession();
 		String id = session.getAttribute("id").toString();
 		Member m = memberService.getMember(id);
@@ -138,7 +138,7 @@ public class AndSharePlanController {
 			// 컬럼 있을 시 본인 yn 확인
 			me = metooService.getMetoo(me);
 			System.out.println(me.getMetoo_yn());
-		}*/
+		}
 		//
 		
 		
@@ -208,12 +208,36 @@ public class AndSharePlanController {
 			mav.setViewName("shareplan/shareview2");
 		}
 		return mav;
+	}*/
+	
+	@RequestMapping(value="/and/share/view2.do")
+	public ModelAndView shareView2(@RequestParam(value="share_num") int share_num){
+		ModelAndView mav = new ModelAndView("android/andSharePlan");
+		
+		System.out.println("view2 접속");
+		System.out.println(share_num);
+		
+		//int num = Integer.parseInt(share_num);
+		
+		//공유글 내용
+		SharePlan s = shareService.getSharePlan(share_num);
+		mav.addObject("s", s);
+		
+		return mav;
 	}
 	
-	///////
-	@RequestMapping(value = "/and/resourceTest")
-	public String resourceTest(){
-		return "/subplan/subPlanPhoto";
+	@RequestMapping(value="/and/share/content.do")
+	public ModelAndView shareViewContent(@RequestParam(value="share_num") int share_num){
+		ModelAndView mav = new ModelAndView("shareplan/shareview3");
+		
+		System.out.println("content 접속");
+		System.out.println(share_num);
+		
+		//공유글 내용
+		SharePlan s = shareService.getSharePlan(share_num);
+		mav.addObject("s", s);
+		
+		return mav;
 	}
 	
 	//히송이 수정해욤
