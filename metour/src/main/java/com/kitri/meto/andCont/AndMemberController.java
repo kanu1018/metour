@@ -81,12 +81,12 @@ public class AndMemberController {
 	}
 	
 	@RequestMapping(value="/and/member/join.do")
-	public String join(@RequestParam(value="id1")String id1,@RequestParam(value="id2")String id2,@RequestParam(value="email")String email,Member m){
-		if(email.equals("")){
+	public String join(Member m){
+		/*if(email.equals("")){
 			m.setId(id1+"@"+id2);
 		}else{
 			m.setId(id1+"@"+email);
-		}
+		}*/
 		memberService.addMember(m);
 		return "member/loginForm";
 	}
@@ -121,7 +121,10 @@ public class AndMemberController {
 	}
 	
 	@RequestMapping(value="/and/member/login.do")
-	public String login(Member m, HttpServletRequest req){
+	public ModelAndView login(Member m, HttpServletRequest req){
+		ModelAndView mav = new ModelAndView("member/andcheck");
+		System.out.println(m.getId());
+		System.out.println(m.getPwd());
 		HttpSession session = null;
 		boolean flag = memberService.login(m);
 		m=memberService.getMember(m.getId());
@@ -132,9 +135,10 @@ public class AndMemberController {
 			List<JoinDTO> list = new ArrayList<JoinDTO>();
 			list = memberService.getArticleByRoot();
 			session.setAttribute("LIST", list);
-			return "member/main";
+			//return "member/main";
 		}
-		return "member/loginForm";
+		mav.addObject("flag", flag);
+		return mav;
 	}
 	
 	@RequestMapping(value="/and/member/editForm.do")
