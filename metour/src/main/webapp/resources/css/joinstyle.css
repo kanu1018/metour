@@ -49,6 +49,19 @@ input[type="button"] {
   cursor: pointer;
 }
 
+input.radio {
+background: linear-gradient(to bottom, #D3D3D3 0%, #F2F2F2 56%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+border: 1px solid #A1A1A1;
+border-radius: 8px;
+height: 25px;
+margin-right: 5%;
+margin-top: 15px;
+padding: 3px;
+<font color='"#FF0000"'>width: 0px;</font>
+}
+
+input[type="radio"] { -webkit-appearance: radio; }
+
 .clearfix {
   *zoom: 1;
 }
