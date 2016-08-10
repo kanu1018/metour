@@ -101,12 +101,12 @@ public class SubPlanController {
 			int size = 0;
 			if(start_i > end_i){
 				size = start_i - end_i;
-				for(int j = 0 ; j < size ; j++){
+				for(int j = 0 ; j <= size ; j++){
 					index.add(end_i++);
 				}
 			}else{
 				size = end_i - start_i;
-				for(int j = 0 ; j < size ; j++){
+				for(int j = 0 ; j <= size ; j++){
 					index.add(start_i++);
 				}
 			}
@@ -259,7 +259,7 @@ public class SubPlanController {
 		ModelAndView mav = new ModelAndView("subplan/subPlanDetail");
 		mav.addObject("subplan", subplan); 
 		mav.addObject("photo",subplan.getPhoto());
-		ArrayList<SubPlan> sub = subPlanService.getSubPlans(1);
+		ArrayList<SubPlan> sub = subPlanService.getSubPlans(subplan.getMain_num());
 		ArrayList<Integer> flag = getFlag(sub);
 		
 		//�쁽�옱�떆媛꾩� �쓣�슦湲�
