@@ -35,7 +35,7 @@
 	</insert>
 	
 	<update id="update" parameterType="com.kitri.meto.subplan.SubPlan" >
-		UPDATE sub_plan SET sub_title = #{sub_title}, start_time = TO_DATE(#{start_time}, 'HH24:MI'), end_time = TO_DATE(#{end_time}, 'HH24:MI'), place = #{place}, mission = #{mission}, memo = #{memo}, photo = #{photo} WHERE sub_num = #{sub_num}
+		UPDATE sub_plan SET sub_title = #{sub_title}, start_time = TO_DATE(#{start_time}, 'HH24:MI'), end_time = TO_DATE(#{end_time}, 'HH24:MI'), place = #{place}, mission = #{mission}, memo = #{memo}, photo = #{photo}, llh_x = #{llh_x}, llh_y = #{llh_y} WHERE sub_num = #{sub_num}
 	</update>
 	
 	<delete id="delete" parameterType="int">
