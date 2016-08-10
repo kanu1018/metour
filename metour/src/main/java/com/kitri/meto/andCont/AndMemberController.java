@@ -180,7 +180,7 @@ public class AndMemberController {
 	}
 	
 	@RequestMapping(value="/and/member/search.do")
-	   public ModelAndView select(@RequestParam(value="type")int type,@RequestParam(value="searchText")String text){
+	   public ModelAndView select(@RequestParam(value="type") int type, @RequestParam(value="searchText")String text){
 	      ModelAndView mav = new ModelAndView("shareplan/sharelist");
 	      if(type==1){
 	         mav.addObject("list",memberService.getArticleByTitle(text));//제목
@@ -194,4 +194,16 @@ public class AndMemberController {
 	      }
 	      return mav;
 	   }
+	
+	@RequestMapping(value="/and/member/select.do")
+	public ModelAndView memberSel(@RequestParam(value="id") String id){
+		ModelAndView mav = new ModelAndView("android/andMember");
+		System.out.println("member/select");
+		System.out.println(id);
+		
+		Member m = memberService.getMember(id);
+		mav.addObject("m", m);
+		
+		return mav;
+	}
 }

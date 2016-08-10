@@ -12,6 +12,8 @@
 <title>:::ShareView:::</title>
 </head>
 <body>
+
 <c:if test="${s.content ne null }">${s.content }</c:if>
+
 </body>
 </html>
