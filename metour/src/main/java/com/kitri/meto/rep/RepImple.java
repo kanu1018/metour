@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
+import com.kitri.meto.JoinDTO.JoinDTO;
+
 @Component("RepService")
 public class RepImple implements RepService {
 	@Resource(name="sqlSession")
@@ -45,6 +47,26 @@ public class RepImple implements RepService {
 	public ArrayList<Rep> getRepByShareNum(int share_num) {
 		RepMapper repMapper = sqlSession.getMapper(RepMapper.class);
 		ArrayList<Rep> list = repMapper.selectByShareNum(share_num);
+		return list;
+	}
+
+	@Override
+	public ArrayList<JoinDTO> getJoinRepByShareNum(int share_num) {
+		RepMapper repMapper = sqlSession.getMapper(RepMapper.class);
+		ArrayList<JoinDTO> list = repMapper.joinSelectByShareNum(share_num);
+		return list;
+	}
+
+	@Override
+	public int getRepCnt(int share_num) {
+		RepMapper repMapper = sqlSession.getMapper(RepMapper.class);
+		return repMapper.selectRepCnt(share_num);
+	}
+
+	@Override
+	public ArrayList<Rep> getRepByShareNumCnt(int share_num) {
+		RepMapper repMapper = sqlSession.getMapper(RepMapper.class);
+		ArrayList<Rep> list = repMapper.selectByShareNumCnt(share_num);
 		return list;
 	}
 

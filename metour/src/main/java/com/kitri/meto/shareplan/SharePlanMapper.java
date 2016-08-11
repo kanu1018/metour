@@ -15,4 +15,6 @@ public interface SharePlanMapper {
 	ArrayList<SharePlan> selectByWriter(int writer);
 	ArrayList<SharePlan> selectByBest();
 	ArrayList<SharePlan> selectByPlace(String place);
+	
+	JoinDTO joinSelectByShareNum(int share_num);
 }

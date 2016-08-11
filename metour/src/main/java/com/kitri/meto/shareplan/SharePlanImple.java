@@ -85,5 +85,11 @@ public class SharePlanImple implements SharePlanService {
 	    ArrayList<SharePlan> list = shareMapper.selectByPlace(place);
 		return list;
 	}
+
+	@Override
+	public JoinDTO getJoinSharePlan(int share_num) {
+		SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
+		return shareMapper.joinSelectByShareNum(share_num);
+	}
    
 }

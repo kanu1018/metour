@@ -72,6 +72,7 @@ public class AndSharePlanController {
 	public void setScheduleService(scheduleService scheduleService){
 		this.scheduleService = scheduleService;
 	}
+	
 	/////////////
 	@RequestMapping(value = "/and/share/share.do")
 	public String share(){
@@ -106,121 +107,16 @@ public class AndSharePlanController {
 		return mav;
 	}
 	
-	/*@RequestMapping(value="/and/share/view.do")
-	public ModelAndView shareView(HttpServletRequest req, @RequestParam(value="share_num") int share_num){
-		ModelAndView mav = new ModelAndView();
-		
-		//세션 id, mem_num 받아오기
-		HttpSession session = req.getSession();
-		String id = session.getAttribute("id").toString();
-		Member m = memberService.getMember(id);
-		int mem_num = m.getMem_num();
-		System.out.println(mem_num);
-		//공유글 받기
-		SharePlan s = shareService.getSharePlan(share_num);
-		//metoo_yn 받기
-		Metoo me = new Metoo();
-		me.setMem_num(m.getMem_num());
-		me.setShare_num(share_num);
-		//전체 댓글 목록
-		ArrayList<Rep> list = repService.getRepByShareNum(share_num);
-		//내 댓글 목록
-		ArrayList<Rep> myRep = repService.getRep(share_num, mem_num);
-		
-		// metoo table 컬럼 존재 확인
-		int cnt = metooService.getMetooCnt(me); 
-		System.out.println(cnt);
-		
-		if(cnt == 0){ 
-			// 컬럼 없을 시 metoo add
-			metooService.addMetoo(me);
-		} else {
-			// 컬럼 있을 시 본인 yn 확인
-			me = metooService.getMetoo(me);
-			System.out.println(me.getMetoo_yn());
-		}
-		//
-		
-		
-		//세션 받기
-		HttpSession session = req.getSession(false);
-		
-		//공유글 받기
-		SharePlan s = shareService.getSharePlan(share_num);
-		
-		//전체 댓글 목록
-		ArrayList<Rep> list = repService.getRepByShareNum(share_num);
-		
-		if(session.getAttribute("id") != null){
-			//로그인 했을 경우
-			//세션 id, mem_num 받아오기
-			String id = session.getAttribute("id").toString();
-			Member m = memberService.getMember(id);
-			int mem_num = m.getMem_num();
-			System.out.println(mem_num);
-			
-			//내 댓글 목록
-			Rep r = new Rep();
-			r.setRep_writer(mem_num);
-			r.setShare_num(share_num);
-			ArrayList<Rep> myRep = repService.getRep(r);
-			
-			//metoo_yn 받기
-			Metoo me = new Metoo();
-			me.setMem_num(m.getMem_num());
-			me.setShare_num(share_num);
-			
-			// metoo table 컬럼 존재 확인
-			int cnt = metooService.getMetooCnt(me); 
-			System.out.println(cnt);
-			
-			if(cnt == 0){ 
-				// 컬럼 없을 시 metoo add
-				metooService.addMetoo(me);
-			} else {
-				// 컬럼 있을 시 본인 yn 확인
-				me = metooService.getMetoo(me);
-				System.out.println(me.getMetoo_yn());
-			}
-			mav.addObject("me", me); // 좋아요
-			mav.addObject("r", myRep); // 내 댓글
-			
-			for(int i = 0; i<list.size(); i++){
-				System.out.println("list:" + list.get(i).getRep_content());
-			}
-			
-			mav.addObject("s", s); // 공유글
-			//mav.addObject("me", me); // 좋아요
-			mav.addObject("list", list); // 전체 댓글
-			//mav.addObject("r", r); // 내 댓글
-			mav.setViewName("shareplan/shareview");
-		} else {
-
-			for (int i = 0; i < list.size(); i++) {
-				System.out.println("list:" + list.get(i).getRep_content());
-			}
-			//
-			// ModelAndView mav = new ModelAndView("shareplan/shareview");
-			mav.addObject("s", s); // 공유글
-			// mav.addObject("me", me); // 좋아요
-			mav.addObject("list", list); // 전체 댓글
-			// mav.addObject("r", r); // 내 댓글
-			mav.setViewName("shareplan/shareview2");
-		}
-		return mav;
-	}*/
-	
 	@RequestMapping(value="/and/share/view2.do")
 	public ModelAndView shareView2(@RequestParam(value="share_num") int share_num){
-		ModelAndView mav = new ModelAndView("android/andSharePlan");
-		
+		ModelAndView mav = new ModelAndView("android/andSharePlan");	
 		System.out.println("view2 접속");
 		System.out.println(share_num);
 		
-		//int num = Integer.parseInt(share_num);
-		
 		//공유글 내용
-		SharePlan s = shareService.getSharePlan(share_num);
+		//SharePlan s = shareService.getSharePlan(share_num);
+		JoinDTO s = shareService.getJoinSharePlan(share_num);
+		
 		mav.addObject("s", s);
 		
 		return mav;
@@ -235,6 +131,7 @@ public class AndSharePlanController {
 		
 		//공유글 내용
 		SharePlan s = shareService.getSharePlan(share_num);
+		
 		mav.addObject("s", s);
 		
 		return mav;
