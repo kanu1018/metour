@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionContext;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -129,9 +130,12 @@ public class AndMemberController {
 		boolean flag = memberService.login(m);
 		m=memberService.getMember(m.getId());
 		if(flag==true){
+			System.out.println("세션만드는 문장 실행");
 			session = req.getSession();
+			System.out.println(session);
 			session.setAttribute("id", m.getId());
 			session.setAttribute("type", m.getMem_status());
+			
 			List<JoinDTO> list = new ArrayList<JoinDTO>();
 			list = memberService.getArticleByRoot();
 			session.setAttribute("LIST", list);
@@ -143,16 +147,19 @@ public class AndMemberController {
 	
 	@RequestMapping(value="/and/member/editForm.do")
 	public String modify(HttpServletRequest req){
+		  
+		System.out.println("세션존재여부확인="+req.getSession().getAttribute("id").toString());
 		Member m = memberService.getMember(req.getSession().getAttribute("id").toString());
-		if(m==null){
+		/*if(m==null){
 			return "member/loginForm";
-		}
-		req.setAttribute("join", m);
-		return "member/editForm";
+		}*/
+		req.setAttribute("m", m);
+		return "android/andMember";
 	}
 	
 	@RequestMapping(value="/and/member/edit.do")
 	public String edit(Member m){
+		System.out.println(m.getId());
 		memberService.editMember(m);
 		return "member/main";
 	}
@@ -180,7 +187,7 @@ public class AndMemberController {
 	}
 	
 	@RequestMapping(value="/and/member/search.do")
-	   public ModelAndView select(@RequestParam(value="type")int type,@RequestParam(value="searchText")String text){
+	   public ModelAndView select(@RequestParam(value="type") int type, @RequestParam(value="searchText")String text){
 	      ModelAndView mav = new ModelAndView("shareplan/sharelist");
 	      if(type==1){
 	         mav.addObject("list",memberService.getArticleByTitle(text));//제목
@@ -194,4 +201,16 @@ public class AndMemberController {
 	      }
 	      return mav;
 	   }
+	
+	@RequestMapping(value="/and/member/select.do")
+	public ModelAndView memberSel(@RequestParam(value="id") String id){
+		ModelAndView mav = new ModelAndView("android/andMember");
+		System.out.println("member/select");
+		System.out.println(id);
+		
+		Member m = memberService.getMember(id);
+		mav.addObject("m", m);
+		
+		return mav;
+	}
 }

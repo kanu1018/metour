@@ -1,5 +1,7 @@
 package com.kitri.meto.andCont;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kitri.meto.member.Member;
 import com.kitri.meto.member.MemberDaoService;
@@ -30,14 +33,9 @@ public class AndRepController {
 	}
 	
 	@RequestMapping(value = "/and/rep/add.do")
-	public String shareAdd(HttpServletRequest req,  @RequestParam(value="rep_content") String rep_content, @RequestParam(value="share_num") int share_num){
-		//세션 id, mem_num 받아오기
-		HttpSession session = req.getSession();
-		String id = session.getAttribute("id").toString();
-		Member m = memberService.getMember(id);
-		int mem_num = m.getMem_num();
+	public String shareAdd(@RequestParam(value="mem_num") int mem_num, @RequestParam(value="rep_content") String rep_content, @RequestParam(value="share_num") int share_num){
+		System.out.println("댓글 등록");
 		
-		//add
 		Rep r = new Rep();
 		r.setRep_writer(mem_num);
 		r.setShare_num(share_num);
@@ -45,7 +43,7 @@ public class AndRepController {
 		
 		repService.addRep(r);
 				
-		return "redirect:/share/view.do?share_num="+share_num;
+		return "";
 	}
 	
 	@RequestMapping(value = "/and/rep/edit.do")
@@ -73,6 +71,20 @@ public class AndRepController {
 			@RequestParam(value="rep_num") int rep_num, @RequestParam(value="share_num") int share_num){
 		repService.delRep(rep_num);
 		return "redirect:/share/view.do?share_num="+share_num;
+	}
+	
+	@RequestMapping(value="/and/rep/list.do")
+	public ModelAndView shareView2(@RequestParam(value="share_num") int share_num){
+		ModelAndView mav = new ModelAndView("android/andRep");
+		
+		System.out.println("rep/list 접속");
+		System.out.println(share_num);
+		
+		//전체댓글 
+		ArrayList<Rep> list = repService.getRepByShareNum(share_num);
+		mav.addObject("list", list);
+		
+		return mav;
 	}
 	
 	
