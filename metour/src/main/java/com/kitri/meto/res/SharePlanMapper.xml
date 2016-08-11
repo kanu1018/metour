@@ -11,7 +11,7 @@
  		<result property="content" column="content" /> 		
 		<result property="metoo" column="metoo" />
 		<result property="point_num" column="point_num" />
-		<result property="main_plan_num" column="main_plan_num"/>
+		<result property="share_photo" column="share_photo"/>
 	</resultMap>
  	<resultMap type="com.kitri.meto.JoinDTO.JoinDTO" id="JoinResultMap">
  		<result property="share_num" column="share_num" />
@@ -37,7 +37,7 @@
 	</resultMap>
 	
 	<insert id="insert" parameterType="com.kitri.meto.shareplan.SharePlan" >
-		INSERT INTO share_plan values(share_seq.nextval, #{share_title}, #{writer}, #{location}, #{content}, 0, #{point_num})
+		INSERT INTO share_plan(share_num,share_title,writer,location,content,metoo,point_num,share_photo) values(share_seq.nextval, #{share_title}, #{writer}, #{location}, #{content}, 0, #{point_num}, #{photo})
 	</insert>
 	
 	<select id="select" resultMap="SharePlanResultMap" parameterType="int">
