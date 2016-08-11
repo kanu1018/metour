@@ -68,7 +68,7 @@ function addPlan(year,month,day,action){
 </head>
 <body>
 
-<table width='360px' style="margin: auto; background-color: #282832;">
+<table width='400px' style="margin: auto; background-color: #282832;">
   <tr>
      <td width='65' height="35px" align="right" valign="middle">
         <a style="text-decoration:none; color: #ffffff;" href="${pageContext.request.contextPath}/schedule/datePlan.do?year=${L_Year}&month=${L_Month}&day=${L_Day}">
@@ -81,7 +81,7 @@ function addPlan(year,month,day,action){
          </a>
      </td>
     
-     <td width='190' align='center' valign='middle' style="color: #ffffff; font-size: 23px">
+     <td width='230' align='center' valign='middle' style="color: #ffffff; font-size: 23px">
      	<b>${Year}년 ${Month}월 ${Day}일</b>
      </td>
      <td width='20' align='center' valign="middle">
@@ -155,7 +155,7 @@ function addPlan(year,month,day,action){
 <c:if test="${action eq 1}">
 <div align ="center" style="padding-top: 10px">
 	
-	<table style="width:360px">
+	<table style="width:400px">
 		<tr style="height: 30px">
 		<td align="center">
 				<input type="text" placeholder="제목을 입력하세요." style="width: 97%;height: 100%" id="title"/>
