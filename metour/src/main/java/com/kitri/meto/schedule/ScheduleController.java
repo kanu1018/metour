@@ -309,7 +309,6 @@ public class ScheduleController {
 		s.setMain_writer(memberService.getMem_numById(id));
 		s.setMain_date(day);
 		s.setPoint_num(scheduleService.getByPointNum()+1);
-		System.out.println("내가 넣어야할 번호다."+s.getPoint_num());
 		
 		scheduleService.addSchedule(s);
 		return "redirect:/subplan/list.do?main_num="+scheduleService.getByMainNum();

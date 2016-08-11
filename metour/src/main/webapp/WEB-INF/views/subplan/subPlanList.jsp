@@ -81,7 +81,7 @@ a:hover {text-decoration: none; color: #ffffff;}
 						<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1DABB9;" </c:if>><c:if test="${splist.mission_yn == '0'}"></c:if><c:if test="${splist.mission == '1'}">사진 완료 & GPS 실패</c:if>
 						<c:if test="${splist.mission_yn == '2'}">성공</c:if><c:if test="${splist.mission == '3'}">성공</c:if>
 						</td>
-						<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1DABB9;" </c:if>> &nbsp;&nbsp;<c:if test="${splist.title ne ''}"><a href="${pageContext.request.contextPath}/subplan/addphoto?sub_num=${splist.sub_num}">사진등록</a></c:if>&nbsp;&nbsp;</td>
+						<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1DABB9;" </c:if>> &nbsp;&nbsp;<c:if test="${splist.title ne ''}"><a href="${pageContext.request.contextPath}/subplan/addphoto.do?sub_num=${splist.sub_num}">사진등록</a></c:if>&nbsp;&nbsp;</td>
 						<c:set var="rowCnt" value="0" />
 					</c:when>
 					<c:when test="${splist.row gt 1 }">
@@ -94,7 +94,7 @@ a:hover {text-decoration: none; color: #ffffff;}
 							<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1DABB9;" </c:if>><c:if test="${splist.mission_yn == '0'}"></c:if><c:if test="${splist.mission == '1'}">사진 완료 & GPS 실패</c:if>
 								<c:if test="${splist.mission_yn == '2'}">성공</c:if><c:if test="${splist.mission == '3'}">성공</c:if>
 							</td>
-							<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1DABB9;" </c:if>> &nbsp;&nbsp;<c:if test="${splist.title ne ''}"><a href="${pageContext.request.contextPath}/subplan/addphoto?sub_num=${splist.sub_num}">사진등록</a></c:if>&nbsp;&nbsp;</td>
+							<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1DABB9;" </c:if>> &nbsp;&nbsp;<c:if test="${splist.title ne ''}"><a href="${pageContext.request.contextPath}/subplan/addphoto.do?sub_num=${splist.sub_num}">사진등록</a></c:if>&nbsp;&nbsp;</td>
 							<c:set var="rowCnt" value="${rowCnt+1}" />
 						</c:if>
 						<c:if test="${rowCnt eq rowNum}">

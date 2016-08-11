@@ -101,12 +101,12 @@ public class SubPlanController {
 			int size = 0;
 			if(start_i > end_i){
 				size = start_i - end_i;
-				for(int j = 0 ; j < size ; j++){
+				for(int j = 0 ; j <= size ; j++){
 					index.add(end_i++);
 				}
 			}else{
 				size = end_i - start_i;
-				for(int j = 0 ; j < size ; j++){
+				for(int j = 0 ; j <= size ; j++){
 					index.add(start_i++);
 				}
 			}
@@ -259,7 +259,7 @@ public class SubPlanController {
 		ModelAndView mav = new ModelAndView("subplan/subPlanDetail");
 		mav.addObject("subplan", subplan); 
 		mav.addObject("photo",subplan.getPhoto());
-		ArrayList<SubPlan> sub = subPlanService.getSubPlans(1);
+		ArrayList<SubPlan> sub = subPlanService.getSubPlans(subplan.getMain_num());
 		ArrayList<Integer> flag = getFlag(sub);
 		
 		//�쁽�옱�떆媛꾩� �쓣�슦湲�
@@ -419,7 +419,7 @@ public class SubPlanController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/subplan/addphoto")
+	@RequestMapping(value = "/subplan/addphoto.do")
 	public String addphoto(HttpServletRequest request,@RequestParam(value="sub_num")int subNum){
 		request.setAttribute("sub_num", subNum);
 		SubPlan sp = new SubPlan();
@@ -445,7 +445,7 @@ public class SubPlanController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		subplan.setPhoto(root);
+		subplan.setPhoto("http://"+request.getLocalAddr()+":"+request.getLocalPort()+request.getContextPath()+"/img/"+fileName);
 		subplan.setSub_num(subNum);
 		subPlanService.updatePhoto(subplan);
 		
@@ -474,7 +474,7 @@ public class SubPlanController {
 			list = subPlanService.getSubPlans(main_nums[i]);
 			sublist.add(list);
 		}
-		//그냥 뭐 있나 찍어보는 문장이야.. 
+		그냥 뭐 있나 찍어보는 문장이야.. 
 		for(int i=0;i<sublist.size();i++){
 			for(int j=0;j<sublist.get(i).size();j++){
 				System.out.println(sublist.get(i).get(j).getSub_title());
