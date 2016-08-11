@@ -115,6 +115,7 @@ public class AndSharePlanController {
 		ArrayList<String> list1 = new ArrayList<String>();
 		for(int i=0;i<list.size();i++){
 			String id = new String();
+			System.out.println(list.get(i).getWriter());
 			id= memberService.getIdByMemnum(list.get(i).getWriter());
 			list1.add(id);
 		}
@@ -126,8 +127,16 @@ public class AndSharePlanController {
 			System.out.println(list3.size()+" "+list.get(i).getMain_plan_num());
 			if(list3.size()==0){
 				list2.add("");
+				System.out.println("아무것도없다.");
 			}else{
-				list2.add(list3.get(0).getPhoto());
+				for(int j=0;j<list3.size();j++){
+					if(!list3.get(j).getPhoto().equals("") || list3.get(j).getPhoto()!=null){
+						System.out.println("포토 불러온다.="+list3.get(j).getPhoto());
+						list2.add(list3.get(j).getPhoto());
+						break;
+					}
+				}
+				
 			}
 		}
 		for(int i=0;i<list.size();i++){
