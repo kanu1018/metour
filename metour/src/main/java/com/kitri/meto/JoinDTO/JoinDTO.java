@@ -1,7 +1,5 @@
 package com.kitri.meto.JoinDTO;
 
-import java.sql.Date;
-
 public class JoinDTO {
 	//member
 	private int mem_num;
@@ -34,16 +32,16 @@ public class JoinDTO {
 	
 	//share_plan
 	private int share_num;
-	private String writer;
+	private int writer;
 	private String location;
 	private String content;
-	private String metoo;
+	private int metoo;
 	private String share_title;
 	
 	//rep
 	private int rep_num;
 	private String rep_content;
-	private String rep_writer;
+	private int rep_writer;
 
 	//point
 	private int point_num;
@@ -67,8 +65,8 @@ public class JoinDTO {
 	public JoinDTO(int mem_num, String id, String pwd, String name, String phone, String gender, String birth,
 			String mem_status, int main_num, String main_title, int main_writer, String main_date, int sub_num,
 			String sub_title, String start_time, String end_time, String place, String llh_x, String llh_y,
-			String mission, String memo, String mission_yn, String photo, int share_num, String writer, String location,
-			String content, String metoo, String share_title, int rep_num, String rep_content, String rep_writer,
+			String mission, String memo, String mission_yn, String photo, int share_num, int writer, String location,
+			String content, int metoo, String share_title, int rep_num, String rep_content, int rep_writer,
 			int point_num, int point, int singo_num, String singo_kind, String singo_content, String singo_state,
 			int content_num, int singo_mem, int metoo_num, String metoo_yn) {
 		super();
@@ -268,10 +266,10 @@ public class JoinDTO {
 	public void setShare_num(int share_num) {
 		this.share_num = share_num;
 	}
-	public String getWriter() {
+	public int getWriter() {
 		return writer;
 	}
-	public void setWriter(String writer) {
+	public void setWriter(int writer) {
 		this.writer = writer;
 	}
 	public String getLocation() {
@@ -286,10 +284,10 @@ public class JoinDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getMetoo() {
+	public int getMetoo() {
 		return metoo;
 	}
-	public void setMetoo(String metoo) {
+	public void setMetoo(int metoo) {
 		this.metoo = metoo;
 	}
 	public int getRep_num() {
@@ -304,10 +302,10 @@ public class JoinDTO {
 	public void setRep_content(String rep_content) {
 		this.rep_content = rep_content;
 	}
-	public String getRep_writer() {
+	public int getRep_writer() {
 		return rep_writer;
 	}
-	public void setRep_writer(String rep_writer) {
+	public void setRep_writer(int rep_writer) {
 		this.rep_writer = rep_writer;
 	}
 	public int getPoint_num() {

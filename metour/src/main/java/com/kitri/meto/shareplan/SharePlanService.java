@@ -15,4 +15,6 @@ public interface SharePlanService {
 	ArrayList<SharePlan> getSharePlanByWriter(int writer);
 	ArrayList<SharePlan> getSharePlanByBest();
 	ArrayList<SharePlan> getSharePlanByPlace(String place);
+	
+	JoinDTO getJoinSharePlan(int share_num);
 }

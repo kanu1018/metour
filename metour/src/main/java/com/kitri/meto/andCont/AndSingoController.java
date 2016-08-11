@@ -37,15 +37,11 @@ public class AndSingoController {
 	}
 	
 	@RequestMapping(value = "/and/singo/add.do")
-	public String singoAdd(HttpServletRequest req, @RequestParam(value="singo_kind") String singo_kind,
+	public String singoAdd(@RequestParam(value="mem_num") int mem_num, @RequestParam(value="singo_kind") String singo_kind,
 			 @RequestParam(value="share_num") int share_num, @RequestParam(value="singo_content") String singo_content){
+		System.out.println("신고");
 		System.out.println(share_num);
 		System.out.println(singo_kind);
-		//세션 id, mem_num 받아오기
-		HttpSession session = req.getSession();
-		String id = session.getAttribute("id").toString();
-		Member m = memberService.getMember(id);
-		int mem_num = m.getMem_num();
 		
 		Singo s = new Singo();
 		s.setSingo_kind(singo_kind);

@@ -94,7 +94,7 @@
 	</tr>
 	<tr>
 		<td colspan="4" style="height: 30px; text-align: left; text-indent: 10px;">
-			${s.writer }
+			${s.id }
 		</td>
 	</tr>
 	<tr>
@@ -109,7 +109,9 @@
 					<%-- <input type="button" value="metoo" onclick="metoo(${s.share_num },2)" style="background-color: #FFA7A7;"> --%>
 				</c:when>
 			</c:choose>
-			${s.metoo }
+			${s.metoo }&nbsp;
+			<img src="${pageContext.request.contextPath}/resources/img/bubble01.png">&nbsp;
+			${rCnt }
 		</td>
 		<td colspan="2" align="right">
 			<form action="${pageContext.request.contextPath}/singo" method="post" name="fs">
@@ -139,7 +141,7 @@
 		<input type="hidden" name="share_num" value="${s.share_num }">
 		<input type="hidden" name="rep_num" value="${reps.rep_num}">
 			<tr>
-				<th style="width: 50px; height: 40px;">${reps.rep_writer }</th>
+				<th style="width: 50px; height: 40px;">&nbsp;&nbsp;${reps.id}</th>
 				<td style="width:450px; height: 40px; text-align: left; text-indent: 10px;">${reps.rep_content }</td>
 				<td style="width: 150px; height: 40px; text-align: right;">
 					<c:forEach var="r" items="${r }">
@@ -147,11 +149,8 @@
 							<input type="button" value="수정" onclick="focusOn(${reps.rep_num}, '${reps.rep_content }', ${s.share_num })">&nbsp;
 							<input type="button" value="삭제" onclick="repDel(${reps.rep_num}, ${s.share_num })">&nbsp;			
 						</c:if>
-					</c:forEach>
-					<c:forEach var="r" items="${r }">
-						<c:if test="${reps.rep_num eq r.rep_num && reps.rep_writer ne r.rep_writer }">
-							<img src="${pageContext.request.contextPath}/resources/img/singo02.png" onclick="singoRep(${reps.rep_num}, 'r')">&nbsp;
-							<%-- <input type="button" value="신고" onclick="singoRep(${reps.rep_num}, 'r')"> --%>
+						<c:if test="${reps.rep_writer ne r.rep_writer }">
+							<img src="${pageContext.request.contextPath}/resources/img/singo02.png" onclick="singoRep(${reps.rep_num}, 'r')">&nbsp;&nbsp;
 						</c:if>
 					</c:forEach>
 				</td>

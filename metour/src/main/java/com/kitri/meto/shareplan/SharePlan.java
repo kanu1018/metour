@@ -8,10 +8,15 @@ public class SharePlan {
 	private int metoo;
 	private int point_num;
 	private String share_title;
-	private int main_plan_num;
+	private String photo;
 	
-	public SharePlan(){}
-	public SharePlan(int share_num, int writer, String location, String content, int metoo, int point_num, String share_title, int main_plan_num) {
+	
+	public SharePlan() {
+		super();
+	}
+	
+	public SharePlan(int share_num, int writer, String location, String content, int metoo, int point_num,
+			String share_title, String photo) {
 		super();
 		this.share_num = share_num;
 		this.writer = writer;
@@ -19,8 +24,10 @@ public class SharePlan {
 		this.content = content;
 		this.metoo = metoo;
 		this.point_num = point_num;
-		this.main_plan_num = main_plan_num;
+		this.share_title = share_title;
+		this.photo = photo;
 	}
+
 	public int getShare_num() {
 		return share_num;
 	}
@@ -63,10 +70,12 @@ public class SharePlan {
 	public void setShare_title(String share_title) {
 		this.share_title = share_title;
 	}
-	public int getMain_plan_num() {
-		return main_plan_num;
+	public String getPhoto() {
+		return photo;
 	}
-	public void setMain_plan_num(int main_plan_num) {
-		this.main_plan_num = main_plan_num;
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
+	
+	
 }

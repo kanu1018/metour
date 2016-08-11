@@ -9,6 +9,15 @@
  		<result property="rep_writer" column="rep_writer" />
  		<result property="share_num" column="share_num" />
 	</resultMap>
+	
+	 <resultMap type="com.kitri.meto.JoinDTO.JoinDTO" id="RepMemberResultMap">
+ 		<result property="mem_num" column="MEM_NUM"/>
+ 		<result property="id" column="ID"/>
+ 		<result property="rep_num" column="rep_num" />
+ 		<result property="rep_content" column="rep_content" />
+ 		<result property="rep_writer" column="rep_writer" />
+ 		<result property="share_num" column="share_num" />
+	 </resultMap>
 		
 	<insert id="insert" parameterType="com.kitri.meto.rep.Rep" >
 		INSERT INTO rep values(rep_seq.nextval, #{rep_content}, #{rep_writer}, #{share_num})
@@ -28,5 +37,25 @@
 	
 	<select id="selectByShareNum" resultMap="RepResultMap" parameterType="int">
 		SELECT * FROM rep WHERE share_num = #{share_num} ORDER BY rep_num
+	</select>
+
+	<select id="selectRepCnt" resultType="int" parameterType="int">
+		SELECT count(*) FROM rep WHERE share_num = #{share_num}
+	</select>
+
+	<select id="joinSelectByShareNum" resultMap="RepMemberResultMap" parameterType="int">
+		SELECT rep_num, rep_content, rep_writer, share_num, id FROM rep r JOIN member m
+		ON r.rep_writer = m.mem_num
+		WHERE share_num = #{share_num} 
+		ORDER BY rep_num
+	</select>
+	
+	<select id="selectByShareNumCnt" resultMap="RepMemberResultMap" parameterType="int">
+		SELECT * FROM (SELECT rep_num, rep_content, rep_writer, share_num, id 
+					FROM rep r JOIN member m
+					ON r.rep_writer = m.mem_num
+					WHERE share_num = #{share_num} 
+					ORDER BY rep_num DESC)
+		WHERE rownum <![CDATA[<]]>  11
 	</select>
 </mapper>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kitri.meto.JoinDTO.JoinDTO;
 import com.kitri.meto.member.Member;
 import com.kitri.meto.member.MemberDaoService;
 import com.kitri.meto.rep.Rep;
@@ -33,7 +34,7 @@ public class AndRepController {
 	}
 	
 	@RequestMapping(value = "/and/rep/add.do")
-	public String shareAdd(@RequestParam(value="mem_num") int mem_num, @RequestParam(value="rep_content") String rep_content, @RequestParam(value="share_num") int share_num){
+	public String shareAdd(@RequestParam(value="rep_writer") int mem_num, @RequestParam(value="rep_content") String rep_content, @RequestParam(value="share_num") int share_num){
 		System.out.println("댓글 등록");
 		
 		Rep r = new Rep();
@@ -47,44 +48,62 @@ public class AndRepController {
 	}
 	
 	@RequestMapping(value = "/and/rep/edit.do")
-	public String subPlanEdit(HttpServletRequest req, @RequestParam(value="rep_content") String rep_content,
+	public String subPlanEdit(@RequestParam(value="rep_content") String rep_content,
 			@RequestParam(value="rep_num") int rep_num, @RequestParam(value="share_num") int share_num){
-		//세션 id, mem_num 받아오기
-		HttpSession session = req.getSession();
-		String id = session.getAttribute("id").toString();
-		Member m = memberService.getMember(id);
-		int mem_num = m.getMem_num();
+		System.out.println("댓글 수정");
 		
 		//update
 		Rep r = new Rep();
 		r.setRep_num(rep_num);
 		r.setRep_content(rep_content);
 		r.setShare_num(share_num);
-		r.setRep_writer(mem_num);
 		
 		repService.editeRep(r);
-		return "redirect:/share/view.do?share_num="+share_num;
+		
+		return "";
 	}
 	
 	@RequestMapping(value = "/and/rep/del.do")
-	public String subPlanDel(HttpServletRequest request, 
+	public String repDel(HttpServletRequest request, 
 			@RequestParam(value="rep_num") int rep_num, @RequestParam(value="share_num") int share_num){
 		repService.delRep(rep_num);
-		return "redirect:/share/view.do?share_num="+share_num;
+		return "";
 	}
 	
 	@RequestMapping(value="/and/rep/list.do")
-	public ModelAndView shareView2(@RequestParam(value="share_num") int share_num){
+	public ModelAndView repList(@RequestParam(value="share_num") int share_num){
 		ModelAndView mav = new ModelAndView("android/andRep");
 		
 		System.out.println("rep/list 접속");
 		System.out.println(share_num);
 		
 		//전체댓글 
-		ArrayList<Rep> list = repService.getRepByShareNum(share_num);
+		//ArrayList<Rep> list = repService.getRepByShareNum(share_num);
+		ArrayList<JoinDTO> list = repService.getJoinRepByShareNum(share_num);
 		mav.addObject("list", list);
 		
 		return mav;
+	}
+	
+	@RequestMapping(value="/and/rep/main.do")
+	public ModelAndView repMain(@RequestParam(value="share_num") int share_num){
+		ModelAndView mav = new ModelAndView("android/andRep");
+		
+		System.out.println("rep 10개");
+		System.out.println(share_num);
+		
+		//10개 댓글 
+		ArrayList<Rep> list = repService.getRepByShareNumCnt(share_num);
+		mav.addObject("list", list);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/and/rep/cnt.do")
+	public int repCnt(@RequestParam(value="share_num") int share_num){
+		int cnt = repService.getRepCnt(share_num);
+		System.out.println(cnt);
+		return cnt;
 	}
 	
 	

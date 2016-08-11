@@ -106,7 +106,7 @@ public class SharePlanController {
 	@RequestMapping(value="/share/view.do")
 	public ModelAndView shareView(HttpServletRequest req, @RequestParam(value="share_num") int share_num){
 		ModelAndView mav = new ModelAndView();
-		
+		System.out.println("share_num: "+share_num);
 		/*//세션 id, mem_num 받아오기
 		HttpSession session = req.getSession();
 		String id = session.getAttribute("id").toString();
@@ -143,10 +143,16 @@ public class SharePlanController {
 		HttpSession session = req.getSession(false);
 		
 		//공유글 받기
-		SharePlan s = shareService.getSharePlan(share_num);
+		//SharePlan s = shareService.getSharePlan(share_num);
+		JoinDTO s = shareService.getJoinSharePlan(share_num);
 		
 		//전체 댓글 목록
-		ArrayList<Rep> list = repService.getRepByShareNum(share_num);
+		//ArrayList<Rep> list = repService.getRepByShareNum(share_num);
+		ArrayList<JoinDTO> list = repService.getJoinRepByShareNum(share_num);
+		
+		//글 댓글 수 
+		int repCnt = repService.getRepCnt(share_num);
+		System.out.println("repCnt: "+repCnt);
 		
 		if(session.getAttribute("id") != null){
 			//로그인 했을 경우
@@ -187,21 +193,17 @@ public class SharePlanController {
 			}
 			
 			mav.addObject("s", s); // 공유글
-			//mav.addObject("me", me); // 좋아요
 			mav.addObject("list", list); // 전체 댓글
-			//mav.addObject("r", r); // 내 댓글
+			mav.addObject("rCnt", repCnt); //댓글 수
 			mav.setViewName("shareplan/shareview");
 		} else {
-
 			for (int i = 0; i < list.size(); i++) {
 				System.out.println("list:" + list.get(i).getRep_content());
 			}
-			//
-			// ModelAndView mav = new ModelAndView("shareplan/shareview");
+			
 			mav.addObject("s", s); // 공유글
-			// mav.addObject("me", me); // 좋아요
+			mav.addObject("rCnt", repCnt); //댓글 수
 			mav.addObject("list", list); // 전체 댓글
-			// mav.addObject("r", r); // 내 댓글
 			mav.setViewName("shareplan/shareview2");
 		}
 		return mav;
@@ -297,8 +299,9 @@ public class SharePlanController {
 	
 	@RequestMapping(value = "/subplan/com.do")
 	public String com(HttpServletRequest req, @RequestParam(value="html")String html
-			,@RequestParam(value="main_num")int main_num,@RequestParam(value="location")String location){
+			,@RequestParam(value="main_num")int main_num,@RequestParam(value="location")String location,@RequestParam(value="photo")String photo){
 		//
+		System.out.println(photo);
 		int point_num = scheduleService.getByPointNum();
 		JoinDTO j = new JoinDTO();
 		j.setPoint_num(point_num+1);
@@ -311,6 +314,11 @@ public class SharePlanController {
 		Member m = memberService.getMember(id);
 		int mem_num = m.getMem_num();
 		SharePlan s = new SharePlan();
+		if(photo.equals("") || photo==null){
+			s.setPhoto("http://"+req.getLocalAddr()+":"+req.getLocalPort()+"/img/suzy.jpg");
+		} else{
+			s.setPhoto(photo);
+		}
 		s.setWriter(mem_num);
 		s.setContent(html);
 		s.setPoint_num(point_num+1);

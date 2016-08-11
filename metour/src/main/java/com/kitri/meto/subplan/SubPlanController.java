@@ -501,8 +501,28 @@ public class SubPlanController {
 			}
 		}
 		System.out.println(place);
+		ArrayList<SubPlan> splist = new ArrayList<SubPlan>();
+		ArrayList<SubPlan> sp = new ArrayList<SubPlan>();
+		for(int i=0;i<num.length;i++){
+			sp = subPlanService.getSubPlans(main_nums[i]);
+			for(int j=0;j<sp.size();j++){
+				SubPlan s = null;
+				s = sp.get(j);
+				splist.add(s);
+			}
+		}
+		String photo = "";
+		for(int i=0;i<splist.size();i++){
+			if(splist.get(i).getPhoto()!=null){
+				photo = splist.get(i).getPhoto();
+				break;
+			}
+		}
 		//ArrayList<SubPlan> sublist = new ArrayList<SubPlan>();
 		//sublist = subPlanService.getSubPlans(main_num);
+		if(!photo.equals("")){
+			mav.addObject("photo",photo);
+		}
 		mav.addObject("location",place);
 		mav.addObject("main_num",main_nums[0]);
 		mav.addObject("item",sublist);
