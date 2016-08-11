@@ -1,6 +1,6 @@
 package com.kitri.meto.shareplan;
 
-public class SharePlan {
+public class SharePlan2 {
 	private int share_num;
 	private int writer;
 	private String location;
@@ -9,17 +9,23 @@ public class SharePlan {
 	private int point_num;
 	private String share_title;
 	private int main_plan_num;
+	private String id;
+	private String sub_num;
 	
-	public SharePlan(){}
-	public SharePlan(int share_num, int writer, String location, String content, int metoo, int point_num, String share_title, int main_plan_num) {
-		super();
+	public SharePlan2() {
+	}
+	public SharePlan2(int share_num, int writer, String location, String content, int metoo, int point_num,
+			String share_title, int main_plan_num, String id, String sub_num) {
 		this.share_num = share_num;
 		this.writer = writer;
 		this.location = location;
 		this.content = content;
 		this.metoo = metoo;
 		this.point_num = point_num;
+		this.share_title = share_title;
 		this.main_plan_num = main_plan_num;
+		this.id = id;
+		this.sub_num = sub_num;
 	}
 	public int getShare_num() {
 		return share_num;
@@ -69,4 +75,17 @@ public class SharePlan {
 	public void setMain_plan_num(int main_plan_num) {
 		this.main_plan_num = main_plan_num;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getSub_num() {
+		return sub_num;
+	}
+	public void setSub_num(String sub_num) {
+		this.sub_num = sub_num;
+	}
+	
 }

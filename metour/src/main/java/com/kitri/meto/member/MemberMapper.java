@@ -15,4 +15,5 @@ public interface MemberMapper {
 	List<JoinDTO> getArticleByWriter(String text);
 	List<JoinDTO> getArticleByNum(int num);
 	int selectById(String id);
+	String selectByWriter(int mem_num);
 }

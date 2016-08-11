@@ -11,6 +11,7 @@
  		<result property="content" column="content" /> 		
 		<result property="metoo" column="metoo" />
 		<result property="point_num" column="point_num" />
+		<result property="main_plan_num" column="main_plan_num"/>
 	</resultMap>
  	<resultMap type="com.kitri.meto.JoinDTO.JoinDTO" id="JoinResultMap">
  		<result property="share_num" column="share_num" />

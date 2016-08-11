@@ -35,7 +35,7 @@ public class MemberController {
 		return mav;
 	}*/
 	
-	@RequestMapping("/")
+	@RequestMapping("/index.do")
 	public String home(){
 		return "/mainhome";
 	}

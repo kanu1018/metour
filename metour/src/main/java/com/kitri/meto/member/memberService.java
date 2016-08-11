@@ -7,5 +7,5 @@ public interface memberService {
 	Member getMember(String id);
 	boolean login(Member m);
 	int getMem_numById(String id);
-	
+	String getIdByMemnum(int mem_num);
 }
