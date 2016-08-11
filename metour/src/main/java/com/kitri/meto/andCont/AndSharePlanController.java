@@ -100,8 +100,9 @@ public class AndSharePlanController {
 	@RequestMapping(value="/and/share/list.do")
 	public ModelAndView shareList(){
 		//공유글
+		System.out.println("탐");
 		ArrayList<SharePlan> list = shareService.getSharePlanAll();
-		ModelAndView mav = new ModelAndView("shareplan/sharelist");
+		ModelAndView mav = new ModelAndView("android/andSharePlan");
 		mav.addObject("list", list);
 		return mav;
 	}
@@ -373,7 +374,13 @@ public class AndSharePlanController {
 		mav.addObject("list", list);
 		return mav;
 	}
+	
+	@RequestMapping(value = "/and/share/trans.do")
+	public String trans(){
+		return "/android/andPicture";
+	}
 
+	
 }
 
 
