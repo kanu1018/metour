@@ -69,7 +69,7 @@
 		var url = "${pageContext.request.contextPath}/schedule/datePlan.do?year="+year
 				+"&month="+month+"&day="+day;
 		//location.href = url;
-		window.open(url, "idcheck", "top=200, left=200, toolbar=no, menubar=no, scrollbars=yes, resizable=yes, width=370, height=500" );
+		window.open(url, "idcheck", "top=200, left=200, toolbar=no, menubar=no, scrollbars=yes, resizable=yes, width=420, height=500" );
 	
 	}
 	
