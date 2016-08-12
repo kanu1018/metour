@@ -99,7 +99,9 @@ public class SharePlanController {
 		//공유글
 		ArrayList<SharePlan> list = shareService.getSharePlanAll();
 		ModelAndView mav = new ModelAndView("shareplan/sharelist");
+		int cnt = list.size();
 		mav.addObject("list", list);
+		mav.addObject("cnt", cnt);
 		return mav;
 	}
 	
