@@ -235,7 +235,6 @@ public class SharePlanController {
 	public ModelAndView genderlist(@RequestParam(value="gender") String gender){
 		ArrayList<JoinDTO> list = shareService.getSharePlanByGender(gender);
 		ModelAndView mav = new ModelAndView("shareplan/sharelist");
-		
 		System.out.println(gender);
 		mav.addObject("list", list);
 		return mav;
