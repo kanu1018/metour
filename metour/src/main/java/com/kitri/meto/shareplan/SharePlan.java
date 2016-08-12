@@ -8,7 +8,7 @@ public class SharePlan {
 	private int metoo;
 	private int point_num;
 	private String share_title;
-	private String photo;
+	private String share_photo;
 	
 	
 	public SharePlan() {
@@ -16,7 +16,7 @@ public class SharePlan {
 	}
 	
 	public SharePlan(int share_num, int writer, String location, String content, int metoo, int point_num,
-			String share_title, String photo) {
+			String share_title, String share_photo) {
 		super();
 		this.share_num = share_num;
 		this.writer = writer;
@@ -25,7 +25,7 @@ public class SharePlan {
 		this.metoo = metoo;
 		this.point_num = point_num;
 		this.share_title = share_title;
-		this.photo = photo;
+		this.share_photo = share_photo;
 	}
 
 	public int getShare_num() {
@@ -70,11 +70,11 @@ public class SharePlan {
 	public void setShare_title(String share_title) {
 		this.share_title = share_title;
 	}
-	public String getPhoto() {
-		return photo;
+	public String getShare_photo() {
+		return share_photo;
 	}
-	public void setPhoto(String photo) {
-		this.photo = photo;
+	public void setShare_photo(String share_photo) {
+		this.share_photo = share_photo;
 	}
 	
 	

@@ -87,10 +87,10 @@ public class SharePlan2 {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getPhoto() {
+	public String getShare_photo() {
 		return share_photo;
 	}
-	public void setPhoto(String share_photo) {
+	public void setShare_photo(String share_photo) {
 		this.share_photo = share_photo;
 	}
 	

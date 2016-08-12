@@ -37,7 +37,7 @@
 	</resultMap>
 	
 	<insert id="insert" parameterType="com.kitri.meto.shareplan.SharePlan" >
-		INSERT INTO share_plan(share_num,share_title,writer,location,content,metoo,point_num,share_photo) values(share_seq.nextval, #{share_title}, #{writer}, #{location}, #{content}, 0, #{point_num}, #{photo})
+		INSERT INTO share_plan(share_num,share_title,writer,location,content,metoo,point_num,share_photo) values(share_seq.nextval, #{share_title}, #{writer}, #{location}, #{content}, 0, #{point_num}, #{share_photo})
 	</insert>
 	
 	<select id="select" resultMap="SharePlanResultMap" parameterType="int">
