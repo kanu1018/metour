@@ -14,4 +14,5 @@ public interface ScheduleMapper {
 	int selectByMainNum();
 	Schedule selectByTitle(int main_num);
 	void insertPoint(JoinDTO j);
+	void insertPointNum(int point);
 }

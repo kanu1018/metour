@@ -35,8 +35,11 @@
 	INSERT INTO main_plan values(main_seq.nextval ,#{main_title}, #{main_writer}, TO_DATE(#{main_date}, 'YYYY/MM/DD'), #{point_num})
 </insert>
 
+ <insert id="insertPointNum" parameterType="int">
+ 	INSERT INTO point(point_num) values(#{point})
+ </insert>
  <select id = "selectByPointNum" resultType="int">
- 	SELECT MAX(point_num) FROM point
+ 	SELECT point_seq.nextval FROM dual
  </select>
  
  <select id = "selectByMainNum" resultType="int">
