@@ -129,7 +129,7 @@ public class AndSharePlanController {
 			s.setShare_title(list.get(i).getShare_title());
 			//s.setMain_plan_num(list.get(i).getMain_plan_num());
 			s.setId(list1.get(i));
-			s.setPhoto(list.get(i).getPhoto());
+			s.setShare_photo(list.get(i).getShare_photo());
 			splist.add(s);
 		}
 		ModelAndView mav = new ModelAndView("android/andSharePlanList");
