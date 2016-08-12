@@ -14,4 +14,5 @@ public interface scheduleService {
 	int getByMainNum();
 	Schedule getByTitle(int main_num);
 	void addPoint(JoinDTO j);
+	void addPointNum(int point);
 }

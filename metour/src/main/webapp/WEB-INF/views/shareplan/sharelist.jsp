@@ -140,22 +140,22 @@
 	</table>
 </form>
 <br>
-<table class="tabp" align="center" style="border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
+<%-- <table class="tabp" align="center" style="border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
 	<c:forEach var="s" items="${list }">
 		<tr class="tr1" style="border-collapse: collapse; width:500px; height: 500px; ">
 			<td colspan="2" style="width:300px; border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
 				<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">
 				이미지
-					<%-- <img src="/img/${s.photo}" align="middle" style="width: 500px; height: 500px;"> --%>
+					<img src="/img/${s.photo}" align="middle" style="width: 500px; height: 500px;">
 				</a>
 			</td>
 		</tr>
 		<tr style="border-collapse: collapse; width: 500px; height: 50px;">
-			<%-- <td>
+			<td>
 				<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">${s.share_title}</a>
 			</td>
 			<td>${s.writer }</td>
-			<td>${s.metoo }</td> --%>
+			<td>${s.metoo }</td>
 			<td align="left" style="width:450px;  text-indent: 5px; font-size: 15px;">
 				${s.share_title}
 			</td>
@@ -163,6 +163,53 @@
 				&nbsp;
 				<img class="like" src="${pageContext.request.contextPath}/resources/img/like01.png">&nbsp;${s.metoo }
 			</td>
+		</tr>
+	</c:forEach>
+</table> --%>
+<table>
+<c:set var="j" value="0"/>
+<c:set var="row" value="0"/>
+	<c:forEach begin="1" end="${cnt }">
+		<tr>	
+			<c:forEach begin="1" end="3">
+				<c:if test="${j eq 2 or row eq 1}">
+					<td style="width: 300px; height: 300px;">
+						<table class="tabp" align="center" style="border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
+							<c:forEach var="s" items="${list }">
+								<tr class="tr1" style="border-collapse: collapse; width:300px; height: 300px; ">
+									<td colspan="2" style="width:300px; border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
+										<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">
+											<img src="${s.share_photo}" align="middle" style="width: 300px; height: 300px;">
+										</a>
+									</td>
+								</tr>
+								<tr style="border-collapse: collapse; width: 300px; height: 50px;">
+									<td>
+										<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">${s.share_title}</a>
+									</td>
+									<td>${s.writer }</td>
+									<td>${s.metoo }</td>
+									<td align="left" style="width:450px;  text-indent: 5px; font-size: 15px;">
+										${s.share_title}
+									</td>
+									<td style="width:50px; font-size: 15px;">
+										&nbsp;
+										<img class="like" src="${pageContext.request.contextPath}/resources/img/like01.png">&nbsp;${s.metoo }
+									</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</td>
+					<c:set var="row" value="0"/>
+				</c:if>
+			</c:forEach>
+				<c:if test="${j le 3}">
+					<c:set var="j" value="${j+1}" />
+				</c:if>
+				<c:if test="${j eq 3}">
+				<c:set var="row" value="1"/>
+					<c:set var="j" value="0" />
+				</c:if>
 		</tr>
 	</c:forEach>
 </table>

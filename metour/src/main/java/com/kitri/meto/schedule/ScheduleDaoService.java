@@ -75,4 +75,12 @@ public class ScheduleDaoService implements scheduleService {
 		scheduleMapper.insertPoint(j);
 	}
 
+	@Override
+	public void addPointNum(int point) {
+		ScheduleMapper scheduleMapper = sqlSession.getMapper(ScheduleMapper.class);
+		scheduleMapper.insertPointNum(point);
+	}
+	
+	
+
 }
