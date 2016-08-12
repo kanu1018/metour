@@ -220,7 +220,7 @@
 								<tr class="tr1" style="border-collapse: collapse; width:300px; height: 300px; ">
 									<td colspan="2" style="width:300px; border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
 										<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">
-											<img src="${s.photo}" align="middle" style="width: 300px; height: 300px;">
+											<img src="${s.share_photo}" align="middle" style="width: 300px; height: 300px;">
 										</a>
 									</td>
 								</tr>
