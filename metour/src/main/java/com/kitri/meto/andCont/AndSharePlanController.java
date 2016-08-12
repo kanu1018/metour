@@ -186,7 +186,7 @@ public class AndSharePlanController {
 	@RequestMapping(value = "/and/share/search.do")
 	public ModelAndView search(@RequestParam(value="search") String share_title){
 		ArrayList<SharePlan> list = shareService.getSharePlanByTitle(share_title);
-		ModelAndView mav = new ModelAndView("shareplan/sharelist");
+		ModelAndView mav = new ModelAndView("android/andSharePlanList");
 		mav.addObject("list", list);
 		return mav;
 	}
@@ -199,10 +199,33 @@ public class AndSharePlanController {
 	@RequestMapping(value = "/and/share/genderlist.do")
 	public ModelAndView genderlist(@RequestParam(value="gender") String gender){
 		ArrayList<JoinDTO> list = shareService.getSharePlanByGender(gender);
-		ModelAndView mav = new ModelAndView("shareplan/sharelist");
+		ArrayList<SharePlan2> splist = new ArrayList<SharePlan2>();
+		ArrayList<String> list1 = new ArrayList<String>();
+		for(int i=0;i<list.size();i++){
+			String id = new String();
+			id= memberService.getIdByMemnum(list.get(i).getWriter());
+			list1.add(id);
+		}
+		ArrayList<String>list2 = new ArrayList<String>();
 		
-		System.out.println(gender);
-		mav.addObject("list", list);
+		for(int i=0;i<list.size();i++){
+			SharePlan2 s = new SharePlan2();
+			s.setShare_num(list.get(i).getShare_num());
+			s.setWriter(list.get(i).getWriter());
+			s.setLocation(list.get(i).getLocation());
+			s.setContent(list.get(i).getContent());
+			s.setMetoo(list.get(i).getMetoo());
+			s.setPoint_num(list.get(i).getPoint_num());
+			s.setShare_title(list.get(i).getShare_title());
+			//s.setMain_plan_num(list.get(i).getMain_plan_num());
+			s.setId(list1.get(i));
+			s.setShare_photo(list.get(i).getShare_photo());
+			splist.add(s);
+		}
+		ModelAndView mav = new ModelAndView("android/andSharePlanList");
+		mav.addObject("s", splist);
+		//mav.addObject("id",list1);
+		//mav.addObject("mp",list2);
 		return mav;
 	}
 	
@@ -213,6 +236,7 @@ public class AndSharePlanController {
 	
 	@RequestMapping(value = "/and/share/agelist.do")
 	public ModelAndView genderlist(@RequestParam(value="age") int age){
+		System.out.println(age);
 		ArrayList<Member> member = (ArrayList<Member>)adminSerivce.getMemberAll();
 		ArrayList<Integer> mem_num = getAge(member, age);
 		
@@ -223,10 +247,34 @@ public class AndSharePlanController {
 				list.add(tmp.get(j));
 			}
 		}
-
-		ModelAndView mav = new ModelAndView("shareplan/sharelist");
 		
-		mav.addObject("list", list);
+		ArrayList<SharePlan2> splist = new ArrayList<SharePlan2>();
+		ArrayList<String> list1 = new ArrayList<String>();
+		for(int i=0;i<list.size();i++){
+			String id = new String();
+			id= memberService.getIdByMemnum(list.get(i).getWriter());
+			list1.add(id);
+		}
+		ArrayList<String>list2 = new ArrayList<String>();
+		
+		for(int i=0;i<list.size();i++){
+			SharePlan2 s = new SharePlan2();
+			s.setShare_num(list.get(i).getShare_num());
+			s.setWriter(list.get(i).getWriter());
+			s.setLocation(list.get(i).getLocation());
+			s.setContent(list.get(i).getContent());
+			s.setMetoo(list.get(i).getMetoo());
+			s.setPoint_num(list.get(i).getPoint_num());
+			s.setShare_title(list.get(i).getShare_title());
+			//s.setMain_plan_num(list.get(i).getMain_plan_num());
+			s.setId(list1.get(i));
+			s.setShare_photo(list.get(i).getShare_photo());
+			splist.add(s);
+		}
+		ModelAndView mav = new ModelAndView("android/andSharePlanList");
+		mav.addObject("s", splist);
+		//mav.addObject("id",list1);
+		//mav.addObject("mp",list2);
 		return mav;
 	}
 	
@@ -294,9 +342,33 @@ public class AndSharePlanController {
 	@RequestMapping(value = "/and/share/best.do")
 	public ModelAndView bestlist(){
 		ArrayList<SharePlan> list = shareService.getSharePlanByBest();
-		ModelAndView mav = new ModelAndView("shareplan/sharelist");
-	
-		mav.addObject("list", list);
+		ArrayList<SharePlan2> splist = new ArrayList<SharePlan2>();
+		ArrayList<String> list1 = new ArrayList<String>();
+		for(int i=0;i<list.size();i++){
+			String id = new String();
+			id= memberService.getIdByMemnum(list.get(i).getWriter());
+			list1.add(id);
+		}
+		ArrayList<String>list2 = new ArrayList<String>();
+		
+		for(int i=0;i<list.size();i++){
+			SharePlan2 s = new SharePlan2();
+			s.setShare_num(list.get(i).getShare_num());
+			s.setWriter(list.get(i).getWriter());
+			s.setLocation(list.get(i).getLocation());
+			s.setContent(list.get(i).getContent());
+			s.setMetoo(list.get(i).getMetoo());
+			s.setPoint_num(list.get(i).getPoint_num());
+			s.setShare_title(list.get(i).getShare_title());
+			//s.setMain_plan_num(list.get(i).getMain_plan_num());
+			s.setId(list1.get(i));
+			s.setShare_photo(list.get(i).getShare_photo());
+			splist.add(s);
+		}
+		ModelAndView mav = new ModelAndView("android/andSharePlanList");
+		mav.addObject("s", splist);
+		//mav.addObject("id",list1);
+		//mav.addObject("mp",list2);
 		return mav;
 	}
 	
@@ -310,9 +382,33 @@ public class AndSharePlanController {
 	public ModelAndView placelist(@RequestParam(value="place") String place){
 		String tmp = "%"+place+"%";
 		ArrayList<SharePlan> list = shareService.getSharePlanByPlace(tmp);
-
-		ModelAndView mav = new ModelAndView("shareplan/sharelist");
-		mav.addObject("list", list);
+		ArrayList<SharePlan2> splist = new ArrayList<SharePlan2>();
+		ArrayList<String> list1 = new ArrayList<String>();
+		for(int i=0;i<list.size();i++){
+			String id = new String();
+			id= memberService.getIdByMemnum(list.get(i).getWriter());
+			list1.add(id);
+		}
+		ArrayList<String>list2 = new ArrayList<String>();
+		
+		for(int i=0;i<list.size();i++){
+			SharePlan2 s = new SharePlan2();
+			s.setShare_num(list.get(i).getShare_num());
+			s.setWriter(list.get(i).getWriter());
+			s.setLocation(list.get(i).getLocation());
+			s.setContent(list.get(i).getContent());
+			s.setMetoo(list.get(i).getMetoo());
+			s.setPoint_num(list.get(i).getPoint_num());
+			s.setShare_title(list.get(i).getShare_title());
+			//s.setMain_plan_num(list.get(i).getMain_plan_num());
+			s.setId(list1.get(i));
+			s.setShare_photo(list.get(i).getShare_photo());
+			splist.add(s);
+		}
+		ModelAndView mav = new ModelAndView("android/andSharePlanList");
+		mav.addObject("s", splist);
+		//mav.addObject("id",list1);
+		//mav.addObject("mp",list2);
 		return mav;
 	}
 	

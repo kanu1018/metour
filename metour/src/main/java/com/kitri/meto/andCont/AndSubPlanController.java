@@ -337,7 +337,7 @@ public class AndSubPlanController {
 	}
 	
 	@RequestMapping(value = "/and/subplan/edit.do")
-	public String subPlanEdit(HttpServletRequest request){
+	public void subPlanEdit(HttpServletRequest request){
 		int main_num = Integer.parseInt(request.getParameter("main_num").toString());
 		String sub_title = request.getParameter("sub_title");
 		String start_time = request.getParameter("start_time");
@@ -351,7 +351,7 @@ public class AndSubPlanController {
 		String mission_yn = "0";*/
 		int sub_num = Integer.parseInt(request.getParameter("sub_num").toString());
 		
-
+		
 		SubPlan sp = new SubPlan();
 		sp.setSub_title(sub_title);
 		sp.setStart_time(start_time);
@@ -361,9 +361,9 @@ public class AndSubPlanController {
 		sp.setMemo(memo);
 		sp.setPhoto(photo);
 		sp.setMain_num(main_num);
-		/*sp.setLlh_x(llh_x);
-		sp.setLlh_y(llh_y);
-		sp.setMission_yn(mission_yn);*/
+		sp.setLlh_x("0");
+		sp.setLlh_y("0");
+		//sp.setMission_yn(mission_yn);*/
 		sp.setSub_num(sub_num);
 		
 		subPlanService.editSubPlan(sp);
@@ -385,7 +385,7 @@ public class AndSubPlanController {
 		sp.setSub_num(sp.getSub_num());
 		subPlanService.updatePhoto(sp);
 		subPlanService.editSubPlan(sp);*/
-		return "redirect:/subplan/list.do?main_num="+sp.getMain_num();
+		//return "redirect:/subplan/list.do?main_num="+sp.getMain_num();
 	}
 	
 	@RequestMapping(value = "/and/subplan/del.do")

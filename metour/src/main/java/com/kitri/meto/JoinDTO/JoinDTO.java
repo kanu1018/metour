@@ -37,6 +37,7 @@ public class JoinDTO {
 	private String content;
 	private int metoo;
 	private String share_title;
+	private String share_photo;
 	
 	//rep
 	private int rep_num;
@@ -68,7 +69,7 @@ public class JoinDTO {
 			String mission, String memo, String mission_yn, String photo, int share_num, int writer, String location,
 			String content, int metoo, String share_title, int rep_num, String rep_content, int rep_writer,
 			int point_num, int point, int singo_num, String singo_kind, String singo_content, String singo_state,
-			int content_num, int singo_mem, int metoo_num, String metoo_yn) {
+			int content_num, int singo_mem, int metoo_num, String metoo_yn, String share_photo) {
 		super();
 		this.mem_num = mem_num;
 		this.id = id;
@@ -112,9 +113,11 @@ public class JoinDTO {
 		this.singo_mem = singo_mem;
 		this.metoo_num = metoo_num;
 		this.metoo_yn = metoo_yn;
+		this.share_photo=share_photo;
 	}
 
 
+	
 	// setter, getter
 	public int getMem_num() {
 		return mem_num;
@@ -368,4 +371,11 @@ public class JoinDTO {
 	public void setMetoo_yn(String metoo_yn) {
 		this.metoo_yn = metoo_yn;
 	}
+	public String getShare_photo() {
+		return share_photo;
+	}
+	public void setShare_photo(String share_photo) {
+		this.share_photo = share_photo;
+	}
+	
 }

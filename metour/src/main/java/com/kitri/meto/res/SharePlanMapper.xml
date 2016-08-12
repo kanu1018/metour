@@ -44,7 +44,7 @@
 		SELECT * FROM share_plan WHERE share_num = #{share_num}
 	</select>
 	
-	<select id="selectAll" resultMap="SharePlanResultMap" parameterType="int">
+	<select id="selectAll" resultMap="SharePlanResultMap">
 		SELECT * FROM share_plan ORDER BY share_num desc
 	</select>
 	
