@@ -1,5 +1,6 @@
 package com.kitri.meto.schedule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kitri.meto.JoinDTO.JoinDTO;
@@ -15,4 +16,6 @@ public interface ScheduleMapper {
 	Schedule selectByTitle(int main_num);
 	void insertPoint(JoinDTO j);
 	void insertPointNum(int point);
+	
+	ArrayList<Schedule> selectByDate(int main_writer);
 }
