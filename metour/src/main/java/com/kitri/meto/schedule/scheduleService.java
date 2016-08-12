@@ -1,5 +1,6 @@
 package com.kitri.meto.schedule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kitri.meto.JoinDTO.JoinDTO;
@@ -15,4 +16,6 @@ public interface scheduleService {
 	Schedule getByTitle(int main_num);
 	void addPoint(JoinDTO j);
 	void addPointNum(int point);
+	
+	ArrayList<Schedule> getScheduleByDate(int main_writer);
 }

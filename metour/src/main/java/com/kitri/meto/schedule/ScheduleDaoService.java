@@ -1,5 +1,6 @@
 package com.kitri.meto.schedule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -79,6 +80,12 @@ public class ScheduleDaoService implements scheduleService {
 	public void addPointNum(int point) {
 		ScheduleMapper scheduleMapper = sqlSession.getMapper(ScheduleMapper.class);
 		scheduleMapper.insertPointNum(point);
+	}
+
+	@Override
+	public ArrayList<Schedule> getScheduleByDate(int main_writer) {
+		ScheduleMapper scheduleMapper = sqlSession.getMapper(ScheduleMapper.class);
+		return scheduleMapper.selectByDate(main_writer);
 	}
 	
 	

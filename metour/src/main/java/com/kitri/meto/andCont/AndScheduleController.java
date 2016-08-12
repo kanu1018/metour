@@ -2,12 +2,9 @@ package com.kitri.meto.andCont;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kitri.meto.member.MemberDaoService;
-import com.kitri.meto.schedule.CalendarDayFlag;
 import com.kitri.meto.schedule.Schedule;
 import com.kitri.meto.schedule.scheduleService;
-import com.kitri.meto.subplan.SubPlan;
 import com.kitri.meto.subplan.SubPlanService;
 
 @Controller
@@ -94,5 +89,14 @@ public class AndScheduleController {
 		scheduleService.addSchedule(schedule);
 	}
 				
-	
+	@RequestMapping(value="/and/schedule/getDay.do")
+	public ModelAndView getDay(@RequestParam (value="id") String id){	
+		ModelAndView mav = new ModelAndView("schedule/getScheduleDay");
+		
+		int mem_num = memberService.getMem_numById(id);
+		ArrayList<Schedule> times = scheduleService.getScheduleByDate(mem_num);
+		
+		mav.addObject("times",times);		
+		return mav;
+	}
 }
