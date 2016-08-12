@@ -21,12 +21,12 @@
 	
 	#div1{
 		width: 100%;
-		height: 800px;
+		height: 100%;
 		position: absolute;
 	}	
 	#div2{
 		width: 100%;
-		height: 800px;
+		height: 100%;
 		position: absolute;
 	}	
 	
@@ -57,10 +57,10 @@
 <body>
 <div id="div1">
 	<img id="i1" src="${pageContext.request.contextPath}/resources/img/main03.jpg">
-	<img id="i2" src="${pageContext.request.contextPath}/resources/img/main04.jpg">
+	<img id="i2" src="${pageContext.request.contextPath}/resources/img/main03.jpg">
 </div>
 <div id="div2">
-	<img src="${pageContext.request.contextPath}/resources/img/main03.jpg" onclick="main()" onmouseover="this.src='${pageContext.request.contextPath}/resources/img/main04.jpg'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/main03.jpg'">
+	<img src="${pageContext.request.contextPath}/resources/img/main03.jpg" onclick="main()" onmouseover="this.src='${pageContext.request.contextPath}/resources/img/main03.jpg'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/main03.jpg'">
 </div>
 
 </body>
