@@ -95,6 +95,7 @@ td{
 	
 	td.dropdown{
 		text-align: right;
+		padding-top: 5px;
 	}
 
 	.dropdown li ul {
@@ -232,8 +233,8 @@ td{
 		<a onclick="goShareList()">공유글보기&nbsp;</a><br> --%>
 	<table class="tabtop" >
 		<tr>
-			<td style="width: 100px; padding-left: 5px;">
-				<img src="${pageContext.request.contextPath}/resources/img/metos.png">
+			<td style="width: 100px; padding-left: 5px; padding-top: 5px;">
+				<a href="${pageContext.request.contextPath }/share/list.do" target="ppp" class="a2"><img src="${pageContext.request.contextPath}/resources/img/metos.png"></a>
 			</td>
 			<td class="menu" style="text-align: left;">
 				<c:choose>
@@ -253,10 +254,10 @@ td{
 						<ul>
 							<c:choose>
 								<c:when test="${sessionScope.id eq id && id ne null}">
-									<li><a onclick="logout()" class="a1">LOGOUT&nbsp;</a></li>
-									<li><br><a onclick="goEditMember()" class="a1">MODIFY&nbsp;</a></li>
+									<li><a onclick="logout()" class="a1">&nbsp;LOGOUT&nbsp;</a></li>
+									<li><br><a onclick="goEditMember()" class="a1">&nbsp;MODIFY&nbsp;</a></li>
 										<c:if test="${type eq 'm'}">
-											<li><br><a onclick="goAdminPage()" class="a1">ADMIN&nbsp;</a></li>
+											<li><br><a onclick="goAdminPage()" class="a1">&nbsp;ADMIN&nbsp;</a></li>
 										</c:if>
 								</c:when>
 								<c:otherwise>
