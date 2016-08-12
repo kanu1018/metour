@@ -303,7 +303,7 @@ public class SharePlanController {
 	public String com(HttpServletRequest req, @RequestParam(value="html")String html
 			,@RequestParam(value="main_num")int main_num,@RequestParam(value="location")String location,@RequestParam(value="photo")String photo){
 		//
-		System.out.println(photo);
+		System.out.println("subplan/조합을 탔다."+photo);
 		int point_num = scheduleService.getByPointNum();
 		JoinDTO j = new JoinDTO();
 		j.setPoint_num(point_num+1);

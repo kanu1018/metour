@@ -526,7 +526,7 @@ public class SubPlanController {
 		mav.addObject("location",place);
 		mav.addObject("main_num",main_nums[0]);
 		mav.addObject("item",sublist);
-		
+		System.out.println("마지막까지실행되었다.");
 		return mav;
 	}
 	
