@@ -301,8 +301,9 @@ public class SharePlanController {
 	
 	@RequestMapping(value = "/subplan/com.do")
 	public String com(HttpServletRequest req, @RequestParam(value="html")String html
-			,@RequestParam(value="main_num")int main_num,@RequestParam(value="location")String location){
+			,@RequestParam(value="main_num")int main_num,@RequestParam(value="location")String location,@RequestParam(value="photo")String photo){
 		//
+		System.out.println(photo);
 		int point_num = scheduleService.getByPointNum();
 		JoinDTO j = new JoinDTO();
 		j.setPoint_num(point_num+1);
@@ -315,6 +316,11 @@ public class SharePlanController {
 		Member m = memberService.getMember(id);
 		int mem_num = m.getMem_num();
 		SharePlan s = new SharePlan();
+		if(photo.equals("") || photo==null){
+			s.setPhoto("http://"+req.getLocalAddr()+":"+req.getLocalPort()+"/img/suzy.jpg");
+		} else{
+			s.setPhoto(photo);
+		}
 		s.setWriter(mem_num);
 		s.setContent(html);
 		s.setPoint_num(point_num+1);

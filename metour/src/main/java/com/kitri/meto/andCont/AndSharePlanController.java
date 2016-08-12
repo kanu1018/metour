@@ -119,16 +119,6 @@ public class AndSharePlanController {
 		ArrayList<String>list2 = new ArrayList<String>();
 		
 		for(int i=0;i<list.size();i++){
-			ArrayList<SubPlan> list3 = null;
-			list3 = subPlanService.getSubPlans(list.get(i).getMain_plan_num());
-			System.out.println(list3.size()+" "+list.get(i).getMain_plan_num());
-			if(list3.size()==0){
-				list2.add("");
-			}else{
-				list2.add(list3.get(0).getPhoto());
-			}
-		}
-		for(int i=0;i<list.size();i++){
 			SharePlan2 s = new SharePlan2();
 			s.setShare_num(list.get(i).getShare_num());
 			s.setWriter(list.get(i).getWriter());
@@ -137,9 +127,9 @@ public class AndSharePlanController {
 			s.setMetoo(list.get(i).getMetoo());
 			s.setPoint_num(list.get(i).getPoint_num());
 			s.setShare_title(list.get(i).getShare_title());
-			s.setMain_plan_num(list.get(i).getMain_plan_num());
+			//s.setMain_plan_num(list.get(i).getMain_plan_num());
 			s.setId(list1.get(i));
-			s.setSub_num(list2.get(i));
+			s.setPhoto(list.get(i).getPhoto());
 			splist.add(s);
 		}
 		ModelAndView mav = new ModelAndView("android/andSharePlanList");

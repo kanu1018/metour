@@ -10,12 +10,17 @@ public class SharePlan2 {
 	private String share_title;
 	private int main_plan_num;
 	private String id;
-	private String sub_num;
+	private String share_photo;
+	
 	
 	public SharePlan2() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
+	
 	public SharePlan2(int share_num, int writer, String location, String content, int metoo, int point_num,
-			String share_title, int main_plan_num, String id, String sub_num) {
+			String share_title, int main_plan_num, String id, String share_photo) {
+		super();
 		this.share_num = share_num;
 		this.writer = writer;
 		this.location = location;
@@ -25,8 +30,9 @@ public class SharePlan2 {
 		this.share_title = share_title;
 		this.main_plan_num = main_plan_num;
 		this.id = id;
-		this.sub_num = sub_num;
+		this.share_photo = share_photo;
 	}
+
 	public int getShare_num() {
 		return share_num;
 	}
@@ -81,11 +87,13 @@ public class SharePlan2 {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getSub_num() {
-		return sub_num;
+	public String getPhoto() {
+		return share_photo;
 	}
-	public void setSub_num(String sub_num) {
-		this.sub_num = sub_num;
+	public void setPhoto(String share_photo) {
+		this.share_photo = share_photo;
 	}
+	
+	
 	
 }

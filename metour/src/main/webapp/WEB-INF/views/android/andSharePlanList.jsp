@@ -24,7 +24,7 @@ response.setCharacterEncoding("UTF-8");
 		sMetoo = s.getMetoo();
 		sPoint = s.getPoint_num();
 		sId = s.getId();
-		sPhoto = s.getSub_num();
+		sPhoto = s.getPhoto();
 	%>
 	<shareplan>
 		<sNum><%=sNum %></sNum>
