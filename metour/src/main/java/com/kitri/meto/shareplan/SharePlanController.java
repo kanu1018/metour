@@ -315,9 +315,9 @@ public class SharePlanController {
 		int mem_num = m.getMem_num();
 		SharePlan s = new SharePlan();
 		if(photo.equals("") || photo==null){
-			s.setPhoto("http://"+req.getLocalAddr()+":"+req.getLocalPort()+"/img/suzy.jpg");
+			s.setShare_photo("http://"+req.getLocalAddr()+":"+req.getLocalPort()+"/img/suzy.jpg");
 		} else{
-			s.setPhoto(photo);
+			s.setShare_photo(photo);
 		}
 		s.setWriter(mem_num);
 		s.setContent(html);
