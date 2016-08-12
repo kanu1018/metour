@@ -149,7 +149,7 @@
 							<input type="button" value="수정" onclick="focusOn(${reps.rep_num}, '${reps.rep_content }', ${s.share_num })">&nbsp;
 							<input type="button" value="삭제" onclick="repDel(${reps.rep_num}, ${s.share_num })">&nbsp;			
 						</c:if>
-						<c:if test="${reps.rep_writer ne r.rep_writer }">
+						<c:if test="${reps.rep_num eq r.rep_num && reps.rep_writer ne r.rep_writer }">
 							<img src="${pageContext.request.contextPath}/resources/img/singo02.png" onclick="singoRep(${reps.rep_num}, 'r')">&nbsp;&nbsp;
 						</c:if>
 					</c:forEach>

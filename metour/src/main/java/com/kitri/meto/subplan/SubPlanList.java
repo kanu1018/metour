@@ -21,7 +21,12 @@ public class SubPlanList {
 		this.mission_yn = mission_yn;
 		this.row = row;
 	}
-	
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
 	public int getSub_num() {
 		return sub_num;
 	}
@@ -58,13 +63,4 @@ public class SubPlanList {
 	public void setRow(int row) {
 		this.row = row;
 	}
-	public String getTime() {
-		return time;
-	}
-	public void setTime(String time) {
-		this.time = time;
-	}
-	
-	
-
 }
