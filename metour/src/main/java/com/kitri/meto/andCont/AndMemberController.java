@@ -139,9 +139,10 @@ public class AndMemberController {
 			List<JoinDTO> list = new ArrayList<JoinDTO>();
 			list = memberService.getArticleByRoot();
 			session.setAttribute("LIST", list);
-			//return "member/main";
+			mav.addObject("number",m.getMem_num());
+			//return "member/main";	
 		}
-		mav.addObject("flag", flag);
+		System.out.println(m.getMem_num());
 		return mav;
 	}
 	

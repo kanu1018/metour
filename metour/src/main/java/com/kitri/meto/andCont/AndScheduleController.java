@@ -61,6 +61,7 @@ public class AndScheduleController {
 	@RequestMapping(value="/and/schedule/getList.do")
 	public ModelAndView getListSchedule(@RequestParam ("main_writer") int main_writer){	
 		ModelAndView mav = new ModelAndView("schedule/getScheduleList");
+		System.out.println(main_writer);
 		List<Schedule> schedules = scheduleService.getSchedules(main_writer);
 		mav.addObject("schedules",schedules);		
 		return mav;
@@ -86,8 +87,10 @@ public class AndScheduleController {
 		String date=year+"/"+month+"/"+day;
 		schedule.setMain_date(date);
 		System.out.println(date);
-		schedule.setPoint_num((scheduleService.getByPointNum()+1));
-		
+		int point_num = scheduleService.getByPointNum();
+		schedule.setPoint_num(point_num);
+		scheduleService.addPointNum(point_num);
+
 		scheduleService.addSchedule(schedule);
 	}
 				
