@@ -98,7 +98,6 @@
 		</tr>
 		<tr>
 			<td style="height: 30px; width: 200px;">${s.year}년 ${s.month}월 ${s.day}일</td>
-			<td style="height: 30px; width: 110px;">포인트</td>  
 		</tr>
 	</table>
 </c:forEach>
