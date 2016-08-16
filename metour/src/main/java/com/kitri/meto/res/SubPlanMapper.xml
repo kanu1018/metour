@@ -45,4 +45,11 @@
 	<update id="upPhoto" parameterType="com.kitri.meto.subplan.SubPlan">
 		UPDATE sub_plan SET photo=#{photo} where sub_num = #{sub_num}
 	</update>
+	
+	<select id = "selectByDate1" resultMap="SubPlanResultMap" parameterType="com.kitri.meto.schedule.Schedule">
+ 	select sub_num, sub_title, TO_CHAR(s.start_time,'HH24') start_time, TO_CHAR(s.end_time,'HH24:MI') end_time, place, llh_x, llh_y, mission, memo, mission_yn, s.main_num main_num
+	from main_plan m left join sub_plan s on m.main_num = s.main_num
+	where m.main_writer = #{main_writer} AND TO_CHAR(m.main_date,'YYYY/MM/DD') = #{main_date}
+	order by start_time
+ </select>
 </mapper>
