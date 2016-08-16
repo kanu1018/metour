@@ -10,4 +10,5 @@ public interface SubPlanMapper {
 	void update(SubPlan sp);
 	SubPlan selectSupPlanTime(int subNum);
 	void upPhoto(SubPlan subplan);
+	ArrayList<SubPlan> selectByMainNum(int main_num);
 }

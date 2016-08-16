@@ -6,17 +6,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import javax.annotation.Resource;
-import javax.servlet.GenericServlet;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.omg.IOP.ServiceContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +23,8 @@ import org.w3c.dom.NodeList;
 
 import com.kitri.meto.member.Member;
 import com.kitri.meto.member.MemberDaoService;
+import com.kitri.meto.point.Point;
+import com.kitri.meto.point.PointService;
 import com.kitri.meto.schedule.Schedule;
 import com.kitri.meto.schedule.scheduleService;
 
@@ -51,6 +49,15 @@ public class SubPlanController {
 	public void setScheduleService(scheduleService scheduleService){
 		this.scheduleService = scheduleService;
 	}
+	
+	@Resource(name="PointService")
+	private PointService pointService;
+	
+	public void setPointService(PointService pointService){
+		this.pointService = pointService;
+	}
+	
+	
 	
 	@RequestMapping(value = "/subplan/add.do")
 	public ModelAndView subPlanAdd(HttpServletRequest request, @RequestParam(value="main_num")int main_num){
@@ -309,7 +316,7 @@ public class SubPlanController {
 		sp.setPhoto(root);
 		sp.setSub_num(sp.getSub_num());
 		subPlanService.updatePhoto(sp);
-		subPlanService.editSubPlan(sp);
+		subPlanService.editSubPlan(sp);	
 		return "redirect:/subplan/list.do?main_num="+sp.getMain_num();
 	}
 	
@@ -468,6 +475,16 @@ public class SubPlanController {
 		String[] num = main_num.split("/");
 		int[] main_nums = new int[num.length];
 		
+		//mainPlan point_num 가져오기
+		ArrayList<Schedule> ss;
+		int[] point_num = new int[main_nums.length];
+		for(int i = 0; i<num.length; i++){
+			main_nums[i] = Integer.parseInt(num[i]);
+			Schedule s = scheduleService.getByTitle(main_nums[i]);
+			point_num[i] = s.getPoint_num();
+			System.out.println("point_num:" + point_num[i]);
+		}
+		
 		/*ArrayList<ArrayList<SubPlan>> sublist = new ArrayList<ArrayList<SubPlan>>();
 		// sublist에누적
 		for(int i=0;i<num.length;i++){
@@ -503,6 +520,33 @@ public class SubPlanController {
 				}
 			}
 		}
+		
+		//점수 더하기
+		//subPlan 리스트
+		ArrayList<SubPlan> slist = new ArrayList<SubPlan>();
+		for(int i = 0; i<num.length ; i++){
+			slist = subPlanService.getSubPlanByMain(main_nums[i]);
+		}
+		
+		int tmp = 0;
+		for(int i = 0; i< slist.size(); i++){
+			String yn = slist.get(i).getMission_yn();
+			if(yn.equals("0")){
+				//실패, 0
+				tmp += 0;
+			} else if (yn.equals("1")){
+				//사진, 20
+				tmp += 20;
+			} else if (yn.equals("2")){
+				//위치, 10
+				tmp += 10;
+			} else if (yn.equals("3")){
+				//둘다, 30
+				tmp += 30;
+			}
+		}
+		System.out.println("점수"+tmp);
+		
 		System.out.println(place);
 		ArrayList<SubPlan> splist = new ArrayList<SubPlan>();
 		ArrayList<SubPlan> sp = new ArrayList<SubPlan>();
@@ -529,6 +573,7 @@ public class SubPlanController {
 		mav.addObject("location",place);
 		mav.addObject("main_num",main_nums[0]);
 		mav.addObject("item",sublist);
+		mav.addObject("point", tmp);
 		System.out.println("마지막까지실행되었다.");
 		return mav;
 	}

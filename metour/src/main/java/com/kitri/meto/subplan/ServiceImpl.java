@@ -58,5 +58,12 @@ public class ServiceImpl implements SubPlanService{
 		subPlanMapper.upPhoto(subplan);
 	}
 
+	@Override
+	public ArrayList<SubPlan> getSubPlanByMain(int main_num) {
+		SubPlanMapper subPlanMapper = sqlSession.getMapper(SubPlanMapper.class);
+		ArrayList<SubPlan> list = subPlanMapper.selectByMainNum(main_num);
+		return list;
+	}
+
 
 }

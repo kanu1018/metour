@@ -77,6 +77,11 @@ td{
 	.a2:visited {text-decoration: none; color: #FFFFFF; background-color: #1ABC9C;}
 	.a2:active {text-decoration: none; color: #FFFFFF; background-color: #1ABC9C;}
 	.a2:hover {text-decoration: none; color: #FFFFFF; background-color: #1ABC9C;}
+
+	.a3:link {text-decoration: none; color: #FFFFFF; background-color: #1ABC9C;}
+	.a3:visited {text-decoration: none; color: #FFFFFF; background-color: #1ABC9C;}
+	.a3:active {text-decoration: none; color: #FFFFFF; background-color: #1ABC9C;}
+	.a3:hover {text-decoration: none; color: #FFFFFF; background-color: #1ABC9C;}
 	
 	div.top{
 		height: 80px;
@@ -90,9 +95,9 @@ td{
 		width: 100%;
 	}
 	
-	td.menu {
+	/* td.menu {
 		text-align: left;
-	}
+	} */
 	
 	td.dropdown{
 		text-align: right;
@@ -119,7 +124,36 @@ td{
 		display:block;   /* 마우스 커서 올리면 서브메뉴 보이게 하기 */
 		clear: both;
 		margin-right: 20px;
+	}
+	 
+	td.menu{
+		text-align: right;
+		padding-top: 5px;
+	}
+
+	.menu li ul {
+		background: #ffffff;
+		display:none;  /* 평상시에는 서브메뉴가 안보이게 하기 */
+		height:30px;
+		padding:0px;
+		margin:0px;
+		border:0px;
+		position: absolute;left: 10px;top:65px;
+		width:200px;
+		z-index:200;
+		list-style-type: none;
+		float: right;
+		text-align: left;
+		font-size: 30px;
+		color: #000000;
+	}
+	.menu li:hover ul {
+		display:block;   /* 마우스 커서 올리면 서브메뉴 보이게 하기 */
+		clear: both;
+		margin-right: 20px;
 	} 
+	
+	
 	img.person{
 		width: 25px;
 		height: 25px;
@@ -217,6 +251,22 @@ td{
 	function goJoin() {
 		location.href="${pageContext.request.contextPath }/member/joinForm.do";
 	}
+	
+	function backList(){
+		location.href="${pageContext.request.contextPath}/share/list.do";
+	}
+	function bestList(){
+		location.href="${pageContext.request.contextPath}/share/best.do";
+	}
+	function placeList(){
+		newWindow = window.open("${pageContext.request.contextPath}/share/place.do", "newWindow", "height=200, width=400, resizable=yes"); 
+	}
+	function genderList(){
+		newWindow = window.open("${pageContext.request.contextPath}/share/gender.do", "newWindow", "height=200, width=400, resizable=yes"); 
+	}
+	function ageList(){
+		newWindow = window.open("${pageContext.request.contextPath}/share/age.do", "newWindow", "height=200, width=400, resizable=yes");
+	}
 </script>
 <title>:::MAIN:::</title>
 </head>
@@ -234,8 +284,13 @@ td{
 		<a onclick="goShareList()">공유글보기&nbsp;</a><br> --%>
 	<table class="tabtop" >
 		<tr>
-			<td style="width: 100px; padding-left: 5px; padding-top: 5px;">
+			<%-- <td style="width: 100px; padding-left: 5px; padding-top: 5px;">
 				<a href="${pageContext.request.contextPath }/share/list.do" target="ppp" class="a2"><img src="${pageContext.request.contextPath}/resources/img/metos.png"></a>
+			</td>
+			<td class="menu" style="text-align: left;">
+				<a href="${pageContext.request.contextPath }/share/list.do" target="ppp" class="a2">
+					<img src="${pageContext.request.contextPath}/resources/img/menu01.png" style="width: 50px; height: 50px;">
+				</a>
 			</td>
 			<td class="menu" style="text-align: left;">
 				<c:choose>
@@ -246,12 +301,52 @@ td{
 						<a onclick="goLoginForm()" target="ppp" class="a2">일정등록&nbsp;</a>
 					</c:otherwise>
 				</c:choose>
-				<a href="${pageContext.request.contextPath }/share/list.do" target="ppp" class="a2">Meto보기&nbsp;</a><br>
+			</td> --%>
+			<td align="left" style="width: 33%; padding-left: 5px;" class="menu">
+				<a href="${pageContext.request.contextPath }/share/list.do" target="ppp" class="a2">
+					<ul>
+						<li style="list-style-type: none;">
+							<a href="#" class="a3">
+								<img src="${pageContext.request.contextPath}/resources/img/menu01.png" style="width: 50px; height: 50px; position: absolute;left: 10px; top: 15px;">
+							</a>
+							<ul>
+								<!-- <li><a onclick="backList()" class="a1" target="ppp">&nbsp;ALL&nbsp;</a></li>
+								<li><br><a onclick="bestList()" class="a1" target="ppp">&nbsp;BEST&nbsp;</a></li>
+								<li><br><a onclick="placeList()" class="a1" target="ppp">&nbsp;LOCATION&nbsp;</a></li>
+								<li><br><a onclick="genderList()" class="a1" target="ppp">&nbsp;GENDER&nbsp;</a></li>
+								<li><br><a onclick="ageList()" class="a1" target="ppp">&nbsp;AGE&nbsp;</a></li> -->
+								<li><a href="${pageContext.request.contextPath}/share/list.do" class="a1" target="ppp">&nbsp;ALL&nbsp;</a></li>
+								<li><br><a href="${pageContext.request.contextPath}/share/best.do" class="a1" target="ppp">&nbsp;BEST&nbsp;</a></li>
+								<li><br><a onclick="placeList()" class="a1" target="ppp">&nbsp;LOCATION&nbsp;</a></li>
+								<li><br><a onclick="genderList()" class="a1" target="ppp">&nbsp;GENDER&nbsp;</a></li>
+								<li><br><a onclick="ageList()" class="a1" target="ppp">&nbsp;AGE&nbsp;</a></li>
+							</ul>
+						</li>
+					</ul>
+					<%-- <img src="${pageContext.request.contextPath}/resources/img/menu01.png" style="width: 50px; height: 50px;"> --%>
+				</a>
+				<div style="position: absolute;left: 70px;top:30px;">
+					<c:choose>
+						<c:when test="${sessionScope.id eq id && id ne null}">
+							<a href="${pageContext.request.contextPath }/schedule/schedule.do" target="ppp" class="a2">일정등록&nbsp;</a>
+						</c:when>
+						<c:otherwise>
+							<a onclick="goLoginForm()" target="ppp" class="a2">일정등록&nbsp;</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</td>
-			<td class="dropdown">
+			<td align="center" style="width: 33%;">
+				<a href="${pageContext.request.contextPath }/share/list.do" target="ppp" class="a2">
+					<img src="${pageContext.request.contextPath}/resources/img/metos.png">
+				</a>
+			</td>
+			<td class="dropdown" align="right" style="width: 33%;">
 				<ul>
-					<li style="list-style-type: none;"><a href="#" class="a2">
-						<img src="${pageContext.request.contextPath}/resources/img/person.png"></a>
+					<li style="list-style-type: none;">
+						<a href="#" class="a2">
+							<img src="${pageContext.request.contextPath}/resources/img/person.png" style="position: absolute;right: 10px; top: 15px;">
+						</a>
 						<ul>
 							<c:choose>
 								<c:when test="${sessionScope.id eq id && id ne null}">

@@ -21,6 +21,8 @@ import com.kitri.meto.member.Member;
 import com.kitri.meto.member.MemberDaoService;
 import com.kitri.meto.metoo.Metoo;
 import com.kitri.meto.metoo.MetooService;
+import com.kitri.meto.point.Point;
+import com.kitri.meto.point.PointService;
 import com.kitri.meto.rep.Rep;
 import com.kitri.meto.rep.RepService;
 import com.kitri.meto.schedule.Schedule;
@@ -29,46 +31,47 @@ import com.kitri.meto.schedule.scheduleService;
 @Controller
 public class SharePlanController {
 	@Resource(name="SharePlanService")
-	private SharePlanService shareService;
-	
+	private SharePlanService shareService;	
 	public void setSharePlanService(SharePlanService shareService){
 		this.shareService = shareService;
 	}
 	
 	@Resource(name="MetooService")
-	private MetooService metooService;
-	
+	private MetooService metooService;	
 	public void setSharePlanService(MetooService metooService){
 		this.metooService = metooService;
 	}
 	
 	@Resource(name="MemberService")
 	private MemberDaoService memberService;
-
 	public void setMemberService(MemberDaoService memberService) {
 		this.memberService = memberService;
 	}
 	
 	@Resource(name="AdminService")
 	private AdminService adminSerivce;
-
 	public void setAdminSerivce(AdminService adminSerivce) {
 		this.adminSerivce = adminSerivce;
 	}
 	
 	@Resource(name="RepService")
-	private RepService repService;
-	
+	private RepService repService;	
 	public void setSharePlanService(RepService repService){
 		this.repService = repService;
 	}
 	
 	@Resource(name="scheduleSerivce")
 	private scheduleService scheduleService;
-	
 	public void setScheduleService(scheduleService scheduleService){
 		this.scheduleService = scheduleService;
 	}
+	
+	@Resource(name="PointService")
+	private PointService pointService;	
+	public void setPointService(PointService pointService){
+		this.pointService = pointService;
+	}
+	
 	/////////////
 	@RequestMapping(value = "/share/share.do")
 	public String share(){
@@ -98,48 +101,19 @@ public class SharePlanController {
 	public ModelAndView shareList(){
 		//공유글
 		ArrayList<SharePlan> list = shareService.getSharePlanAll();
+		ArrayList<Point> p = pointService.getPointAll();
+		
 		ModelAndView mav = new ModelAndView("shareplan/sharelist");
 		int cnt = list.size();
 		mav.addObject("list", list);
 		mav.addObject("cnt", cnt);
+		mav.addObject("p", p);		
 		return mav;
 	}
 	
 	@RequestMapping(value="/share/view.do")
 	public ModelAndView shareView(HttpServletRequest req, @RequestParam(value="share_num") int share_num){
 		ModelAndView mav = new ModelAndView();
-		System.out.println("share_num: "+share_num);
-		/*//세션 id, mem_num 받아오기
-		HttpSession session = req.getSession();
-		String id = session.getAttribute("id").toString();
-		Member m = memberService.getMember(id);
-		int mem_num = m.getMem_num();
-		System.out.println(mem_num);
-		//공유글 받기
-		SharePlan s = shareService.getSharePlan(share_num);
-		//metoo_yn 받기
-		Metoo me = new Metoo();
-		me.setMem_num(m.getMem_num());
-		me.setShare_num(share_num);
-		//전체 댓글 목록
-		ArrayList<Rep> list = repService.getRepByShareNum(share_num);
-		//내 댓글 목록
-		ArrayList<Rep> myRep = repService.getRep(share_num, mem_num);
-		
-		// metoo table 컬럼 존재 확인
-		int cnt = metooService.getMetooCnt(me); 
-		System.out.println(cnt);
-		
-		if(cnt == 0){ 
-			// 컬럼 없을 시 metoo add
-			metooService.addMetoo(me);
-		} else {
-			// 컬럼 있을 시 본인 yn 확인
-			me = metooService.getMetoo(me);
-			System.out.println(me.getMetoo_yn());
-		}*/
-		//
-		
 		
 		//세션 받기
 		HttpSession session = req.getSession(false);
@@ -151,6 +125,10 @@ public class SharePlanController {
 		//전체 댓글 목록
 		//ArrayList<Rep> list = repService.getRepByShareNum(share_num);
 		ArrayList<JoinDTO> list = repService.getJoinRepByShareNum(share_num);
+		
+		//point
+		Point p = pointService.getPoint(s.getPoint_num());
+		int point = p.getPoint();
 		
 		//글 댓글 수 
 		int repCnt = repService.getRepCnt(share_num);
@@ -197,6 +175,8 @@ public class SharePlanController {
 			mav.addObject("s", s); // 공유글
 			mav.addObject("list", list); // 전체 댓글
 			mav.addObject("rCnt", repCnt); //댓글 수
+			mav.addObject("point", point); //점수
+			mav.addObject("mem_num", mem_num);
 			mav.setViewName("shareplan/shareview");
 		} else {
 			for (int i = 0; i < list.size(); i++) {
@@ -206,9 +186,16 @@ public class SharePlanController {
 			mav.addObject("s", s); // 공유글
 			mav.addObject("rCnt", repCnt); //댓글 수
 			mav.addObject("list", list); // 전체 댓글
+			mav.addObject("point", point); //점수
 			mav.setViewName("shareplan/shareview2");
 		}
 		return mav;
+	}
+	
+	@RequestMapping(value="/share/delete.do")
+	public String shareDelete(@RequestParam(value="share_num") int share_num){
+		shareService.delSharePlan(share_num);
+		return "redirect:/share/list.do";
 	}
 	
 	///////
@@ -300,13 +287,14 @@ public class SharePlanController {
 	
 	@RequestMapping(value = "/subplan/com.do")
 	public String com(HttpServletRequest req, @RequestParam(value="html")String html
-			,@RequestParam(value="main_num")int main_num,@RequestParam(value="location")String location,@RequestParam(value="photo")String photo){
+			,@RequestParam(value="main_num")int main_num,@RequestParam(value="location")String location,@RequestParam(value="photo")String photo,
+			@RequestParam(value="point")int point){
 		//
 		System.out.println("subplan/조합을 탔다."+photo);
 		int point_num = scheduleService.getByPointNum();
 		JoinDTO j = new JoinDTO();
 		j.setPoint_num(point_num+1);
-		j.setPoint(0);
+		j.setPoint(point);
 		scheduleService.addPoint(j);
 		//
 		System.out.println(html);

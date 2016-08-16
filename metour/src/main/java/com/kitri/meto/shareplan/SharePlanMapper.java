@@ -17,4 +17,5 @@ public interface SharePlanMapper {
 	ArrayList<SharePlan> selectByPlace(String place);
 	
 	JoinDTO joinSelectByShareNum(int share_num);
+	void delete(int share_num);
 }

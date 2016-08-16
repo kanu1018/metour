@@ -87,4 +87,8 @@
       WHERE share_num = #{share_num}
    </select>
    
+   <delete id="delete" parameterType="int">
+		DELETE FROM share_plan WHERE share_num = #{share_num}
+	</delete>
+
 </mapper>

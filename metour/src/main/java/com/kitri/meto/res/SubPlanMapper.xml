@@ -43,6 +43,10 @@
 	</delete>
 	
 	<update id="upPhoto" parameterType="com.kitri.meto.subplan.SubPlan">
-		UPDATE sub_plan SET photo=#{photo} where sub_num = #{sub_num}
+		UPDATE sub_plan SET photo=#{photo}, mission_yn = '1' where sub_num = #{sub_num}
 	</update>
+	
+	<select id="selectByMainNum" resultMap="SubPlanResultMap" parameterType="int">
+		SELECT sub_num, sub_title, TO_CHAR(start_time,'HH24:MI') start_time, TO_CHAR(end_time,'HH24:MI') end_time, place, mission, memo, mission_yn, photo, main_num FROM sub_plan WHERE main_num = #{main_num}
+	</select>
 </mapper>

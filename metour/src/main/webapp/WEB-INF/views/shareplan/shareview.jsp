@@ -81,6 +81,9 @@
 		document.fs.singo_kind.value = kind;
 		singo();
 	}
+	function shareDel() {
+		document.del.submit();
+	}
 </script>
 <title>:::ShareView:::</title>
 </head>
@@ -93,8 +96,11 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan="4" style="height: 30px; text-align: left; text-indent: 10px;">
+		<td colspan="2" style="height: 30px; text-align: left; text-indent: 10px;">
 			${s.id }
+		</td>
+		<td colspan="2" style="height: 30px; text-align: right; text-indent: 10px;">
+			point: ${point }&nbsp;
 		</td>
 	</tr>
 	<tr>
@@ -113,13 +119,20 @@
 			<img src="${pageContext.request.contextPath}/resources/img/bubble01.png">&nbsp;
 			${rCnt }
 		</td>
-		<td colspan="2" align="right">
-			<form action="${pageContext.request.contextPath}/singo" method="post" name="fs">
-				<input type="hidden" name="share_num" value="${s.share_num }">
-				<input type="hidden" name="singo_kind" value="s">
-				<img src="${pageContext.request.contextPath}/resources/img/singo02.png" onclick="singo()">&nbsp;
-				<!-- <input type="button" value="신고" onclick="singo()"> -->
-			</form>
+		<td colspan="2" align="right" style="height: 35px; text-indent: 10px;">
+			<c:if test="${s.writer ne mem_num}">
+				<form action="${pageContext.request.contextPath}/singo" method="post" name="fs">
+					<input type="hidden" name="share_num" value="${s.share_num }">
+					<input type="hidden" name="singo_kind" value="s">
+					<img src="${pageContext.request.contextPath}/resources/img/singo02.png" onclick="singo()">&nbsp;
+				</form>
+			</c:if>
+			<c:if test="${s.writer eq mem_num}">
+				<form action="${pageContext.request.contextPath}/share/delete.do" method="post" name="del">
+					<input type="hidden" name="share_num" value="${s.share_num }">
+					<img src="${pageContext.request.contextPath}/resources/img/delete01.png" onclick="shareDel()">&nbsp;
+				</form>
+			</c:if>	
 		</td>
 	</tr>
 </table>
@@ -149,7 +162,7 @@
 							<input type="button" value="수정" onclick="focusOn(${reps.rep_num}, '${reps.rep_content }', ${s.share_num })">&nbsp;
 							<input type="button" value="삭제" onclick="repDel(${reps.rep_num}, ${s.share_num })">&nbsp;			
 						</c:if>
-						<c:if test="${reps.rep_num eq r.rep_num && reps.rep_writer ne r.rep_writer }">
+						<c:if test="${reps.rep_writer ne r.rep_writer }">
 							<img src="${pageContext.request.contextPath}/resources/img/singo02.png" onclick="singoRep(${reps.rep_num}, 'r')">&nbsp;&nbsp;
 						</c:if>
 					</c:forEach>

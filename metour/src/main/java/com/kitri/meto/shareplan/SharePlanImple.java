@@ -91,5 +91,11 @@ public class SharePlanImple implements SharePlanService {
 		SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
 		return shareMapper.joinSelectByShareNum(share_num);
 	}
+
+	@Override
+	public void delSharePlan(int share_num) {
+		SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
+		shareMapper.delete(share_num);
+	}
    
 }
