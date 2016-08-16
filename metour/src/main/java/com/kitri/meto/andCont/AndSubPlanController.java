@@ -506,8 +506,10 @@ public class AndSubPlanController {
 	
 	
 		@RequestMapping(value = "/and/subplan/addphoto_ok.do")
-	public String addphoto_ok(HttpServletRequest request, SubPlan subplan, @RequestParam(value="sub_num")int subNum){
-		String fileName = subplan.getImgfile().getOriginalFilename();
+	public String addphoto_ok(HttpServletRequest request, @RequestParam(value="sub_num")int subNum,@RequestParam(value="photo")String photo){
+		System.out.println(photo);
+		String fileName = photo;
+		SubPlan subplan = new SubPlan();
 		ServletContext sc = request.getSession().getServletContext();
 		String root = sc.getRealPath("/");
 		root+="img\\"+fileName;

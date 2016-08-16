@@ -437,6 +437,7 @@ public class SubPlanController {
 		root+="img\\"+fileName;
 		File f = new File(root);
 		try {
+			System.out.println(subplan.getImgfile());
 			subplan.getImgfile().transferTo(f);
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
