@@ -16,6 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kitri.meto.JoinDTO.JoinDTO;
 import com.kitri.meto.member.Member;
 import com.kitri.meto.member.MemberDaoService;
+import com.kitri.meto.schedule.Schedule;
+import com.kitri.meto.schedule.scheduleService;
+import com.kitri.meto.subplan.SubPlan;
+import com.kitri.meto.subplan.SubPlanService;
+import com.kitri.meto.thread.PhotoEvent;
 
 @Controller
 public class AndMemberController {
@@ -27,6 +32,19 @@ public class AndMemberController {
 		this.memberService = memberService;
 	}
 	
+	@Resource(name="scheduleSerivce")
+	private scheduleService scheduleService;
+	
+	public void setScheduleService(scheduleService scheduleService){
+		this.scheduleService = scheduleService;
+	}
+	
+	@Resource(name="SubPlanService")
+	private SubPlanService subPlanService;
+
+	public void setSubPlanService(SubPlanService subPlanService) {
+		this.subPlanService = subPlanService;
+	}
 	/*@RequestMapping(value="/")
 	public ModelAndView main(){
 		List<JoinDTO> list = new ArrayList<JoinDTO>();
@@ -213,5 +231,24 @@ public class AndMemberController {
 		mav.addObject("m", m);
 		
 		return mav;
+	}
+	
+	@RequestMapping(value="/and/member/photo_alert.do")
+	public String photo_alert(HttpServletRequest req){
+		//String id = req.getSession().getAttribute("id").toString();
+		String id = "1";
+		System.out.println("id="+id);
+		String date= "2016/08/12";
+		Member m = memberService.getMember(id);
+		Schedule s = new Schedule();
+		s.setMain_writer(m.getMem_num());
+		s.setMain_date(date);
+		ArrayList<SubPlan> splist = subPlanService.getSubPlanByMainplan(s);
+		String reg_id = "APA91bFNBzL7T426Rm0rTTLc5Ct8mFfqirYe6Vy6PDJAn16a---Rma_OKH7fjuk5T2HMP-Hn-m4HJ5unzwM5wZDzGZPyy8VteUgTIJnXEGaIqpu86bpXqY7U9DOXmdpg8QkkAW9d7dzp";
+		if(splist.size()!=0){
+			PhotoEvent pe = new PhotoEvent(splist,reg_id);
+			pe.start();
+		}
+		return null;
 	}
 }

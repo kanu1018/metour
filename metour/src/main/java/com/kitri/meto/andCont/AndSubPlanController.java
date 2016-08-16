@@ -325,8 +325,8 @@ public class AndSubPlanController {
 		String place = request.getParameter("place");
 		String mission = request.getParameter("mission");
 		String memo = request.getParameter("memo");
-		String llh_x = "";
-		String llh_y = "";
+		String llh_x = request.getParameter("llh_x");
+		String llh_y = request.getParameter("llh_y");
 		String mission_yn = "0";
 
 		SubPlan sp = new SubPlan();
@@ -354,9 +354,9 @@ public class AndSubPlanController {
 		String mission = request.getParameter("mission");
 		String photo = request.getParameter("photo");
 		String memo = request.getParameter("memo");
-		/*String llh_x = "";
-		String llh_y = "";
-		String mission_yn = "0";*/
+		String llh_x = request.getParameter("llh_x");
+		String llh_y = request.getParameter("llh_y");
+		//String mission_yn = "0";
 		int sub_num = Integer.parseInt(request.getParameter("sub_num").toString());
 		
 		
@@ -369,9 +369,9 @@ public class AndSubPlanController {
 		sp.setMemo(memo);
 		sp.setPhoto(photo);
 		sp.setMain_num(main_num);
-		sp.setLlh_x("0");
-		sp.setLlh_y("0");
-		//sp.setMission_yn(mission_yn);*/
+		sp.setLlh_x(llh_x);
+		sp.setLlh_y(llh_y);
+		//sp.setMission_yn(mission_yn);
 		sp.setSub_num(sub_num);
 		
 		subPlanService.editSubPlan(sp);
@@ -503,13 +503,13 @@ public class AndSubPlanController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/and/subplan/addphoto")
+	@RequestMapping(value = "/and/subplan/addphoto.do")
 	public String addphoto(HttpServletRequest request,@RequestParam(value="sub_num")int subNum){
 		request.setAttribute("sub_num", subNum);
 		SubPlan sp = new SubPlan();
 		sp = subPlanService.getSubPlan(subNum);
 		request.setAttribute("photo", sp.getPhoto());
-		return "subplan/addPhoto";
+		return "android/andAddPhoto";
 	}
 	
 	
@@ -537,7 +537,7 @@ public class AndSubPlanController {
 		
 		SubPlan sub = subPlanService.getSubPlan(subNum);
 		
-		return "redirect:/subplan/list.do?main_num="+sub.getMain_num();
+		return "android/andAddPhotoResule";
 	}
 
 	////////////////////////////////////////////////////////////////////////////

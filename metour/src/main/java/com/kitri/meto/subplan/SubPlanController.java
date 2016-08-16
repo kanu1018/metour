@@ -430,6 +430,7 @@ public class SubPlanController {
 	@RequestMapping(value = "/subplan/addphoto.do")
 	public String addphoto(HttpServletRequest request,@RequestParam(value="sub_num")int subNum){
 		request.setAttribute("sub_num", subNum);
+		System.out.println("addphoto 컨트롤러 탐");
 		SubPlan sp = new SubPlan();
 		sp = subPlanService.getSubPlan(subNum);
 		request.setAttribute("photo", sp.getPhoto());
