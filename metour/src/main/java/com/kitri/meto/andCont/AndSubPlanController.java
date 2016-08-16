@@ -503,13 +503,13 @@ public class AndSubPlanController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/and/subplan/addphoto")
+	@RequestMapping(value = "/and/subplan/addphoto.do")
 	public String addphoto(HttpServletRequest request,@RequestParam(value="sub_num")int subNum){
 		request.setAttribute("sub_num", subNum);
 		SubPlan sp = new SubPlan();
 		sp = subPlanService.getSubPlan(subNum);
 		request.setAttribute("photo", sp.getPhoto());
-		return "subplan/addPhoto";
+		return "android/andAddPhoto";
 	}
 	
 	
@@ -537,7 +537,7 @@ public class AndSubPlanController {
 		
 		SubPlan sub = subPlanService.getSubPlan(subNum);
 		
-		return "redirect:/subplan/list.do?main_num="+sub.getMain_num();
+		return "android/andAddPhotoResule";
 	}
 
 	////////////////////////////////////////////////////////////////////////////
