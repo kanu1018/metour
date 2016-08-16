@@ -16,6 +16,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.omg.IOP.ServiceContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -474,15 +475,14 @@ public class SubPlanController {
 			ArrayList<SubPlan> list = new ArrayList<SubPlan>();
 			list = subPlanService.getSubPlans(main_nums[i]);
 			sublist.add(list);
-		}
-		그냥 뭐 있나 찍어보는 문장이야.. 
-		for(int i=0;i<sublist.size();i++){
-			for(int j=0;j<sublist.get(i).size();j++){
-				System.out.println(sublist.get(i).get(j).getSub_title());
-			}
 		}*/
+		for(int i=0;i<num.length;i++){
+			System.out.println(num[i]);
+		}
 		String place="";
 		ArrayList<SubPlans> sublist = new ArrayList<SubPlans>();
+		System.out.println("사이즈 = "+sublist.size());
+		
 		for(int i=0;i<num.length;i++){
 			main_nums[i] = Integer.parseInt(num[i]);
 			SubPlans list = new SubPlans();
@@ -494,11 +494,13 @@ public class SubPlanController {
 			sublist.add(list);
 			ArrayList<SubPlan> s;
 			s = subPlanService.getSubPlans(main_nums[i]);
-			for(int j=0;j<s.size();j++){
-				place += s.get(j).getPlace()+"/";
-			}
-			if(i==num.length-1){
-				place = place.substring(0,place.length()-1);
+			if(s.size()!=0){
+				for(int j=0;j<s.size();j++){
+					place += s.get(j).getPlace()+"/";
+				}
+				if(i==num.length-1){
+					place = place.substring(0,place.length()-1);
+				}
 			}
 		}
 		System.out.println(place);
@@ -527,7 +529,7 @@ public class SubPlanController {
 		mav.addObject("location",place);
 		mav.addObject("main_num",main_nums[0]);
 		mav.addObject("item",sublist);
-		
+		System.out.println("마지막까지실행되었다.");
 		return mav;
 	}
 	

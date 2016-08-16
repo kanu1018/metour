@@ -83,6 +83,7 @@ td{
 		background-color: #1ABC9C; 
 		color: #ffffff;
 		padding: 0px;
+		
 	}
 	
 	table.tabtop{

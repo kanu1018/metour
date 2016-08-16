@@ -105,11 +105,7 @@ function addPlan(year,month,day,action){
 				${schedule.main_title}
 			</td>
 		</tr>
-		<tr>
-			<td colspan="3" align="center">
-				포인트 : ${schedule.point_num}
-			</td>
-		</tr>
+	
 		<c:forEach items="${subPlans}" var="sp">
 			<tr>
 				<td colspan="3" align="center">${sp.sub_title}</td>
@@ -134,9 +130,11 @@ function addPlan(year,month,day,action){
 			<td align="center">
 				<button style="width: 100%;height: 100%" onclick="deletePlan(${schedule.main_num})">계획삭제하기</button>
 			</td>
+			<c:if test="${not empty subPlans}">
 			<td align="center">
 				<button style="width: 100%;height: 100%" onclick="sharePlan(${schedule.main_num})">계획공유하기</button>
 			</td>
+			</c:if>
 		</tr>
 	</table>
 	</div>

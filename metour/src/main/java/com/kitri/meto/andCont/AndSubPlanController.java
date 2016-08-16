@@ -21,10 +21,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.kitri.meto.JoinDTO.JoinDTO;
 import com.kitri.meto.member.Member;
 import com.kitri.meto.member.MemberDaoService;
 import com.kitri.meto.schedule.Schedule;
 import com.kitri.meto.schedule.scheduleService;
+import com.kitri.meto.shareplan.SharePlan;
+import com.kitri.meto.shareplan.SharePlanService;
 import com.kitri.meto.subplan.DataVO;
 import com.kitri.meto.subplan.SubPlan;
 import com.kitri.meto.subplan.SubPlanList;
@@ -52,7 +55,12 @@ public class AndSubPlanController {
 	public void setScheduleService(scheduleService scheduleService){
 		this.scheduleService = scheduleService;
 	}
+	@Resource(name="SharePlanService")
+	private SharePlanService shareService;
 	
+	public void setSharePlanService(SharePlanService shareService){
+		this.shareService = shareService;
+	}
 	@RequestMapping(value = "/and/subplan/add.do")
 	public ModelAndView subPlanAdd(HttpServletRequest request, @RequestParam(value="main_num")int main_num){
 		System.out.println(main_num);
@@ -534,33 +542,29 @@ public class AndSubPlanController {
 
 	////////////////////////////////////////////////////////////////////////////
 	@RequestMapping(value = "/and/subplan/combination.do")
-	public ModelAndView combination(HttpServletRequest req, @RequestParam(value="main_num")String main_num) {
+	public ModelAndView combination(HttpServletRequest req, @RequestParam(value = "main_num") String main_num) {
 		// 세션 id, mem_num 받아오기
 		ModelAndView mav = new ModelAndView("/shareplan/share_combination");
 		HttpSession session = req.getSession();
 		String id = session.getAttribute("id").toString();
 		Member m = memberService.getMember(id);
-		
+
 		String[] num = main_num.split("/");
 		int[] main_nums = new int[num.length];
-		
-		/*ArrayList<ArrayList<SubPlan>> sublist = new ArrayList<ArrayList<SubPlan>>();
-		// sublist에누적
-		for(int i=0;i<num.length;i++){
-			main_nums[i] = Integer.parseInt(num[i]);
-			ArrayList<SubPlan> list = new ArrayList<SubPlan>();
-			list = subPlanService.getSubPlans(main_nums[i]);
-			sublist.add(list);
-		}
-		//그냥 뭐 있나 찍어보는 문장이야.. 
-		for(int i=0;i<sublist.size();i++){
-			for(int j=0;j<sublist.get(i).size();j++){
-				System.out.println(sublist.get(i).get(j).getSub_title());
-			}
-		}*/
-		String place="";
+
+		/*
+		 * ArrayList<ArrayList<SubPlan>> sublist = new
+		 * ArrayList<ArrayList<SubPlan>>(); // sublist에누적 for(int
+		 * i=0;i<num.length;i++){ main_nums[i] = Integer.parseInt(num[i]);
+		 * ArrayList<SubPlan> list = new ArrayList<SubPlan>(); list =
+		 * subPlanService.getSubPlans(main_nums[i]); sublist.add(list); } 그냥 뭐
+		 * 있나 찍어보는 문장이야.. for(int i=0;i<sublist.size();i++){ for(int
+		 * j=0;j<sublist.get(i).size();j++){
+		 * System.out.println(sublist.get(i).get(j).getSub_title()); } }
+		 */
+		String place = "";
 		ArrayList<SubPlans> sublist = new ArrayList<SubPlans>();
-		for(int i=0;i<num.length;i++){
+		for (int i = 0; i < num.length; i++) {
 			main_nums[i] = Integer.parseInt(num[i]);
 			SubPlans list = new SubPlans();
 			list.setList(subPlanService.getSubPlans(main_nums[i]));
@@ -571,20 +575,103 @@ public class AndSubPlanController {
 			sublist.add(list);
 			ArrayList<SubPlan> s;
 			s = subPlanService.getSubPlans(main_nums[i]);
-			for(int j=0;j<s.size();j++){
-				place += s.get(j).getPlace()+"/";
+			for (int j = 0; j < s.size(); j++) {
+				place += s.get(j).getPlace() + "/";
 			}
-			if(i==num.length-1){
-				place = place.substring(0,place.length()-1);
+			if (i == num.length - 1) {
+				place = place.substring(0, place.length() - 1);
 			}
 		}
 		System.out.println(place);
-		//ArrayList<SubPlan> sublist = new ArrayList<SubPlan>();
-		//sublist = subPlanService.getSubPlans(main_num);
-		mav.addObject("location",place);
-		mav.addObject("main_num",main_nums[0]);
-		mav.addObject("item",sublist);
-		
+		ArrayList<SubPlan> splist = new ArrayList<SubPlan>();
+		ArrayList<SubPlan> sp = new ArrayList<SubPlan>();
+		for (int i = 0; i < num.length; i++) {
+			sp = subPlanService.getSubPlans(main_nums[i]);
+			for (int j = 0; j < sp.size(); j++) {
+				SubPlan s = null;
+				s = sp.get(j);
+				splist.add(s);
+			}
+		}
+		String photo = "";
+		for (int i = 0; i < splist.size(); i++) {
+			if (splist.get(i).getPhoto() != null) {
+				photo = splist.get(i).getPhoto();
+				break;
+			}
+		}
+		// ArrayList<SubPlan> sublist = new ArrayList<SubPlan>();
+		// sublist = subPlanService.getSubPlans(main_num);
+		if (!photo.equals("")) {
+			mav.addObject("photo", photo);
+		}
+		mav.addObject("location", place);
+		mav.addObject("main_num", main_nums[0]);
+		mav.addObject("item", sublist);
+		System.out.println("마지막까지실행되었다.");
+		///////////////////////////// 여기서 부터 합치는 문장
+		String html = "";
+		for (int i = 0; i < sublist.size(); i++) {
+			html += "<h1>" + sublist.get(i).getMain_title() + "</h1>";
+			html += "<h2>" + sublist.get(i).getDate() + "</h2>";
+			for (int j = 0; j < sublist.get(i).getList().size(); j++) {
+				html += "<div align='center'><div style='width:600px; '><div style='background-color: #E9E7DB; height: 35px; padding-top: 15px;'>"
+						+ sublist.get(i).getList().get(j).getSub_title() + "</div>"
+						+ "<div ><div style=' float: left; width: 25%; background-color: #4285F4; height: 35px; padding-top: 15px;'>일정시작시각</div><div style='float: left; width: 25%;height: 35px;padding-top: 15px; '>"
+						+ sublist.get(i).getList().get(j).getStart_time()
+						+ "</div ><div style='float: left; width: 25%; background-color: #4285F4;height: 35px;padding-top: 15px;'>일정마무리시각</div><div style='float: left; width: 25%;height: 35px;padding-top: 15px;'>"
+						+ sublist.get(i).getList().get(j).getEnd_time() + "</div></div>";
+				if (sublist.get(i).getList().get(j).getPhoto() == null) {
+
+				} else {
+					html += "<div style='margin-top: 10px'><h5><br>이미지</h5><img src='"
+							+ sublist.get(i).getList().get(j).getPhoto() + "' style='width:600px;height:400px'/></div>";
+				}
+				html += "<div><input type='text' readonly='readonly' value='"
+						+ sublist.get(i).getList().get(j).getMemo()
+						+ "' style='width:600px; height: 100px; text-align: center'></div>" + "</div>";
+				if (j != sublist.get(i).getList().size() - 1) {
+					html += "<br><h2>NEXT</h2><br><br>";
+				}
+				html += "</div>";
+			}
+			if (i != sublist.size() - 1) {
+				html += "<h3>다음날짜</h3>";
+			}
+		}
+
+		///////////////////////////////////////////////////////////////////////////////////////////
+		System.out.println("subplan/조합을 탔다." + photo);
+		int point_num = scheduleService.getByPointNum();
+		JoinDTO j = new JoinDTO();
+		j.setPoint_num(point_num + 1);
+		j.setPoint(0);
+		scheduleService.addPoint(j);
+		//
+		System.out.println(html);
+		// String id = session.getAttribute("id").toString();
+		Member m1 = memberService.getMember(id);
+		int mem_num = m1.getMem_num();
+		SharePlan s = new SharePlan();
+		if (photo.equals("") || photo == null) {
+			s.setShare_photo("http://" + req.getLocalAddr() + ":" + req.getLocalPort() + "/img/suzy.jpg");
+		} else {
+			s.setShare_photo(photo);
+		}
+		s.setWriter(mem_num);
+		s.setContent(html);
+		s.setPoint_num(point_num + 1);
+		s.setLocation(place);
+		Schedule schedule = scheduleService.getByTitle(main_nums[0]);
+		s.setShare_title(schedule.getMain_title());
+
+		System.out.println(s.getShare_title() + "/" + s.getWriter() + "/" + s.getLocation() + "/" + "/" + s.getMetoo()
+				+ "/" + s.getPoint_num());
+		System.out.println(s.getContent());
+		shareService.addSharePlan(s);
+		System.out.println("성공");
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		return mav;
 	}
 	

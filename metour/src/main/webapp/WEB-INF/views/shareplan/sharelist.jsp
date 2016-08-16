@@ -71,7 +71,7 @@
 		margin-top: 15px;
 		text-align: center;
 	}
-	
+		
 	img {
 		width: 100px;
 		height: 100px;
@@ -87,17 +87,19 @@
 		height: 20px;
 	}
 	
+	table.tabs {
+		border: 1px;
+		border-color: #1ABC9C;
+		border-style: solid;
+		width: 430px;
+		padding: 5px;
+	}
 </style>
 <title>:::ShareList:::</title>
 </head>
 <body style="font-family: 맑은 고딕;">
 <table class="ca">
 	<tr>
-		<!-- <td><input type="button" value="전체보기" onclick="backList()"></td>
-		<td><input type="button" value="베스트글보기" onclick="bestList()"></td>
-		<td><input type="button" value="지역별보기" onclick="placeList()"></td>
-		<td><input type="button" value="성별보기" onclick="genderList()"></td>
-		<td><input type="button" value="연령대별보기" onclick="ageList()"></td> -->
 		<td>
 			<img src="${pageContext.request.contextPath}/resources/img/all01.png" onclick="backList()" onmouseover="this.src='${pageContext.request.contextPath}/resources/img/all02.png'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/all01.png'">&nbsp;&nbsp;
 			<img src="${pageContext.request.contextPath}/resources/img/best01.png" onclick="bestList()" onclick="backList()" onmouseover="this.src='${pageContext.request.contextPath}/resources/img/best02.png'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/best01.png'">&nbsp;&nbsp;
@@ -108,37 +110,28 @@
 	</tr>
 </table>
 <br>
-
-<form <%-- action="${pageContext.request.contextPath}/share/search.do" --%> method="post" name="f ">
-	<!-- <input type="text" name="search">
-	<img class="search" src="/img/search.png" onclick="shareplanSearch()"> -->
-	<!-- <table class="tabs" align="center">
-		<tr>
-			<td><input type="text" name="search"></td>
-			<td>&nbsp;
-				<img class="search" src="/img/search.png" onclick="shareplanSearch()">
-			</td>			
-		</tr>
-	</table> -->
-	<table class="tabs" align="center">
-		<tr>
-			<td>
-				<select id="search_box">
-					<option value="1">제목</option>
-					<option value="2">작성자</option>
-					<option value="3">글번호</option>
-				</select>
-			</td>
-			<td>
-				<input type="text" id="searchText" onkeypress="if(event.keyCode==13) {search1();}else{return showKeyCode(event)}">
-			</td>
-			<td>&nbsp;
-				<img class="search" src="${pageContext.request.contextPath}/resources/img/search.png" onclick="search1()">
-				<!-- <input type="button" value="검색" onclick="search1()"> -->
-			</td>
-		</tr>
-	</table>
-</form>
+<div align="center">
+	<form method="post" name="f ">
+		<table class="tabs" align="center" style="width: 400px; ">
+			<tr>
+				<td style="height: 30px; padding-left: 5px; padding-right: 5px;" align="center">
+					<select id="search_box">
+						<option value="1">제목</option>
+						<option value="2">작성자</option>
+						<option value="3">글번호</option>
+					</select>
+				</td>
+				<td style="height: 30px; padding-left: 5px; padding-right: 5px;" align="center">
+					<input type="text" id="searchText" onkeypress="if(event.keyCode==13) {search1();}else{return showKeyCode(event)}">
+				</td>
+				<td style="height: 30px; padding-left: 5px; padding-right: 5px;" align="center">
+					<img class="search" src="${pageContext.request.contextPath}/resources/img/search.png" onclick="search1()">
+					<!-- <input type="button" value="검색" onclick="search1()"> -->
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
 <br>
 <%-- <table class="tabp" align="center" style="border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
 	<c:forEach var="s" items="${list }">
@@ -209,12 +202,11 @@
 		</tr>
 	</c:forEach>
 </table> --%>
-<table>
-	<%-- <c:forEach var="s" items="${list }" varStatus="i" begin="0"> --%>
+<%-- <table>
 	<c:forEach begin="0" end="${cnt }" varStatus="i" var="s" items="${list }">
 		<tr>
 			<c:forEach begin="0" end="2" varStatus="j">
-				<c:if test="${i.index eq j.index }">
+				<c:if test="${i.index mod 3 eq j.index }">
 				<td style="width: 300px; height: 300px;">
 					<table class="tabp" align="center" style="border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
 								<tr class="tr1" style="border-collapse: collapse; width:300px; height: 300px; ">
@@ -234,10 +226,28 @@
 									</td>
 								</tr>
 							</table>
-				</td></c:if>
+				</td>
+				</c:if>
 			</c:forEach>
+		</tr>
 	</c:forEach>
-</table>
+</table> --%>
+<c:set var="j" value="1"/>
+<div>
+<c:forEach var="s" items="${list }">
+<div>
+<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">
+<img src="${s.share_photo}" align="middle" style="width: 300px; height: 300px;">
+</a>
+</div>
+
+<div>
+<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">${s.share_title}</a>
+&nbsp;
+<img class="like" src="${pageContext.request.contextPath}/resources/img/like01.png">&nbsp;${s.metoo }
+</div>
+</c:forEach>
+</div>
 
 </div>
 </body>
