@@ -232,7 +232,7 @@ public class AndMemberController {
 		
 		return mav;
 	}
-	
+	/*
 	@RequestMapping(value="/and/member/photo_alert.do")
 	public String photo_alert(HttpServletRequest req){
 		//String id = req.getSession().getAttribute("id").toString();
@@ -250,5 +250,5 @@ public class AndMemberController {
 			pe.start();
 		}
 		return null;
-	}
+	}*/
 }
