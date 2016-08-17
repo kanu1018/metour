@@ -149,7 +149,6 @@ public class AndSharePlanController {
 		SubPlan sp = subPlanService.getSubPlan(sub_num);
 		mav.addObject("photo",sp.getPhoto());
 		return mav;
-		
 	}
 	
 	@RequestMapping(value="/and/share/view2.do")
