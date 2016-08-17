@@ -60,6 +60,7 @@ input[type="text"]{
 } 
 select {
 	width: 100px;
+	height: 30px;
     position: relative;
     border: 1px solid #E9DDDD;
 }
@@ -87,7 +88,7 @@ img {
 var newWindow;
 
 function openNewWindow(){
-    newWindow = window.open("${pageContext.request.contextPath}/subplan/place.do", "newWindow", "height=800, width=800, resizable=yes");        
+    newWindow = window.open("${pageContext.request.contextPath}/subplan/place.do", "newWindow", "height=800, width=1200, resizable=yes");        
 }
 
 /* --------------add kimdaeyang-------------------*/
@@ -219,7 +220,7 @@ function duple() {
 			<td colspan="4" style="height: 50px; text-align: left; text-indent: 20px;">세부 일정을 등록하세요.</td>
 		</tr>
 		<tr>
-			<td colspan="4" align="center"><input type="text" name="sub_title" placeholder="일정을 입력하세요." style="width: 95%;"/></td>
+			<td colspan="4" align="center"><input type="text" name="sub_title" placeholder="제목을 입력하세요." style="width: 95%;"/></td>
 		</tr>
 		<tr>
 			<th colspan="4" style="text-indent: 20px; text-align: left; width: 250px;">
@@ -340,7 +341,7 @@ function duple() {
 			<th><img src="${pageContext.request.contextPath}/resources/img/map01.png"></th>
 			<td colspan="2">
 				<%-- <img src="${pageContext.request.contextPath}/resources/img/map01.png">&nbsp; --%>
-				<input type="text" name="place" style="width: 85%;" placeholder="장소">&nbsp;&nbsp;
+				<input type="text" name="place" style="width: 85%;" placeholder="옆에 돋보기를 눌러주세요.">&nbsp;&nbsp;
 				<img class="search" src="${pageContext.request.contextPath}/resources/img/search.png" onclick="openNewWindow()">
 				<!-- <input type="button" value="돋보기" onclick="openNewWindow()" style="width: 50px;"/> -->
 			</td>

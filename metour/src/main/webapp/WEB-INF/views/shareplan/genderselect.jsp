@@ -18,9 +18,30 @@
 	}
 
 </script>
-<title>Insert title here</title>
+<style type="text/css">
+*,body{
+ font-family: "맑은 고딕";
+ margin-top:20px;
+ padding:0px;
+}
+
+ INPUT[type="button"]{
+		height: 30px;
+		border: solid 2px;
+		border-radius:7px;
+		background-color:#1ABC9C;
+		text-align:center;
+		color: #FFFFFF;
+		width: 100px;
+}
+
+</style>
+<title>::GENDER SELECT::</title>
 </head>
 <body>
-<input type="button" value="남자" onclick="genderM()"><input type="button" value="여자" onclick="genderF()">
+<div align="center">
+<h3>검색하고 싶은 성별을 선택하세요.</h3>
+<input type="button" value="남자" onclick="genderM()">&nbsp;&nbsp;&nbsp;<input type="button" value="여자" onclick="genderF()">
+</div>
 </body>
 </html>

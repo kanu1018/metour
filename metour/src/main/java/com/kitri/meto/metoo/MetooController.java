@@ -73,9 +73,11 @@ public class MetooController {
 			if(meto != 0){
 				metooService.editMetooN(me); // 세션받기
 				shareService.metooMinus(share_num);
-				point--;
-				p.setPoint(point);
-				pointService.edit(p);
+				if(point != 0){
+					point--;
+					p.setPoint(point);
+					pointService.edit(p);
+				}
 				System.out.println("metoo--");
 			} else if(meto == 0){
 				metooService.editMetooN(me);

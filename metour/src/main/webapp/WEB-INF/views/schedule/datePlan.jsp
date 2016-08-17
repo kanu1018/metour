@@ -5,8 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>::세부계획::</title>
 <style> 
+*,body{
+ font-family: "맑은 고딕";
+}
     #mainPlanTable {
     	border-collapse: collapse;
         border:2px solid #000;
@@ -17,6 +20,15 @@
         border:1px solid #000;        
         border-collapse: collapse;               
     }
+    
+   button{
+		height: 35px;
+		border: solid 2px;
+		border-radius:7px;
+		background-color:#1ABC9C;
+		text-align:center;
+		color: #FFFFFF;
+	}
      
 </style>
 <script>
@@ -98,41 +110,43 @@ function addPlan(year,month,day,action){
 </table>
 
 <c:if test="${schedule ne null}">
-	<div style="padding-top: 15px">
+	<div style="padding-top: 15px" align="center">
 	<table id ="mainPlanTable">
 		<tr>
 			<td colspan="3" align="center">
-				${schedule.main_title}
+				[ ${schedule.main_title} ]
 			</td>
 		</tr>
 	
 		<c:forEach items="${subPlans}" var="sp">
 			<tr>
-				<td colspan="3" align="center">${sp.sub_title}</td>
+				<td colspan="3">&nbsp; - ${sp.sub_title}</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center">${sp.start_time}~${sp.end_time}</td>
-				<td align="center">${sp.mission_yn}</td>
+				<td colspan="2">&nbsp;&nbsp;${sp.start_time} ~ ${sp.end_time}</td>
+				<td align="center"><c:if test="${sp.mission_yn == '0'}">×</c:if><c:if test="${sp.mission == '1'}">사진 ○ & GPS ×</c:if>
+						<c:if test="${sp.mission_yn == '2'}">○</c:if><c:if test="${sp.mission == '3'}">○</c:if></td>
+				
 			</tr>
 		
 		</c:forEach>
 		</table>
-	<table border='0' width='330' cellpadding='0' cellspacing='0'>
+	<table border='0' width='330' cellpadding='0' cellspacing='0' style="padding-top: 20px;">
 		<tr style="height: 30px">
 			<%-- <td align="center">
 				<button style="width: 100%;height: 100%" onclick="moveURL1('/subplan/add.do?main_num='+${schedule.main_num})">상세계획추가</button>
 			</td> --%>
 			<td align="center" colspan="2">
-				<button style="width: 100%;height: 100%" onclick="moveURL2('/subplan/list.do?main_num='+${schedule.main_num})">상세계획보기</button>
+				<button style="width: 100%;" onclick="moveURL2('/subplan/list.do?main_num='+${schedule.main_num})">상세계획보기</button>
 			</td>
 		</tr>
 		<tr style="height: 30px">
 			<td align="center">
-				<button style="width: 100%;height: 100%" onclick="deletePlan(${schedule.main_num})">계획삭제하기</button>
+				<button style="width: 100%;" onclick="deletePlan(${schedule.main_num})">계획삭제하기</button>
 			</td>
 			<c:if test="${not empty subPlans}">
 			<td align="center">
-				<button style="width: 100%;height: 100%" onclick="sharePlan(${schedule.main_num})">계획공유하기</button>
+				<button style="width: 100%;" onclick="sharePlan(${schedule.main_num})">계획공유하기</button>
 			</td>
 			</c:if>
 		</tr>
@@ -153,15 +167,15 @@ function addPlan(year,month,day,action){
 <c:if test="${action eq 1}">
 <div align ="center" style="padding-top: 10px">
 	
-	<table style="width:400px">
+	<table style="width:400px; margin-top: 30px;">
 		<tr style="height: 30px">
 		<td align="center">
-				<input type="text" placeholder="제목을 입력하세요." style="width: 97%;height: 100%" id="title"/>
+				<input type="text" placeholder="제목을 입력하세요." style="width: 97%;height: 30px;" id="title"/>
 			</td>
 		</tr>
-		<tr style="height: 30px">
+		<tr style="height: 30px;">
 			<td align="center">
-				<button style="width: 100%;height: 100%" onclick="insertPlan(${Year},${Month},${Day})">계획하기</button>
+				<button style="width: 100%; height: 40px;" onclick="insertPlan(${Year},${Month},${Day})">계획하기</button>
 			</td>
 		</tr>
 	</table>

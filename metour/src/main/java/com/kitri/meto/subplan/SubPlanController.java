@@ -263,7 +263,7 @@ public class SubPlanController {
 	@RequestMapping(value = "/subplan/listview.do")
 	public ModelAndView subPlanList_detail(HttpServletRequest request, @RequestParam(value="sub_num")int subNum){
 		SubPlan subplan = subPlanService.getSubPlan(subNum);
-		
+		System.out.println("야 좌표 " + subplan.getLlh_x());
 		ModelAndView mav = new ModelAndView("subplan/subPlanDetail");
 		mav.addObject("subplan", subplan); 
 		mav.addObject("photo",subplan.getPhoto());
@@ -298,8 +298,8 @@ public class SubPlanController {
 	
 	@RequestMapping(value = "/subplan/edit.do")
 	public String subPlanEdit(HttpServletRequest request, SubPlan sp){
-		
 		String fileName = sp.getImgfile().getOriginalFilename();
+		if(!fileName.equals("")){
 		ServletContext sc = request.getSession().getServletContext();
 		String root = sc.getRealPath("/");
 		root+="img\\"+fileName;
@@ -313,10 +313,15 @@ public class SubPlanController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		sp.setPhoto(root);
+		sp.setPhoto("http://"+request.getLocalAddr()+":"+request.getLocalPort()+request.getContextPath()+"/img/"+fileName);
 		sp.setSub_num(sp.getSub_num());
 		subPlanService.updatePhoto(sp);
-		subPlanService.editSubPlan(sp);	
+		}else{
+			sp.setPhoto("");
+		}
+		System.out.println("야이 저먕러ㅗㅜ먀ㅐㄴ훌" + sp.getLlh_x());
+		
+		subPlanService.editSubPlan(sp);
 		return "redirect:/subplan/list.do?main_num="+sp.getMain_num();
 	}
 	
@@ -521,6 +526,7 @@ public class SubPlanController {
 				}
 			}
 		}
+		System.out.println(place);
 		
 		//점수 더하기
 		//subPlan 리스트
@@ -547,8 +553,7 @@ public class SubPlanController {
 			}
 		}
 		System.out.println("점수"+tmp);
-		
-		System.out.println(place);
+	
 		ArrayList<SubPlan> splist = new ArrayList<SubPlan>();
 		ArrayList<SubPlan> sp = new ArrayList<SubPlan>();
 		for(int i=0;i<num.length;i++){

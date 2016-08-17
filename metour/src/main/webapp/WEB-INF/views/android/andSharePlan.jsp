@@ -7,7 +7,7 @@
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	
-	int sNum, sWriter, sPoint, sMetoo;
+	int sNum, sWriter, sPointNum, sMetoo, sPoint;
 	String sTitle, sLoc, sId;
 	JoinDTO s = (JoinDTO)request.getAttribute("s");
 	
@@ -20,8 +20,9 @@
 		sWriter = s.getWriter();
 		sLoc = s.getLocation();
 		sMetoo = s.getMetoo();
-		sPoint = s.getPoint_num();
+		sPointNum = s.getPoint_num();
 		sId = s.getId();
+		sPoint = s.getPoint();
 	%>
 	<shareplan>
 		<sNum><%=sNum %></sNum>
@@ -29,7 +30,8 @@
 		<sWriter><%=sWriter %></sWriter>
 		<sLoc><%=sLoc %></sLoc>
 		<sMetoo><%=sMetoo %></sMetoo>
-		<sPoint><%=sPoint %></sPoint>
-		<sId><%=sId %></sId >		
+		<sPointNum><%=sPointNum %></sPointNum>
+		<sId><%=sId %></sId >	
+		<sPoint><%=sPoint %></sPoint>	
 	</shareplan>
 </shareplans>
