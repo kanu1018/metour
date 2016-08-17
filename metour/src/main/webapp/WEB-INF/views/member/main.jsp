@@ -270,38 +270,10 @@ td{
 </script>
 <title>:::MAIN:::</title>
 </head>
-<body><%-- 
-<%@ include file="../include_login.jsp" %> --%>
+<body>
 <div class="top" align="center">
-	<%-- <c:choose>
-			<c:when test="${sessionScope.id eq id && id ne null}">
-				<a onclick="goSchedule()">일정등록&nbsp;</a>
-			</c:when>
-			<c:otherwise>
-				<a onclick="goLoginForm()">일정등록&nbsp;</a>
-			</c:otherwise>
-	</c:choose>
-		<a onclick="goShareList()">공유글보기&nbsp;</a><br> --%>
 	<table class="tabtop" >
 		<tr>
-			<%-- <td style="width: 100px; padding-left: 5px; padding-top: 5px;">
-				<a href="${pageContext.request.contextPath }/share/list.do" target="ppp" class="a2"><img src="${pageContext.request.contextPath}/resources/img/metos.png"></a>
-			</td>
-			<td class="menu" style="text-align: left;">
-				<a href="${pageContext.request.contextPath }/share/list.do" target="ppp" class="a2">
-					<img src="${pageContext.request.contextPath}/resources/img/menu01.png" style="width: 50px; height: 50px;">
-				</a>
-			</td>
-			<td class="menu" style="text-align: left;">
-				<c:choose>
-					<c:when test="${sessionScope.id eq id && id ne null}">
-						<a href="${pageContext.request.contextPath }/schedule/schedule.do" target="ppp" class="a2">일정등록&nbsp;</a>
-					</c:when>
-					<c:otherwise>
-						<a onclick="goLoginForm()" target="ppp" class="a2">일정등록&nbsp;</a>
-					</c:otherwise>
-				</c:choose>
-			</td> --%>
 			<td align="left" style="width: 33%; padding-left: 5px;" class="menu">
 				<a href="${pageContext.request.contextPath }/share/list.do" target="ppp" class="a2">
 					<ul>
@@ -323,7 +295,6 @@ td{
 							</ul>
 						</li>
 					</ul>
-					<%-- <img src="${pageContext.request.contextPath}/resources/img/menu01.png" style="width: 50px; height: 50px;"> --%>
 				</a>
 				<div style="position: absolute;left: 70px;top:30px;">
 					<c:choose>

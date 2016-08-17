@@ -114,33 +114,22 @@
 <title>:::ShareList:::</title>
 </head>
 <body style="font-family: 맑은 고딕;">
-<%-- <table class="ca">
-	<tr>
-		<td>
-			<img src="${pageContext.request.contextPath}/resources/img/all01.png" onclick="backList()" onmouseover="this.src='${pageContext.request.contextPath}/resources/img/all02.png'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/all01.png'">&nbsp;&nbsp;
-			<img src="${pageContext.request.contextPath}/resources/img/best01.png" onclick="bestList()" onclick="backList()" onmouseover="this.src='${pageContext.request.contextPath}/resources/img/best02.png'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/best01.png'">&nbsp;&nbsp;
-			<img src="${pageContext.request.contextPath}/resources/img/map01.png" onclick="placeList()" onclick="backList()" onmouseover="this.src='${pageContext.request.contextPath}/resources/img/map02.png'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/map01.png'">&nbsp;&nbsp;
-			<img src="${pageContext.request.contextPath}/resources/img/gender01.png" onclick="genderList()" onclick="backList()" onmouseover="this.src='${pageContext.request.contextPath}/resources/img/gender02.png'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/gender01.png'">&nbsp;&nbsp;
-			<img src="${pageContext.request.contextPath}/resources/img/age01.png"  onclick="ageList()" onclick="backList()" onmouseover="this.src='${pageContext.request.contextPath}/resources/img/age02.png'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/age01.png'">&nbsp;&nbsp;
-		</td>
-	</tr>
-</table> --%>
 <br>
 <div align="center">
 	<form method="post" name="f ">
-		<table class="tabs" align="center" style="width: 400px; ">
+		<table class="tabs" align="center" style="width: 400px;">
 			<tr>
-				<td style="height: 30px; padding-left: 5px; padding-right: 5px;" align="center">
+				<td style="height: 40px; padding-left: 5px; padding-right: 5px;" align="center">
 					<select id="search_box">
 						<option value="1">제목</option>
 						<option value="2">작성자</option>
 						<option value="3">글번호</option>
 					</select>
 				</td>
-				<td style="height: 30px; padding-left: 5px; padding-right: 5px;" align="center">
+				<td style="height: 40px; padding-left: 5px; padding-right: 5px;" align="center">
 					<input type="text" id="searchText" onkeypress="if(event.keyCode==13) {search1();}else{return showKeyCode(event)}">
 				</td>
-				<td style="height: 30px; padding-left: 5px; padding-right: 5px;" align="center">
+				<td style="height: 40px; padding-left: 5px; padding-right: 5px;" align="center">
 					<img class="search" src="${pageContext.request.contextPath}/resources/img/search.png" onclick="search1()">
 					<!-- <input type="button" value="검색" onclick="search1()"> -->
 				</td>
@@ -149,118 +138,18 @@
 	</form>
 </div>
 <br>
-<%-- <table class="tabp" align="center" style="border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
-	<c:forEach var="s" items="${list }">
-		<tr class="tr1" style="border-collapse: collapse; width:500px; height: 500px; ">
-			<td colspan="2" style="width:300px; border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
-				<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">
-				이미지
-					<img src="/img/${s.photo}" align="middle" style="width: 500px; height: 500px;">
-				</a>
-			</td>
-		</tr>
-		<tr style="border-collapse: collapse; width: 500px; height: 50px;">
-			<td>
-				<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">${s.share_title}</a>
-			</td>
-			<td>${s.writer }</td>
-			<td>${s.metoo }</td>
-			<td align="left" style="width:450px;  text-indent: 5px; font-size: 15px;">
-				${s.share_title}
-			</td>
-			<td style="width:50px; font-size: 15px;">
-				&nbsp;
-				<img class="like" src="${pageContext.request.contextPath}/resources/img/like01.png">&nbsp;${s.metoo }
-			</td>
-		</tr>
-	</c:forEach>
-</table> --%>
 <div align="center">
-<%-- <table>
-<c:set var="j" value="0"/>
-<c:set var="row" value="0"/>
-	<c:forEach begin="0" end="${cnt }" var="s" items="${list }">
-		<tr>	
-			<c:forEach begin="1" end="3">
-				<c:if test="${j eq 2 or row eq 1}">
-					<td style="width: 300px; height: 300px;">
-						<c:forEach var="s" items="${list }">
-							<table class="tabp" align="center" style="border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
-								<tr class="tr1" style="border-collapse: collapse; width:300px; height: 300px; ">
-									<td colspan="2" style="width:300px; border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
-										<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">
-											<img src="${s.photo}" align="middle" style="width: 300px; height: 300px;">
-										</a>
-									</td>
-								</tr>
-								<tr style="border-collapse: collapse; width: 300px; height: 50px;">
-									<td>
-										<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">${s.share_title}</a>
-									</td>
-									<td style="width:50px; font-size: 15px;">
-										&nbsp;
-										<img class="like" src="${pageContext.request.contextPath}/resources/img/like01.png">&nbsp;${s.metoo }
-									</td>
-								</tr>
-							</table>
-						</c:forEach>
-					</td>
-					<c:set var="row" value="0"/>
-				</c:if>
-			</c:forEach>
-				<c:if test="${j le 3}">
-					<c:set var="j" value="${j+1}" />
-				</c:if>
-				<c:if test="${j eq 3}">
-				<c:set var="row" value="1"/>
-					<c:set var="j" value="0" />
-				</c:if>
-		</tr>
-	</c:forEach>
-</table> --%>
-<%-- <table>
-	<c:forEach begin="0" end="${cnt }" varStatus="i" var="s" items="${list }">
-		<tr>
-			<c:forEach begin="0" end="2" varStatus="j">
-				<c:if test="${i.index mod 3 eq j.index }">
-				<td style="width: 300px; height: 300px;">
-					<table class="tabp" align="center" style="border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
-								<tr class="tr1" style="border-collapse: collapse; width:300px; height: 300px; ">
-									<td colspan="2" style="width:300px; border-style: solid; border-width: 1px; border-color: #808080; border-collapse: collapse;">
-										<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">
-											<img src="${s.share_photo}" align="middle" style="width: 300px; height: 300px;">
-										</a>
-									</td>
-								</tr>
-								<tr style="border-collapse: collapse; width: 300px; height: 50px;">
-									<td>
-										<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">${s.share_title}</a>
-									</td>
-									<td style="width:50px; font-size: 15px;">
-										&nbsp;
-										<img class="like" src="${pageContext.request.contextPath}/resources/img/like01.png">&nbsp;${s.metoo }
-									</td>
-								</tr>
-							</table>
-				</td>
-				</c:if>
-			</c:forEach>
-		</tr>
-	</c:forEach>
-</table> --%>
 <div class="container">
 <c:forEach var="s" items="${list }">
   <span class="row" style="height: 350px;">
-    <span class="col-sm-3" style="width: 300px; ">
-      <div class="panel panel-primary">
-        <div class="panel-heading" style="background-color: #ffffff; border-style: none; border: 0px; border-color: #ffffff;">
+    <span class="col-sm-3" style="width: 400px; ">
+      <div class="panel panel-primary" style="width: 320px; border-width: 0px; border-style: none; border-color: #ffffff;">
+        <div class="panel-heading" style="background-color: #ffffff; border-width: 1px; border-style: solid; border-color: #808080; padding-left: 7px;">
        		<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">
-				<img src="${s.share_photo}" align="middle" style="width: 300px; height: 300px;">
+				<img src="${s.share_photo}" style="width: 300px; height: 300px;">
 			</a><br>
-			<%-- <a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">${s.share_title}</a>&nbsp;
-        	<img class="like" src="${pageContext.request.contextPath}/resources/img/like01.png">&nbsp;${s.metoo } --%>
        </div>
-       <div class="panel-body" style="background-color: #ffffff; border-style: none; border: 0px;">
+       <div class="panel-body" style="width: 320px; background-color: #ffffff; border-width: 1px; border-style: solid; border-top-color: #ffffff; border-left-color: #808080; border-right-color: #808080; border-bottom-color: #808080; ">
        		<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">${s.share_title}</a>&nbsp;
         	<img class="like" src="${pageContext.request.contextPath}/resources/img/like01.png">&nbsp;${s.metoo }
        </div>

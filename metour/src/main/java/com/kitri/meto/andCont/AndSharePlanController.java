@@ -20,6 +20,7 @@ import com.kitri.meto.admin.AdminService;
 import com.kitri.meto.member.Member;
 import com.kitri.meto.member.MemberDaoService;
 import com.kitri.meto.metoo.MetooService;
+import com.kitri.meto.point.PointService;
 import com.kitri.meto.rep.RepService;
 import com.kitri.meto.schedule.Schedule;
 import com.kitri.meto.schedule.scheduleService;
@@ -34,28 +35,24 @@ import com.kitri.meto.subplan.SubPlanService;
 public class AndSharePlanController {
 	@Resource(name="SharePlanService")
 	private SharePlanService shareService;
-	
 	public void setSharePlanService(SharePlanService shareService){
 		this.shareService = shareService;
 	}
 	
 	@Resource(name="MetooService")
 	private MetooService metooService;
-	
 	public void setSharePlanService(MetooService metooService){
 		this.metooService = metooService;
 	}
 	
 	@Resource(name="MemberService")
 	private MemberDaoService memberService;
-
 	public void setMemberService(MemberDaoService memberService) {
 		this.memberService = memberService;
 	}
 	
 	@Resource(name="AdminService")
 	private AdminService adminSerivce;
-
 	public void setAdminSerivce(AdminService adminSerivce) {
 		this.adminSerivce = adminSerivce;
 	}
@@ -69,16 +66,20 @@ public class AndSharePlanController {
 	
 	@Resource(name="scheduleSerivce")
 	private scheduleService scheduleService;
-	
 	public void setScheduleService(scheduleService scheduleService){
 		this.scheduleService = scheduleService;
 	}
 	
 	@Resource(name="SubPlanService")
 	private SubPlanService subPlanService;
-
 	public void setSubPlanService(SubPlanService subPlanService) {
 		this.subPlanService = subPlanService;
+	}
+	
+	@Resource(name="PointService")
+	private PointService pointService;	
+	public void setPointService(PointService pointService){
+		this.pointService = pointService;
 	}
 	
 	@RequestMapping(value = "/and/share/share.do")
