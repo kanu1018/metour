@@ -219,7 +219,7 @@ function duple() {
 			<td colspan="4" style="height: 50px; text-align: left; text-indent: 20px;">세부 일정을 등록하세요.</td>
 		</tr>
 		<tr>
-			<td colspan="4" align="center"><input type="text" name="sub_title" placeholder="일정을 입력하세요." style="width: 95%;"/></td>
+			<td colspan="4" align="center"><input type="text" name="sub_title" placeholder="제목을 입력하세요." style="width: 95%;"/></td>
 		</tr>
 		<tr>
 			<th colspan="4" style="text-indent: 20px; text-align: left; width: 250px;">
