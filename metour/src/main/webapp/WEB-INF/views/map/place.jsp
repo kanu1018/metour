@@ -108,7 +108,7 @@ img {
 	
 		var container = document.getElementById('map');
 		var options = {
-			center: new daum.maps.LatLng(33.450701, 126.570667),
+			center: new daum.maps.LatLng(37.56621, 126.9779),
 			level: 3
 		};
 
