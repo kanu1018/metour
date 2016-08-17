@@ -137,6 +137,7 @@ public class ScheduleController {
 		mav.addObject("schedules", schedules);
 		mav.addObject("Year",year); //make Calendar
 		mav.addObject("Month",month); //make Calendar
+		mav.addObject("dDay",now_d);
 		mav.addObject("DOW",dow); //make Calendar
 		mav.addObject("DayFlag", DayFlag);
 		return mav;

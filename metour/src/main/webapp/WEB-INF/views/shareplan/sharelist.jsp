@@ -142,7 +142,7 @@
 <div class="container">
 <c:forEach var="s" items="${list }">
   <span class="row" style="height: 350px;">
-    <span class="col-sm-3" style="width: 400px; ">
+    <span class="col-sm-3" style="width: 380px; ">
       <div class="panel panel-primary" style="width: 320px; border-width: 0px; border-style: none; border-color: #ffffff;">
         <div class="panel-heading" style="background-color: #ffffff; border-width: 1px; border-style: solid; border-color: #808080; padding-left: 7px;">
        		<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">
@@ -150,8 +150,16 @@
 			</a><br>
        </div>
        <div class="panel-body" style="width: 320px; background-color: #ffffff; border-width: 1px; border-style: solid; border-top-color: #ffffff; border-left-color: #808080; border-right-color: #808080; border-bottom-color: #808080; ">
-       		<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">${s.share_title}</a>&nbsp;
-        	<img class="like" src="${pageContext.request.contextPath}/resources/img/like01.png">&nbsp;${s.metoo }
+        	<table>
+        		<tr>
+        			<td style="width:160px; text-align: left; text-indent: 5px;">
+        				<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">${s.share_title}</a>
+        			</td>
+        			<td style=" width:160px; text-align: right; text-indent: 5px;">
+        				<img class="like" src="${pageContext.request.contextPath}/resources/img/like01.png">&nbsp;${s.metoo }
+        			</td>
+        		</tr>
+        	</table>
        </div>
       </div>
     </span>
