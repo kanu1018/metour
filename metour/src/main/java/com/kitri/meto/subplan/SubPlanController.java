@@ -263,7 +263,7 @@ public class SubPlanController {
 	@RequestMapping(value = "/subplan/listview.do")
 	public ModelAndView subPlanList_detail(HttpServletRequest request, @RequestParam(value="sub_num")int subNum){
 		SubPlan subplan = subPlanService.getSubPlan(subNum);
-		
+		System.out.println("야 좌표 " + subplan.getLlh_x());
 		ModelAndView mav = new ModelAndView("subplan/subPlanDetail");
 		mav.addObject("subplan", subplan); 
 		mav.addObject("photo",subplan.getPhoto());
@@ -316,7 +316,11 @@ public class SubPlanController {
 		sp.setPhoto("http://"+request.getLocalAddr()+":"+request.getLocalPort()+request.getContextPath()+"/img/"+fileName);
 		sp.setSub_num(sp.getSub_num());
 		subPlanService.updatePhoto(sp);
+		}else{
+			sp.setPhoto("");
 		}
+		System.out.println("야이 저먕러ㅗㅜ먀ㅐㄴ훌" + sp.getLlh_x());
+		
 		subPlanService.editSubPlan(sp);
 		return "redirect:/subplan/list.do?main_num="+sp.getMain_num();
 	}

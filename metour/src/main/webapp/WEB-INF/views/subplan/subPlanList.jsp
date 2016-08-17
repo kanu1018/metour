@@ -15,7 +15,6 @@
 
 table{
  border-collapse: collapse;
- margin-top:20px;
  margin-left:10px;
 }
 
@@ -46,26 +45,28 @@ a:hover {text-decoration: none; color: #ffffff;}
 </head>
 
 <body>
-<div class="menu">
-<table>
-<tr>
-<td><a href="${pageContext.request.contextPath}/schedule/schedule.do">날짜 선택 다시하기</a></td>
-<td><a href="${pageContext.request.contextPath}/subplan/add.do?main_num=${main_num}">등록</a></td>
-</tr>
-</table>
+<div class="menu" align="center">
+
 </div>
 
+<div align="center">
+<table style="width: 1000px;">
+<tr>
+<%-- <td><a href="${pageContext.request.contextPath}/schedule/schedule.do">날짜 선택 다시하기</a></td> --%>
+<td style="text-align: right; padding-right: 10px;">일정등록<a href="${pageContext.request.contextPath}/subplan/add.do?main_num=${main_num}"><img src="${pageContext.request.contextPath}/resources/img/add_sub.png" style="width: 50px;"></a></td>
+</tr>
+</table>
 <table>
 	<tr>
 		<td>
-			<table border="1">
+			<table border="1" style="width: 1000px;">
 				<tr>
-					<th>시간</th>	
-					<th>제목</th>
-					<th>장소</th>
-					<th>미션</th>
-					<th>미션성공</th>
-					<th>사진 등록</th>
+					<th style="width: 100px;">시간</th>	
+					<th style="width: 350px;">제목</th>
+					<th style="width: 250px;">장소</th>
+					<th style="width: 100px;">미션</th>
+					<th style="width: 100px;">미션성공</th>
+					<th style="width: 100px;">사진 등록</th>
 				</tr>
 				<c:set var="rowCnt" value="0" />
 				<c:forEach var="splist" items="${splist}">
@@ -81,7 +82,7 @@ a:hover {text-decoration: none; color: #ffffff;}
 						<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1ABC9C;" </c:if>><c:if test="${splist.mission_yn == '0'}"></c:if><c:if test="${splist.mission == '1'}">사진 완료 & GPS 실패</c:if>
 						<c:if test="${splist.mission_yn == '2'}">성공</c:if><c:if test="${splist.mission == '3'}">성공</c:if>
 						</td>
-						<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1DABB9;" </c:if>> &nbsp;&nbsp;<c:if test="${splist.title ne ''}"><a href="${pageContext.request.contextPath}/subplan/addphoto.do?sub_num=${splist.sub_num}">사진등록</a></c:if>&nbsp;&nbsp;</td>
+						<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1ABC9C;" </c:if>> &nbsp;&nbsp;<c:if test="${splist.title ne ''}"><a href="${pageContext.request.contextPath}/subplan/addphoto.do?sub_num=${splist.sub_num}">사진등록</a></c:if>&nbsp;&nbsp;</td>
 						<c:set var="rowCnt" value="0" />
 					</c:when>
 					<c:when test="${splist.row gt 1 }">
@@ -112,5 +113,6 @@ a:hover {text-decoration: none; color: #ffffff;}
 		</td>
 	</tr>
 </table>
+</div>
 </body>
 </html>

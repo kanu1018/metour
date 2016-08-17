@@ -13,6 +13,7 @@
  font-size:14px;
 }
 caption{
+background: url(images/title_event.png) no-repeat center center;
  width:700px;
  height:50px;
 }
@@ -21,6 +22,7 @@ caption span{
 }
 table{
  border-collapse: collapse;
+ width: 500px;
 }
 
 th{
@@ -33,28 +35,29 @@ td{
 
 input[type="text"]{
   line-height: normal;
-  width: 350px;
+  width: 430px;
   height: 30px;
 }
 input[type="file"]{
   line-height: normal;
-  width: 260px;
-  height: 20px;
+  width: 430px;
+  height: 30px;
 }
 
 
  INPUT[type="button"]{
-		width: 135px;
+		width: 155px;
 		height: 30px;
 		font-size: 11pt;
 		border: solid 2px;
 		border-radius:7px;
-		background-color:#1dabb8;
+		background-color:#1ABC9C;
 		text-align:center;
 		color: #FFFFFF;
 } 
 select {
 	width:120px;
+	height: 30px;
     position: relative;
     border: 1px solid #E9DDDD;
 }
@@ -67,7 +70,15 @@ div.bodytable{
 select::-ms-expand { 
   display: none;
 } 
+img.search{
+		width: 20px;
+		height: 20px;
+	}
+img {
+	width: 30px;
+	height: 30px;
 
+}
 
 </style>
 <script type="text/javascript">
@@ -173,8 +184,7 @@ function duple() {
 <title>세부 계획 상세보기</title>
 </head>
 <body>
-<div class="bodytable">
-<h3>세부 계획 상세보기 및 수정</h3>
+<div class="bodytable" align="center">
 <form action="${pageContext.request.contextPath}/subplan/edit.do" name="f" method="post" enctype="multipart/form-data">
 <input type="hidden" name="llh_x" value="${subplan.llh_x}"/>
 <input type="hidden" name="llh_y" value="${subplan.llh_y}"/>
@@ -183,13 +193,29 @@ function duple() {
 <input type="hidden" name="sub_num" value="${subplan.sub_num}"/>
 	<table>
 		<tr>
+			<th colspan="4" style="height: 50px; text-align: left; text-indent: 20px; font-size: 20px;">일정 수정</th>
+		</tr>
+		<tr>
+			<td colspan="4" style="height: 50px; text-align: left; text-indent: 20px;">세부 일정을 수정 및 삭제하세요.</td>
+		</tr>
+		<tr>
 			<th>제목</th>
 			<td colspan="3"><input type="text" name="sub_title" value="${subplan.sub_title}"/></td>
 		</tr>
 		<tr>
-			<th>시작시간</th>
-			<td>
-				<select name="start_time"onchange="timeSet()">
+			<th colspan="4" style="text-indent: 10px; text-align: left; width: 250px;">
+				시작
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;
+				종료
+			</th>
+		</tr>
+		<tr>
+			<td colspan="4" style="text-align: left; text-indent: 20px;">
+				<select name="start_time"onchange="timeSet()" style="width: 210px; height: 30px;">
 					<option value="00:00">오전 12:00</option>
 					<option value="00:30">오전 12:30</option>
 				    <option value="01:00">오전 1:00</option>
@@ -238,10 +264,8 @@ function duple() {
 				    <option value="22:30">오후 10:30</option>
 				    <option value="23:00">오후 11:00</option>
 				    <option value="23:30">오후 11:30</option>
-				</select> ~ </td>
-			<th>종료시간</th>
-			<td>
-				<select name="end_time" onchange="duple()">
+				</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<select name="end_time" onchange="duple()" style="width: 210px; height: 30px;">
 					<option value="00:00">오전 12:00</option>
 					<option value="00:30">오전 12:30</option>
 				    <option value="01:00">오전 1:00</option>
@@ -293,13 +317,16 @@ function duple() {
 			</select></td>
 		</tr>
 		<tr>
-			<th>장소</th>
-			<td colspan="3"><input type="text" name="place" value="${subplan.place}" style="width: 300px;"/><input type="button" value="돋보기" onclick="openNewWindow()" style="width: 50px;"></td>
+			<th><img src="${pageContext.request.contextPath}/resources/img/map01.png"></th>
+			<td colspan="2">
+				<input type="text" name="place" value="${subplan.place}" style="width: 85%;"/>
+				<img class="search" src="${pageContext.request.contextPath}/resources/img/search.png" onclick="openNewWindow()">
+			</td>
 		</tr>
 		<tr>
-			<th>미션</th>
-			<td colspan="3">
-				<select name="mission" style="width: 350px;">
+			<th><img src="${pageContext.request.contextPath}/resources/img/mission.png"></th>
+			<td colspan="2">
+				<select name="mission" style="width: 95%;">
 						<option value="n" >미션 선택안함</option>
 						<option value="g">명소 찾아가기</option>
 						<option value="p">명소 사진찍기</option>
@@ -310,15 +337,16 @@ function duple() {
 		<tr>
 			<td colspan="4"><img src="${photo}" style="width:200px;height:200px"/></td>
 		</tr>
-		<tr>
-			<th>사진</th>
-			<td colspan="3">사진 파일 : <input type="file" value="카메라이미지" name="imgfile"></td>
-		</tr>
 		</c:if>
-		
 		<tr>
-			<th>메모</th>
-			<td colspan="3"><textarea name="memo" style="width: 350px; height: 100px;">${subplan.memo}</textarea></td>
+			<th><img src="${pageContext.request.contextPath}/resources/img/add_img.png"></th>
+			<td colspan="3"><input type="file" value="카메라이미지" name="imgfile"></td>
+		</tr>
+		<tr>
+			<th><img src="${pageContext.request.contextPath}/resources/img/memo.png"></th>
+			<td colspan="2">
+				<textarea name="memo" style="width: 95%; height: 100px;">${subplan.memo}</textarea>
+			</td>
 		</tr>
 		<tr>
 			<td colspan="4">

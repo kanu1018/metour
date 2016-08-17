@@ -24,7 +24,7 @@ input[type="file"]{
 		font-size: 11pt;
 		border: solid 2px;
 		border-radius:7px;
-		background-color:#1dabb8;
+		background-color:#1abc9c;
 		text-align:center;
 		color: #FFFFFF;
 }
@@ -45,7 +45,7 @@ div.bodytable{
 <title>Insert title here</title>
 </head>
 <body>
-<div class="bodytable">
+<div class="bodytable" align="center">
 <form name="f" action="${pageContext.request.contextPath}/subplan/addphoto_ok.do?sub_num=${sub_num}" method="post" enctype="multipart/form-data">
 	<table>
 	<tr><th>사진 등록</th></tr>

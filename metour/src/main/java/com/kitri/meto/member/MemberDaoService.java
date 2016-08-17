@@ -41,26 +41,25 @@ public class MemberDaoService implements memberService {
 
 	@Override
 	public Member getMember(String id) {
-		// TODO Auto-generated method stub
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		return memberMapper.select(id);
 	}
 
 	@Override
 	public boolean login(Member m) {
-		System.out.println("id="+m.getId());
-		// TODO Auto-generated method stub
+		
 		Member result = getMember(m.getId());
-		System.out.println("status+"+result.getMem_status());
-		if(!result.getMem_status().equals("n")){
-			if(result!=null && m.getPwd().equals(result.getPwd())){
-				return true; 
-			} else {
+		if(result!=null){
+			if(!result.getMem_status().equals("n")){
+				if(result!=null && m.getPwd().equals(result.getPwd())){
+					return true; 
+				} else {
+					return false;
+				}
+			}else{
 				return false;
 			}
-		}else{
-			return false;
-		}
+		}return false;
 	}
 
 	public List<JoinDTO> getArticleByRoot() {

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kitri.meto.reg.Reg;
 import com.kitri.meto.reg.RegService;
 import com.kitri.meto.schedule.Schedule;
+import com.kitri.meto.schedule.scheduleService;
 import com.kitri.meto.subplan.SubPlan;
 import com.kitri.meto.subplan.SubPlanService;
 import com.kitri.meto.thread.PhotoEvent;
@@ -34,6 +35,13 @@ public class GcmController {
 	public void setSubPlanService(SubPlanService subPlanService) {
 		this.subPlanService = subPlanService;
 	}
+	
+	@Resource(name="scheduleSerivce")
+	private scheduleService scheduleService;
+	
+	public void setScheduleService(scheduleService scheduleService){
+		this.scheduleService = scheduleService;
+	}
 	@RequestMapping("/gcm/gcmForm.do")
 	public ModelAndView gcm(HttpServletRequest request, @RequestParam(value="KEY")String key, @RequestParam(value="REG")String reg){
 		ModelAndView mav = new ModelAndView("test/sendgcmreg");
@@ -45,23 +53,39 @@ public class GcmController {
 	}
 	
 	@RequestMapping("/gcm/gcmsend11.do")
-	public String gcmsend(HttpServletRequest request, @RequestParam(value="KEY")String key, @RequestParam(value="REG")String reg, @RequestParam(value="TODAY")String today){
+	public String gcmsend(HttpServletRequest request, @RequestParam(value="KEY")String key, @RequestParam(value="REG")String reg){
+		//@RequestParam(value="TODAY")String today
+		
 		System.out.println(key);
+		
+		String keys[] = key.split("/");
+		int key1 = Integer.parseInt(keys[0]);
+		int key2 = Integer.parseInt(keys[1]);
+		String today=keys[2];
 		System.out.println(today);
-		String keys[] = key.split(":");
-		Reg r = new Reg(Integer.parseInt(keys[1]),reg);
-		if(regService.getReg(Integer.parseInt(keys[1])).getReg_id() != null){
+		Reg r = new Reg(key2,reg);
+		Reg rr = regService.getReg(key2);
+		if(regService.getReg(key2)!=null) { 
+			if(!regService.getReg(key2).getReg_id().equals(reg)){
+				 regService.editReg(r);
+			 }
+		 } else {
+			 
+			 regService.addReg(r);
+		 }
+		/*if(!regService.getReg(key2).getReg_id().equals("")){
 			regService.addReg(r);
 		} else{
 			regService.editReg(r);
-		}
-		Schedule s = new Schedule();
-		s.setMain_writer(Integer.parseInt(keys[1]));
-		s.setMain_date(today);
+		}*/
+		/*Schedule s = new Schedule();
+		s.setMain_writer(key2);
+		s.setMain_date(today);*/
 		
-		ArrayList<SubPlan> splist = subPlanService.getSubPlanByMain(Integer.parseInt(keys[1]));
+		ArrayList<SubPlan> splist = subPlanService.getSubPlanByMain(key1);
 		String reg_id = reg;
 		if(splist.size()!=0){
+			System.out.println("photoevent실행");
 			PhotoEvent pe = new PhotoEvent(splist,reg_id);
 			pe.start();
 		}
