@@ -51,7 +51,7 @@
 </insert>
 
 <select id = "selectByDate" resultMap="ScheduleResultMap" parameterType="int">
- 	SELECT main_num, TO_CHAR(main_date,'YYYY/MM/DD') main_date, main_title
+ 	SELECT main_num, TO_CHAR(main_date,'YYYY/MM/DD') main_date, main_title, main_writer
 	FROM main_plan 
 	where main_writer = #{main_writer} and TO_CHAR(main_date,'YYYY/MM/DD') <![CDATA[  >= ]]> TO_CHAR(sysdate,'YYYY/MM/DD')
 	order by main_date

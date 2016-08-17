@@ -506,38 +506,41 @@ public class AndSubPlanController {
 	@RequestMapping(value = "/and/subplan/addphoto.do")
 	public String addphoto(HttpServletRequest request,@RequestParam(value="sub_num")int subNum){
 		request.setAttribute("sub_num", subNum);
+		System.out.println("들어옴");
 		SubPlan sp = new SubPlan();
 		sp = subPlanService.getSubPlan(subNum);
+		System.out.println(sp.getEnd_time());
+		if(sp.getPhoto()!=null){
 		request.setAttribute("photo", sp.getPhoto());
+		}
 		return "android/andAddPhoto";
 	}
 	
 	
 		@RequestMapping(value = "/and/subplan/addphoto_ok.do")
-	public String addphoto_ok(HttpServletRequest request, @RequestParam(value="sub_num")int subNum,@RequestParam(value="photo")String photo){
-		System.out.println(photo);
-		String fileName = photo;
-		SubPlan subplan = new SubPlan();
-		ServletContext sc = request.getSession().getServletContext();
-		String root = sc.getRealPath("/");
-		root+="img\\"+fileName;
-		File f = new File(root);
-		try {
-			subplan.getImgfile().transferTo(f);
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		subplan.setPhoto(root);
-		subplan.setSub_num(subNum);
-		subPlanService.updatePhoto(subplan);
+	public String addphoto_ok(HttpServletRequest request,SubPlan subplan,@RequestParam(value="sub_num")int subNum){
+			String fileName = subplan.getImgfile().getOriginalFilename();
+			ServletContext sc = request.getSession().getServletContext();
+			String root = sc.getRealPath("/");
+			root+="img\\"+fileName;
+			File f = new File(root);
+			try {
+				System.out.println(subplan.getImgfile());
+				subplan.getImgfile().transferTo(f);
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			subplan.setPhoto("http://"+request.getLocalAddr()+":"+request.getLocalPort()+request.getContextPath()+"/img/"+fileName);
+			subplan.setSub_num(subNum);
+			subPlanService.updatePhoto(subplan);
+			
+			SubPlan sub = subPlanService.getSubPlan(subNum);
 		
-		SubPlan sub = subPlanService.getSubPlan(subNum);
-		
-		return "android/andAddPhotoResule";
+		return "android/andAddPhotoResult";
 	}
 
 	////////////////////////////////////////////////////////////////////////////

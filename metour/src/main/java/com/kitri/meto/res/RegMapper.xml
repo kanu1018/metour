@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.meto.reg.Reg">
+ 	<resultMap type="com.kitri.meto.reg.Reg" id="RegResultMap">
+ 		<result property="mem_num" column="mem_num" />
+ 		<result property="reg_id" column="reg_id" />
+	</resultMap>
+		
+	<insert id="insert" parameterType="com.kitri.meto.reg.Reg" >
+		INSERT INTO reg_id values(#{mem_num}, #{reg_id})
+	</insert>
+	
+	<select id="select" resultMap="RegResultMap" parameterType="int">
+		SELECT * FROM reg_id WHERE mem_num = #{mem_num}
+	</select>
+	
+	<update id="update" parameterType="com.kitri.meto.reg.Reg">
+		UPDATE reg_id SET reg_id = #{reg_id} WHERE mem_num = #{mem_num}
+	</update>
+</mapper>
