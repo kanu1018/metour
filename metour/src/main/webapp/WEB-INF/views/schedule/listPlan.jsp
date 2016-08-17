@@ -88,7 +88,7 @@ button{
 </head>
 <body>
 <c:if test="${action eq 0}">
-	<div style="width:100%;height:60px; background-color: #33308C;color:#ffffff; padding-top:30px; font-size: 20pt;" align="center">
+	<div style="width:100%;height:60px; background-color: #F1826F;color:#ffffff; padding-top:30px; font-size: 20pt;" align="center">
 	삭제하기
 	</div>
 </c:if>
@@ -117,7 +117,7 @@ button{
 </div>
 <div style="width:100%;height:15px;margin-top: 5px" align="center">
 	<c:if test="${action eq 0}">
-	<button onclick="deletePlans()" style=" background-color: #33308C;">삭제하기</button>
+	<button onclick="deletePlans()" style=" background-color: #F1826F;">삭제하기</button>
 </c:if>
 <c:if test="${action eq 1}">
 	<button onclick="sharePlans()" style="background-color: #128AC9;">공유하기</button>
