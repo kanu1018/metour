@@ -70,4 +70,10 @@ public class RepImple implements RepService {
 		return list;
 	}
 
+	@Override
+	public Rep getRepByRepnum(int rep_num) {
+		RepMapper repMapper = sqlSession.getMapper(RepMapper.class);
+		return repMapper.selectByRepnum(rep_num);
+	}
+
 }

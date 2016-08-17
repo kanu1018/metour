@@ -58,4 +58,8 @@
 					ORDER BY rep_num DESC)
 		WHERE rownum <![CDATA[<]]>  11
 	</select>
+	
+	<select id="selectByRepnum" resultMap="RepResultMap" parameterType="int">
+		SELECT * FROM rep WHERE rep_num = #{rep_num}
+	</select>
 </mapper>

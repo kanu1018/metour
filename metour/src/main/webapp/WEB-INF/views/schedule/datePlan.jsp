@@ -124,8 +124,8 @@ function addPlan(year,month,day,action){
 			</tr>
 			<tr>
 				<td colspan="2">&nbsp;&nbsp;${sp.start_time} ~ ${sp.end_time}</td>
-				<td align="center"><c:if test="${sp.mission_yn == '0'}">×</c:if><c:if test="${sp.mission == '1'}">사진 ○ & GPS ×</c:if>
-						<c:if test="${sp.mission_yn == '2'}">○</c:if><c:if test="${sp.mission == '3'}">○</c:if></td>
+				<td align="center"><c:if test="${sp.mission_yn == '0'}">×</c:if><c:if test="${sp.mission_yn == '1'}">사진 ○ & GPS ×</c:if>
+						<c:if test="${sp.mission_yn == '2'}">○</c:if><c:if test="${sp.mission_yn == '3'}">○</c:if></td>
 				
 			</tr>
 		

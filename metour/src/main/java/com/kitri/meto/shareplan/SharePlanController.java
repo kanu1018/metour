@@ -177,6 +177,7 @@ public class SharePlanController {
 			mav.addObject("rCnt", repCnt); //댓글 수
 			mav.addObject("point", point); //점수
 			mav.addObject("mem_num", mem_num);
+			mav.addObject("type", m.getMem_status());
 			mav.setViewName("shareplan/shareview");
 		} else {
 			for (int i = 0; i < list.size(); i++) {
@@ -222,7 +223,6 @@ public class SharePlanController {
 	public ModelAndView genderlist(@RequestParam(value="gender") String gender){
 		ArrayList<JoinDTO> list = shareService.getSharePlanByGender(gender);
 		ModelAndView mav = new ModelAndView("shareplan/sharelist");
-		System.out.println(gender);
 		mav.addObject("list", list);
 		return mav;
 	}
@@ -331,7 +331,6 @@ public class SharePlanController {
 		return mav;
 	}
 	
-	
 	@RequestMapping(value = "/share/place.do")
 	public String place(){
 		return "/shareplan/placesearch";
@@ -346,7 +345,4 @@ public class SharePlanController {
 		mav.addObject("list", list);
 		return mav;
 	}
-
 }
-
-
