@@ -87,10 +87,16 @@ td{
 	function goMain() {
 		location.href="${pageContext.request.contextPath}/admin/adminForm.do";
 	}
+	
+	function shareviewR(num){
+		newWindow = window.open("${pageContext.request.contextPath}/singo/viewRep.do?singo_num="+num, "newWindow", "height=800, width=800, resizable=yes"); 
+	}
+	function shareviewS(num){
+		newWindow = window.open("${pageContext.request.contextPath}/singo/viewGul.do?singo_num="+num, "newWindow", "height=800, width=800, resizable=yes"); 
+	}
 </script>
-<title>Insert title here</title>
+<title>::SINGO::</title>
 </head>
-<%@ include file="../include_login.jsp" %>
 <body>
 <form style="margin: 0 auto;text-align: center;margin-top: 100px">
 <table style="margin: 0 auto;text-align: center">
@@ -104,11 +110,12 @@ td{
 </tr>
 <c:forEach var = "l" items="${list}">
 <tr>
-	<td>${l.singo_num}</td>
 	<c:if test="${l.singo_kind eq 'r'}">
+	<td><input type="button" onclick="shareviewR(${l.singo_num})" value="${l.singo_num}"></td>
 	<td>댓글</td>
 	</c:if>
 	<c:if test="${l.singo_kind eq 's'}">
+	<td><input type="button" onclick="shareviewS(${l.singo_num})" value="${l.singo_num}"></td>
 	<td>글</td>
 	</c:if>
 	<td>${l.singo_content}</td>

@@ -51,6 +51,8 @@
 <script type="text/javascript">
 	var newWindow;
 
+	var share_num = "<c:out value='${s.share_num }'/>";
+	
 	function metoo(share_num, type) {
 		location.href = "${pageContext.request.contextPath }/metoo/metoo.do?share_num="+share_num+"&type="+type;
 	}
@@ -68,18 +70,18 @@
 	function repDel(rep_num, share_num) {
 		location.href = "${pageContext.request.contextPath }/rep/del.do?rep_num="+rep_num+"&share_num="+share_num;
 	}
-	function singo() {
-		/* if(type.equals("s")){
-			newWindow = window.open("${pageContext.request.contextPath}/singo/popup.do?num="+num+"&type="+type, "newWindow", "height=200, width=400, resizable=yes");
-		} else if(type.equals("r")){
-			newWindow = window.open("${pageContext.request.contextPath}/singo/popup.do?num="+num+"&type="+type, "newWindow", "height=200, width=400, resizable=yes");
-		} */
-		newWindow = window.open("${pageContext.request.contextPath}/singo/popup.do", "newWindow", "height=800, width=800, resizable=yes");
+	function singo(num,type) {
+		if(type == 's'){
+			newWindow = window.open("${pageContext.request.contextPath}/singo/popup.do?num="+num+"&type="+type+"&share_num="+num, "newWindow", "height=200, width=400, resizable=yes");
+		} else if(type == 'r'){
+			newWindow = window.open("${pageContext.request.contextPath}/singo/popup.do?num="+num+"&type="+type+"&share_num="+share_num, "newWindow", "height=200, width=400, resizable=yes");
+		} 
+		//newWindow = window.open("${pageContext.request.contextPath}/singo/popup.do", "newWindow", "height=200, width=400, resizable=yes");
 	}
-	function singoRep(num, kind) {
-		document.fs.share_num.value = num;
-		document.fs.singo_kind.value = kind;
-		singo();
+	function singoRep(num, type) {
+		//document.rep_singo.share_num.value = num;
+		//document.rep_singo.singo_kind.value = "r";
+		singo(num,type);
 	}
 	function shareDel() {
 		document.del.submit();
@@ -87,7 +89,7 @@
 </script>
 <title>:::ShareView:::</title>
 </head>
-<body>
+<body scroll=auto style="overflow-x:hidden">
 <div align="center">
 <table>
 	<tr>
@@ -120,14 +122,20 @@
 			${rCnt }
 		</td>
 		<td colspan="2" align="right" style="height: 35px; text-indent: 10px;">
-			<c:if test="${s.writer ne mem_num}">
+			<c:if test="${s.writer ne mem_num && type != 'm'}">
 				<form action="${pageContext.request.contextPath}/singo" method="post" name="fs">
 					<input type="hidden" name="share_num" value="${s.share_num }">
 					<input type="hidden" name="singo_kind" value="s">
-					<img src="${pageContext.request.contextPath}/resources/img/singo02.png" onclick="singo()">&nbsp;
+					<img src="${pageContext.request.contextPath}/resources/img/singo02.png" onclick="singo(${s.share_num },'s')">&nbsp;
 				</form>
 			</c:if>
 			<c:if test="${s.writer eq mem_num}">
+				<form action="${pageContext.request.contextPath}/share/delete.do" method="post" name="del">
+					<input type="hidden" name="share_num" value="${s.share_num }">
+					<img src="${pageContext.request.contextPath}/resources/img/delete01.png" onclick="shareDel()">&nbsp;
+				</form>
+			</c:if>	
+			<c:if test="${type == 'm'}">
 				<form action="${pageContext.request.contextPath}/share/delete.do" method="post" name="del">
 					<input type="hidden" name="share_num" value="${s.share_num }">
 					<img src="${pageContext.request.contextPath}/resources/img/delete01.png" onclick="shareDel()">&nbsp;
@@ -154,24 +162,43 @@
 		<input type="hidden" name="share_num" value="${s.share_num }">
 		<input type="hidden" name="rep_num" value="${reps.rep_num}">
 			<tr>
-				<th style="width: 50px; height: 40px;">&nbsp;&nbsp;${reps.id}</th>
+				 <th style="width: 50px; height: 40px;">&nbsp;&nbsp;${reps.id}</th>
 				<td style="width:450px; height: 40px; text-align: left; text-indent: 10px;">${reps.rep_content }</td>
 				<td style="width: 150px; height: 40px; text-align: right;">
-					<c:forEach var="r" items="${r }" varStatus="status">
-						<c:if test="${reps.rep_num eq r.rep_num && reps.rep_writer eq r.rep_writer }">
+					<%--<c:forEach var="r" items="${r }" varStatus="status">
+						<c:if test="${reps.rep_num eq r.rep_num }">
 							<input type="button" value="수정" onclick="focusOn(${reps.rep_num}, '${reps.rep_content }', ${s.share_num })">&nbsp;
 							<input type="button" value="삭제" onclick="repDel(${reps.rep_num}, ${s.share_num })">&nbsp;			
 						</c:if>
 						<c:if test="${status.first}">
-						<c:if test="${reps.rep_writer ne r.rep_writer }">
+						<c:if test="${reps.rep_writer ne r.rep_writer && type != 'm'}">
 							<img src="${pageContext.request.contextPath}/resources/img/singo02.png" onclick="singoRep(${reps.rep_num}, 'r')">&nbsp;&nbsp;
 						</c:if>
 						</c:if>
-					</c:forEach>
-				</td>
+						<c:if test="${status.first}">
+						<c:if test="${type == 'm'}">
+							<input type="button" value="삭제" onclick="repDel(${reps.rep_num}, ${s.share_num })">&nbsp;		
+						</c:if>
+						</c:if>
+					</c:forEach>--%>
+						<c:if test="${reps.rep_writer eq mem_num}">
+							<input type="button" value="수정" onclick="focusOn(${reps.rep_num}, '${reps.rep_content }', ${s.share_num })">&nbsp;
+							<input type="button" value="삭제" onclick="repDel(${reps.rep_num}, ${s.share_num })">&nbsp;			
+						</c:if>
+						<c:if test="${reps.rep_writer ne mem_num && type != 'm'}">
+							<img src="${pageContext.request.contextPath}/resources/img/singo02.png" onclick="singoRep(${reps.rep_num}, 'r')">&nbsp;&nbsp;
+						</c:if>
+						<c:if test="${type == 'm'}">
+							<input type="button" value="삭제" onclick="repDel(${reps.rep_num}, ${s.share_num })">&nbsp;		
+						</c:if>
+				</td> 
 			</tr>
 	</c:forEach>
 	</table>
 </div>
 </body>
+	<form action="${pageContext.request.contextPath}/singo" method="post" name="rep_singo">
+		<input type="hidden" name="share_num" >
+		<input type="hidden" name="singo_kind" >
+	</form>
 </html>

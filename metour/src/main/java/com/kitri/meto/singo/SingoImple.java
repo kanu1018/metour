@@ -20,4 +20,10 @@ public class SingoImple implements SingoService {
 		singoMapper.insert(s);
 	}
 
+	@Override
+	public Singo getSingo(int singo_num) {
+		SingoMapper singoMapper = sqlSession.getMapper(SingoMapper.class);
+		return singoMapper.select(singo_num);
+	}
+
 }

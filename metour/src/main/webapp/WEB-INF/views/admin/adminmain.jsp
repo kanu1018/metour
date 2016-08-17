@@ -14,15 +14,20 @@
 	background-size: contain;
 }
  */
-
+*,body{
+ font-family: "맑은 고딕";
+}
 
 </style>
-<title>Insert title here</title>
+<title>::ADMIN::</title>
 </head>
 <body>
-<form style="text-align: center;margin-top: 200px;" >
-<a href ="${pageContext.request.contextPath}/admin/memberList.do"><img src="${pageContext.request.contextPath}/resources/img/user.png" style="width: 240px;height: 300px;align: center;"/></a>
-<a href ="${pageContext.request.contextPath}/admin/singoList.do"><img src="${pageContext.request.contextPath}/resources/img/siren.png" style="margin-left:100px; width: 240px;height: 300px"/></a>
-</form>
+<div align="center">
+<h1>[ 관리자 페이지 ]</h1>
+<table style="text-align: center;margin-top: 200px;"><tr><td>
+<a href ="${pageContext.request.contextPath}/admin/memberList.do"><img src="${pageContext.request.contextPath}/resources/img/user02.png" style="width: 367px;height: 258px;align: center;"/></a>
+<a href ="${pageContext.request.contextPath}/admin/singoList.do"><img src="${pageContext.request.contextPath}/resources/img/siren02.png" style="width: 270px;height: 270px;margin-left:100px;"/></a>
+</td></tr></table>
+</div>
 </body>
 </html>

@@ -92,30 +92,24 @@
 	}
 	
 	table.tabs {
-		border: 1px;
+		border: 1.5px;
 		border-color: #1ABC9C;
 		border-style: solid;
 		width: 430px;
 		padding: 5px;
 	}
 	
-/* 	.navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
-    
-    footer {
-    	text-align: left;
-    	background-color: #ffffff;
-    	padding: 25px;
-    } */
-
+	#b1{
+		background-image: url('${pageContext.request.contextPath}/resources/img/b05.jpg');
+		max-width: 100%;
+		height: 600px;
+		
+	}
 </style>
 <title>:::ShareList:::</title>
 </head>
 <body style="font-family: 맑은 고딕;">
-<br>
-<div align="center">
+<div id="b1" align="center" style="padding-top: 500px;">
 	<form method="post" name="f ">
 		<table class="tabs" align="center" style="width: 400px;">
 			<tr>
@@ -130,7 +124,7 @@
 					<input type="text" id="searchText" onkeypress="if(event.keyCode==13) {search1();}else{return showKeyCode(event)}">
 				</td>
 				<td style="height: 40px; padding-left: 5px; padding-right: 5px;" align="center">
-					<img class="search" src="${pageContext.request.contextPath}/resources/img/search.png" onclick="search1()">
+					<img class="search" src="${pageContext.request.contextPath}/resources/img/search02.png" onclick="search1()">
 					<!-- <input type="button" value="검색" onclick="search1()"> -->
 				</td>
 			</tr>

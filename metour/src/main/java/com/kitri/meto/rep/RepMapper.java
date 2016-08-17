@@ -14,4 +14,6 @@ public interface RepMapper {
 	
 	int selectRepCnt(int share_num);
 	ArrayList<Rep> selectByShareNumCnt(int share_num);
+	
+	Rep selectByRepnum(int rep_num);
 }
