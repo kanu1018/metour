@@ -140,6 +140,7 @@ public class AndSharePlanController {
 		return mav;
 	}
 	
+	
 	@RequestMapping(value="/and/share/webphoto.do")
 	public ModelAndView webphoto(@RequestParam(value="sub_num") int sub_num){
 		ModelAndView mav = new ModelAndView("android/andPhoto");

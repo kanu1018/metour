@@ -249,6 +249,8 @@ public class AndSubPlanController {
 				sp.setPlace(sub.get(j).getPlace());
 				sp.setMission(sub.get(j).getMission());
 				sp.setMission_yn(sub.get(j).getMission_yn());
+				sp.setLlh_x(sub.get(j).getLlh_x());
+				sp.setLlh_y(sub.get(j).getLlh_y());
 				int row = 0;
 				for(int k = start_i; k < end_i; k++){
 					row++;

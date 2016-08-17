@@ -25,6 +25,7 @@ response.setCharacterEncoding("UTF-8");
 		sPoint = s.getPoint_num();
 		sId = s.getId();
 		sPhoto = s.getShare_photo();
+		
 	%>
 	<shareplan>
 		<sNum><%=sNum %></sNum>
