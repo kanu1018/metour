@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kitri.meto.member.Member;
 import com.kitri.meto.reg.Reg;
 import com.kitri.meto.reg.RegService;
 import com.kitri.meto.schedule.Schedule;
@@ -60,7 +59,7 @@ public class GcmController {
 		s.setMain_writer(Integer.parseInt(keys[1]));
 		s.setMain_date(today);
 		
-		ArrayList<SubPlan> splist = subPlanService.getSubPlanByMainplan(s);
+		ArrayList<SubPlan> splist = subPlanService.getSubPlanByMain(Integer.parseInt(keys[1]));
 		String reg_id = reg;
 		if(splist.size()!=0){
 			PhotoEvent pe = new PhotoEvent(splist,reg_id);
