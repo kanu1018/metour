@@ -55,6 +55,7 @@ div.bodytable{
 		<img src="${photo}" style="width:200px;height:200px"/>
 		</td></tr>
 	</c:if>
+	<tr><td><input type="submit" value="확인" onclick="addOK(${sub_num})"></td></tr>
 	</table>
 </form>
 </div>
