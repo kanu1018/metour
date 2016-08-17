@@ -207,7 +207,7 @@ td{
 			return;
 		}
 	}
-	function search1(){
+	/* function search1(){
 		var text = document.getElementById("searchText").value;
 		var select = document.getElementById("search_box");
 		var option_value = select.options[select.selectedIndex].value;
@@ -230,7 +230,7 @@ td{
 				return false;
 			}
 		}
-	}
+	} */
 	
 	function login(){
 		location.href = "${pageContext.request.contextPath}/member/loginForm.do"

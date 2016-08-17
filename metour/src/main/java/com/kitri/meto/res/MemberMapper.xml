@@ -21,6 +21,7 @@
  		<result property="id" column="ID"/>
  		<result property="location" column="LOCATION"/>
  		<result property="metoo" column="METOO"/>
+ 		<result property="share_photo" column="share_photo"/>
  </resultMap>
  
     <select id="select" resultMap="MemberResultMap" parameterType="String">
@@ -46,17 +47,17 @@
     </select>
     
     <select id="getArticleByTitle" resultMap="ArticleMap" parameterType="String">
-    	SELECT share_num, share_title, id, location, metoo FROM member join share_plan s on mem_num = writer join main_plan m on s.point_num= m.point_num 
+    	SELECT share_num, share_title, id, location, metoo, share_photo FROM member join share_plan s on mem_num = writer 
     	WHERE <![CDATA[ ROWNUM <= 10 ]]> AND share_title like '%' || #{text} || '%' ORDER BY metoo 
     </select>
     
     <select id="getArticleByWriter" resultMap="ArticleMap" parameterType="String">
-    	SELECT share_num, share_title, id, location, metoo FROM member join share_plan s on mem_num = writer join main_plan m on s.point_num= m.point_num 
+    	SELECT share_num, share_title, id, location, metoo, share_photo FROM member join share_plan s on mem_num = writer 
     	WHERE <![CDATA[ ROWNUM <= 10 ]]> AND id like '%' || #{text} || '%' ORDER BY metoo 
     </select>
     
     <select id="getArticleByNum" resultMap="ArticleMap" parameterType="Int">
-    	SELECT share_num, share_title, id, location, metoo FROM member join share_plan s on mem_num = writer join main_plan m on s.point_num= m.point_num 
+    	SELECT share_num, share_title, id, location, metoo, share_photo FROM member join share_plan s on mem_num = writer 
     	WHERE <![CDATA[ ROWNUM <= 10 ]]> AND share_num like '%' || #{num} || '%' ORDER BY metoo 
     </select>
     
