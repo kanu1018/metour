@@ -298,8 +298,8 @@ public class SubPlanController {
 	
 	@RequestMapping(value = "/subplan/edit.do")
 	public String subPlanEdit(HttpServletRequest request, SubPlan sp){
-		if(sp.getImgfile() != null){
 		String fileName = sp.getImgfile().getOriginalFilename();
+		if(!fileName.equals("")){
 		ServletContext sc = request.getSession().getServletContext();
 		String root = sc.getRealPath("/");
 		root+="img\\"+fileName;
@@ -313,11 +313,11 @@ public class SubPlanController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		sp.setPhoto(root);
+		sp.setPhoto("http://"+request.getLocalAddr()+":"+request.getLocalPort()+request.getContextPath()+"/img/"+fileName);
 		sp.setSub_num(sp.getSub_num());
 		subPlanService.updatePhoto(sp);
 		}
-		subPlanService.editSubPlan(sp);	
+		subPlanService.editSubPlan(sp);
 		return "redirect:/subplan/list.do?main_num="+sp.getMain_num();
 	}
 	
