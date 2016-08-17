@@ -90,7 +90,6 @@ td{
 </script>
 <title>Insert title here</title>
 </head>
-<%@ include file="../include_login.jsp" %>
 <body>
 <form style="margin: 0 auto;text-align: center;margin-top: 100px">
 <table style="margin: 0 auto;text-align: center">
