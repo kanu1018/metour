@@ -298,7 +298,7 @@ public class SubPlanController {
 	
 	@RequestMapping(value = "/subplan/edit.do")
 	public String subPlanEdit(HttpServletRequest request, SubPlan sp){
-		
+		if(sp.getImgfile() != null){
 		String fileName = sp.getImgfile().getOriginalFilename();
 		ServletContext sc = request.getSession().getServletContext();
 		String root = sc.getRealPath("/");
@@ -316,6 +316,7 @@ public class SubPlanController {
 		sp.setPhoto(root);
 		sp.setSub_num(sp.getSub_num());
 		subPlanService.updatePhoto(sp);
+		}
 		subPlanService.editSubPlan(sp);	
 		return "redirect:/subplan/list.do?main_num="+sp.getMain_num();
 	}
