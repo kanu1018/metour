@@ -79,8 +79,8 @@ a:hover {text-decoration: none; color: #ffffff;}
 						<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1ABC9C;" </c:if>>&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/subplan/listview.do?sub_num=${splist.sub_num}">${splist.title}</a>&nbsp;&nbsp;</td>
 						<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1ABC9C;" </c:if>>${splist.place }</td>
 						<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1ABC9C;" </c:if>><c:if test="${splist.mission == 'g' }">명소 찾아가기</c:if><c:if test="${splist.mission == 'p'}">명소 사진찍기</c:if></td>
-						<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1ABC9C;" </c:if>><c:if test="${splist.mission_yn == '0'}"></c:if><c:if test="${splist.mission == '1'}">사진 완료 & GPS 실패</c:if>
-						<c:if test="${splist.mission_yn == '2'}">성공</c:if><c:if test="${splist.mission == '3'}">성공</c:if>
+						<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1ABC9C;" </c:if>><c:if test="${splist.mission_yn == '0'}"></c:if><c:if test="${splist.mission_yn == '1'}">사진 완료 & GPS 실패</c:if>
+						<c:if test="${splist.mission_yn == '2'}">성공</c:if><c:if test="${splist.mission_yn == '3'}">성공</c:if>
 						</td>
 						<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1ABC9C;" </c:if>> &nbsp;&nbsp;<c:if test="${splist.title ne ''}"><a href="${pageContext.request.contextPath}/subplan/addphoto.do?sub_num=${splist.sub_num}">사진등록</a></c:if>&nbsp;&nbsp;</td>
 						<c:set var="rowCnt" value="0" />
@@ -92,8 +92,8 @@ a:hover {text-decoration: none; color: #ffffff;}
 							<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1ABC9C;" </c:if>>&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/subplan/listview.do?sub_num=${splist.sub_num}">${splist.title}</a>&nbsp;&nbsp;</td>
 							<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1ABC9C;" </c:if>>${splist.place }</td>
 							<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1ABC9C;" </c:if>><c:if test="${splist.mission == 'g' }">명소 찾아가기</c:if><c:if test="${splist.mission == 'p'}">명소 사진찍기</c:if></td>
-							<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1ABC9C;" </c:if>><c:if test="${splist.mission_yn == '0'}"></c:if><c:if test="${splist.mission == '1'}">사진 완료 & GPS 실패</c:if>
-								<c:if test="${splist.mission_yn == '2'}">성공</c:if><c:if test="${splist.mission == '3'}">성공</c:if>
+							<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1ABC9C;" </c:if>><c:if test="${splist.mission_yn == '0'}"></c:if><c:if test="${splist.mission_yn == '1'}">사진 완료 & GPS 실패</c:if>
+								<c:if test="${splist.mission_yn == '2'}">성공</c:if><c:if test="${splist.mission_yn == '3'}">성공</c:if>
 							</td>
 							<td rowspan="${splist.row}"<c:if test="${splist.title ne ''}">style="background-color: #1ABC9C;" </c:if>> &nbsp;&nbsp;<c:if test="${splist.title ne ''}"><a href="${pageContext.request.contextPath}/subplan/addphoto.do?sub_num=${splist.sub_num}">사진등록</a></c:if>&nbsp;&nbsp;</td>
 							<c:set var="rowCnt" value="${rowCnt+1}" />

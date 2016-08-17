@@ -14,4 +14,8 @@
 	<insert id="insert" parameterType="com.kitri.meto.singo.Singo" >
 		INSERT INTO singo values(singo_seq.nextval, #{singo_kind}, #{singo_content}, 'n',#{content_num}, #{singo_mem})
 	</insert>
+	
+	<select id="select" parameterType="int" resultMap="SingoResultMap">
+		select * from singo where singo_num = #{singo_num}
+	</select>
 </mapper>

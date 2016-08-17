@@ -14,4 +14,6 @@ public interface RepService {
 	
 	int getRepCnt(int share_num);
 	ArrayList<Rep> getRepByShareNumCnt(int share_num);
+	
+	Rep getRepByRepnum(int rep_num);
 }
