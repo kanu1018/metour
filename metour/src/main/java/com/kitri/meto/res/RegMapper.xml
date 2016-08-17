@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kitri.meto.reg.Reg">
+<mapper namespace="com.kitri.meto.reg.RegMapper">
  	<resultMap type="com.kitri.meto.reg.Reg" id="RegResultMap">
  		<result property="mem_num" column="mem_num" />
  		<result property="reg_id" column="reg_id" />

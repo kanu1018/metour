@@ -47,6 +47,10 @@
 	</update>
 	
 	<select id="selectByMainNum" resultMap="SubPlanResultMap" parameterType="int">
+		SELECT sub_num, sub_title, TO_CHAR(start_time,'HH24') start_time, TO_CHAR(end_time,'HH24:MI') end_time, place, mission, memo, mission_yn, photo, main_num FROM sub_plan WHERE main_num = #{main_num}
+	</select>
+	
+	<select id="selectBySchedule" resultMap="SubPlanResultMap" parameterType="com.kitri.meto.schedule.Schedule">
 		SELECT sub_num, sub_title, TO_CHAR(start_time,'HH24:MI') start_time, TO_CHAR(end_time,'HH24:MI') end_time, place, mission, memo, mission_yn, photo, main_num FROM sub_plan WHERE main_num = #{main_num}
 	</select>
 </mapper>

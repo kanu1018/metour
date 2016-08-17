@@ -92,7 +92,7 @@ public class AndScheduleController {
 	@RequestMapping(value="/and/schedule/getDay.do")
 	public ModelAndView getDay(@RequestParam (value="id") String id){	
 		ModelAndView mav = new ModelAndView("schedule/getScheduleDay");
-		
+		System.out.println("getDay.do들어옴 id="+id);
 		int mem_num = memberService.getMem_numById(id);
 		ArrayList<Schedule> times = scheduleService.getScheduleByDate(mem_num);
 		
