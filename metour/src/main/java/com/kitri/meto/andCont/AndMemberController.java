@@ -243,7 +243,7 @@ public class AndMemberController {
 		Schedule s = new Schedule();
 		s.setMain_writer(m.getMem_num());
 		s.setMain_date(date);
-		ArrayList<SubPlan> splist = subPlanService.getSubPlanByMainplan(s);
+		ArrayList<SubPlan> splist = subPlanService.getSubPlanByMain(main_num);
 		String reg_id = "APA91bFNBzL7T426Rm0rTTLc5Ct8mFfqirYe6Vy6PDJAn16a---Rma_OKH7fjuk5T2HMP-Hn-m4HJ5unzwM5wZDzGZPyy8VteUgTIJnXEGaIqpu86bpXqY7U9DOXmdpg8QkkAW9d7dzp";
 		if(splist.size()!=0){
 			PhotoEvent pe = new PhotoEvent(splist,reg_id);

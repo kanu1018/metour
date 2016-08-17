@@ -526,6 +526,7 @@ public class SubPlanController {
 				}
 			}
 		}
+		System.out.println(place);
 		
 		//점수 더하기
 		//subPlan 리스트
@@ -552,8 +553,7 @@ public class SubPlanController {
 			}
 		}
 		System.out.println("점수"+tmp);
-		
-		System.out.println(place);
+	
 		ArrayList<SubPlan> splist = new ArrayList<SubPlan>();
 		ArrayList<SubPlan> sp = new ArrayList<SubPlan>();
 		for(int i=0;i<num.length;i++){

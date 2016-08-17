@@ -13,29 +13,35 @@ import com.kitri.meto.member.Member;
 import com.kitri.meto.member.MemberDaoService;
 import com.kitri.meto.metoo.Metoo;
 import com.kitri.meto.metoo.MetooService;
+import com.kitri.meto.point.Point;
+import com.kitri.meto.point.PointService;
+import com.kitri.meto.shareplan.SharePlan;
 import com.kitri.meto.shareplan.SharePlanService;
 
 @Controller
 public class AndMetooController {
 	@Resource(name="MetooService")
 	private MetooService metooService;
-	
 	public void setSharePlanService(MetooService metooService){
 		this.metooService = metooService;
 	}
 	
 	@Resource(name="SharePlanService")
 	private SharePlanService shareService;
-	
 	public void setSharePlanService(SharePlanService shareService){
 		this.shareService = shareService;
 	}
 	
 	@Resource(name="MemberService")
 	private MemberDaoService memberService;
-
 	public void setMemberService(MemberDaoService memberService) {
 		this.memberService = memberService;
+	}
+	
+	@Resource(name="PointService")
+	private PointService pointService;
+	public void setMemberService(PointService pointService) {
+		this.pointService = pointService;
 	}
 	
 	@RequestMapping(value = "/and/metoo/metoo.do")
@@ -71,15 +77,39 @@ public class AndMetooController {
 		Metoo me = new Metoo();
 		me.setMem_num(mem_num);
 		me.setShare_num(share_num);
+		
+		//point
+		SharePlan s = shareService.getSharePlan(share_num);
+		int meto = s.getMetoo();
+		int point_num = s.getPoint_num();
+		Point p = pointService.getPoint(point_num);
+		int point = p.getPoint();
+		
+		p.setPoint_num(point_num);
 
 		if (type == 1){ // metoo_yn 'y' , metoo++
 			metooService.editMetooY(me); // 세션받기
 			shareService.metooPlue(share_num);
+			point++;
+			p.setPoint(point);
+			pointService.edit(p);
 			System.out.println("metoo++");
 		} else if (type == 2) { // metoo_yn 'n', metoo--
-			metooService.editMetooN(me); // 세션받기
+			/*metooService.editMetooN(me); // 세션받기
 			shareService.metooMinus(share_num);
-			System.out.println("metoo--");
+			System.out.println("metoo--");*/
+			if(meto != 0){
+				metooService.editMetooN(me); // 세션받기
+				shareService.metooMinus(share_num);
+				if(point != 0){
+					point--;
+					p.setPoint(point);
+					pointService.edit(p);
+				}
+				System.out.println("metoo--");
+			} else if(meto == 0){
+				metooService.editMetooN(me);
+			}	
 		}
 		
 		return "";

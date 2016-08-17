@@ -34,6 +34,7 @@
 		<result property="metoo" column="metoo" />
 		<result property="point_num" column="point_num" />
 		<result property="gender" column="gender" />
+		<result property="point" column="point" />
 	</resultMap>
 	
 	<insert id="insert" parameterType="com.kitri.meto.shareplan.SharePlan" >
@@ -81,9 +82,11 @@
    </select>
    
    <select id="joinSelectByShareNum" resultMap="ShareMemberResultMap" parameterType="int">
-      SELECT share_num, writer, location, content, metoo, point_num, share_title, id
+      SELECT share_num, writer, location, content, metoo, point_num, share_title, id, point
       FROM share_plan s JOIN member m
       ON s.writer = m.mem_num
+      JOIN point p
+      On s.point_num = p.point_num
       WHERE share_num = #{share_num}
    </select>
    
