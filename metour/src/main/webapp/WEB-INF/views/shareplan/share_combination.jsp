@@ -57,6 +57,8 @@
 <input type="hidden" name="location" value="${location}">
 <input type="hidden" name="main_num" value="${main_num}">
 <input type="button" value="공유하기" onclick="ss()">
+<input type="hidden" name="point" value="${point}">
+
 </form>
 
 </body>

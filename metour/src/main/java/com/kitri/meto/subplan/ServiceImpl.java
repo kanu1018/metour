@@ -7,8 +7,6 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
-import com.kitri.meto.schedule.Schedule;
-
 @Component("SubPlanService")
 public class ServiceImpl implements SubPlanService{
 	@Resource(name="sqlSession")
@@ -61,10 +59,11 @@ public class ServiceImpl implements SubPlanService{
 	}
 
 	@Override
-	public ArrayList<SubPlan> getSubPlanByMainplan(Schedule s) {
+	public ArrayList<SubPlan> getSubPlanByMain(int main_num) {
 		SubPlanMapper subPlanMapper = sqlSession.getMapper(SubPlanMapper.class);
-		return subPlanMapper.selectByDate1(s);
+		ArrayList<SubPlan> list = subPlanMapper.selectByMainNum(main_num);
+		return list;
 	}
 
-	
+
 }

@@ -17,4 +17,5 @@ public interface SharePlanService {
 	ArrayList<SharePlan> getSharePlanByPlace(String place);
 	
 	JoinDTO getJoinSharePlan(int share_num);
+	void delSharePlan(int share_num);
 }

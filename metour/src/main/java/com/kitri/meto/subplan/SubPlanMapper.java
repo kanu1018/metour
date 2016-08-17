@@ -2,8 +2,6 @@ package com.kitri.meto.subplan;
 
 import java.util.ArrayList;
 
-import com.kitri.meto.schedule.Schedule;
-
 public interface SubPlanMapper {
 	void insert(SubPlan sp);
 	ArrayList<SubPlan> selectAll(int mainPlanNum);
@@ -12,5 +10,5 @@ public interface SubPlanMapper {
 	void update(SubPlan sp);
 	SubPlan selectSupPlanTime(int subNum);
 	void upPhoto(SubPlan subplan);
-	ArrayList<SubPlan> selectByDate1(Schedule s);
+	ArrayList<SubPlan> selectByMainNum(int main_num);
 }

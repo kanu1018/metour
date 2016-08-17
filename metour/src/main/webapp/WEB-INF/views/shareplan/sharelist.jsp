@@ -4,6 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/httpRequest.js"></script>
 <script type="text/javascript">
 	function shareplanSearch(){
@@ -50,7 +55,6 @@
 	}
 	
 </script>
-<meta charset="UTF-8">
 <style type="text/css">
 	a:link {text-decoration: none; color: #333333;}
 	a:visited {text-decoration: none; color: #333333;}
@@ -94,11 +98,23 @@
 		width: 430px;
 		padding: 5px;
 	}
+	
+/* 	.navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    footer {
+    	text-align: left;
+    	background-color: #ffffff;
+    	padding: 25px;
+    } */
+
 </style>
 <title>:::ShareList:::</title>
 </head>
 <body style="font-family: 맑은 고딕;">
-<table class="ca">
+<%-- <table class="ca">
 	<tr>
 		<td>
 			<img src="${pageContext.request.contextPath}/resources/img/all01.png" onclick="backList()" onmouseover="this.src='${pageContext.request.contextPath}/resources/img/all02.png'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/all01.png'">&nbsp;&nbsp;
@@ -108,7 +124,7 @@
 			<img src="${pageContext.request.contextPath}/resources/img/age01.png"  onclick="ageList()" onclick="backList()" onmouseover="this.src='${pageContext.request.contextPath}/resources/img/age02.png'" onmouseout="this.src='${pageContext.request.contextPath}/resources/img/age01.png'">&nbsp;&nbsp;
 		</td>
 	</tr>
-</table>
+</table> --%>
 <br>
 <div align="center">
 	<form method="post" name="f ">
@@ -232,23 +248,27 @@
 		</tr>
 	</c:forEach>
 </table> --%>
-<c:set var="j" value="1"/>
-<div>
+<div class="container">
 <c:forEach var="s" items="${list }">
-<div>
-<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">
-<img src="${s.share_photo}" align="middle" style="width: 300px; height: 300px;">
-</a>
+  <span class="row" style="height: 350px;">
+    <span class="col-sm-3" style="width: 300px; ">
+      <div class="panel panel-primary">
+        <div class="panel-heading" style="background-color: #ffffff; border-style: none; border: 0px; border-color: #ffffff;">
+       		<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">
+				<img src="${s.share_photo}" align="middle" style="width: 300px; height: 300px;">
+			</a><br>
+			<%-- <a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">${s.share_title}</a>&nbsp;
+        	<img class="like" src="${pageContext.request.contextPath}/resources/img/like01.png">&nbsp;${s.metoo } --%>
+       </div>
+       <div class="panel-body" style="background-color: #ffffff; border-style: none; border: 0px;">
+       		<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">${s.share_title}</a>&nbsp;
+        	<img class="like" src="${pageContext.request.contextPath}/resources/img/like01.png">&nbsp;${s.metoo }
+       </div>
+      </div>
+    </span>
+  </span>
+  </c:forEach>
 </div>
-
-<div>
-<a href="${pageContext.request.contextPath}/share/view.do?share_num=${s.share_num }">${s.share_title}</a>
-&nbsp;
-<img class="like" src="${pageContext.request.contextPath}/resources/img/like01.png">&nbsp;${s.metoo }
-</div>
-</c:forEach>
-</div>
-
 </div>
 </body>
 </html>

@@ -325,8 +325,8 @@ public class AndSubPlanController {
 		String place = request.getParameter("place");
 		String mission = request.getParameter("mission");
 		String memo = request.getParameter("memo");
-		String llh_x = "";
-		String llh_y = "";
+		String llh_x = request.getParameter("llh_x");
+		String llh_y = request.getParameter("llh_y");
 		String mission_yn = "0";
 
 		SubPlan sp = new SubPlan();
@@ -354,9 +354,9 @@ public class AndSubPlanController {
 		String mission = request.getParameter("mission");
 		String photo = request.getParameter("photo");
 		String memo = request.getParameter("memo");
-		/*String llh_x = "";
-		String llh_y = "";
-		String mission_yn = "0";*/
+		String llh_x = request.getParameter("llh_x");
+		String llh_y = request.getParameter("llh_y");
+		//String mission_yn = "0";
 		int sub_num = Integer.parseInt(request.getParameter("sub_num").toString());
 		
 		
@@ -369,9 +369,9 @@ public class AndSubPlanController {
 		sp.setMemo(memo);
 		sp.setPhoto(photo);
 		sp.setMain_num(main_num);
-		sp.setLlh_x("0");
-		sp.setLlh_y("0");
-		//sp.setMission_yn(mission_yn);*/
+		sp.setLlh_x(llh_x);
+		sp.setLlh_y(llh_y);
+		//sp.setMission_yn(mission_yn);
 		sp.setSub_num(sub_num);
 		
 		subPlanService.editSubPlan(sp);

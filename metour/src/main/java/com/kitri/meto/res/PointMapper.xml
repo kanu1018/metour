@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kitri.meto.point.PointMapper">
+ 	<resultMap type="com.kitri.meto.point.Point" id="PointResultMap">
+ 		<result property="point_num" column="point_num" />
+ 		<result property="point" column="point" />
+	</resultMap>
+	
+	<update id="update" parameterType="com.kitri.meto.point.Point">
+		UPDATE point SET point = #{point} WHERE point_num = #{point_num}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM point WHERE point_num = #{point_num}
+	</delete>
+	
+	<select id="select" resultMap="PointResultMap" parameterType="int">
+      SELECT * FROM point WHERE point_num = #{point_num}
+   </select>
+   
+   <select id="selectAll" resultMap="PointResultMap">
+		SELECT * FROM point ORDER BY point_num desc
+	</select>
+</mapper>
