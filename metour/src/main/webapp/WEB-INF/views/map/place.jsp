@@ -52,6 +52,9 @@
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 </style>
 <style type="text/css">
+*,body{
+ font-family: "맑은 고딕";
+ }
 	.main-table{ width : 100%; border : #000 solid 1px;}
 	.table-title{text-align : center; font-weight : bold;}
 	.selectbox-div{text-align : right; margin-bottom:10px;}
@@ -59,9 +62,32 @@
 	
 	select{width:100px;height :23px;margin-left: 10px;}
 	td{border : #000 solid 1px;}
+	
+input[type="text"]{
+  line-height: normal;
+  width: 350px;
+  height: 20px;
+}
+
+ INPUT[type="button"]{
+		width: 100px;
+		height: 30px;
+		font-size: 11pt;
+		border: solid 2px;
+		border-radius:7px;
+		background-color:#1ABC9C;
+		text-align:center;
+		color: #FFFFFF;
+} 
+
+img {
+	width: 20px;
+	height: 20px;
+}
 </style>
 </head>
 <body scroll=auto style="overflow-x:hidden">
+<div align="center"><h3>장소 검색</h3></div>
 	<div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
@@ -365,7 +391,7 @@
 					//alert(str);
 					myDiv = document.getElementById("div1");
 					var title;
-					var html ="<table><tr><td>장소명</td><td>주소</td><td>상세주소</td><td>지역코드</td><td>콘텐츠id</td><td>콘텐츠타입id</td><td>거리</td><td>mapx</td><td>mapy</td></tr>";
+					var html ="<table style='font-size: 14px;'><tr><td>장소명</td><td>주소</td><td>상세주소</td><td>지역코드</td><td>콘텐츠id</td><td>콘텐츠타입id</td><td>거리</td><td>mapx</td><td>mapy</td></tr>";
 					for(i=0;i<o.length;i++){
 						title = o[i].title;
 						html += "<tr><td>"+o[i].title+"</td>";
@@ -404,23 +430,26 @@
 		        window.close();
 		    }
 	</script>
+	
 	<form name="myform">
-	<a>장소검색</a>
-	<input type="text" id="place">
-	<input type="button" value="검색" onclick="search()">
-	<input type="button" value="검색결과제거" onclick="remove()">
+	<div align="center">
+	<img src="${pageContext.request.contextPath}/resources/img/search.png">
+	<input type="text" id="place" placeholder="장소명을 입력하세요.">
+	<input type="button" value="검색" onclick="search()" >
+	<input type="button" value="검색결과제거" onclick="remove()" style="width: 150px;">
 	<br>
-	<a>장소선택</a>
-	<input type="text" id="place_result">
-	<br>
-	<a>위도</a>
-	<input type="text" id="Lat_result">
-	<a>경도</a>
-	<input type="text" id="Lng_result">
-	<input type="button" value="해당위치 추천 목록 보기" onclick="recom()">
-	<input type="button" value="해당위치선택" onclick="send1()">
+	<a style="font-size: 12px;">[장소선택]</a>
+	<input type="text" id="place_result" style="width: 130px; font-size: 12px; border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" readonly="readonly">
+	<a style="font-size: 12px;">[위도/경도]</a>
+	<input type="text" id="Lat_result" style="width: 130px; font-size: 12px; border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" readonly="readonly">
+	/<input type="text" id="Lng_result" style="width: 130px; font-size: 12px; border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" readonly="readonly">
+	<br><br>
+	<input type="button" value="해당위치 추천 목록 보기" onclick="recom()" style="width: 200px;">
+	<input type="button" value="해당위치선택" onclick="send1()" style="width: 200px;">
+	</div>
 	</form>
 	<!-- 여기서부터 파싱목록 -->
+	<br>
 	<div id="div1">
 	
 	</div>

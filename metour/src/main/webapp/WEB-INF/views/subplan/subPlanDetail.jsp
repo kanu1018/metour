@@ -22,6 +22,7 @@ caption span{
 }
 table{
  border-collapse: collapse;
+ width: 500px;
 }
 
 th{
@@ -34,18 +35,18 @@ td{
 
 input[type="text"]{
   line-height: normal;
-  width: 350px;
+  width: 430px;
   height: 30px;
 }
 input[type="file"]{
   line-height: normal;
-  width: 260px;
-  height: 20px;
+  width: 430px;
+  height: 30px;
 }
 
 
  INPUT[type="button"]{
-		width: 135px;
+		width: 155px;
 		height: 30px;
 		font-size: 11pt;
 		border: solid 2px;
@@ -56,6 +57,7 @@ input[type="file"]{
 } 
 select {
 	width:120px;
+	height: 30px;
     position: relative;
     border: 1px solid #E9DDDD;
 }
@@ -201,19 +203,19 @@ function duple() {
 			<td colspan="3"><input type="text" name="sub_title" value="${subplan.sub_title}"/></td>
 		</tr>
 		<tr>
-			<th colspan="4" style="text-indent: 20px; text-align: left; width: 250px;">
+			<th colspan="4" style="text-indent: 10px; text-align: left; width: 250px;">
 				시작
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;
 				종료
 			</th>
 		</tr>
 		<tr>
 			<td colspan="4" style="text-align: left; text-indent: 20px;">
-				<select name="start_time"onchange="timeSet()" style="width: 170px; height: 30px;">
+				<select name="start_time"onchange="timeSet()" style="width: 210px; height: 30px;">
 					<option value="00:00">오전 12:00</option>
 					<option value="00:30">오전 12:30</option>
 				    <option value="01:00">오전 1:00</option>
@@ -263,7 +265,7 @@ function duple() {
 				    <option value="23:00">오후 11:00</option>
 				    <option value="23:30">오후 11:30</option>
 				</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<select name="end_time" onchange="duple()" style="width: 170px; height: 30px;">
+				<select name="end_time" onchange="duple()" style="width: 210px; height: 30px;">
 					<option value="00:00">오전 12:00</option>
 					<option value="00:30">오전 12:30</option>
 				    <option value="01:00">오전 1:00</option>
@@ -337,7 +339,7 @@ function duple() {
 		</tr>
 		</c:if>
 		<tr>
-			<th>사진</th>
+			<th><img src="${pageContext.request.contextPath}/resources/img/add_img.png"></th>
 			<td colspan="3"><input type="file" value="카메라이미지" name="imgfile"></td>
 		</tr>
 		<tr>

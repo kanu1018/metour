@@ -5,6 +5,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style> 
+*,body{
+ font-family: "맑은 고딕";
+}
+
+button{
+		width: 380px;
+		height: 40px;
+		border: solid 2px;
+		border-radius:7px;
+		text-align:center;
+		color: #FFFFFF;
+}
+</style>
 <script type="text/javascript">
 	function sharePlans(){
 		var sel_obj = document.getElementsByName("checked");
@@ -69,7 +83,7 @@
     	background-color: #037E8C;
     	color: #ffffff;         
     }
-     
+    
 </style>
 </head>
 <body>
@@ -79,7 +93,7 @@
 	</div>
 </c:if>
 <c:if test="${action eq 1}">
-	<div style="width:100%;height:60px; background-color: #037E8C;color:#ffffff; padding-top:30px; font-size: 20pt;" align="center">
+	<div style="width:100%;height:60px; background-color: #128AC9;color:#ffffff; padding-top:30px; font-size: 20pt;" align="center">
 	공유하기
 	</div>
 </c:if>
@@ -94,20 +108,19 @@
 		<tr>
 			<td rowspan="2" style="height: 60px; width: 45px;"><input type="checkbox" name="checked" value="${s.main_num}"></td>
 			<td colspan="2" style="height: 30px; width: 310px;">${s.main_title}</td>
-			<td rowspan="2" style="height: 60px; width: 25px;">상세</td>
 		</tr>
 		<tr>
-			<td style="height: 30px; width: 200px;">${s.year}년 ${s.month}월 ${s.day}일</td>
+			<td style="height: 30px; width: 200px;" colspan="2">${s.year}년 ${s.month}월 ${s.day}일</td>
 		</tr>
 	</table>
 </c:forEach>
 </div>
 <div style="width:100%;height:15px;margin-top: 5px" align="center">
 	<c:if test="${action eq 0}">
-	<button style="width:50%;height:20px;" onclick="deletePlans()">삭제하기</button>
+	<button onclick="deletePlans()" style=" background-color: #33308C;">삭제하기</button>
 </c:if>
 <c:if test="${action eq 1}">
-	<button style="width:50%;height:20px;" onclick="sharePlans()">공유하기</button>
+	<button onclick="sharePlans()" style="background-color: #128AC9;">공유하기</button>
 </c:if>
 </div>
 

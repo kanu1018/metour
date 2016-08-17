@@ -7,6 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Calendar</title>
 <style> 
+*,body{
+ font-family: "맑은 고딕";
+}
 
     #calendarTable {
         width:630px;

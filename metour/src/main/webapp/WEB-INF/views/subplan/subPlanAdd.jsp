@@ -60,6 +60,7 @@ input[type="text"]{
 } 
 select {
 	width: 100px;
+	height: 30px;
     position: relative;
     border: 1px solid #E9DDDD;
 }
@@ -87,7 +88,7 @@ img {
 var newWindow;
 
 function openNewWindow(){
-    newWindow = window.open("${pageContext.request.contextPath}/subplan/place.do", "newWindow", "height=800, width=800, resizable=yes");        
+    newWindow = window.open("${pageContext.request.contextPath}/subplan/place.do", "newWindow", "height=800, width=1200, resizable=yes");        
 }
 
 /* --------------add kimdaeyang-------------------*/
@@ -340,7 +341,7 @@ function duple() {
 			<th><img src="${pageContext.request.contextPath}/resources/img/map01.png"></th>
 			<td colspan="2">
 				<%-- <img src="${pageContext.request.contextPath}/resources/img/map01.png">&nbsp; --%>
-				<input type="text" name="place" style="width: 85%;" placeholder="장소">&nbsp;&nbsp;
+				<input type="text" name="place" style="width: 85%;" placeholder="옆에 돋보기를 눌러주세요.">&nbsp;&nbsp;
 				<img class="search" src="${pageContext.request.contextPath}/resources/img/search.png" onclick="openNewWindow()">
 				<!-- <input type="button" value="돋보기" onclick="openNewWindow()" style="width: 50px;"/> -->
 			</td>
