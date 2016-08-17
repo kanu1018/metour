@@ -78,11 +78,6 @@ td{
 	.a2:active {text-decoration: none; color: #FFFFFF; background-color: #1ABC9C;}
 	.a2:hover {text-decoration: none; color: #FFFFFF; background-color: #1ABC9C;}
 
-	.a3:link {text-decoration: none; color: #FFFFFF; background-color: #1ABC9C;}
-	.a3:visited {text-decoration: none; color: #FFFFFF; background-color: #1ABC9C;}
-	.a3:active {text-decoration: none; color: #FFFFFF; background-color: #1ABC9C;}
-	.a3:hover {text-decoration: none; color: #FFFFFF; background-color: #1ABC9C;}
-	
 	div.top{
 		height: 80px;
 		background-color: #1ABC9C; 
@@ -105,7 +100,7 @@ td{
 	}
 
 	.dropdown li ul {
-		background: #ffffff;
+		background-color: #ffffff;
 		display:none;  /* 평상시에는 서브메뉴가 안보이게 하기 */
 		height:30px;
 		padding:0px;
@@ -124,6 +119,7 @@ td{
 		display:block;   /* 마우스 커서 올리면 서브메뉴 보이게 하기 */
 		clear: both;
 		margin-right: 20px;
+		background-color: #ffffff;
 	}
 	 
 	td.menu{
@@ -131,8 +127,8 @@ td{
 		padding-top: 5px;
 	}
 
-	.menu li ul {
-		background: #ffffff;
+	.menu ul li ul {
+		background-color: #ffffff;
 		display:none;  /* 평상시에는 서브메뉴가 안보이게 하기 */
 		height:30px;
 		padding:0px;
@@ -151,8 +147,8 @@ td{
 		display:block;   /* 마우스 커서 올리면 서브메뉴 보이게 하기 */
 		clear: both;
 		margin-right: 20px;
+		background: #ffffff;
 	} 
-	
 	
 	img.person{
 		width: 25px;
@@ -278,20 +274,15 @@ td{
 				<a href="${pageContext.request.contextPath }/share/list.do" target="ppp" class="a2">
 					<ul>
 						<li style="list-style-type: none;">
-							<a href="#" class="a3">
+							<a href="#" class="a1">
 								<img src="${pageContext.request.contextPath}/resources/img/menu01.png" style="width: 50px; height: 50px; position: absolute;left: 10px; top: 15px;">
 							</a>
 							<ul>
-								<!-- <li><a onclick="backList()" class="a1" target="ppp">&nbsp;ALL&nbsp;</a></li>
-								<li><br><a onclick="bestList()" class="a1" target="ppp">&nbsp;BEST&nbsp;</a></li>
-								<li><br><a onclick="placeList()" class="a1" target="ppp">&nbsp;LOCATION&nbsp;</a></li>
-								<li><br><a onclick="genderList()" class="a1" target="ppp">&nbsp;GENDER&nbsp;</a></li>
-								<li><br><a onclick="ageList()" class="a1" target="ppp">&nbsp;AGE&nbsp;</a></li> -->
-								<li><a href="${pageContext.request.contextPath}/share/list.do" class="a1" target="ppp">&nbsp;ALL&nbsp;</a></li>
-								<li><br><a href="${pageContext.request.contextPath}/share/best.do" class="a1" target="ppp">&nbsp;BEST&nbsp;</a></li>
-								<li><br><a onclick="placeList()" class="a1" target="ppp">&nbsp;LOCATION&nbsp;</a></li>
-								<li><br><a onclick="genderList()" class="a1" target="ppp">&nbsp;GENDER&nbsp;</a></li>
-								<li><br><a onclick="ageList()" class="a1" target="ppp">&nbsp;AGE&nbsp;</a></li>
+								<li><a href="${pageContext.request.contextPath}/share/list.do" class="a1" target="ppp"><span>&nbsp;ALL&nbsp;</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/share/best.do" class="a1" target="ppp"><span>&nbsp;BEST&nbsp;</span></a></li>
+								<li><a onclick="placeList()" class="a1" target="ppp"><span style="width: 200px; background-color: #ffffff;">&nbsp;LOCATION&nbsp;</span></a></li>
+								<li><a onclick="genderList()" class="a1" target="ppp"><span style="width: 200px; background-color: #ffffff;">&nbsp;GENDER&nbsp;</span></a></li>
+								<li><a onclick="ageList()" class="a1" target="ppp"><span style="width: 200px; background-color: #ffffff;">&nbsp;AGE&nbsp;</span></a></li>
 							</ul>
 						</li>
 					</ul>
@@ -324,7 +315,7 @@ td{
 									<li><a onclick="logout()" class="a1">&nbsp;LOGOUT&nbsp;</a></li>
 									<li><br><a onclick="goEditMember()" class="a1">&nbsp;MODIFY&nbsp;</a></li>
 										<c:if test="${type eq 'm'}">
-											<li><br><a onclick="goAdminPage()" class="a1">&nbsp;ADMIN&nbsp;</a></li>
+											<li><br><a href="${pageContext.request.contextPath }/admin/adminForm.do" target="ppp" class="a1">&nbsp;ADMIN&nbsp;</a></li>
 										</c:if>
 								</c:when>
 								<c:otherwise>

@@ -18,4 +18,5 @@ public interface scheduleService {
 	void addPointNum(int point);
 	
 	ArrayList<Schedule> getScheduleByDate(int main_writer);
+	int getMainNumByMainWriterAndMainDate(Schedule s);
 }

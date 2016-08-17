@@ -5,7 +5,7 @@
     
 <% request.setCharacterEncoding("UTF-8");
 response.setCharacterEncoding("UTF-8");
-String time, sub_num, title, place, mission, mission_yn, row;
+String time, sub_num, title, place, mission, mission_yn, row, llh_x, llh_y;
 ArrayList<SubPlanList> splist = (ArrayList)request.getAttribute("splist"); %>
 
 <subplans>
@@ -17,6 +17,8 @@ ArrayList<SubPlanList> splist = (ArrayList)request.getAttribute("splist"); %>
 	mission = s.getMission();
 	mission_yn = s.getMission_yn();
 	row = String.valueOf(s.getRow());
+	llh_x = s.getLlh_x();
+	llh_y = s.getLlh_y();
 	%>
 	<subplan>
 		<time><%=time %></time>
@@ -26,6 +28,8 @@ ArrayList<SubPlanList> splist = (ArrayList)request.getAttribute("splist"); %>
 		<mission><%=mission %></mission>
 		<mission_yn><%=mission_yn %></mission_yn>
 		<row><%=row %></row>
+		<llh_x><%=llh_x %></llh_x>
+		<llh_y><%=llh_y %></llh_y>
 	</subplan>
 <%}%>
 </subplans>

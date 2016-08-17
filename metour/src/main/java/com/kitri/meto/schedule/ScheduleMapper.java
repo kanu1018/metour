@@ -18,4 +18,5 @@ public interface ScheduleMapper {
 	void insertPointNum(int point);
 	
 	ArrayList<Schedule> selectByDate(int main_writer);
+	int selectByMainNumFromSchedule(Schedule s);
 }

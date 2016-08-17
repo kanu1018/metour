@@ -87,6 +87,13 @@ public class ScheduleDaoService implements scheduleService {
 		ScheduleMapper scheduleMapper = sqlSession.getMapper(ScheduleMapper.class);
 		return scheduleMapper.selectByDate(main_writer);
 	}
+
+	@Override
+	public int getMainNumByMainWriterAndMainDate(Schedule s) {
+		// TODO Auto-generated method stub
+		ScheduleMapper scheduleMapper = sqlSession.getMapper(ScheduleMapper.class);
+		return scheduleMapper.selectByMainNumFromSchedule(s);
+	}
 	
 	
 

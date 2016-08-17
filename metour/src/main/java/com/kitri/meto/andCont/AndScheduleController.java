@@ -99,4 +99,17 @@ public class AndScheduleController {
 		mav.addObject("times",times);		
 		return mav;
 	}
+	
+	@RequestMapping(value="/and/schedule/getMainNum.do")
+	public ModelAndView getMainNum(@RequestParam ("main_writer") int main_writer,@RequestParam ("main_date") String main_date ){	
+		ModelAndView mav = new ModelAndView("member/andcheck");
+		System.out.println("getMainNum.do탔음:"+main_writer);
+		System.out.println("getMainNum.do탔음:"+main_date);
+		Schedule s = new Schedule();
+		s.setMain_date(main_date);
+		s.setMain_writer(main_writer);
+		int number = scheduleService.getMainNumByMainWriterAndMainDate(s);
+		mav.addObject("number",number);		
+		return mav;
+	}
 }
