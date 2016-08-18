@@ -42,17 +42,190 @@
 		window.opener.location.href = url;	
 		window.close();
 	}
+	
+	$(document).ready(function(){
+		var select = $('.year select');
+		select.change(function(){
+			var select_name = $(this).children('option:selected').text();
+			$(this).siblings("label").text(select_name);
+		})
+	});
+	
+/* 	$(document).ready(function(){
+		var select = $('.month select');
+		select.change(function(){
+			var select_name = $(this).children('option:selected').text();
+			$(this).siblings("label").text(select_name);
+		})
+	}); */
 </script>
-
-
-
+<style type="text/css">
+	*,body{
+		 font-family: "맑은 고딕";
+	}
+	
+	table, tr, td{
+		/* border: 1px;
+		border-style: solid;
+		border-collapse: collapse; */
+		text-align: center;
+	}
+	
+	table {
+		border: 0;
+		width: 250px;
+		margin-top: 20px;
+	}
+	
+	td {
+		height: 40px;
+	}
+	
+	/* select {
+		background-color: #ffffff;
+		border: 1px;
+		border-color: #F1826F;
+		width: 80%;
+		height: 80%;
+		color: #44514F;
+		font-size: 20px;
+		text-align: center;
+		/* opacity: 0;
+		filter:alpha(opacity=0);
+		-ms-filter:alpha(opacity=0); */
+	} */
+	
+	/*  IE 10, 11의 네이티브 화살표 숨기기 */
+	/* select::-ms-expand { 
+	  display: none;
+	} */ 
+	
+	Button {
+		background-color: #F1826F;
+		color: #ffffff;
+		font-size: 20px;
+		cursor: pointer;
+		border: 0px;
+		text-align: center;
+		width: 50%;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+	}
+	
+	.year{
+		position: relative;
+		width: 125px;
+		height: 40px;
+		line-height: 40px;
+		border: 1px solid #F1826F;
+		border-radius: 4px;
+		background: #ffffff;
+	}
+	
+	.year label{
+		position: absolute;
+		width: 90%;
+		font-size: 15px;
+		color: #44514F;
+		top:0;
+		left: 0;
+		padding: 0 5%;
+	}
+	
+	.year label:after{
+		content: '▼';
+		width: 40px;
+		height: 40px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		font-size: 20px;
+		color: #ffffff;
+		text-align: center;
+		background: #F1826F;
+	}
+	
+	.year select{
+		width: 80%;
+		height: 30px;
+		opacity: 0;
+		filter:alpha(opacity=0);
+		-ms-filter:alpha(opacity=0);
+		font-size: 15px;
+	}
+	.month{
+		position: relative;
+		width: 125px;
+		height: 40px;
+		line-height: 40px;
+		border: 1px solid #F1826F;
+		border-radius: 4px;
+		background: #ffffff;
+	}
+	
+	.month label{
+		position: absolute;
+		width: 90%;
+		font-size: 15px;
+		color: #44514F;
+		top:0;
+		left: 0;
+		padding: 0 5%;
+	}
+	
+	.month label:after{
+		content: '▼';
+		width: 40px;
+		height: 40px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		font-size: 20px;
+		color: #ffffff;
+		text-align: center;
+		background: #F1826F;
+	}
+	
+	.month select{
+		width: 80%;
+		height: 30px;
+		opacity: 0;
+		filter:alpha(opacity=0);
+		-ms-filter:alpha(opacity=0);
+		font-size: 15px;
+	}
+</style>
 </head>
 <body>
 <form name="f">
-<table style="background-color: #282832" width='250px'>
-	<th align="right" style="height: 30px"><select id="year" name="year" style="border:0px; width: 100%;height: 100%; background-color: #282832; color: #ffffff; font-size: 20px"></select></th>
-	<th  align="right"><select id="month" name="month"  style="border:0px; width:100%;height: 100%; background-color: #282832; color: #ffffff; font-size: 20px"></select></th>
-	<th><button style="background-color: #282832; color: #ffffff; color: #ffffff; font-size: 20px; cursor: pointer;border: 0px" onclick="a()">이동</button></th>
+<table align="center">
+<!-- 	<tr>
+		<td colspan="3" style="height: 80px;">날짜를 선택하세요.</td>
+	</tr> -->
+	<tr>
+		<td align="center" style="height: 30px; ">
+			<div class="year">
+				<label for="year">년도</label>
+				<select id="year" name="year"/>
+			</div>
+			<!-- <select id="year" name="year"/> -->
+		</td>
+		<td  align="center">
+			<div class="month">
+				<label for="month">월</label>
+				<select id="month" name="month"/>
+			</div>
+			<!-- <select id="month" name="month"/> -->
+		</td>	
+	</tr>
+	<tr>
+		<td colspan="3">
+			<!-- <input type="button" value="이동" onclick="a()"> -->
+			<button onclick="a()" style="height:30px; background-color: #E2F2F8;	color: #44514F;	font-size: 15px;cursor: pointer;border: 0px;text-align: center;	width: 50%;	border-top-left-radius: 5px;border-top-right-radius: 5px;border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;">이동</button>
+		</td>
+	</tr>
 </table>
 </form>
 </body>
