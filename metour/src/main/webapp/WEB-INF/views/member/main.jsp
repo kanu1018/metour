@@ -67,10 +67,10 @@ th:nth-child(5) {
 td{
  background: url(images/bar7_1.png) no-repeat right bottom;
 } */
-	.a1:link {text-decoration: none; color: #282832; background-color: #FFFFFF;}
-	.a1:visited {text-decoration: none; color: #282832; background-color: #FFFFFF;}
-	.a1:active {text-decoration: none; color: #282832; background-color: #FFFFFF;}
-	.a1:hover {text-decoration: none; color: #282832; background-color: #FFFFFF;}
+	.a1:link {text-decoration: none; color: #282832; background-color: #F4FAF9;}
+	.a1:visited {text-decoration: none; color: #282832; background-color: #F4FAF9;}
+	.a1:active {text-decoration: none; color: #282832; background-color: #F4FAF9;}
+	.a1:hover {text-decoration: none; color: #282832; background-color: #F4FAF9;}
 	
 	a.a2{font-size: 15px;}
 	.a2:link {text-decoration: none; color: #FFFFFF; background-color: #1ABC9C;}
@@ -100,26 +100,31 @@ td{
 	}
 
 	.dropdown li ul {
-		background-color: #ffffff;
+		background-color: #F4FAF9;
 		display:none;  /* 평상시에는 서브메뉴가 안보이게 하기 */
 		height:30px;
 		padding:0px;
 		margin:0px;
 		border:0px;
 		position: absolute;right: 0;top: 60px;
-		width:200px;
+		width:80px;
+		height: 60px;
 		z-index:200;
 		list-style-type: none;
 		float: right;
 		text-align: left;
-		font-size: 30px;
+		font-size: 40px;
 		color: #000000;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
 	}
 	.dropdown li:hover ul {
 		display:block;   /* 마우스 커서 올리면 서브메뉴 보이게 하기 */
 		clear: both;
 		margin-right: 20px;
-		background-color: #ffffff;
+		background-color: #F4FAF9;
 	}
 	 
 	td.menu{
@@ -128,26 +133,32 @@ td{
 	}
 
 	.menu ul li ul {
-		background-color: #ffffff;
+		background-color: #F4FAF9;
 		display:none;  /* 평상시에는 서브메뉴가 안보이게 하기 */
 		height:30px;
 		padding:0px;
 		margin:0px;
 		border:0px;
-		position: absolute;left: 10px;top:65px;
-		width:200px;
+		position: absolute;left: 15px;top:65px;
+		width:100px;
+		height: 100px;
 		z-index:200;
 		list-style-type: none;
 		float: right;
 		text-align: left;
-		font-size: 30px;
+		font-size: 50px;
 		color: #000000;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;		
+	
 	}
 	.menu li:hover ul {
 		display:block;   /* 마우스 커서 올리면 서브메뉴 보이게 하기 */
 		clear: both;
 		margin-right: 20px;
-		background: #ffffff;
+		background: #F4FAF9;
 	} 
 	
 	img.person{
@@ -277,12 +288,12 @@ td{
 							<a href="#" class="a1">
 								<img src="${pageContext.request.contextPath}/resources/img/menu01.png" style="width: 50px; height: 50px; position: absolute;left: 10px; top: 15px;">
 							</a>
-							<ul>
-								<li><a href="${pageContext.request.contextPath}/share/list.do" class="a1" target="ppp"><span>&nbsp;ALL&nbsp;</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/share/best.do" class="a1" target="ppp"><span>&nbsp;BEST&nbsp;</span></a></li>
-								<li><a onclick="placeList()" class="a1" target="ppp"><span style="width: 200px; background-color: #ffffff;">&nbsp;LOCATION&nbsp;</span></a></li>
-								<li><a onclick="genderList()" class="a1" target="ppp"><span style="width: 200px; background-color: #ffffff;">&nbsp;GENDER&nbsp;</span></a></li>
-								<li><a onclick="ageList()" class="a1" target="ppp"><span style="width: 200px; background-color: #ffffff;">&nbsp;AGE&nbsp;</span></a></li>
+							<ul style="text-align: left; padding-left: 10px; padding-top: 7px; padding-bottom: 7px;">
+								<li><a href="${pageContext.request.contextPath}/share/list.do" class="a1" target="ppp">&nbsp;ALL&nbsp;</a></li>
+								<li><a href="${pageContext.request.contextPath}/share/best.do" class="a1" target="ppp">&nbsp;BEST&nbsp;</a></li>
+								<li><a onclick="placeList()" class="a1" target="ppp">&nbsp;LOCATION&nbsp;</a></li>
+								<li><a onclick="genderList()" class="a1" target="ppp">&nbsp;GENDER&nbsp;</a></li>
+								<li><a onclick="ageList()" class="a1" target="ppp">&nbsp;AGE&nbsp;</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -309,18 +320,18 @@ td{
 						<a href="#" class="a2">
 							<img src="${pageContext.request.contextPath}/resources/img/person.png" style="position: absolute;right: 10px; top: 15px;">
 						</a>
-						<ul>
+						<ul style="text-align: right; padding-right: 10px; padding-top: 5px; padding-bottom: 5px;">
 							<c:choose>
 								<c:when test="${sessionScope.id eq id && id ne null}">
 									<li><a onclick="logout()" class="a1">&nbsp;LOGOUT&nbsp;</a></li>
-									<li><br><a onclick="goEditMember()" class="a1">&nbsp;MODIFY&nbsp;</a></li>
+									<li><a onclick="goEditMember()" class="a1">&nbsp;MODIFY&nbsp;</a></li>
 										<c:if test="${type eq 'm'}">
-											<li><br><a href="${pageContext.request.contextPath }/admin/adminForm.do" target="ppp" class="a1">&nbsp;ADMIN&nbsp;</a></li>
+											<li><a href="${pageContext.request.contextPath }/admin/adminForm.do" class="a1" target="ppp">&nbsp;ADMIN&nbsp;</a></li>
 										</c:if>
 								</c:when>
 								<c:otherwise>
 									<li><a onclick="login()" class="a1">&nbsp;LOGIN&nbsp;</a></li>
-									<li><br><a onclick="goJoin()" class="a1">&nbsp;SIGN UP&nbsp;</a></li>
+									<li><a onclick="goJoin()" class="a1">&nbsp;SIGN UP&nbsp;</a></li>
 								</c:otherwise>
 							</c:choose>
 						</ul>

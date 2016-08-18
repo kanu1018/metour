@@ -7,9 +7,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>::세부계획::</title>
 <style> 
-*,body{
- font-family: "맑은 고딕";
-}
+	*,body{
+	 font-family: "맑은 고딕";
+	}
+	
+	#tabTop{
+		background-color: #374560;
+		width: 400px;
+		height: 80px;
+		margin: 10px;
+		text-align: center;	
+	}
+	
+	
+	
     #mainPlanTable {
     	border-collapse: collapse;
         border:2px solid #000;
@@ -18,7 +29,8 @@
      
     #mainPlanTable td { 
         border:1px solid #000;        
-        border-collapse: collapse;               
+        border-collapse: collapse;  
+        height: 30px;            
     }
     
    button{
@@ -80,11 +92,11 @@ function addPlan(year,month,day,action){
 </head>
 <body>
 
-<table width='400px' style="margin: auto; background-color: #282832;">
+<table id="tabTop" width='400px' style="margin: auto; background-color: #282832;">
   <tr>
      <td width='65' height="35px" align="right" valign="middle">
         <a style="text-decoration:none; color: #ffffff;" href="${pageContext.request.contextPath}/schedule/datePlan.do?year=${L_Year}&month=${L_Month}&day=${L_Day}">
-             <font size="2">${L_Month}월 ${L_Day}일</font>
+             <font size="2">${L_Month}/${L_Day}</font>
          </a>
      </td>
      <td width='20' align='center' valign="middle">
@@ -93,8 +105,8 @@ function addPlan(year,month,day,action){
          </a>
      </td>
     
-     <td width='230' align='center' valign='middle' style="color: #ffffff; font-size: 23px">
-     	<b>${Year}년 ${Month}월 ${Day}일</b>
+     <td width='200' align='center' valign='middle' style="color: #ffffff; font-size: 23px">
+     	<b>${Year}. ${Month}. ${Day}</b>
      </td>
      <td width='20' align='center' valign="middle">
          <a style="text-decoration: none; color: #ffffff;" href="${pageContext.request.contextPath}/schedule/datePlan.do?year=${N_Year}&month=${N_Month}&day=${N_Day}">
@@ -103,7 +115,7 @@ function addPlan(year,month,day,action){
      </td>
      <td width='65' align='left' valign="middle">
          <a style="text-decoration:none;  color: #ffffff;" href="${pageContext.request.contextPath}/schedule/datePlan.do?year=${N_Year}&month=${N_Month}&day=${N_Day}">
-             <font size="2">${N_Month}월 ${N_Day}일</font>
+             <font size="2">${N_Month}/${N_Day}</font>
          </a>
     </td>
   </tr>
