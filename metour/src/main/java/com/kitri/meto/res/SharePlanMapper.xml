@@ -57,6 +57,10 @@
 		UPDATE share_plan SET metoo = metoo-1 WHERE share_num = #{share_num}
 	</update>
 	
+	<update id="metooUpdate" parameterType="com.kitri.meto.shareplan.SharePlan">
+		UPDATE share_plan SET metoo = #{metoo} WHERE share_num = #{share_num}
+	</update>
+	
 	<select id="selectByTitle" resultMap="SharePlanResultMap" parameterType="String">
       SELECT * FROM share_plan WHERE share_title like #{share_title} ORDER BY share_num
    </select>

@@ -18,4 +18,5 @@ public interface SharePlanMapper {
 	
 	JoinDTO joinSelectByShareNum(int share_num);
 	void delete(int share_num);
+	void metooUpdate(SharePlan s);
 }

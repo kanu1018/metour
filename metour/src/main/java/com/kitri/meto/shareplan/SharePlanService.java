@@ -18,4 +18,5 @@ public interface SharePlanService {
 	
 	JoinDTO getJoinSharePlan(int share_num);
 	void delSharePlan(int share_num);
+	void metooUpdate(SharePlan s);
 }

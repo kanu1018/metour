@@ -97,5 +97,11 @@ public class SharePlanImple implements SharePlanService {
 		SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
 		shareMapper.delete(share_num);
 	}
+
+	@Override
+	public void metooUpdate(SharePlan s) {
+		 SharePlanMapper shareMapper = sqlSession.getMapper(SharePlanMapper.class);
+	     shareMapper.metooUpdate(s);  
+	}
    
 }

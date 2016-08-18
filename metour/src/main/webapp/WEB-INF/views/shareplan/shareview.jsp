@@ -89,7 +89,7 @@
 </script>
 <title>:::ShareView:::</title>
 </head>
-<body scroll=auto style="overflow-x:hidden">
+<body scroll=auto style="overflow-x:hidden; font-family: 맑은 고딕;">
 <div align="center">
 <table>
 	<tr>

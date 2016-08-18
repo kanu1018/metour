@@ -63,16 +63,18 @@ public class MetooController {
 		p.setPoint_num(point_num);
 		
 		if (type == 1){ // metoo_yn 'y' , metoo++
+			s.setMetoo(meto+1);
 			metooService.editMetooY(me); // 세션받기
-			shareService.metooPlue(share_num);
+			shareService.metooUpdate(s);
 			point++;
 			p.setPoint(point);
 			pointService.edit(p);
 			System.out.println("metoo++");
 		} else if (type == 2) { // metoo_yn 'n', metoo--
 			if(meto != 0){
+				s.setMetoo(meto-1);
 				metooService.editMetooN(me); // 세션받기
-				shareService.metooMinus(share_num);
+				shareService.metooUpdate(s);
 				if(point != 0){
 					point--;
 					p.setPoint(point);
