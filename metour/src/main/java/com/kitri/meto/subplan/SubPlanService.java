@@ -14,4 +14,5 @@ public interface SubPlanService {
 	void updatePhoto(SubPlan subplan);
 	ArrayList<SubPlan> getSubPlanByMain(int main_num);
 	ArrayList<SubPlan> getSubPlanBySchedule(Schedule s);
+	void editSubPlanByYN(SubPlan sp);
 }

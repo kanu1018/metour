@@ -464,6 +464,17 @@ public class SubPlanController {
 		subplan.setSub_num(subNum);
 		subPlanService.updatePhoto(subplan);
 		
+		SubPlan sp = subPlanService.getSubPlan(subNum);
+		System.out.println("안녕 서브넘버야?"+sp.getMission_yn());
+	
+		if(sp.getMission_yn().equals("0")){
+			sp.setMission_yn("1");
+		}else if(sp.getMission_yn().equals("2")){
+			sp.setMission_yn("3");
+		}
+		subPlanService.editSubPlanByYN(sp);
+		
+		
 		SubPlan sub = subPlanService.getSubPlan(subNum);
 		
 		return "redirect:/subplan/list.do?main_num="+sub.getMain_num();

@@ -92,7 +92,12 @@ public class ScheduleDaoService implements scheduleService {
 	public int getMainNumByMainWriterAndMainDate(Schedule s) {
 		// TODO Auto-generated method stub
 		ScheduleMapper scheduleMapper = sqlSession.getMapper(ScheduleMapper.class);
-		return scheduleMapper.selectByMainNumFromSchedule(s);
+		int num=0;
+		if(scheduleMapper.selectByMainNumFromSchedule(s)!=null){
+			num = Integer.parseInt(scheduleMapper.selectByMainNumFromSchedule(s));
+		}
+	
+		return num;
 	}
 	
 	

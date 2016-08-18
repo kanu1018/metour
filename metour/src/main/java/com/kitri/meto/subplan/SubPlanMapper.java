@@ -14,4 +14,5 @@ public interface SubPlanMapper {
 	void upPhoto(SubPlan subplan);
 	ArrayList<SubPlan> selectByMainNum(int main_num);
 	ArrayList<SubPlan> selectBySchedule(Schedule s);
+	void updateMissionYN(SubPlan sp);
 }

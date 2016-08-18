@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kitri.meto.member.MemberDaoService;
 import com.kitri.meto.schedule.Schedule;
 import com.kitri.meto.schedule.scheduleService;
+import com.kitri.meto.subplan.SubPlan;
 import com.kitri.meto.subplan.SubPlanService;
 
 @Controller
@@ -111,5 +112,21 @@ public class AndScheduleController {
 		int number = scheduleService.getMainNumByMainWriterAndMainDate(s);
 		mav.addObject("number",number);		
 		return mav;
+	}
+	
+	
+	@RequestMapping(value="/and/schedule/getGPS.do")
+	public String getGPS(@RequestParam(value="sub_num") int sub_num){	
+		SubPlan sp = subPlanService.getSubPlan(sub_num);
+		System.out.println("안녕 서브넘버야?"+sp.getMission_yn());
+	
+		if(sp.getMission_yn().equals("0")){
+			sp.setMission_yn("2");
+		}else if(sp.getMission_yn().equals("1")){
+			sp.setMission_yn("3");
+		}
+		
+		subPlanService.editSubPlanByYN(sp);
+		return "";
 	}
 }

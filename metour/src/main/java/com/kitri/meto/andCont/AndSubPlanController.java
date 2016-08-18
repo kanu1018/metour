@@ -508,7 +508,7 @@ public class AndSubPlanController {
 	@RequestMapping(value = "/and/subplan/addphoto.do")
 	public String addphoto(HttpServletRequest request,@RequestParam(value="sub_num")int subNum){
 		request.setAttribute("sub_num", subNum);
-		System.out.println("들어옴");
+		System.out.println(subNum+"들어옴");
 		SubPlan sp = new SubPlan();
 		sp = subPlanService.getSubPlan(subNum);
 		System.out.println(sp.getEnd_time());
@@ -540,6 +540,16 @@ public class AndSubPlanController {
 			subplan.setSub_num(subNum);
 			subPlanService.updatePhoto(subplan);
 			
+			SubPlan sp = subPlanService.getSubPlan(subNum);
+			System.out.println("안녕 서브넘버야?"+sp.getMission_yn());
+		
+			if(sp.getMission_yn().equals("0")){
+				sp.setMission_yn("1");
+			}else if(sp.getMission_yn().equals("2")){
+				sp.setMission_yn("3");
+			}
+			subPlanService.editSubPlanByYN(sp);
+			
 			SubPlan sub = subPlanService.getSubPlan(subNum);
 		
 		return "android/andAddPhotoResult";
@@ -556,14 +566,19 @@ public class AndSubPlanController {
 
 		String[] num = main_num.split("/");
 		int[] main_nums = new int[num.length];
-		
+		System.out.println(main_num+"메인넘버다");
 		//mainPlan point_num 가져오기
+		
+		for(int i=0;i<num.length;i++){
+			System.out.println(num[i]+"ss");
+		}
 		ArrayList<Schedule> ss;
 		int[] point_nums = new int[main_nums.length];
 		for(int i = 0; i<num.length; i++){
 			main_nums[i] = Integer.parseInt(num[i]);
 			Schedule s = scheduleService.getByTitle(main_nums[i]);
 			point_nums[i] = s.getPoint_num();
+			System.out.println("main_nums:"+main_nums[i]);
 			System.out.println("point_num:" + point_nums[i]);
 		}
 

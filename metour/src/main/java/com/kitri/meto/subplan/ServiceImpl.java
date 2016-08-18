@@ -73,4 +73,11 @@ public class ServiceImpl implements SubPlanService{
 		ArrayList<SubPlan> list = subPlanMapper.selectBySchedule(s);
 		return list;
 	}
+
+	@Override
+	public void editSubPlanByYN(SubPlan sp) {
+		SubPlanMapper subPlanMapper = sqlSession.getMapper(SubPlanMapper.class);
+		subPlanMapper.updateMissionYN(sp);
+		
+	}
 }

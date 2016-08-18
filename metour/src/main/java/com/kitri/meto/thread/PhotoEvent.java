@@ -28,7 +28,7 @@ public class PhotoEvent extends Thread{
 	public void run(){
 		for(int i=0;i<subplan.size();i++){
 			GCMVo gcmVo = new GCMVo();
-			title = subplan.get(i).getSub_title();
+			title = subplan.get(i).getSub_title()+"/"+subplan.get(i).getSub_num();
 			msg = "사진이벤트!!";
 			try {
 				gcmVo.setTitle(title);

@@ -57,7 +57,7 @@
 	order by main_date
  </select>
 
- <select id = "selectByMainNumFromSchedule" resultType="int" parameterType="com.kitri.meto.schedule.Schedule">
+ <select id = "selectByMainNumFromSchedule" resultType="String" parameterType="com.kitri.meto.schedule.Schedule">
  	select main_num from main_plan where main_writer = #{main_writer} AND TO_CHAR(main_date,'YYYY/MM/DD') = #{main_date}
  </select>
 <!--  <select id = "selectByPointNum" resultType="int" parameterType="int">

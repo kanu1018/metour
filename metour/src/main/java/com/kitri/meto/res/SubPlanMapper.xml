@@ -35,7 +35,18 @@
 	</insert>
 	
 	<update id="update" parameterType="com.kitri.meto.subplan.SubPlan" >
-		UPDATE sub_plan SET sub_title = #{sub_title}, start_time = TO_DATE(#{start_time}, 'HH24:MI'), end_time = TO_DATE(#{end_time}, 'HH24:MI'), place = #{place}, mission = #{mission}, memo = #{memo}, photo = #{photo}, llh_x = #{llh_x}, llh_y = #{llh_y} WHERE sub_num = #{sub_num}
+		UPDATE sub_plan 
+		SET 
+		sub_title = #{sub_title}, 
+		start_time = TO_DATE(#{start_time}, 'HH24:MI'), 
+		end_time = TO_DATE(#{end_time}, 'HH24:MI'), 
+		place = #{place}, 
+		mission = #{mission}, 
+		memo = #{memo}, 
+		photo = #{photo}, 
+		llh_x = #{llh_x}, 
+		llh_y = #{llh_y} 
+		WHERE sub_num = #{sub_num}
 	</update>
 	
 	<delete id="delete" parameterType="int">
@@ -53,4 +64,11 @@
 	<select id="selectBySchedule" resultMap="SubPlanResultMap" parameterType="com.kitri.meto.schedule.Schedule">
 		SELECT sub_num, sub_title, TO_CHAR(start_time,'HH24:MI') start_time, TO_CHAR(end_time,'HH24:MI') end_time, place, mission, memo, mission_yn, photo, main_num FROM sub_plan WHERE main_writer = #{main_writer} AND main_date = #{main_date}
 	</select>
+	
+	<update id="updateMissionYN" parameterType="com.kitri.meto.subplan.SubPlan">
+		UPDATE sub_plan SET mission_yn = #{mission_yn} where sub_num = #{sub_num}
+	</update>
+	
+	
+	
 </mapper>
